@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display Monitoring Data</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        h2 {
+            color: #007bff;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        img {
+            max-width: 50px;
+            max-height: 50px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #0066cc;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Add your custom styles here */
+        /* For example: */
+        /* td, th {
+            font-size: 14px;
+        } */
+
+        /* Customize the table appearance */
+        /* table {
+            border: 2px solid #ddd;
+        } */
+    </style>
+</head>
+<body>
+    <h2>Monitoring Data</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Image 1</th>
+                <th>Image 2</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in monitoring_data %}
+                <tr>
+                    <td>{{ item.title }}</td>
+                    <!-- Change item.description to item.discription -->
+                    <td>{{ item.discription }}</td>
+                    <td><img src="{{ item.image1.url }}" alt="Image 1"></td>
+                    <td><img src="{{ item.image2.url }}" alt="Image 2"></td>
+                    <td><a href="{% url 'edit_monitoring_data' pk=item.pk %}">Edit</a></td>
+                    <td><a href="{% url 'delete_monitoring_data' pk=item.pk %}">Delete</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

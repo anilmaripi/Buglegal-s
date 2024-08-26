@@ -1,0 +1,648 @@
+{% extends 'employ-template/base_template.html' %}
+
+
+{% block main_content %}
+<title>Dismissed Employees</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<style>
+   tr:nth-child(even) {
+      background-color: #242b4d;
+      width: 100%;
+    }
+    /* tr:nth-child(odd) {
+      background-color: #242b4d;
+      width: 100%;
+      text-decoration-line: none;
+    } */
+
+th,td{
+  text-align: left;
+  
+  width:78%;
+
+    }
+
+    .btsty{
+  background-color: 2d324f;
+  color: white;
+  width:19%;
+}
+.side-nav{text-align: left;
+  background-color: #1e2442;
+  width: 50%; 
+  margin-top: 10px;
+  margin-left: 30%;
+}
+#sid-im{
+  padding-left: 215px;
+  padding-top: 10px;
+  color: rgb(8, 32, 252);
+}
+
+#name{
+  color:white;
+  margin-left: 170px;
+}
+
+
+
+
+  .bot-sid-im{
+    padding-left: 10px; 
+    color: rgb(8, 32, 252);
+    width:110%;
+  }
+
+  .sid-bt{
+    width: 40%;
+    height:20%;
+    background-color: rgb(163, 164, 173);
+    border-radius: 50%;
+  }
+
+
+
+
+
+
+
+@media only screen and (max-width: 768px) {
+  .fa-2x {
+font-size: 2em;
+}
+.fa {
+position: relative;
+display: table-cell;
+width: 60px;
+height: 36px;
+text-align: center;
+vertical-align: middle;
+font-size:20px;
+}
+
+.vk{
+  margin-top: 200px;
+}
+
+
+
+
+th,td{
+  text-align: left;
+  padding-right: 20%;
+  margin-left: 10%;
+  width:76%;
+  border-collapse: collapse;
+  border: none;
+    }
+
+   .btsty{
+  background-color: 2d324f;
+  color: white;
+  width: 48%;
+}
+.side-nav{text-align: left;
+  background-color: #1e2442;
+  /* position: static; */
+  width: 180%; 
+  margin-top: 30px;
+  margin-left: 2%;
+}
+ #sid-im{
+  padding-left: 300px;
+  color: rgb(8, 32, 252);
+}
+
+#name{
+  color:white;
+  margin-left: 5px;
+}
+
+.btns{
+  padding-left: 2%
+}
+.table {
+    overflow-x: auto;
+    overflow-y: scroll;
+    height: 30%;
+    border-collapse: collapse;
+
+  }
+.bot-sid-im{
+    padding-left: 10px;
+    margin-left: 50%; 
+    color: rgb(233, 234, 250);
+    width:100%;
+  }
+  .sid-bt{
+    width: 80%;
+    height:20%;
+    background-color: rgb(23, 171, 182);
+    border-radius: 50%;
+  }
+
+  
+
+}
+@media only screen and (max-width: 768px) {
+    /* Adjust font sizes and paddings for better mobile layout */
+   .btsty{
+    width:fit-content;
+    height:fit-content;
+    text-align: center;
+   } 
+  }
+  th,td{
+   width: 0%;
+    text-align: center;
+  
+  }
+  .content{
+    padding-top: 0%;
+  }
+  main{
+    font-family: poppins;
+    color:#fff;
+  }
+  .pagination {
+  margin: 20px 0;
+  text-align: center;
+}
+
+/* .pagination a, .pagination .current-page {
+  display: inline-block;
+  padding: 8px 12px;
+  text-decoration: none;
+  margin: 0 4px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+.pagination .step-links a.active {
+    background-color: orange;
+} */
+
+
+.pagination a, .pagination .current-page {
+        display: inline-block;
+        padding: 8px 12px;
+        text-decoration: none;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+        border-radius: 20px;
+        text-align: center;
+        /* background-color: #3775e0;
+        color: white; */
+        color:blue;
+    }
+.act{
+  /* background-color: orange; */
+  color: white;
+  height:43px;
+  width:43px;
+  border-radius: 20px;
+
+}
+
+
+.active{
+  background-color: orange;
+  color: white;
+}
+.inactive{
+  background-color: #3775e0;
+  color: white;
+}
+         #myTable {
+          font-family: arial, sans-serif;
+          border-collapse: collapse;
+          width: 100%;
+          }
+  
+          /* Apply styles to table cells */
+          #myTable th {
+          border-color: black;
+          text-align: left;
+          padding: 8px;
+          color: white;
+          }
+
+          #myTable td{
+          border-color: #ccc;
+          text-align: left;
+          padding: 8px;
+          color: black;
+          }
+  
+          /* Apply alternating row colors */
+          #myTable tbody tr:nth-child(even) {
+          background-color: #e6e6e6;
+          }
+  
+          #myTable tbody tr:nth-child(odd) {
+          background-color: #ccc;
+          }
+          
+
+</style>
+<div class="row" >
+  <div class="col-lg-9" >
+   
+ 
+  
+            <h3>Peoples</h3>
+            
+          
+              <div class="card-tools " style="width: 95%;">
+                <div class="input-group input-group-sm" style=" margin-top: 20px; margin-right: 120px;width:100%; margin-left:20px; ">
+                  <input type="text" id="myInput" onkeyup="myFunction()" class="form-control float-right"
+                    placeholder="Search employee name" style="background-color: #dddfe8;  border:none; color:black;">
+                
+                  <div class="input-group-append">
+                    <button type="button" class="btn btn-default"
+                      style="color:white;background-color: rgba(16, 160, 243, 0.87); margin-left: 5px;width: 110%;" onclick="submitSearch()"> Search</button>
+                  </div>
+                </div>
+              </div><br>
+              <br>
+           
+                <!-- <div  class="area" style="margin-left:60px;background-color: #1e2442;width: 75%;height: 75%;margin-top: -20px;overflow-x: auto;height: 65%;"> -->
+                    <div>
+                        <a href="/employ_people_count/" style="text-decoration: none;color: white;"> <button  id="btnShowAll" style="width: 180px;"  class="btsty mb-4 btn {% if request.path == '/employ_people_count/' %} active {% else %} inactive {% endif %}">All Employees <br> ({{ total_employees_count }})</button></a>
+                      <a href="/employ_findactive/" style="text-decoration: none;color: white;"><button  id="btnShowEmployees" style="width: 180px;" class="btsty mb-4 btn{% if request.path == '/employ_findactive/' %} active {% else %} inactive  {% endif %}"> Active Employees <br> ({{ emp }})</button></a>
+                      <a href="/employ_findinactive/" style="text-decoration: none;color: white;"><button  id="btnShowDismissed" style="width: 180px;" class="btsty mb-4 btn {% if request.path == '/employ_findinactive/' %}active  {% else %} inactive {% endif %}">Dismissed <br>({{ dis }})</button></a>                   
+                    </div>
+                  <br> 
+               
+                
+                  
+                 <div class="table-responsive">
+                  <table class="table" id="myTable" >
+                    <thead>
+                      <tr  style="background-color: black;" >
+                        <th scope="col" style="border:none;">Employee Name</th>
+                        <th scope="col" style="border:none;">Employee Role</th>
+                        <th scope="col" style="border:none;">Employee Designation</th>
+                      </tr>
+                    </thead>
+                    <tbody >
+                      {% for employ in employs %}
+                      {% if employ.admin.is_active == 0 %}
+                      <tr  data-is-active="{{ employ.admin.is_active }}">
+                      <td scope="row" style="border:none;text-decoration: none;color: #0d6efd;"><a style="text-transform: uppercase;" href="{% url 'edit_people' std=employ.admin.id %}"> {{employ.first_name}}{{employ.last_name}}</a></td>
+                      <td style="border:none; text-transform: uppercase;">{{employ.role}}</td>
+                      <td style="border:none; text-transform: uppercase;">{{employ.designation}}</td>
+
+                      </tr>
+                      {% else %}
+                      {% endif %}
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                  </div>
+                  <br>
+                  <!-- <div class="pagination d-flex justify-content-center" style="color: white; padding-left: 24px;">
+                    <span class="step-links">
+                      {% if employees.has_previous %}
+                        <a href="?page=1" style="border: 1px solid #ccc; border-radius: 8px; padding: 5px; margin: 2px;">First</a>
+                        <a href="?page={{ employees.previous_page_number }}" class="prev" style="border: 1px solid #ccc; border-radius: 8px; padding: 10px; margin: 2px;">&lt;&lt;</a>
+                      {% endif %}
+            
+                      {% for page in employees.paginator.page_range %}
+                        <a href="?page={{ page }}" {% if page == employees.number %}class="active"{% endif %}
+                           style="border: 2px solid #ccc; border-radius: 8px; padding: 10px; margin: 2px;">
+                          {{ page }}
+                        </a>
+                      {% endfor %}
+            
+                      {% if employees.has_next %}
+                        {% if employees.number != employees.paginator.num_pages %}
+                          <a href="?page={{ employees.paginator.num_pages }}" style="border: 2px solid #ccc; border-radius: 8px; padding: 10px; margin: 2px;">&gt;&gt;</a>
+                        {% endif %}
+                      {% endif %}
+                    </span>
+                  </div> -->
+
+                  <div class="pagination" style="color:white; margin:20px auto;">
+                    <span class="step-links">
+                        {% if employees.has_previous %}
+                            <a  href="?page=1">&laquo;<<</a>
+                            <a   href="?page={{ employees.previous_page_number }}" class="prev"> < </a>
+                        {% endif %}
+                  
+                  
+                        {% for i in employees.paginator.page_range %}
+                        {% if employees.number == i %}
+                        <button class="active act bg-info"><span>{{ i }} <span class="sr-only">(current)</span></span></button>
+                        {% elif i > employees.number|add:'-3' and i < employees.number|add:'3' %}
+                            <a  href="?page={{ i }}">{{ i }}</a>
+                        {% endif %}
+                        {% endfor %}
+                  
+                       
+                  
+                        {% if employees.has_next %}
+                            {% if employees.number != employees.paginator.num_pages %}
+                            {% endif %}
+                            <a   href="?page={{ employees.next_page_number }}" class="prev">> </a>
+                  
+                            <a  href="?page={{ employees.paginator.num_pages }}">>>&raquo; </a>
+                        {% endif %}
+                    </span>
+                  </div>   
+
+
+   <div id="no-data-message" style="display: none;font-family: Arial, sans-serif;font-size: 20px; margin: 20px auto;  color: white; width:230px">
+                    No  data found.
+                </div>
+                <br> <br> <br>
+
+
+
+                
+              
+        
+
+      
+</div> 
+<div class="col-lg-3" style="background-color:#b69ccf; ">
+  <div class="row">
+    <div class="col-12">
+
+      <button class="side-nav" style="width:100%; border:none; display:flex; justify-content:center; margin-left:1%;margin-top: 50px; background-color: #9878b7;border-radius: 20px;">
+        <a href="{% url 'add_employ' %}" style="display:flex; align-items:center; text-decoration:none;">
+          <div style="background-color: #9878b7;border-radius: 20px; color:white; text-align: center; padding: 5px;">
+            <i class="fa fa-paper-plane pl-3 text-light" id="sid-im"></i>
+            <h5><b>Add One</b></h5>
+            <div style="padding:10px ;"><span>Add a single employee and/or contractors in seconds</span></div>
+          </div>
+        </a>
+      </button>
+</div>
+</div>
+<br><br>
+<div class="row">
+<div class="col-12">
+  <button class="side-nav" style="width:100%; border:none; display:flex; justify-content:center; margin-left:1%; background-color: #9878b7;border-radius: 20px;">
+    <a href="{% url 'employdetails_upload_excel' %}" style="display:flex; align-items:center; text-decoration:none;">
+      <div style="background-color: #9878b7;border-radius: 20px; color:white; text-align: center; padding: 5px;">
+        <i class="fa fa-paper-plane pl-3 text-light" id="sid-im"></i>
+        <h5><b>Add Multiple</b></h5>
+        <div style="padding: 10px;" ><span>Add many employees  through an Excel template</span></div>
+      </div>
+    </a>
+  </button>
+</div>
+</div><br>
+
+
+
+</div>
+
+
+<script>
+
+
+// Functions for filtering data
+function showAllRows() {
+    // Show all rows in the table
+    var table = document.getElementById("myTable");
+    for (var i = 1, row; row = table.rows[i]; i++) {
+        row.style.display = "";
+    }
+    document.getElementById("btnShowAll").style.backgroundColor = "#3f476d";
+
+// Reset the background color of the other buttons
+document.getElementById("btnShowEmployees").style.backgroundColor = "#282f51";
+document.getElementById("btnShowDismissed").style.backgroundColor = "#282f51";
+current_page = 1;
+        showPage(current_page);
+}
+
+function showActiveEmployees() {
+    // Show only rows where is_active is 1 (active employees)
+    var table = document.getElementById("myTable");
+    for (var i = 1, row; row = table.rows[i]; i++) {
+        var is_active = row.getAttribute("data-is-active");
+        if (is_active === "True") {
+            row.style.display = "";
+        } else {
+            row.style.display = "none";
+        }
+    }
+    document.getElementById("btnShowEmployees").style.backgroundColor = "#3f476d";
+
+    // Reset the background color of the other buttons
+    document.getElementById("btnShowAll").style.backgroundColor = "#282f51";
+    document.getElementById("btnShowDismissed").style.backgroundColor = "#282f51";
+    
+   
+}
+
+function showDismissedEmployees() {
+    // Show only rows where is_active is 0 (dismissed employees)
+    var table = document.getElementById("myTable");
+    for (var i = 1, row; row = table.rows[i]; i++) {
+        var isActive = row.getAttribute("data-is-active");
+        if (isActive === "False") {
+            row.style.display = "";
+        } else {
+            row.style.display = "none";
+        }
+    }
+    document.getElementById("btnShowDismissed").style.backgroundColor = "#3f476d";
+
+// Reset the background color of the other buttons
+document.getElementById("btnShowAll").style.backgroundColor = "#282f51";
+document.getElementById("btnShowEmployees").style.backgroundColor = "#282f51";
+
+}
+
+
+
+</script>
+
+<script>
+  var currentPage = 1; // Initialize the current page
+  var currentFilter = "all"; // Initialize the current filter (all/employees/dismissed)
+
+  // Functions for filtering data
+  function showAllRows() {
+      currentFilter = "all";
+      showPage(1);
+  }
+
+  function showActiveEmployees() {
+      currentFilter = "employees";
+      showPage(1);
+  }
+
+  function showDismissedEmployees() {
+      currentFilter = "dismissed";
+      showPage(1);
+  }
+
+  function showPage(pageNumber) {
+      var rowsPerPage = 10; // Number of rows to display per page
+      var table = document.getElementById("myTable");
+      var rows = table.rows;
+      
+      for (var i = 1; i < rows.length; i++) {
+          var is_active = rows[i].getAttribute("data-is-active");
+          if ((currentFilter === "all") ||
+              (currentFilter === "employees" && is_active === "True") ||
+              (currentFilter === "dismissed" && is_active === "False")) {
+              if (i >= (pageNumber - 1) * rowsPerPage + 1 && i <= pageNumber * rowsPerPage) {
+                  rows[i].style.display = ""; // Display rows within the current page range
+              } else {
+                  rows[i].style.display = "none"; // Hide rows outside the current page range
+              }
+          } else {
+              rows[i].style.display = "none"; // Hide rows that don't match the current filter
+          }
+      }
+      
+      // Update the current page indicator
+      document.getElementById("currentPage").textContent = "Page " + pageNumber;
+      currentPage = pageNumber;
+  }
+
+  function nextPage() {
+      if (currentPage < totalPageCount()) {
+          showPage(currentPage + 1);
+      }
+  }
+
+  function prevPage() {
+      if (currentPage > 1) {
+          showPage(currentPage - 1);
+      }
+  }
+
+  function totalPageCount() {
+      var rowsPerPage = 10; // Number of rows to display per page
+      var table = document.getElementById("myTable");
+      var totalRows = table.rows.length - 1; // Exclude the header row
+      return Math.ceil(totalRows / rowsPerPage);
+  }
+
+  // Initialize pagination on page load
+  showPage(1);
+
+  // Attach event listeners to the Previous and Next buttons
+  document.getElementById("prevPage").addEventListener("click", prevPage);
+  document.getElementById("nextPage").addEventListener("click", nextPage);
+</script>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
+
+<script>
+  // ... Your existing code ...
+  
+  function submitSearch() {
+      var input = document.getElementById("myInput");
+      var filter = input.value.toUpperCase();
+      var table = document.getElementById("myTable");
+      var rows = table.getElementsByTagName("tr");
+  
+      for (var i = 1; i < rows.length; i++) {
+          var td = rows[i].getElementsByTagName("td")[0]; // Assuming the first column is the employee name
+          if (td) {
+              var txtValue = td.textContent || td.innerText;
+              var is_active = rows[i].getAttribute("data-is-active");
+  
+              // Check if the employee name and category match the search filter
+              var matchesSearch = txtValue.toUpperCase().indexOf(filter) > -1;
+              var matchesCategory = (currentFilter === "all") ||
+                                    (currentFilter === "employees" && is_active === "True") ||
+                                    (currentFilter === "dismissed" && is_active === "False");
+  
+              if (matchesSearch && matchesCategory) {
+                  rows[i].style.display = "";
+              } else {
+                  rows[i].style.display = "none";
+              }
+          }
+      }
+  }
+  
+  </script>
+  
+<script>
+    
+  var currentPage = 1; // Initialize the current page
+  var currentFilter = "all"; // Initialize the current filter (all/employees/dismissed)
+
+  // Functions for filtering data
+  function showAllRows() {
+      currentFilter = "all";
+      showPage(1);
+      highlightFilterButton("btnShowAll");
+  }
+
+  function showActiveEmployees() {
+      currentFilter = "employees";
+      showPage(1);
+      highlightFilterButton("btnShowEmployees");
+  }
+
+  function showDismissedEmployees() {
+      currentFilter = "dismissed";
+      showPage(1);
+      highlightFilterButton("btnShowDismissed");
+  }
+
+  // Function to highlight the active filter button
+  function highlightFilterButton(buttonId) {
+      var filterButtons = ["btnShowAll", "btnShowEmployees", "btnShowDismissed"];
+      for (var i = 0; i < filterButtons.length; i++) {
+          var button = document.getElementById(filterButtons[i]);
+          if (filterButtons[i] === buttonId) {
+              button.style.backgroundColor = "white"; // Highlight the active button
+          } else {
+              button.style.backgroundColor = "#282f51"; // Reset the background color of other buttons
+          }
+      }
+  }
+
+  
+</script>
+
+<script>
+  $(document).ready(function () {
+      $("#myInput").on("keyup change", function () {
+          var nameValue = $("#myInput").val().toLowerCase();
+         
+
+          var anyDataAvailable = false;
+
+          $("#myTable tbody tr").filter(function () {
+              var nameMatch = $(this).text().toLowerCase().indexOf(nameValue) > -1;
+
+              var rowVisible = nameMatch ;
+              $(this).toggle(rowVisible);
+
+              if (rowVisible) {
+                  anyDataAvailable = true;
+              }
+          });
+
+          if (!anyDataAvailable) {
+              $(".pagination").hide();
+              $("#no-data-message").show();
+          } else {
+              $(".pagination").show();
+              $("#no-data-message").hide();
+          }
+      });
+  });
+</script>
+
+
+{% endblock main_content %}

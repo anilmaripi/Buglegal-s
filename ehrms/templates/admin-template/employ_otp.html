@@ -1,0 +1,144 @@
+   
+   {% extends 'admin-template/base_template.html' %}
+   {% block main_content %}
+
+   <!DOCTYPE html>
+<html>
+<head>
+    <title>kyc form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <style>
+   
+    body{
+        background-color: #1e2442;
+        
+    }
+    form{ 
+        background-color: #1d2036;
+        color: #caccd5;
+        width: 100%;
+        height:auto;
+        margin:auto;
+        
+    
+    }
+    
+    /* #sa{
+        background-color: #393f5c;
+        color: #caccd5;
+        width: 600px;
+        height: 50px;
+        margin-left: 50px;
+     */
+
+    }
+    /* *{
+        box-sizing: border-box;
+        background-color: initial;
+        border-color: transparent;
+        border-style: unset;
+        outline: initial;
+        padding: unset;
+    } */
+    /* #sh{
+        width: 600px;
+        color: #caccd5;
+        padding-left: 100px;
+        margin-left: 50px;
+    }
+    #st{
+        color: #caccd5;
+
+    } */
+
+ </style>
+ <style>
+    @media screen and (max-width: 768px) {
+    body {
+        font-size: 18px;
+
+        display:flex;
+        
+    }
+  
+}
+.col-md-3{
+    color:#fff;
+}
+ </style>
+
+</head>
+<body><br>
+
+    <div class="row">
+        <div class="col-md-9">
+    
+
+    <form method="post" enctype="multipart/form-data">{% csrf_token %}
+    <h3 style="padding-top: 20px;">one-time payment</h3><br>
+    
+    <span id="sh" style="border: 2px;background-color:#393f5c">pay your employees instantly outside their regular payroll cycle using our <a href="{% url 'otp' %}">new one-time payments</a>
+                        feature.Please note that this is not a substitute for executing payroll, <a href="{% url 'salary' %}">salary advance</a>, or
+                        <a href="#">reimbursements</a>. A one-time payment helps in immediately paying a bonus,incentive etc to your
+                        employees,which gets added to their next payroll's earnings.
+    </span><br><br>
+    <h4 style="color: white;padding-left: 50px;" >Add a payment</h4>
+    <span style="padding-left: 50px;">Who do you want to make the payment to?*</span>
+    
+    <select  style="color:white;padding:10px; background-color:#393f5c;width: 100%;height: auto;border:none">
+        {% for i in k1 %}
+    <option>{{i.first_name}}.{{i.last_name}}</option>    
+        {% endfor %}  
+    </select><br><br><br>
+
+
+    
+         <div class="form-group">
+            <label id="pan">Total Amount*</label>
+            <input type="number" name="amount" class="form-control" style="background-color:#2D3354;  color:white; border:none; padding:1%;">
+            <label style="border: 2px;padding: 10px; background-color:#282f51">Gross amount to be paid including tax.</label>
+            <br>
+            
+                </div>
+               <br>
+        
+
+    <label>Type of Payment*</label><br>
+    <select name="paymenttype"  style="background-color:#2D3354;  color:white; border:none; padding:1%;" class="form-control">
+
+        <option>NEFT</option>
+        <option>CASH</option>
+    </select>    
+    <label style="padding: 10px; background-color:#282f51;height:fit-content;">This will be reflected in the employee's payslip.Example:performance</label><br>
+    
+   
+
+    <input type="submit" class="btn btn-info" style="color: white;background-color: #393f5c;margin-left: 50px;"><br><br>
+    </form>
+    </div>
+    
+        <div class="col-md-3" style="background-color: #393f5c;">
+            <div class="form-data">
+            <label >PAYMENT AMOUNT</label>
+           
+            </div><br><br>
+
+            <div class="form-data">
+            <label >TOTAL EMPLOYEES</label><br>
+            {{ employs_count }}
+            </div><br><br><br>
+
+            <div class="form-data">
+            <label>CURRENT BALANCE</label>
+          
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
+{% endblock main_content %}

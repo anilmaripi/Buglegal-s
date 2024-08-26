@@ -1,0 +1,537 @@
+{% extends 'employ-template/base_template.html' %}
+{%load mathfilters%} {%load humanize%}
+
+{% block main_content %}
+<html>
+<title>Apply For Advance Salary</title>
+<style>
+  .table-manager thead tr{
+    background: #000;
+    color: #ffffff;
+  }
+
+  .table-manager tbody tr:nth-child(even){
+    background: #e6e6e6;
+    color: #000;
+
+  }
+  .table-manager tbody tr:nth-child(odd){
+    background: #ccc;
+    color: #000;
+  }
+
+  .head-manager{
+    color: blue;
+    font-size: 36px;
+    margin-bottom: 30px;
+    text-align: center;
+    margin-top: 10px;
+}
+.form-manager label{
+  color:#666666;
+}
+.form2-manager{
+  text-align: end;
+}
+.form-manager{
+  box-shadow: 2px 3px 10px #999;
+  padding: 20px;
+  border-radius: 10px;
+}
+.pagination a{
+  color:red;
+  text-decoration: none;
+
+}
+.act{
+  border-radius: 20px;
+  padding: 4px 8px;
+  background-color: #007880;
+  border: 1px solid #ccc;
+  color:fff;
+}
+
+.head-tm{
+  color: #ff7733;
+  font-size: 36px;
+  margin-bottom: 30px;
+  text-align: center;
+  margin-top: 10px;
+}
+.table-tm thead tr{
+  background: #000;
+  color: #ffffff;
+}
+
+.table-tm tbody tr:nth-child(even){
+  background: #e6e6e6;
+  color: #000;
+
+}
+.table-tm tbody tr:nth-child(odd){
+  background: #ccc;
+  color: #000;
+}
+.form-tm label{
+  color:#666666;
+}
+.form2-tm{
+  text-align: end;
+}
+.form-tm{
+  box-shadow: 2px 3px 10px #999;
+  padding: 20px;
+  border-radius: 10px;
+}
+.table-hr thead tr{
+    background: #000;
+    color: #ffffff;
+  }
+
+  .table-hr tbody tr:nth-child(even){
+    background: #e6e6e6;
+    color: #000;
+
+  }
+  .table-hr tbody tr:nth-child(odd){
+    background: #ccc;
+    color: #000;
+  }
+
+  .head-hr{
+    color: black;
+    font-size: 28px;
+    margin-bottom: 30px;
+    text-align: center;
+    margin-top: 10px;
+    
+}
+.form-hr label{
+  color:black;
+}
+.form2-hr{
+  text-align: end;
+}
+.form-hr{
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);  
+  border: 20px; 
+  padding: 30px;
+  background-color: #d1d7e0;
+  border-radius: 10px;
+  color: black;
+}
+.head-tl{
+  color: #000;
+}
+.form-tl{
+  color: #000;
+}
+</style>
+<div id="message">
+  {% if messages %}
+{% for message in messages %}
+{% if message.tags == 'error' %}
+<div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+{% endif %}
+{% if message.tags == 'success' %}
+<div class="alert alert-success" style="margin-top:20px;background-color:green;color: whitesmoke;">{{ message }}</div>
+{% endif %}
+{% endfor %}
+{% endif %}
+
+</div>
+<script>
+  $("#message").show();
+  setTimeout(function(){
+      $("#message").hide();
+  },5000)
+</script>
+{% for cm in cmpdata %}
+{% if cm.advance_salary_request == 'Enabled' %}
+      <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <h3 class="{% if mem_role == 'HR' and mem_hroptions == 1 %}head-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}head-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}head-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}head-tm {% endif %}" >Apply for Advance Salary</h3>
+      
+             
+            <form id="advanceSalaryForm" action="{% url 'advancesalary_request' %}" method="post" class="{% if mem_role == 'HR' and mem_hroptions == 1 %}form-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}form-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}form-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}form-tm {% endif %}">
+
+              {% csrf_token %}
+              <div class="form-group">
+                <label for="eminumber">Number Of EMI Months:</label>
+                      {% if eminumber_options %}
+                <select name="eminumber" class="form-control" id="eminumberSelect" required>
+                <option value="">--Select No.of EMI's--</option>
+
+                {% for option in eminumber_options %}
+                <option value="{{ option }}">{{ option }}</option>
+                 {% endfor %}
+                </select>
+                {% else %}
+                <p class="text-success">No EMI options available for selection.</p>
+                {% endif %}
+              </div>
+              <div class="form-group">
+                  <label for="amount">Amount:</label>
+                  <input type="number" name="amount" id="amount" class="form-control" placeholder="Enter Amount" required>
+                  <div id="error_message" style="color: red;"></div>
+              </div>
+          
+              <div class="form-group">
+                  <label for="reason">Reason:</label>
+                  <textarea name="reason" id="reason" class="form-control" rows="3" placeholder="Enter Reason" required></textarea>
+              </div>
+              <div class="card-footer">
+                <input type="submit" class="btn btn-primary btn-block"  value="Submit Advance Salary Request">
+              </div>
+            </form>
+  {% else %}
+  <h1>Advance Salary Requests is disabled by Admin</h1>
+  {% endif %}
+  {% endfor %}
+            <script>
+              document.getElementById("advanceSalaryForm").addEventListener("submit", function(event) {
+              var selectedMonths = parseInt(document.getElementById("eminumberSelect").value);
+              var enteredAmount = parseFloat(document.getElementById("amount").value);
+              var netPayList = JSON.parse("{{ net_pay_list_json|escapejs }}");
+              var netPay = Math.max.apply(null, netPayList);
+              var maxNetPay = netPay * selectedMonths;
+              var errorMessageDiv = document.getElementById("error_message");
+      
+              if (selectedMonths <= 0) {
+                  event.preventDefault();  // Prevent form submission
+                  errorMessageDiv.innerHTML = "<span style='color: red;'>Please select the number of EMI months.</span>";
+              } else if (isNaN(enteredAmount) || enteredAmount <= 0) {
+                  event.preventDefault();  // Prevent form submission
+                  errorMessageDiv.innerHTML = "<span style='color: red;'>Amount must be a positive number.</span>";
+              } else if (enteredAmount > maxNetPay) {
+                  event.preventDefault();  // Prevent form submission
+                  errorMessageDiv.innerHTML = "<span style='color: red;'>Amount cannot exceed the maximum value for the selected number of months: " + maxNetPay.toFixed(2) + "</span>";
+              } else {
+                  errorMessageDiv.innerHTML = "";  // Clear error message if no errors
+              }
+          });
+      
+          document.getElementById("eminumberSelect").addEventListener("change", function() {
+              var selectedMonths = parseInt(this.value);
+              var netPayList = JSON.parse("{{ net_pay_list_json|escapejs }}");
+              var netPay = Math.max.apply(null, netPayList);
+              var maxNetPay = netPay * selectedMonths;
+              var maxNetPayMessage = "Maximum amount for " + selectedMonths + " months: " + maxNetPay.toFixed(2);
+              document.getElementById("max_net_pay_message").innerText = maxNetPayMessage;
+      
+              // Clear error message when selection changes
+              document.getElementById("error_message").innerHTML = "";
+          });
+      
+          document.getElementById("amount").addEventListener("input", function() {
+              var enteredAmount = parseFloat(this.value);
+              var selectedMonths = parseInt(document.getElementById("eminumberSelect").value);
+              var netPayList = JSON.parse("{{ net_pay_list_json|escapejs }}");
+              var netPay = Math.max.apply(null, netPayList);
+              var maxNetPay = netPay * selectedMonths;
+              var errorMessageDiv = document.getElementById("error_message");
+      
+              if (isNaN(enteredAmount) || enteredAmount <= 0) {
+                  errorMessageDiv.innerHTML = "<span style='color: red;'>Amount must be a positive number.</span>";
+              } else if (enteredAmount > maxNetPay) {
+                  errorMessageDiv.innerHTML = "<span style='color: red;'>Amount cannot exceed the maximum value for the selected number of months: " + maxNetPay.toFixed(2) + "</span>";
+              } else {
+                  errorMessageDiv.innerHTML = "";  // Clear error message if no errors
+              }
+          });
+            </script>
+    
+            <h3 class="{% if mem_role == 'HR' and mem_hroptions == 1 %}head-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}head-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}head-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}head-tm {% endif %}" >View Past Advance Salary Requests</h3>
+            <table class="table text-dark {% if mem_role == 'HR' and mem_hroptions == 1 %}table-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}table-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}table-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}table-tm {% endif %} table-bordered">
+    
+                  <thead>
+                      <tr>
+                          <th>Employee Id</th>
+                          <th>Employee Name</th>
+                          <th>Amount</th>
+                          <th>Deduction Month</th>
+                          <th>Reason</th>
+                          <th>Request Status</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      {% for salary_data in leave_data %}
+                      <tr>
+                        <td>{{salary_data.student_id.empid}}</td>
+                          <td>{{ salary_data.student_id.first_name }}.{{ salary_data.student_id.last_name }}</td>
+                          <td>{{ salary_data.amount }}</td>
+                          <td>
+                            {{ salary_data.eminumber_id }}
+                            {% if salary_data.eminumber_id == 1 %}
+                                month
+                            {% else %}
+                                months
+                            {% endif %}
+                        </td>
+                        
+ 
+                          <td>{{ salary_data.reason }}</td>
+                          <td>
+                            <center>
+                              {% if salary_data.request_status == 1  %}
+                                  <span class="btn btn-success" style="background-color:lightgreen;width: 95px;padding-left: 5px;">Approved</span>
+                              {% elif salary_data.request_status == 2 %}
+                                  <span class="btn btn-danger" style="background-color: rgb(205, 98, 98);width: 95px;padding-left: 10px;">Rejected</span>
+                              {% else %}
+                                  <span class="btn btn-info"style="width: 95px;padding-left: 10px;">Pending </span>
+                              {% endif %}
+                              </center>
+
+                        </td>
+                    
+                      </tr>
+                      {% empty %}
+                      <tr>
+                        <td colspan="6" style="text-align: center;color:red;"> There are no advance salary requests has to be found.....
+
+                          </td>
+                      </tr>
+                      {% endfor %}
+                  </tbody>
+              </table>
+            
+            <script>
+                document.getElementById("advanceSalaryForm").addEventListener("submit", function(event) {
+                    var amount = document.getElementById("amount").value;
+                    if (amount <= 0) {
+                        alert("Amount must be greater than zero.");
+                        event.preventDefault();
+                    }
+                });
+            </script>
+            
+            
+
+
+          <!-- <div class="pagination" style="color:white ;" >
+            <span class="step-links">
+                {% if leave_data.has_previous %}
+                    <a href="?page=1">&laquo; First</a>
+                    <a href="?page={{ leave_data.previous_page_number }}" class="prev">&#8249; << </a>
+                {% endif %}
+          
+                {% for page in leave_data.paginator.page_range %}
+                    <a href="?page={{ page }}" {% if page == leave_data.number %}class="active"{% endif %}>{{ page }}</a>
+                {% endfor %}
+          
+                {% if leave_data.has_next %}
+                    {% if leave_data.number != leave_data.paginator.num_pages %}
+                    {% endif %}
+                    <a href="?page={{ leave_data.paginator.num_pages }}">&raquo; >> </a>
+                {% endif %}
+            </span>
+          </div> -->
+
+          <div class="pagination" >
+            <span class="step-links">
+                {% if leave_data.has_previous %}
+                    <a  href="?page=1">First</a>
+                    <a   href="?page={{ leave_data.previous_page_number }}" class="prev"> << </a>
+                {% endif %}
+        
+    
+                {% for i in leave_data.paginator.page_range %}
+                {% if leave_data.number == i %}
+                <button class="active act "><span>{{ i }} <span class="sr-only">(current)</span></span></button>
+                {% elif i > leave_data.number|add:'-3' and i < leave_data.number|add:'3' %}
+                    <a  href="?page={{ i }}">{{ i }}</a>
+                {% endif %}
+                {% endfor %}
+    
+               
+    
+                {% if leave_data.has_next %}
+                    {% if leave_data.number != leave_data.paginator.num_pages %}
+                    {% endif %}
+                    <a   href="?page={{ leave_data.next_page_number }}" class="prev">>></a>
+    
+                    <a  href="?page={{ leave_data.paginator.num_pages }}">Next </a>
+                {% endif %}
+            </span>
+       
+        
+          </div>
+          </div>
+        </div>
+        <div class="col-md-1"></div>
+      </div>
+      <script>
+        function setFromDateToToday() {
+          var fromDateInput = document.querySelector('input[name="from_date"]');
+          var today = new Date().toISOString().split('T')[0];
+          fromDateInput.value = today;
+        }
+      
+        function applyFilterOnLoad() {
+          submitSearch();
+        }
+      
+        window.addEventListener('load', function() {
+          setFromDateToToday();
+          applyFilterOnLoad();
+        });
+      </script>
+      
+      
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+          const statusFilterDropdown = document.getElementById('statusFilter');
+      
+          statusFilterDropdown.addEventListener('change', function () {
+              const selectedStatus = statusFilterDropdown.value.toLowerCase();
+      
+              const tableRows = document.querySelectorAll('.table-row');
+      
+              tableRows.forEach(function (row) {
+                  const statusCell = row.querySelector('.table-cell[data-column="request-status"]');
+                  if (statusCell) {
+                      const rowStatus = statusCell.textContent.trim().toLowerCase();
+      
+                      if (selectedStatus === '' || rowStatus === selectedStatus) {
+                          row.style.display = '';
+                      } else {
+                          row.style.display = 'none';
+                      }
+                  }
+              });
+          });
+      });
+      </script>
+    
+    <script>
+      function toggleRow(button) {
+        const row = button.parentNode.parentNode;
+        const detailsRow = row.nextElementSibling;
+        detailsRow.classList.toggle('table-row-details');
+        button.textContent = detailsRow.classList.contains('table-row-details') ? '+' : '-';
+      }
+    </script>
+
+  <script>
+      const headers = document.querySelectorAll('.sortable');
+      let currentColumn = '';
+      let isAscending = true;
+    
+      headers.forEach(header => {
+        header.addEventListener('click', () => {
+          const column = header.getAttribute('data-column');
+          if (column === currentColumn) {
+            isAscending = !isAscending;
+          } else {
+            currentColumn = column;
+            isAscending = true;
+          }
+    
+          // Update arrow direction
+          headers.forEach(h => {
+            if (h === header) {
+              h.textContent = `${h.getAttribute('data-column')} ${isAscending ? '▲' : '▼'}`;
+            } else {
+              h.textContent = `${h.getAttribute('data-column')} ▼`;
+            }
+          });
+    
+          // Sort the table
+          const table = header.closest('table');
+          const rows = Array.from(table.querySelectorAll('tr')).slice(1);
+          rows.sort((rowA, rowB) => {
+            const cellA = rowA.querySelector(`td:nth-child(${currentColumn === 'item' ? 1 : 2})`).textContent;
+            const cellB = rowB.querySelector(`td:nth-child(${currentColumn === 'item' ? 1 : 2})`).textContent;
+            return isAscending ? cellA.localeCompare(cellB) : cellB.localeCompare(cellA);
+          });
+          table.tBodies[0].append(...rows);
+        });
+      });
+    
+      const searchInput = document.getElementById('searchInput');
+      searchInput.addEventListener('input', () => {
+        const searchTerm = searchInput.value.trim().toLowerCase();
+        const rows = Array.from(document.querySelectorAll('tr')).slice(1);
+    
+        rows.forEach(row => {
+          const cells = Array.from(row.querySelectorAll('td'));
+          const rowText = cells.map(cell => cell.textContent.trim().toLowerCase());
+          const isVisible = rowText.some(text => text.includes(searchTerm));
+          row.style.display = isVisible ? '' : 'none';
+        });
+      });
+    </script>
+    
+    <script type="text/javascript">
+      $(document).ready(function () {
+        // Filter table
+        $("#searchInput").on("input", function () {
+          var value = $(this).val().toLowerCase();
+          var rows = $("#myTable tbody tr");
+    
+          // Hide all rows initially
+          rows.hide();
+    
+          var visibleRows = rows.filter(function () {
+            return $(this).text().toLowerCase().indexOf(value) > -1;
+          });
+    
+          if (visibleRows.length > 0) {
+            // If there are matching rows, show them
+            visibleRows.show();
+            // Hide the "No data found" row
+            $("#noDataFoundRow").hide();
+          } else {
+            // If no matching rows, show the "No data found" row
+            $("#noDataFoundRow").show();
+          }
+        });
+      });
+    </script>
+    <script>
+      function submitSearch() {
+        var input = document.getElementById("searchInput");
+        var filter = input.value.toUpperCase();
+        var table = document.getElementById("myTable");
+        var rows = table.getElementsByTagName("tr");
+    
+        var hasVisibleRows = false;
+    
+        for (var i = 1; i < rows.length; i++) {
+          var found = false;
+          var cells = rows[i].getElementsByTagName("td");
+    
+          for (var j = 0; j < cells.length; j++) {
+            var textValue = cells[j].textContent || cells[j].innerText;
+    
+            if (textValue.toUpperCase().indexOf(filter) > -1) {
+              found = true;
+              break;
+            }
+          }
+    
+          if (found) {
+            rows[i].style.display = "";
+            hasVisibleRows = true;
+          } else {
+            rows[i].style.display = "none";
+          }
+        }
+    
+        // Show or hide the "No data found" message
+        var noDataFoundRow = document.getElementById("noDataFoundRow");
+        noDataFoundRow.style.display = hasVisibleRows ? "none" : "";
+      }
+    </script>
+  
+</html>          
+{% endblock main_content %}
+        
+          
+
+
+
+
+
+

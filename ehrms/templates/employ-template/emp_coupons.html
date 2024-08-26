@@ -1,0 +1,165 @@
+{% extends 'employ-template/base_template.html' %}
+{% block main_content %}
+{% load static %}
+<style>
+    .coupon-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        margin: 20px 0;
+    }
+
+    .coupon-card {
+        position: relative;
+        background-image: url("{% static 'assets/images/coupon.jpg' %}");
+        background-repeat: no-repeat;
+        background-size: 400px 160px;
+        border-radius: 5px;
+        padding: 15px;
+        padding-left:130px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        cursor: pointer;
+        overflow: hidden;
+        color: white;
+    }
+
+    .coupon-details {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        z-index: 10;
+        text-align: left;
+    }
+
+    .coupon-card:hover .coupon-details {
+        opacity: 1;
+        
+    }
+
+    .coupon-card:hover .download-icon {
+        color: white;
+    }
+
+    .download-icon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        cursor: pointer;
+        font-size: 20px;
+        color: black;
+        transition: color 0.3s ease;
+        z-index: 10;
+        background-color: #999;
+        padding: 10px;
+        border-radius: 50%;
+        opacity: 0;
+    }
+
+    .coupon-card:hover .download-icon {
+        opacity: 1; /* Show on hover */
+    }
+
+    .total-amount {
+        color: #000;
+        text-align: end;
+        font-weight: 700;
+    }
+    .coupons{
+        color: black;
+        text-align: center;
+        margin-top: 220px;
+        font-weight: 700;
+        font-size: 30px;
+    }
+</style>
+
+<div class="total-amount">
+    Total Balance Amount: Rs {{ sumofamounts }}
+</div>
+{% if all_coupns %}
+<div class="coupon-grid">
+    {% for coupon in all_coupns %}
+    <div class="coupon-card" data-coupon-id="{{ coupon.id }}" data-coupon-amount="{{ coupon.amount }}">
+        <div> {{coupon.companyid.organizationname}}</div>
+        <div>Employee ID: {{coupon.emp_id.empid}}</div>
+        <div>Coupon ID: {{ coupon.coupon_id }}</div>
+        <div>Amount: Rs {{ coupon.amount }}</div>
+        <div>Expiry Month: {{coupon.month}},{{coupon.year}}</div>
+        <div class="coupon-details">
+            <p>{{ coupon.coupon_id }}</p>
+            <p>{{ coupon.amount }}</p>
+        </div>
+        <i class="fas fa-download download-icon" title="Download"></i>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+    <div class="coupons">No coupons available for this month.</div>
+{% endif %}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const couponCards = document.querySelectorAll('.coupon-card');
+        couponCards.forEach(card => {
+            let timeoutId;
+
+            card.addEventListener('mouseenter', function() {
+                clearTimeout(timeoutId);
+                const downloadIcon = this.querySelector('.download-icon');
+                downloadIcon.style.opacity = 1;
+            });
+
+            card.addEventListener('mouseleave', function() {
+                const downloadIcon = this.querySelector('.download-icon');
+                timeoutId = setTimeout(() => {
+                    downloadIcon.style.opacity = 0;
+                }, 300); 
+            });
+
+            card.addEventListener('click', function() {
+                const couponId = this.getAttribute('data-coupon-id');
+                const amount = this.getAttribute('data-coupon-amount');
+                downloadAndDeleteCoupon(couponId, this);
+            });
+        });
+    });
+
+    function downloadAndDeleteCoupon(couponId, card) {
+    fetch(`/delete-and-download-coupon/${couponId}/`)
+        .then(response => {
+            if (response.ok) {
+                return response.blob();
+            }
+            throw new Error('Network response was not ok.');
+        })
+        .then(blob => {
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = `coupon_${couponId}.png`;
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+
+            // Reload the page
+            location.reload();
+        })
+        .catch(error => console.error('There has been a problem with your fetch operation:', error));
+}
+
+</script>
+
+{% endblock main_content %}

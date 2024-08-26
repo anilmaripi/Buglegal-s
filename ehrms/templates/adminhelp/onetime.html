@@ -1,0 +1,59 @@
+{% extends 'adminhelp/basehelp.html' %}
+{% block main_content %}
+<style>
+    h6{
+        font-size: medium;
+    }
+</style>
+<form>
+           <p id="ha1" style="font-size: xx-large;">How can I make a one-time payment to my employees?</p>    
+      
+<p id="k1">You can now make a one-time payment to your employees outside of their regular Hrms cycle. Examples of a one-time payment can be a performance incentive or other bonuses such as a retention or joining bonus, that you want to pay to an employee immediately.</p>
+
+ 
+
+<p id="k2">The payment will be paid out instantly to the employee and will reflect in their upcoming month’s payslip along with relevant additions to their TDS (in case it’s taxable). When you execute the upcoming month's Hrms, HRMS will exclude the amount that has already been paid via one-time payments from the required Hrms amount.</p>
+
+ 
+
+<h6 id="k3"><b>What this is not:</b></h6>
+<p id="k4">1. Do not use this for salary arrears - this does not generate payslips. If you have skipped and not processed for the previous month, head to <b>Run Hrms</b>.</p>
+
+<p id="k5">2. Do not make compliance payments like PF, TDS, PT, or any other such payments via this module. </p> 
+
+<p id="k6">3. Do not use this for paying a <a href="/dem6">salary advance</a>. A one-time payment adds the amount paid out to the employee's next gross pay.</p>
+
+<h6 id="k7"><b>TDS on one-time payments</b></h6>
+<p id="k8">If the payment that you are making is taxable, then HRMS will show you the net payment that will be made to the employee after withholding TDS. The TDS will get paid when the Hrms for that employee is executed. </p>
+
+ 
+
+<h6 id="k9"><b>Here’s how you can make a one-time payment:</b></h6>
+<p id="k10">1. On the left navigation bar, click on the drop-down arrow next to<b> Hrms.</b></p>
+
+<p id="k12">2. Click on <b>One Time Payment</b></p>
+
+<p id="k13">3. Select the employee from the <b>Who do you want to pay</b> dropdown</p>
+
+<p id="k14">4. Enter the <b>Total Amount, Type of payment, </b>and whether this payment is taxable or not.</p>
+
+<p id="k15">5. Click on <b>Add</b></p>
+
+<p id="k16">6. Once you’ve done this process for all employees, ensure you have sufficient balance in your developtrees  Hrms account.</p>    
+
+<p id="k17">7. Click on <b>Pay Now</b></p>
+
+<p id="k18">8. The transactions will be queued and you can view the status on the queue bar displayed on the screen or on the bottom right under the<b> Queued One-time payments</b> section.</p>
+
+<p id="k19">9. To check the history of all one-time payments, click on the <b>ledger</b> section on the page.</p>
+
+<p id="k20">10. The one-time payment will be reflected on the <b>upcoming month’s payslip</b> for the employee and tax will be deducted as required.</p>
+<center><button style="width:50%;height: auto;font-size: x-large;border: 2px solid whitesmoke;">
+    <div id="a">
+        <p id="section10" style="text-align: center;">Did this answer your question?</p>
+        <p><a class="ex1" style="text-decoration: none;color: black;"><center>😄 😶 😔</center></a> </p>
+    </div>
+</button></center><br><br><br>  
+
+</form>
+{% endblock main_content %}

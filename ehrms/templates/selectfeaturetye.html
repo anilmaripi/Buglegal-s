@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        form {
+            margin-top: 50px;
+            margin-left: 500px;
+            max-width: 400px;
+            padding: 40px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background: linear-gradient(rgb(187, 255, 0), white);
+        }
+
+        h2 {
+            color: #0c0606;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        div {
+            margin-bottom: 10px;
+        }
+
+        input {
+            margin-right: 5px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #acda6c;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Function to update checkboxes when a plan is selected
+            $('#id_plan_type').change(function() {
+                var selectedPlanId = $(this).val();
+
+                // Clear all checkboxes
+                $('input[name="features"]').prop('checked', false);
+
+                // Fetch selected plan's features and mark checkboxes accordingly
+                $.get('/get_features/' + selectedPlanId, function(data) {
+                    $.each(data.features, function(_, featureId) {
+                        $('input[name="features"][value="' + featureId + '"]').prop('checked', true);
+                    });
+                });
+            });
+        });
+    </script>
+    <style>
+        /* Add styles for success messages */
+        .messages {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+    
+        .messages p {
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            border-radius: 5px;
+        }
+    
+        .messages .success {
+            background-color: rgb(250, 206, 6); /* Green background */
+            color: white;
+        }
+    </style>
+    
+</head>
+<body>
+
+    <form action="{% url 'select_features_types' %}" method="post">{% csrf_token %}
+        <h2>Plan Type</h2>
+        <select name="plan_type" id="id_plan_type">
+            <option value="" disabled selected>Select plan</option>
+            {% for plan in plans %}
+                <option value="{{ plan.id }}">{{ plan.plans }}</option>
+            {% endfor %}
+        </select>
+        <input type="checkbox" id="select-all"> Select All
+        <h2>Select feature type</h2>
+        {% for feature in features %}
+        <div>
+            <input type="checkbox" name="features" value="{{ feature.id }}"
+                {% if selected_plan and feature in selected_plan.features.all %}checked{% endif %}
+                {% if not feature.is_enabled %}disabled{% endif %}>
+            
+                <span {% if not feature.is_enabled %}class="disabled-feature"{% endif %}>{{ feature.name }}</span>
+        </div>
+    {% endfor %}
+
+
+        <script>
+            // JavaScript code to handle "Select All" checkbox functionality
+            $('#select-all').change(function () {
+                $('input[name="features"]').prop('checked', this.checked);
+            });
+
+            // Function to update "Select All" checkbox based on individual checkboxes
+            $('input[name="features"]').change(function () {
+                var allChecked = $('input[name="features"]:checked').length === $('input[name="features"]').length;
+                $('#select-all').prop('checked', allChecked);
+            });
+        </script>
+        {% if messages %}
+        <div class="messages">
+        {% for message in messages %}
+            <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+        {% endfor %}
+        </div>
+        <script>
+            // Add a script to remove the messages after 10 seconds
+            setTimeout(function() {
+                document.querySelector('.messages').style.display = 'none';
+            }, 1000);  // 10000 milliseconds = 10 seconds
+        </script>
+
+        {% endif %}<br>
+
+        <center><button type="submit">Save</button></center>
+    </form>
+    <script>
+
+
+$(document).ready(function() {
+    // Function to update checkboxes when a plan is selected
+    $('#id_plan_type').change(function() {
+        var selectedPlanId = $(this).val();
+
+        // Clear all checkboxes
+        $('input[name="features"]').prop('checked', false).prop('disabled', false);
+
+        // Fetch selected plan's features and mark checkboxes accordingly
+        $.get('/get_features/' + selectedPlanId, function(data) {
+            $.each(data.features, function(_, featureId) {
+                var featureCheckbox = $('input[name="features"][value="' + featureId + '"]');
+                featureCheckbox.prop('checked', true);
+                
+                // Disable the checkbox if the feature is not enabled
+                if (!featureCheckbox.data('enabled')) {
+                    featureCheckbox.prop('disabled', true);
+                }
+            });
+        });
+    });
+});
+
+
+
+$(document).ready(function() {
+    // Function to update checkboxes when a plan is selected
+    $('#id_plan_type').change(function() {
+        var selectedPlanId = $(this).val();
+
+        // Clear all checkboxes
+        $('input[name="features"]').prop('checked', false).prop('disabled', false);
+
+        // Fetch selected plan's features and mark checkboxes accordingly
+        $.get('/get_features/' + selectedPlanId, function(data) {
+            $.each(data.features, function(_, featureId) {
+                var featureCheckbox = $('input[name="features"][value="' + featureId + '"]');
+                featureCheckbox.prop('checked', true);
+                
+                // Disable the checkbox if the feature is not enabled
+                if (!featureCheckbox.data('enabled')) {
+                    featureCheckbox.prop('disabled', true);
+                }
+            });
+        });
+    });
+
+
+    // Event listener to toggle feature status
+    $('input[name="features"]').change(function() {
+        var featureId = $(this).val();
+        $.post('/toggle_feature/' + featureId, function(data) {
+            if (data.success) {
+                // Update the status on success
+                var isEnabled = data.is_enabled;
+                $('input[name="features"][value="' + featureId + '"]').data('enabled', isEnabled);
+                
+                // Optionally update UI or display a message
+                console.log('Feature status updated:', isEnabled);
+            } else {
+                // Handle error
+                console.error('Failed to toggle feature status:', data.error);
+            }
+        });
+    });
+});
+
+
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,192 @@
+{% extends 'employ-template/base_template.html' %}
+{% block main_content %}
+<style>
+    
+    .pagination {
+    margin: 20px 0;
+    text-align: center;
+}
+
+/* .pagination a, .pagination .current-page {
+    display: inline-block;
+    padding: 8px 12px;
+    text-decoration: none;
+    margin: 0 4px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.pagination .step-links a.active {
+    background-color: orange;
+}
+ */
+ .pagination a, .pagination .current-page {
+        display: inline-block;
+        padding: 8px 12px;
+        text-decoration: none;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+        border-radius: 20px;
+        text-align: center;
+        /* background-color: #3775e0;
+        color: white; */
+    }
+.act{
+  /* background-color: orange; */
+  color: white;
+  height:43px;
+  width:43px;
+  border-radius: 20px;
+
+}
+tr:nth-child(even) {
+      background-color: #e6e6e6;
+    }
+    tr:nth-child(odd) {
+      background-color: #ccc;
+    }
+    th{
+      color: white;
+    }
+    td{
+      color: black;
+    }
+    label{
+        color: black;
+    }
+</style>
+
+    
+<form id="filterForm" method="GET" action="">
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label>Type:</label><br>
+                <select name="ss" id="options" class="form-control">
+                    <option>--select--</option>
+                    <option value="table">Summary</option>
+                    <option value="table1">Day-Wise Attendance History</option>
+                    <option value="table2">Leave Balance History</option>
+                    <option value="table3">Open Request for Leave</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</form><br> <br>
+<h3 class="text-center" style="color: black;font-weight: 700;">Leave Balance History</h3>
+<div class="table">
+   
+   
+    
+        <table id="myTable" class="table w-100" style="color: white; border: 2px solid white;">
+            <thead>
+                <tr class="text-center">
+                    <th>Employee ID</th>
+                    <th>First Name</th>
+                    <th>Half Leave</th>
+                <th>Unpaid Leave</th>
+                <th>On Leave</th>
+                <th>Open Request</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                {% for result in results %}
+                <tr class="text-center">
+                    <td>{{ result.empid }}</td>
+                    <td>{{ result.first_name }}</td>
+                    <td>{{ result.half_leave }}</td> <!-- Display Half Leave -->
+                    <td>{{ result.unpaid_leave }}</td> <!-- Display Unpaid Leave -->
+                    <td>{{ result.leave }}</td> <!-- Display On Leave -->
+                    <td>{{ result.open_request }}</td>
+                   
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    
+        <div class="pagination" style="color:white; margin:20px auto;">
+            <span class="step-links">
+                {% if results.has_previous %}
+                    <a  href="?page=1 " class="btn bg-info" style="border-radius: 20px;">&laquo;<<</a>
+                    <a   href="?page={{ results.previous_page_number }}" class="btn bg-info" style="border-radius: 20px;" class="prev"> < </a>
+                {% endif %}
+        
+        
+                {% for i in results.paginator.page_range %}
+                {% if results.number == i %}
+                <button class="active act bg-info btn" style="border-radius: 20px;"><span>{{ i }} <span class="sr-only">(current)</span></span></button>
+                {% elif i > results.number|add:'-3' and i < results.number|add:'3' %}
+                    <a  href="?page={{ i }}" style="border-radius: 20px;" class="btn bg-info">{{ i }}</a>
+                {% endif %}
+                {% endfor %}
+        
+               
+        
+                {% if results.has_next %}
+                    {% if results.number != results.paginator.num_pages %}
+                    {% endif %}
+                    <a   href="?page={{ results.next_page_number }}" style="border-radius: 20px;" class="prev btn bg-info">> </a>
+        
+                    <a  href="?page={{ results.paginator.num_pages }}"  class="btn bg-info" style="border-radius: 20px;">>>&raquo; </a>
+                {% endif %}
+            </span>
+        </div>
+
+</div>
+<script>
+    document.getElementById("filterForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // Prevent the default form submission
+    
+        var selectedOption = document.getElementById("options").value;
+    
+        // Redirect to the appropriate URL based on the selected option
+        switch (selectedOption) {
+            case "table":
+                window.location.href = "{% url 'paid1' %}";
+                break;
+            case "table1":
+                window.location.href = "{% url 'paid3' %}";
+                break;
+            case "table2":
+                window.location.href = "{% url 'balance1' %}";
+                break;
+            case "table3":
+                window.location.href = "{% url 'opeanrequest1' %}";
+                break;
+            default:
+                // Handle other cases or provide an error message
+                break;
+        }
+    });
+    </script>
+
+
+    <script>
+        // Add an onchange event handler to the <select> element
+        document.getElementById("options").addEventListener("change", function() {
+            var selectedOption = this.value;
+    
+            // Redirect to the appropriate URL based on the selected option
+            switch (selectedOption) {
+                case "table1":
+                    window.location.href = "{% url 'paid3' %}";
+                    break;
+                case "table":
+                    window.location.href = "{% url 'paid1' %}";
+                    break;
+                case "table2":
+                    window.location.href = "{% url 'balance1' %}";
+                    break;
+                case "table3":
+                    window.location.href = "{% url 'opeanrequest1' %}";
+                    break;
+                default:
+                    // Handle other cases or provide an error message
+                    break;
+            }
+        });
+    </script>
+{% endblock main_content %}

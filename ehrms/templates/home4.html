@@ -1,0 +1,89 @@
+{% extends 'admin-template/adminAdashboard.html' %}
+{% block main_content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>employeemonitoring1</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            margin-top: 20px;
+        }
+
+        form {
+            max-width: 700px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+    <body>
+        <center><h2><b>Home Page Content 4</b> </h2></center>
+        <form method="post" action="" style="width:600px" enctype="multipart/form-data">{% csrf_token %}
+            <div class="form-group">
+                <label>Title 1:</label>
+                <input type="text" name="title1" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label>Image 1:</label>
+                <input type="file" name="image1" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label>Title 2:</label>
+                <input type="text" name="title2" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label>Image 2:</label>
+                <input type="file" name="image2" class="form-control" required>
+            </div>
+            
+           
+            <center>
+            <div class="form-group ">
+                <button type="submit"  value="Submit">Save</button>
+            </div>
+            </center>
+
+        </form>
+    </body>
+</html>
+{% endblock main_content %}
+       
+        

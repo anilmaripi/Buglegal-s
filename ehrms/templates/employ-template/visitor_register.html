@@ -1,0 +1,286 @@
+{% extends 'employ-template/base_template.html' %}
+{% block main_content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visitor Form</title>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
+    
+    <style>
+        body {
+            background-color: #333;
+            padding: 20px;
+        }
+
+        label {
+            color: white;
+        }
+
+        .captured-image {
+            max-width: 100%; 
+            max-height: 100%;
+            display: block; 
+            margin-top: 10px; 
+        }
+
+        #camera-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between; /* Adjust alignment to space between */
+            margin-bottom: 20px; /* Add margin below the camera container */
+        }
+
+        #captured-image-container {
+            flex: 1;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #ccc;
+            padding: 10px;
+            max-width: 320px; /* Limit the width of the container */
+        }
+
+        #video {
+            width: 320px; 
+            height: 240px; 
+        }
+
+        #captured-img {
+            max-width: 100%; /* Ensure the image fits within the container */
+            max-height: 100%; /* Ensure the image fits within the container */
+            object-fit: contain; /* Maintain aspect ratio */
+        }
+
+        #message {
+            margin-top: 10px;
+            color: green;
+        }
+
+        .center-form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Adjust based on your design needs */
+        }
+
+        /* Additional styling if needed */
+        @media (max-width: 768px) {
+            /* Adjust styles for smaller screens if needed */
+            .center-form {
+                padding: 10px; /* Example padding */
+            }
+        }
+
+        label {
+            color: white;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="message">
+            {% if messages %}
+                {% for message in messages %}
+                    {% if message.tags == 'error' %}
+                        <div class="alert alert-danger" style="margin-top: 10px;">{{ message }}</div>
+                    {% endif %}
+                    {% if message.tags == 'success' %}
+                        <div class="alert alert-success" style="margin-top: 10px;">{{ message }}</div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </div>
+        <center><h2 style="color: white;">Visitor Management Form</h2></center>
+        <form method="post" id="visitor-form" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label>Visitor Name</label>
+                <input type="text" name="visitorname" id="visitorname" class="form-control" placeholder="Enter the visitor Name" oninput="validateName(this)">
+                <small id="visitorname-error" class="text-danger" style="display: none;">Visitor Name should only contain letters and spaces.</small>
+            </div>
+            
+             <div class="form-group">
+                <label>Place</label>
+                <input type="text" name="place" id="place" class="form-control" placeholder="Enter the Visitor place" required>
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="text" name="email" id="email" class="form-control" placeholder="Enter the Visitor Email" required>
+            </div>
+            <div class="form-group">
+                <label>Phone Number</label>
+                <input type="tel" id="phone_number" name="phonenumber" placeholder="Enter the Phone Number" class="form-control" minlength="10" maxlength="10" oninput="validatePhoneNumber(this)" required>
+                <small id="phone_number-error" class="text-danger" style="display: none;">Phone Number should be exactly 10 digits.</small>
+            </div>
+             <div class="form-group">
+                <label>Host Name</label>
+                <input type="text" name="hostname" id="hostname" class="form-control" placeholder="Enter the Host Name" oninput="validateName(this)">
+                <small id="hostname-error" class="text-danger" style="display: none;">Host Name should only contain letters and spaces.</small>
+            </div>
+            
+             <div class="form-group">
+                <label>Reason for Visit</label>
+                <textarea name="reason" id="reason" class="form-control" placeholder="Reason for visit" required></textarea>
+            </div>
+            <input type="hidden" id="captured-image" name="captured_image" style="margin-right: 230px;">
+
+            <div id="camera-container" >
+                <video id="video" width="320" height="240" style="margin-right: 340px;" autoplay></video>
+                <div id="captured-image-container" >
+                    <h3 id="captured-heading" style="display: none; color: white;">Captured Image</h3>
+                    <img id="captured-img" class="captured-image" src="#" alt="Captured Image" style="display: none;">
+                </div>
+            </div>
+    
+            <div class="mt-2">
+                <button id="start-camera" type="button" class="btn btn-primary mr-2">Start Camera</button>
+                <button id="click-photo" type="button" class="btn btn-success">Capture Photo</button>
+            </div>
+    
+            <center><button type="button" onclick="validateAndSubmit()" class="btn btn-primary mt-2">Submit</button></center>
+        </form>
+    </div>
+    
+    <script>
+        let capturedImage = null; // Variable to store the captured image data URL
+    
+        // Function to start the camera
+        document.getElementById('start-camera').addEventListener('click', function() {
+            startCamera();
+        });
+    
+        async function startCamera() {
+            let video = document.querySelector("#video");
+            try {
+                let stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                video.srcObject = stream;
+            } catch (error) {
+                console.error("Error accessing the camera: ", error);
+            }
+        }
+    
+        // Function to capture photo
+       // Function to capture photo
+document.getElementById('click-photo').addEventListener('click', function() {
+    let video = document.querySelector("#video");
+    let canvas = document.createElement("canvas");
+    let context = canvas.getContext('2d');
+
+    if (video.srcObject) {
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        capturedImage = canvas.toDataURL('image/jpeg');
+
+        // Set the captured image data in the hidden input field
+        document.getElementById('captured-image').value = capturedImage;
+
+        // Display the captured image in the container
+        let imgElement = document.getElementById('captured-img');
+        imgElement.src = capturedImage;
+
+        // Show the captured image container and heading
+        document.getElementById('captured-heading').style.display = 'block';
+        imgElement.style.display = 'block';
+
+        // Display message
+        showMessage("Photo captured successfully.", "green");
+    } else {
+        console.log("Please start the camera first.");
+    }
+});
+
+// Function to display message
+function showMessage(message, color) {
+    let messageElement = document.getElementById('message');
+    messageElement.textContent = message;
+    messageElement.style.color = color;
+    messageElement.style.display = 'block';
+
+    // Hide the message after a delay (adjust the timeout as needed)
+    setTimeout(function() {
+        messageElement.style.display = 'none';
+    }, 5000); // 5000 milliseconds = 5 seconds
+}
+
+        function validateAndSubmit() {
+            let visitorname = document.getElementById('visitorname').value.trim();
+            let place = document.getElementById('place').value.trim();
+            let email = document.getElementById('email').value.trim();
+            let phonenumber = document.getElementById('phone_number').value.trim();
+            let hostname = document.getElementById('hostname').value.trim();
+            let reason = document.getElementById('reason').value.trim();
+            
+            // Check if any field is empty
+            if (!visitorname || !place || !email || !phonenumber || !hostname || !reason) {
+                alert("Please fill out all details before capturing an image.");
+                return;
+            }
+    
+            if (!capturedImage) {
+                alert("Please capture an image before submitting.");
+                return;
+            }
+    
+            document.getElementById('visitor-form').submit();
+        }
+    
+       
+    
+ function validateName(input) {
+     let regex = /^[a-zA-Z\s]*$/;
+     let errorElement = input.nextElementSibling; // Get the sibling small element for error message
+ 
+     if (!regex.test(input.value)) {
+         input.value = input.value.replace(/[^a-zA-Z\s]/g, ''); // Remove non-letters and non-spaces characters
+         errorElement.style.display = 'inline'; // Display error message
+     } else {
+         errorElement.style.display = 'none'; // Hide error message if valid
+     }
+ }
+ 
+ // Attach event listeners to visitorname and hostname inputs to validate in real-time
+ document.getElementById('visitorname').addEventListener('input', function() {
+     validateName(this);
+ });
+ 
+ document.getElementById('hostname').addEventListener('input', function() {
+     validateName(this);
+ });
+ </script>
+ <script>
+    // Function to validate phone number (exactly 10 digits)
+function validatePhoneNumber(input) {
+    let regex = /^\d{10}$/;
+    let errorElement = input.nextElementSibling; // Get the sibling small element for error message
+
+    if (!regex.test(input.value)) {
+        // Check if the input is less than 10 digits
+        if (input.value.length < 10) {
+            errorElement.textContent = "Phone Number should be exactly 10 digits.";
+            errorElement.style.display = 'inline'; // Display error message
+        } else {
+            input.value = input.value.slice(0, 10); // Trim to exactly 10 digits
+            errorElement.style.display = 'none'; // Hide error message if valid length
+        }
+    } else {
+        errorElement.style.display = 'none'; // Hide error message if valid format
+    }
+}
+
+// Attach event listener to phone_number input to validate in real-time
+document.getElementById('phone_number').addEventListener('input', function() {
+    validatePhoneNumber(this);
+});
+
+ </script>
+ </body>
+</html>
+{% endblock main_content %}

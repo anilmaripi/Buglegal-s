@@ -1,0 +1,218 @@
+{% extends 'admin-template/base_template.html' %}
+
+{% block main_content %}
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+#selected-employees-list li {
+    display: inline-block;
+    margin-right: 10px; /* Optional: Add margin between list items */
+    flex: 1;
+    row-gap: 50px;
+    padding-left: 30px; /* Add left padding to each list item */
+}
+
+#selected-employees-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(530px, 1fr)); /* Adjust column width as needed */
+    gap: 15px; /* Adjust the gap as needed */
+}
+
+.grid-item {
+    border: 1px solid #ccc; /* Optional: Add a border to grid items */
+    padding: 10px; /* Optional: Add padding to grid items */
+}
+
+#selected-employees-list .grid-item:nth-child(odd) {
+    padding-left: 50px; /* Adjust the left padding as needed */
+} 
+/* Style the select box container */
+#employee-select {
+  width: 100%;
+  max-width: 1200px; /* Adjust the width as needed */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f8f8f8;
+  font-size: 16px;
+  color: #333;
+}
+
+/* Style the options within the select box */
+#employee-select option {
+  padding: 5px;
+  background-color: #fff; /* Background color for unselected options */
+  color: #333;
+}
+
+/* Style selected options */
+#employee-select option:checked {
+  background-color: #3498db; /* Background color for selected options */
+  color: #fff;
+}
+
+/* Style the hover effect for options */
+#employee-select option:hover {
+  background-color: #f0f0f0; /* Background color on hover */
+  cursor: pointer;
+}
+
+/* Remove default select box styles */
+#employee-select::-ms-expand {
+  display: none;
+}
+
+/* Style the dropdown arrow icon (if supported) */
+#employee-select::after {
+  content: '\25BC'; /* Unicode character for a downward arrow */
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+
+
+
+</style>
+<div class="row align-items-center d-flex  justify-content-center">
+    <div class="col-12 mb-4">
+        <div class="card border-light shadow-sm components-section align-items-center d-flex  justify-content-center">
+            <div class="card-body align-items-center d-flex justify-content-center">
+                <div class="row mb-4">
+                    <div class="col-lg-12 col-sm-16">
+                        <div class="col-lg-12 col-sm-16">
+                            <h3 class="h3 text-center">Task</h3>
+                        </div>
+                    </div>
+                    <center>
+                        <lottie-player src="https://assets8.lottiefiles.com/packages/lf20_cwA7Cn.json"
+                            background="transparent" speed="1" style="width: 400px; height: 300px;" loop autoplay>
+                        </lottie-player>
+                    </center>
+                    <div class="card-body">
+                        {% if projects %}
+                        <form method="POST" action="/display/" >
+                            {% csrf_token %}
+                            <div class="mb-4">
+                                <div class="form-group">
+                                    <label for="project-name" style="color: black;">Project Name:</label>
+                                    <select name="p_name" class="custom-select my-1 mr-sm-2" id="p_id">
+                                        <option value="0" selected>Select</option>
+                                        {% for project in projects %}
+                                            <option value="{{project.id}}">{{project.p_name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="h6" for="exampleFormControlTextarea1">Meet Url:</label>
+ 
+                                    <input type="text" name="p_url" class="form-control" placeholder="meet url"
+                                         required>
+                                </div>
+
+                                
+                                <div class="form-group">
+                                    <label for="team-lead" style="color: black;">Team Lead:</label>
+                                    <select name="team_lead" class="custom-select my-1 mr-sm-2" id="team_lead" disabled>
+                                        <option value="0" selected>Select</option>
+                                    </select>
+                                </div>
+    
+                                <input type="submit" class="btn btn-primary" value="submit">
+
+                                
+                              
+                                  </div>
+                                </form>
+                                {% else %}
+                            
+                                {% endif %}
+</div>
+<!-- <script>
+    const select = document.getElementById("p_id");
+    const dynamicContent = document.getElementById("dynamic-content");
+    const teamLeadInput = document.getElementById("team-lead-input");
+
+    select.addEventListener("change", function() {
+        const selectedOption = select.options[select.selectedIndex];
+        const selectedValue = selectedOption.value;
+        const selectedText = selectedOption.text;
+
+        if (selectedValue === "") {
+            dynamicContent.innerHTML = "";
+        } else {
+            // Customize the content based on the selected option
+            dynamicContent.innerHTML = `<p>You selected: ${selectedText}</p>`;
+            // Set the selected value in the input field
+            teamLeadInput.value = selectedValue;
+        }
+    });
+</script> -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+   $(document).ready(function () {
+    $('#p_id').on('change', function() {
+        var project_id = $(this).val();
+        if (project_id !== '0') {
+            $.ajax({
+                url: `/get_team_lead/${project_id}/`,
+                method: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    var teamMembersSelect = $('#e_id');
+                    var teamLeadSelect = $('#team_lead');
+                    teamMembersSelect.empty();
+                    teamLeadSelect.empty();
+                    teamMembersSelect.append('<option value="0" selected>Select</option>');
+                    teamLeadSelect.append('<option value="0" selected>Select</option>');
+                    data.team_members.forEach(function(member) {
+                        teamMembersSelect.append(`<option value="${member.id}">${member.name}</option>`);
+                        if (member.name.includes('Team Lead:')) {
+                            teamLeadSelect.append(`<option value="${member.id}">${member.name}</option>`);
+                        }
+                    });
+                    teamLeadSelect.prop('disabled', false);
+                },
+                error: function() {
+                    console.log('Error fetching team members');
+                }
+            });
+        } else {
+            // Reset the team members and team lead dropdowns when no project is selected
+            var teamMembersSelect = $('#e_id');
+            var teamLeadSelect = $('#team_lead');
+            teamMembersSelect.empty();
+            teamLeadSelect.empty();
+            teamMembersSelect.append('<option value="0" selected>Select</option>');
+            teamLeadSelect.append('<option value="0" selected>Select</option>');
+            teamLeadSelect.prop('disabled', true);
+        }
+    });
+});
+</script>
+
+<script>
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1; //January is 0!
+        var yyyy = today.getFullYear();
+
+        if (dd < 10) {
+            dd = '0' + dd;
+        }
+
+        if (mm < 10) {
+            mm = '0' + mm;
+        }
+
+        today = yyyy + '-' + mm + '-' + dd;
+        document.getElementById("t_deadline_date").setAttribute("min", today);
+</script>
+<!-- Calendly badge widget begin -->
+<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+<script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+<script type="text/javascript">window.onload = function() { Calendly.initBadgeWidget({ url: 'https://calendly.com/ssvdpavankumar16/30min', text: 'Schedule time with me', color: '#0069ff', textColor: '#ffffff', branding: true }); }</script>
+<!-- Calendly badge widget end -->
+{% endblock main_content %}

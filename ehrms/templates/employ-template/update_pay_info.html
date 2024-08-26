@@ -1,0 +1,340 @@
+{% extends 'employ-template/base_template.html' %}
+        
+        
+        
+        
+{% block main_content %}
+
+
+<!-- <style>
+    body {
+        height: 100%;
+        width: 100%;
+    }
+    
+    label, h4 {
+        color: #ffffff; /* Bright white color */
+        
+    }
+    
+    input[type] {
+        color: #ffffff; /* Bright white color */
+        background-color: #555555; /* Light gray background */
+        border: none;
+    }
+    
+    #m {
+        background-color: #333333; /* Slightly darker background color */
+    }
+    
+    input[type=submit] {
+        background-color: #66a3ff; /* Bright blue submit button */
+        color: #ffffff; /* Bright white text */
+        border: none;
+    }
+    
+    .form-control {
+        height: fit-content;
+    }
+    
+    .small-box {
+        background-color: #2a2f4e; /* Darker background for small boxes */
+    }
+    
+    .inner {
+        color: #ffffff; /* Bright white text inside small boxes */
+    }
+    
+    </style> -->
+    <style>
+        .form-tm{
+            box-shadow: 2px 3px 10px #999;
+            padding: 20px;
+            border-radius: 10px;
+          }
+    
+        .hed-tm{
+            color: #ff7733;
+            font-size: 36px;
+            margin-bottom: 30px;
+            text-align: center;
+            margin-top: 10px;
+        
+        }
+        .hed-hr{
+            color: #ff7733;
+            font-size: 36px;
+            margin-bottom: 30px;
+            text-align: center;
+            margin-top: 10px;
+        }
+        .hed-tl{
+            color: #ff7733;
+            font-size: 36px;
+            margin-bottom: 30px;
+            text-align: center;
+            margin-top: 10px;
+      }
+        .hed-manager{
+            color: blue;
+            font-size: 36px;
+            margin-bottom: 30px;
+            text-align: center;
+            margin-top: 10px;
+        }
+    
+    
+        .small-box-tm{
+            background-color: #d9d9d9;
+        }
+        .small-box-tm p{
+            color:red;
+            padding: 15px;
+            font-size: 15px;
+            padding: 20px;
+            font-weight: 600;
+        }
+        
+    
+    label{
+        color:black;
+    }
+    
+    
+    .small-box-tmm{
+        background-color: #d9d9d9;
+    }
+    .small-box-tmm p{
+        color:red;
+        padding: 15px;
+        font-weight: 600;
+    }
+    .form-manager{
+        box-shadow: 2px 3px 10px #999;
+        padding: 20px;
+        border-radius: 10px;
+      }
+
+    .hed-manager{
+        color: blue;
+        font-size: 36px;
+        margin-bottom: 30px;
+        text-align: center;
+        margin-top: 10px;
+    }
+    .small-box-manager{
+        background-color: #d9d9d9;
+    }
+    .small-box-manager p{
+        color:red;
+        padding: 15px;
+        font-size: 15px;
+        padding: 20px;
+        font-weight:600 ;
+    }
+label{
+    color:black;
+}
+.small-box-managerr{
+    background-color: #d9d9d9;
+}
+.small-box-managerr p{
+    color:red;
+    padding: 15px;
+    font-weight: 600;
+}
+.error-message{
+    color: red;
+}
+
+.error-messages{
+    color: red;
+}
+</style>
+    
+    <div class="row">
+        <div class="col-lg-1 col-sm-1 col-md-1">
+        </div>
+      
+        <div class="col-lg-10 col-sm-10 col-md-10">
+          <h3 class="{% if mem_role == 'HR' and mem_hroptions == 1 %}hed-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}hed-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}hed-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}hed-tm {% endif %}"> Update Payment Information </h3>
+      
+          <form method="post" enctype="multipart/form-data" action="/update_pay_info/{{k.id}}" class="{% if mem_role == 'HR' and mem_hroptions == 1 %}form-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}form-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}form-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}form-tm {% endif %}">{% csrf_token %}
+              <div class="small-box {% if mem_role == 'HR' and mem_hroptions == 1 %}small-box-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}small-box-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}small-box-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}small-box-tm {% endif %}" >
+      
+            <p>Please be very careful while entering data onthis screen. Mistakes will lead to incorrect tax deductions and filing, and failures in salary transfer / payments.</p>
+                </div>
+                        
+        <div class="form-group">
+        
+            <div class="row">
+                <div class="col-lg-12 col-sm-12">
+                    <label>Beneficiary Name*</label>
+                    <!-- <input type="text" name="beneficiaryname" class="form-control" value="{{ k.beneficiaryname }}" oninput="sanitizeBeneficiaryNameInput(this)" required> -->
+                    
+                    <input type="text" name="beneficiaryname" placeholder="Beneficiary Name" class="form-control" oninput="allowOnlyLettersAndSpaces(this)" required><br>
+                    <script>
+                        function allowOnlyLettersAndSpaces(input) {
+                            input.value = input.value.replace(/[^a-zA-Z\s]/g, ''); 
+                        }
+                    </script>
+                  
+                    <div style="display: flex; flex-direction: column;margin-bottom: 10px;">
+                    </div>
+                    <div class="small-box {% if mem_role == 'HR' and mem_hroptions == 1 %}small-box-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}small-box-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}small-box-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}small-box-tm {% endif %}" >
+                        <p >If the bank account owner is someone other than "{{data.first_name}}.{{data.last_name}}", then please enter it here. Otherwise please leave it blank.</p>
+                    </div>
+
+                </div>
+                <div class="col-lg-12 col-sm-12">
+                    <label>Account Number*</label>
+                    <input type="number" name="acno" class="form-control" value="{{ k.acno }}" oninput="sanitizeAccountNumberInput(this)" required>
+                    <div style="display: flex; flex-direction: column;margin-bottom: 10px;">
+                    </div>
+                    <div class="small-box {% if mem_role == 'HR' and mem_hroptions == 1 %}small-box-hrr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}small-box-managerr{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}small-box-tll{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}small-box-tmm {% endif %} " >
+                        <p >Please enter the bank account number again.</p>
+                    </div>
+
+                   
+                </div>
+                <!-- <div class="small-box " style="background-color: #282f51;">
+                    <div class="inner">
+                <h>Bank account changes have been saved, but need to be confirmed by the organization.</h4></div>
+                </div>
+                <br><br> -->
+
+                <div class="col-lg-12 col-sm-12">
+                    <label>IFSC CODE*</label>
+                    <input type="text" name="ifsecode" class="form-control ifsc" maxlength="11" oninput="sanitizeIfsecodeInput(this)" value="{{ k.ifsecode }}" required>
+                    <!-- {% comment %} <input type="text" name="ifsecode" placeholder="IFSC Code" class="form-control" maxlength="11" oninput="convertToUppercase(this)" required /><br> {% endcomment %} -->
+
+                    <div class="error-messages" style="display: flex; flex-direction: column;margin-bottom: 10px;">
+                    </div>
+                    <div class="small-box {% if mem_role == 'HR' and mem_hroptions == 1 %}small-box-hrr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}small-box-managerr{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}small-box-tll{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}small-box-tmm {% endif %} " >
+                        <p >Your bank IFSC code.</p>
+                    </div>
+
+                    
+                        
+                    
+                </div>
+                <div class="col-lg-12 col-sm-12">
+                    <label>Pancard Number*</label>
+                    <!-- {% comment %} <input type="number" name="pan" class="form-control" value="{{k.pan}}" maxlength="10"> {% endcomment %} -->
+                    <input type="text" name="pan" class="form-control pan" value="{{ k.pan | upper }}" maxlength="10" oninput="sanitizePanInput(this)" required>
+
+                    <div class="error-message" style="display: flex; flex-direction: column;margin-bottom: 10px;">
+                    </div>
+                    <div class="small-box {% if mem_role == 'HR' and mem_hroptions == 1 %}small-box-hrr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}small-box-managerr{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}small-box-tll{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}small-box-tmm {% endif %} " >
+                        <p >Your Permanent Account Number(10 characters). You can look this up.</p>
+                    </div>
+
+                </div>
+                <br>
+            </div>
+            <div style="text-align: end;">
+                <button type="submit" class="btn btn-primary">Submit</button>
+           </div>  
+
+    </div>  
+    
+    </form>
+    </div>
+    <div class="col-lg-1 col-sm-1 col-md-1">
+    </div>
+  
+  </div>
+  
+    <script>
+        function sanitizePanInput(input) {
+            // Get the entered value
+            let inputValue = input.value;
+
+            // Remove special characters using a regular expression
+            let sanitizedValue = inputValue.replace(/[^a-zA-Z0-9]/g, '');
+
+            // Convert to uppercase
+            sanitizedValue = sanitizedValue.toUpperCase();
+
+            // Take only the first 10 characters
+            sanitizedValue = sanitizedValue.substring(0, 10);
+
+            // Update the input value with the sanitized value
+            input.value = sanitizedValue;
+        }
+    $(document).ready(function(){     
+   $(".pan").change(function () {      
+    var inputvalues = $(this).val();      
+    var regex = /[A-Z]{5}[0-9]{4}[A-Z]{1}$/;    
+    if(!regex.test(inputvalues)){      
+      $(".pan").val("");    
+      $(".error-message").text("Invalid PAN no");    
+    } else {
+      $(".error-message").text("");    
+    }    
+  });      
+});
+</script>
+
+    <script>
+        function sanitizeIfsecodeInput(input) {
+            // Get the entered value
+            let inputValue = input.value;
+
+            // Remove special characters using a regular expression
+            let sanitizedValue = inputValue.replace(/[^a-zA-Z0-9]/g, '');
+
+            // Convert to uppercase
+            sanitizedValue = sanitizedValue.toUpperCase();
+
+            // Take only the first 11 characters
+            sanitizedValue = sanitizedValue.substring(0, 11);
+
+            // Update the input value with the sanitized value
+            input.value = sanitizedValue;
+        }
+        $(document).ready(function(){     
+  $(".ifsc").change(function () {      
+    var inputvalues = $(this).val();      
+    var regex = /[A-Z]{4}[0][A-Z0-9]{6}$/;    
+    if(!regex.test(inputvalues)){      
+      $(".ifsc").val("");    
+      $(".error-messages").text("Invalid IFSC code");    
+    } else {
+      $(".error-messages").text("");    
+    }    
+  });      
+});
+    </script>
+    <script>
+        function sanitizeBeneficiaryNameInput(inputField) {
+            // Get the entered value
+            let inputValue = inputField.value;
+
+            // Remove special characters and numbers using a regular expression
+            let sanitizedValue = inputValue.replace(/[^a-zA-Z]/g, '');
+
+            // Update the input value with the sanitized value
+            inputField.value = sanitizedValue;
+        }
+    </script>
+    <script>
+        function sanitizeAccountNumberInput(input) {
+            // Get the entered value
+            let inputValue = input.value;
+
+            // Ensure it is a positive integer
+            let sanitizedValue = Math.abs(parseInt(inputValue, 10));
+
+            // Limit to 16 digits
+            let maxLength = 16;
+            sanitizedValue = sanitizedValue.toString().substring(0, maxLength);
+
+            // Update the input value with the sanitized value
+            input.value = sanitizedValue;
+        }
+    </script>
+
+    
+
+{% endblock main_content %}

@@ -1,0 +1,77 @@
+{% load static %}
+
+<div class="sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" >
+        {% for t in k0 %}
+        <img src="{{t.image.url}}" alt=""style="width: 200px ;height: 50px;">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav" >
+            <ul class="navbar-nav ml-auto" style="padding-right: 150px">
+                <li class="nav-item ">
+                    <a class="nav-link" href="/homepage/">{{t.nave1}}</a>
+                </li>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/homepage#products">{{t.nave2}}</a>
+                </li>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                <li class="nav-item">
+                    <a class="nav-link dropdown-toggle" href="#" id="featuresDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{t.nave3}}
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="featuresDropdown">
+                      <div class="row">
+                        <div class="col-md-6" style="width: max-content;">
+                            <a class="dropdown-item" href="/employeemonitoring/" >
+                                <img src="{%static 'assets/images/human.png' %}" style="width: 29px; height: auto ; " class="rounded float-left" alt="..." >&nbsp; Employe Monitoring
+                            </a>
+                        <a class="dropdown-item" href="/timetracking/" >
+                            <img src="{%static 'assets/images/timer.png' %}" style="width: 29px; height: auto ;" class="rounded float-left" alt="..." >&nbsp; Time Tracking
+                        </a>
+                        <a class="dropdown-item" href="/timeattendance/" >
+                            <img src="{%static 'assets/images/att.png' %}"style="width: 29px; height: auto ;" class="rounded float-left" alt="..." >&nbsp; Time Attendance
+                        </a>
+                        <a class="dropdown-item" href="/productivity/" >
+                            <img src="{%static 'assets/images/productivity.png' %}"style="width: 29px; height: auto ;" class="rounded float-left" alt="..." >&nbsp; Productivity
+                        </a>
+                        </div>
+                        <div class="col-md-6">
+                        <a class="dropdown-item" href="/screenmonitoring/" >
+                            <img src="{%static 'assets/images/scrn.png' %}" style="width: 29px; height: auto ;" class="rounded float-left" alt="..." >&nbsp;  Screen Monitoring
+                        </a>
+                        <a class="dropdown-item" href="/activitymonitoring/" >
+                            <img src="{%static 'assets/images/act.png' %}" style="width: 29px; height: auto ;" class="rounded float-left" alt="..." >&nbsp; Activity Monitoring
+                        </a>
+                        <a class="dropdown-item" href="/officework/" >
+                            <img src="{%static 'assets/images/ofc.png' %}" style="width: 29px; height: auto ;" class="rounded float-left" alt="..." >&nbsp; Office Work
+                        </a>
+                        <a class="dropdown-item" href="/projectmanagment/" >
+                            <img src="{%static 'assets/images/project management.png' %}" style="width: 29px; height: auto ;" class="rounded float-left" alt="..." >&nbsp; Project Managment
+                        </a>
+                        </div>
+                    </div>
+                  </div>
+                </li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                
+                <li class="nav-item">
+                    <a class="nav-link" href="/homepage#about">{{t.nave4}}</a>
+                </li>
+            </li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <li class="nav-item">
+                    <div class="gradient-button">
+                        <a id="modal_trigger" class="nav-link" href="/show_login/">
+                            <i class="fa fa-sign-in-alt"></i> {{t.nave5}}
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        {% endfor %}
+    </nav>
+</div>
+

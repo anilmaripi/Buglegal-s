@@ -1,0 +1,47 @@
+
+{% extends "admin-template/base_template.html" %}
+{% block main_content %}
+
+<div class="row justify-content-center">
+    <div class="col-lg-8 col-12">
+
+        <h2>Update Employee Notification</h2>
+        <form method="post" action="{% url 'update_employee_notification' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+              <div class="form-control" style="background-color:#282f51; color:white; width:100%; height:auto; border:none;">
+                <label>How would you like to inform your employees before their payroll executes?</label>
+              </div><br>
+              
+           
+            <div class="form-check">
+                <label class="form-check-label" style="color:white;">
+                    <input type="checkbox" name="send_email_notify" class="form-check-input" value="yes" {% if post.send_email_notify %} checked {% endif %}>
+                    Send email if employees have missing information
+                </label>
+            </div>
+            <br>
+            <div class="form-check">
+                <label class="form-check-label" style="color:white;">
+                    <input type="checkbox" name="email_notify" class="form-check-input" value="yes" {% if post.email_notify %} checked {% endif %}>
+                    Email (will include their payslips)
+                </label>
+            </div>
+            <br>
+            <b>* Indicates required fields</b>
+            <br>
+            <br>
+
+            <button type="submit" style="padding-left: 10px; height: 50px; width: 180px; background-color: #0079bf;">
+              <a href="setting/"><b style="color: white;">CONTINUE</b>
+            </button>
+        </form>
+
+    </div>
+</div>
+
+{% endblock main_content %} 
+
+
+
+
+

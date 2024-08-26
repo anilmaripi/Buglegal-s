@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Timetracking1</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h2 {
+            color: #007bff;
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        a {
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        a:hover {
+            text-decoration: underline;
+            color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Timetracking1</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Title1</th>
+                <th>Title2</th>
+                <th>Title3</th>
+                <th>Title4</th>
+                <th>Title5</th>
+                <th>SubTitle1</th>
+                <th>Image1</th>
+                <th>Image2</th>
+                <th>Discription1</th>
+                <th>Discription2</th>
+                <th>Discription3</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for project in projects %}
+            <tr>
+                <td>{{ project.title1 }}</td>
+                <td>{{ project.title2 }}</td>
+                <td>{{ project.title3 }}</td>
+                <td>{{ project.title4 }}</td>
+                <td>{{ project.title5 }}</td>
+                <td>{{ project.subtitle1 }}</td>
+                <td>{{ project.image1 }}</td>
+                <td>{{ project.image2 }}</td>
+                <td>{{ project.discription1 }}</td>
+                <td>{{ project.discription2 }}</td>
+                <td>{{ project.discription3 }}</td>
+                <td>
+                    <a href="{% url 'timetracking1_update' pk=project.pk %}">Edit</a>
+                </td>
+                <td>
+                    <a href="{% url 'timetracking1_delete' pk=project.pk %}">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</body>
+</html>

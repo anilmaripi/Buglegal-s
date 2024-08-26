@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ScreenMonitoring</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        h2 {
+            color: #007bff;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        td {
+            vertical-align: top;
+        }
+        a {
+            text-decoration: none;
+            color: #007bff;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Screen Monitoring</h2>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Discription1</th>
+            <th>Image</th>
+            <th>Discription2</th>
+            <th>Discription3</th>
+            <th>Discription4</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for project in projects2 %}
+        <tr>
+            <td>{{ project.title }}</td>
+            <td>{{ project.discription1 }}</td>
+            <td>{{ project.image }}</td>
+            <td>{{ project.discription2 }}</td>
+            <td>{{ project.discription3 }}</td>
+            <td>{{ project.discription4 }}</td>
+            <td>
+                <a href="{% url 'screenmonitoring3_update' pk=project.pk %}">Edit</a> |
+                <a href="{% url 'screenmonitoring3_delete' pk=project.pk %}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+</body>
+</html>

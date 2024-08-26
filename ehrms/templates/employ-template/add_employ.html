@@ -1,0 +1,782 @@
+
+{% extends 'employ-template/base_template.html' %}
+{% block main_content %}
+<title>Add Employee Form</title>
+<html>
+   <head>
+       <title>Add Form</title>
+   </head>
+   <style>
+
+       body{
+           background-color:#1e2442;
+           color:white;
+           overflow: scroll;
+
+           
+       }
+       /* h4{
+           text-align:center;
+           
+           padding:3%;
+           background-color:#242B4D;
+          
+
+                      
+       } */
+       .v{
+           width:100%;
+          
+           background-color:#242B4D;
+           border: 3px solid white;
+           border-bottom: none;
+           border-top: none;
+           border-right: 3px solid white;
+           height:22%;
+         padding-left: 20px;
+       }
+    
+label.class{
+    color:#1e2442;
+    border:none;
+}
+div.class{
+    border:none;
+}
+.ab{
+ 
+ display: flex;
+ align-items: center;
+ position: absolute;
+ height: 110px;
+ top: 0;
+ right: 0;
+ padding-right: 1px;
+ margin-right: 15px;
+}
+#showpassword{
+   display: block;
+ width: 100%;
+ height: 45px;
+ padding: 0 5px;
+ border-radius:2px;
+}
+.center{
+  margin:0 auto;
+  width:730px;
+  /* height:270px; */
+  border-color:#000;
+  border-width:1px;
+}
+.image{
+     width: 100%;
+  position: relative;
+  
+}
+input {
+    color-scheme: white;
+}
+input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  border-radius: 8px;
+  margin-right: 6px;
+  opacity: 0.8;
+  filter: invert(0.8);
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator:hover {
+  opacity: 3;
+  /* color-scheme:dark; */
+}
+
+   </style>
+   <br><br>
+    
+   <body>
+
+<div class="row justify-content-center" style="color: black;">
+    <div class="col-lg-9 col-12">
+        <div class="form-group">
+            {% if messages %}
+              {% for message in messages %}
+              {% if message.tags == 'error' %}
+              <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+              {% endif %}
+              {% if message.tags == 'success' %}
+              <div class="alert alert-success" style="margin-top:20px;background-color:green;color: whitesmoke;">{{ message }}</div>
+              {% endif %}
+              {% endfor %}
+            {% endif %}
+          </div>
+
+        <h4 style="text-align: center;padding: 3%; background-color: #b69ccf;">Employee Onboarding</h4>
+      
+        
+       
+  <br><br>
+
+<form id="employadd" method="post" enctype="multipart/form-data" style="width: 100%;background-color: #d1d7e0;padding:30px;" action="#">{% csrf_token %}
+   
+    <div class="form-group">
+        <label>Select Role</label>
+        <!-- <select class="form-control"  name="role" required> -->
+            
+        {% if plantype == "1" %}
+        <!-- <option value="Employ">Employ</option> -->
+        <input type="text" name="role" value="Employee" readonly class="form-control" placeholder="Enter your firstname" style=" border:none;" required>
+
+        {% else %}
+        <input type="text" name="role" value="Employee" readonly class="form-control" placeholder="Enter your firstname" style=" border:none;" required>
+
+          {% endif %}
+        
+        <!-- </select>   -->
+    </div>
+
+    
+       <!-- <div class="form-group">
+        {% if messages %}
+          {% for message in messages %}
+          {% if message.tags == 'error' %}
+          <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+          {% endif %}
+          {% if message.tags == 'success' %}
+          <div class="alert alert-success" style="margin-top:20px;background-color:green;color: whitesmoke;">{{ message }}</div>
+          {% endif %}
+          {% endfor %}
+        {% endif %}
+      </div>
+     <div class="form-group">
+        {% if messages %}
+        <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+     </div> -->
+    
+       <div class="form-group">
+           <label>First Name*</label>
+           <input type="text" name="first_name" class="form-control" placeholder="Enter your firstname" style="  color:black; border:none;" required>
+       </div><br>
+
+       <div class="form-group">
+        <label>Last Name*</label>
+        <input type="text" name="last_name" class="form-control" placeholder="Enter your lastname" style="color:black; border:none;" required>
+    </div><br>
+    <div class="form-group" id="designation-field">
+        <select class="form-control" name="designation" required>
+
+            {% if aa %}
+            <option value="">Select Designation</option>
+
+                {% for i in aa %}
+                    {% if i.Enabled == 'Yes' %}
+
+                        <option value="{{ i.id }}">{{ i.designation_name }}</option>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <option disabled selected>No Designations Available</option>
+            {% endif %}
+        </select>
+    </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+$(document).ready(function() {
+    // Show the designation field since role is fixed to "Employee"
+    $('#designation-field').show();
+});
+
+   </script> 
+    <div class="form-group">
+        <label>Date Of Birth*</label>
+        <input type="date" name="dateofbirth" max="9999-12-31" class="form-control date" placeholder="Enter your dateofbirth" style="color:black; border:none;" required>
+    </div><br> 
+    
+    <div class="form-group">
+        <label>Username*</label>
+        <input type="text" name="username" class="form-control" placeholder="Enter your username" style="color:black; border:none;" required>
+    </div><br>
+
+    <div class="form-group">
+        <!-- <div class='center'> -->
+        <div class='image'>
+        <label>Password*</label>
+        <input type="password" name="password" class="form-control" placeholder="Enter your password" id="showpassword" style=" color:black; border:none;" pattern="(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[A-Z])(?=.*[a-z])[a-zA-Z0-9!@#$%^&*]{7,15}$" title="Must contain at least one number and one uppercase and lowercase letter and one special symbol, and at least 8 or more characters" required>
+        <label style=" color:black; font-size:15px; padding:1%;height:fit-content"><h6 style="height:fit-content;"> Must contain at least one number and one uppercase and lowercase letter and one special symbol, and at least 8 or more characters</h6></label>
+        <span class="ab"><i class="far fa-eye" onclick="togglePasswordVisibility()" style="color: black;"></i></span>
+        
+        <br>
+        </div>
+        <!-- </div> -->
+    </div><br>
+    <script>
+        $(function() {
+            $(document).ready(function () { 
+    var todaysDate = new Date(); 
+    var year = todaysDate.getFullYear(); 
+    var month = ("0" + (todaysDate.getMonth() + 1)).slice(-2); 
+    var day = ("0" + todaysDate.getDate()).slice(-2); 
+    var maxDate = year + "-" + month + "-" + day; 
+    $('.date').attr('max', maxDate); 
+});
+ 
+});
+    </script>
+    <script>
+    
+        function togglePasswordVisibility() {
+            var newPasswordInput = document.getElementById('showpassword')
+    
+            if (newPasswordInput.type === "password") {
+                newPasswordInput.type = "text";
+           
+            } else {
+                newPasswordInput.type = "password";
+    
+            }
+        }
+    </script>
+    <script>
+        var myInput = document.getElementById("showpassword");
+        var letter = document.getElementById("letter");
+        var capital = document.getElementById("capital");
+        var number = document.getElementById("number");
+        var length = document.getElementById("length");
+        var special = document.getElementById("special");
+
+        myInput.onfocus = function() {
+          document.getElementById("message").style.display = "block";
+        }
+        
+        myInput.onblur = function() {
+          document.getElementById("message").style.display = "none";
+        }
+        
+        myInput.onkeyup = function() {
+          var lowerCaseLetters = /[a-z]/g;
+          if(myInput.value.match(lowerCaseLetters)) {  
+            letter.classList.remove("invalid");
+            letter.classList.add("valid");
+          } else {
+            letter.classList.remove("valid");
+            letter.classList.add("invalid");
+          }
+          
+          var upperCaseLetters = /[A-Z]/g;
+          if(myInput.value.match(upperCaseLetters)) {  
+            capital.classList.remove("invalid");
+            capital.classList.add("valid");
+          } else {
+            capital.classList.remove("valid");
+            capital.classList.add("invalid");
+          }
+        
+          var numbers = /[0-9]/g;
+          if(myInput.value.match(numbers)) {  
+            number.classList.remove("invalid");
+            number.classList.add("valid");
+          } else {
+            number.classList.remove("valid");
+            number.classList.add("invalid");
+          }
+        
+          var special = /[!@#$%^&*]/g;
+          if(myInput.value.match(special)) {  
+            special.classList.remove("invalid");
+            special.classList.add("valid");
+          } else {
+            special.classList.remove("valid");
+            special.classList.add("invalid");
+          }
+            
+          if(myInput.value.length >= 8) {
+            length.classList.remove("invalid");
+            length.classList.add("valid");
+          } else {
+            length.classList.remove("valid");
+            length.classList.add("invalid");
+          }
+        }
+        </script>
+
+
+       <div class="form-group">
+           <label>Email*</label>
+           <input type="email" name="email" class="form-control" placeholder="Enter your Email Id" style=" color:black; border:none;" required>
+           <label style=" color:black; font-size:15px; padding:1%;height:fit-content"><h6 style="height:fit-content;">The email they will use to login into DevelopTrees.</h6></label>
+       </div><br>
+
+       <div class="form-group">
+        <label>Office mail*</label>
+        <input type="email" name="web_mail" class="form-control" placeholder="Enter your Office Mail Id" style="  color:black; border:none;" required>
+        <label style=" color:black; font-size:15px; padding:1%;height:fit-content"><h6 style="height:fit-content;">The email they will use to login into DevelopTrees.</h6></label>
+    </div><br>
+
+
+       <!-- <label>Gender*</label><br>
+       <label>Male:</label>
+       <input type="radio" name='gender' value="male">
+
+       <label>Female</label>
+       <input type="radio" name='gender' value="female" >
+       <br><br> -->
+       <div class="form-group">
+        <label for="gender">Gender*</label>
+        <br>
+        <select id="gender" name="gender" class="form-control" style="color:black; border:none;">
+            <option value="" disabled selected>Select</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="others">Others</option>
+
+        </select>       
+    </div>
+    
+
+        <div class="form-group">
+            <label>Address*</label>
+            <input type="text" name="address" class="form-control" placeholder="Enter Address" style="color:black; border:none;" required>
+        </div><br>
+
+        <div class="form-group">
+            <label>Employee ID*</label>
+            <input type="text" name="empid" class="form-control" placeholder="Enter employid" value="{{emp_length.employe_id_prefix}}" style="color:black; border:none;" maxlength="{{emp_length.employ_idlength}}" required>
+        </div><br>
+        
+        <div class="form-group">
+            <label>Blood Group*</label><br>
+            <select style=" color:black; border:none;" class="form-control" name="bloodgroup" required>
+                <option disabled selected>choose your blood group</option>
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B-">B-</option>
+                <option value="B+">B+</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+
+            </select>
+        </div><br>
+
+        <div class="form-group">
+            <label>Date Of Joining*</label>
+            <input type="date" name="dateofjoining" max="9999-12-31" class="form-control join" placeholder="dateofjoining"  style="color:black; border:none;" required>
+        </div><br>
+        <script>
+            $(function() {
+            $(document).ready(function () { 
+    var todaysDate = new Date(); 
+    var year = todaysDate.getFullYear(); 
+    var month = ("0" + (todaysDate.getMonth() + 1)).slice(-2); 
+    var day = ("0" + todaysDate.getDate()).slice(-2); 
+    var maxDate = year + "-" + month + "-" + day; 
+    $('.join').attr('max', maxDate); 
+});
+ 
+});
+        </script>
+    
+       
+       
+
+    
+
+
+       <div class="form-group">
+           <label>Annual Salary*</label>
+           <input type="number" name="package" class="form-control" placeholder="" style="color:black; border:none;" required>
+           <label style=" color:black; font-size:15px; padding:1%;"><h6>Annual salary is the current CTC(cost of company)for this employee, not including variable pay. If you have a monthly CTC. Please multiply by 12. Hrms will automatically create an ideal salary structure.</h6></label>       </div><br>
+
+       <div class="form-group">
+           <label>Location*</label><br>
+           <select name="location"  style=" color:black; border:none; padding:1%;" class="form-control" required>
+            <option value="" selected disabled>Select the state</option>
+            <option value="Andhra Pradesh">Andhra Pradesh</option>
+            <option value="Assam">Assam</option>
+            <option value="Bihar">Bihar</option>
+            <option value="Chattisgarh">Chattisgarh</option>
+            <option value="Goa">Goa</option>
+            <option value="Gujarat">Gujarat</option>
+            <option value="Himachal Pradesh">Himachal Pradesh</option>
+            <option value="Jharkhand">Jharkhand</option>
+            <option value="Kerala">Kerala</option>
+            <option value="Karnataka">Karnataka</option>
+            <option value="Madhya Pradesh">Madhya Pradesh</option>
+            <option value="Manipur">Manipur</option>
+            <option value="Meghalaya">Meghalaya</option>
+            <option value="Maharastra">Maharastra</option>
+            <option value="Mizoram">Mizoram</option>
+            <option value="Nagaland">Nagaland</option>
+            <option value="Odisha">Odisha</option>
+            <option value="Panjab">Panjab</option>
+            <option value="Rajasthan">Rajasthan</option>
+            <option value="Sikkim">Sikkim</option>
+            <option value="Telangana">Telangana</option>
+            <option value="Tamil Nadu">Tamil Nadu</option>
+            <option value="Tripura">Tripura</option>
+            <option value="Uttar Pradesh">Uttar Pradesh</option>
+            <option value="Uttarakhand">Uttarakhand</option>
+            <option value="West Bengal">West Bengal</option>           
+        </select>    
+       </div><br>
+       <div class="form-group">
+        <label>Pincode*</label><br>
+        <input type="text" name="pincode" class="form-control" placeholder="Enter pincode" style="color:black; border:none;" required>
+    </div><br>
+
+    <div class="form-group">
+        <label>Contact Number*</label>
+        <input type="number" name="contactno" class="form-control Phone" placeholder="Enter mobile number" style="color:black; border:none;" required>
+        <span class="error-message" style="color: red;"></span>
+        </div>
+        <br><br>           
+       
+       <input type="submit" value="CONTINUE" style=" color:black;" class="btn btn-info">
+       
+</form>
+
+
+
+</div>
+</div>
+<script>
+    $(document).ready(function(){     
+      $(".phone").change(function () {      
+        var inputvalues = $(this).val();      
+        var regex = /[0-9]{10}$/;    
+        if(!regex.test(inputvalues)){      
+          $(".phone").val("");    
+          $(".error-message").text("Invalid Phone Number");
+          setTimeout(function(){
+            $(".error-message").text("");
+          }, 3000); // 3000 milliseconds = 3 seconds    
+        } else {
+          $(".error-message").text("");    
+        }    
+      });      
+    });
+        </script>
+
+
+<script>
+    document.getElementById('employadd').addEventListener('submit', function (e) {
+        const dateofjoiningInput = document.querySelector('input[name="dateofjoining"]');
+        if (!dateofjoiningInput.value) {
+            dateofjoiningInput.name = ''; 
+        }
+    });
+</script>
+<script>
+    document.getElementById('employadd').addEventListener('submit', function (e) {
+        const dateofbirthInput = document.querySelector('input[name="dateofbirth"]');
+        if (!dateofbirthInput.value) {
+            dateofbirthInput.name = ''; 
+        }
+    });
+</script>
+
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const firstNameInput = document.querySelector('input[name="first_name"]');
+        const lastNameInput = document.querySelector('input[name="last_name"]');
+        // const usernameInput = document.querySelector('input[name="username"]');
+        const roleInput = document.querySelector('input[name="role"]');
+        const ManagerInput = document.querySelector('input[name="Manager"]');
+        const designationInput = document.querySelector('input[name="designation"]');
+        
+
+        const alphabeticRegex = /^[A-Za-z]+$/; // Regular expression to allow only letters
+
+        function validateAlphabets(inputField) {
+            const inputValue = inputField.value.trim();
+
+            if (!alphabeticRegex.test(inputValue)) {
+                // Remove non-alphabetic characters
+                inputField.value = inputValue.replace(/[^A-Za-z]/g, "");
+            }
+        }
+
+        firstNameInput.addEventListener("input", function () {
+            validateAlphabets(firstNameInput);
+        });
+
+        lastNameInput.addEventListener("input", function () {
+            validateAlphabets(lastNameInput);
+        });
+
+        // usernameInput.addEventListener("input", function () {
+        //     validateAlphabets(usernameInput);
+        // });
+        roleInput.addEventListener("input", function () {
+            validateAlphabets(roleInput);
+        });
+        ManagerInput.addEventListener("input", function () {
+            validateAlphabets(ManagerInput);
+        });
+
+        designationInput.addEventListener("input", function () {
+            validateAlphabets(designationInput);
+        });
+
+    });
+</script>
+
+
+
+
+
+
+ <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const addressInput = document.querySelector('input[name="address"]');
+
+        addressInput.addEventListener("input", function () {
+            // No need for validation, it will accept all characters
+        });
+    });
+</script>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const empidInput = document.querySelector('input[name="empid"]');
+
+        function validateEmpidInput(inputField) {
+            const inputValue = inputField.value;
+
+            // Regular expression to allow only capital letters and numbers
+            const capitalLettersAndNumbersRegex = /^[A-Z0-9]*$/;
+
+            if (!capitalLettersAndNumbersRegex.test(inputValue)) {
+                // Remove characters that are not capital letters or numbers
+                inputField.value = inputValue.replace(/[^A-Z0-9]/g, "");
+            }
+        }
+
+        empidInput.addEventListener("input", function () {
+            validateEmpidInput(empidInput);
+        });
+    });
+</script>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const contactnoInput = document.querySelector('input[name="contactno"]');
+        const pincodeInput = document.querySelector('input[name="pincode"]');
+        const packageInput = document.querySelector('input[name="package"]');
+
+        contactnoInput.addEventListener("input", function () {
+            const inputValue = contactnoInput.value.trim();
+            
+            // Remove non-digit characters
+            const numericValue = inputValue.replace(/[^0-9]/g, "");
+
+            // Limit the input to 10 digits
+            const maxLength = 10;
+            const truncatedValue = numericValue.slice(0, maxLength);
+
+            // Update the input value
+            contactnoInput.value = truncatedValue;
+        });
+
+        pincodeInput.addEventListener("input", function () {
+            const inputValue = pincodeInput.value.trim();
+            
+            // Remove non-digit characters
+            const numericValue = inputValue.replace(/[^0-9]/g, "");
+
+            // Limit the input to 6 digits
+            const maxLength = 6;
+            const truncatedValue = numericValue.slice(0, maxLength);
+
+            // Update the input value
+            pincodeInput.value = truncatedValue;
+        });
+
+        packageInput.addEventListener("input", function () {
+            const inputValue = packageInput.value.trim();
+            
+            // Remove non-digit characters
+            const numericValue = inputValue.replace(/[^0-9]/g, "");
+
+            // Limit the input to 6 digits
+            const maxLength = 8;
+            const truncatedValue = numericValue.slice(0, maxLength);
+
+            // Update the input value
+            packageInput.value = truncatedValue;
+        });
+
+    });
+</script>
+
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const emailInput = document.querySelector('input[name="email"]');
+        const web_mailInput = document.querySelector('input[name="web_mail"]');
+
+
+
+        function validateInput(inputField) {
+            const inputValue = inputField.value.trim();
+
+            // Regular expression to allow letters, numbers, and various symbols
+            const alphanumericWithSymbolsRegex = /^[A-Za-z0-9@.]*$/;
+
+            if (!alphanumericWithSymbolsRegex.test(inputValue)) {
+                // Remove characters that are not letters, numbers, or specified symbols
+                inputField.value = inputValue.replace(/[^A-Za-z0-9@.]/g, "");
+            }
+        }
+
+        emailInput.addEventListener("input", function () {
+            validateInput(emailInput);
+        });
+
+        web_mailInput.addEventListener("input", function () {
+            validateInput(web_mailInput);
+        });
+
+        
+    });
+</script> 
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const empidInput = document.querySelector('input[name="empid"]');
+
+        function validateEmpidInput(inputField) {
+            const inputValue = inputField.value;
+
+            // Regular expression to allow only capital letters and numbers
+            const capitalLettersAndNumbersRegex = /^[A-Z0-9]*$/;
+
+            if (!capitalLettersAndNumbersRegex.test(inputValue)) {
+                // Remove characters that are not capital letters or numbers
+                inputField.value = inputValue.replace(/[^A-Z0-9]/g, "");
+            }
+        }
+
+        empidInput.addEventListener("input", function () {
+            validateEmpidInput(empidInput);
+        });
+    });
+</script>
+
+
+<script>
+    $(document).ready(function(){
+        $("#id_email").keyup(function(){
+            var email=$(this).val();
+
+           if(email!=""){
+                $.ajax({
+                    url:'{% url 'check_email_exist' %}',
+                    type:'POST',
+                    data:{email:email}
+                })
+                .done(function(response){
+                    console.log(response);
+                    if(response=="True"){
+                        $(".email_error").remove();
+                        $("<span class='email_error' style='padding: 5px;color: red;font-weight: bold;'>Email Not Available</span>").insertAfter("#id_email");
+                    }
+                    else{
+                        $(".email_error").remove();
+                        $("<span class='email_error' style='padding: 5px;color: green;font-weight: bold;'>Email Available</span>").insertAfter("#id_email");
+                    }
+                })
+                .fail(function(){
+                    console.log("failed");
+                })
+            }
+            else{
+              $(".email_error").remove();
+            }
+
+        });
+
+        $("#id_username").keyup(function(){
+            var username=$(this).val();
+
+            if(username!=""){
+                $.ajax({
+                    url:'{% url 'check_username_exist' %}',
+                    type:'POST',
+                    data:{username:username}
+                })
+                .done(function(response){
+                    console.log(response);
+                    if(response=="True"){
+                        $(".username_error").remove();
+                        $("<span class='username_error' style='padding: 5px;color: red;font-weight: bold;'>Username Not Available</span>").insertAfter("#id_username");
+                    }
+                    else{
+                        $(".username_error").remove();
+                        $("<span class='username_error' style='padding: 5px;color: green;font-weight: bold;'>Username Available</span>").insertAfter("#id_username");
+                    }
+                })
+                .fail(function(){
+                    console.log("failed");
+                })
+            }
+            else{
+                $(".username_error").remove();
+            }
+
+        });
+        $("#id_empid").keyup(function(){
+            var empid=$(this).val();
+
+            if(empid!=""){
+                $.ajax({
+                    url:'{% url 'check_empid_exist' %}',
+                    type:'POST',
+                    data:{empid:empid}
+                })
+                .done(function(response){
+                    console.log(response);
+                    if(response=="True"){
+                        $(".empid_error").remove();
+                        $("<span class='empid_error' style='padding: 5px;color: red;font-weight: bold;'>Employee ID Not Available</span>").insertAfter("#id_empid");
+                    }
+                    else{
+                        $(".empid_error").remove();
+                        $("<span class='empid_error' style='padding: 5px;color: green;font-weight: bold;'>Employee ID Available</span>").insertAfter("#id_empid");
+                    }
+                })
+                .fail(function(){
+                    console.log("failed");
+                })
+            }
+            else{
+                $(".empid_error").remove();
+            }
+
+        });
+    
+
+
+
+    });
+
+</script>
+
+
+
+</body>
+</html> 
+
+  {% endblock main_content %}
+
+ 

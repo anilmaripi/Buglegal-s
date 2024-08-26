@@ -1,0 +1,139 @@
+
+{% extends 'admin-template/adminAdashboard.html' %}
+{% block main_content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Reply to Message</title>
+    <style>
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            /* background: linear-gradient(to right, #3494E6, #EC6EAD); */
+            /* background: linear-gradient(to right, #1a2a6c, #b21f1f, #fdbb2d); */
+            /* background: linear-gradient(90deg, #4b6cb7, #182848); */
+            /* color: #fff; */
+            display:flex;
+        }
+
+        header {
+            padding: 20px;
+            text-align: center;
+            /* color: #fff; */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        main {
+            margin: 20px auto;
+            max-width: 800px;
+            /* background: linear-gradient(to right, #1a2a6c, #b21f1f, #fdbb2d); */
+            /* background: linear-gradient(to right, #3494E6, #EC6EAD); */
+            background: linear-gradient(90deg, #4b6cb7, #182848);
+
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            border-radius: 10px;
+        }
+
+        table {
+            margin-bottom: 20px;
+            border: 2px solid whitesmoke;
+        }
+
+        th,
+        td {
+            color: #fff;
+            padding: 15px;
+            text-align: left;
+        }
+
+        tr:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        h1 {
+            margin: 0;
+            text-align: center;
+            font-size: 2em;
+            /* color: #fff; */
+        }
+
+        form {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+            color: #fff;
+        }
+
+        textarea {
+            width: 100%;
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 1em;
+            color: #333;
+        }
+
+        .kk {
+            background: linear-gradient(90deg, #4b6cb7, #182848);
+            color: #fff;
+            padding: 12px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 25px;
+            font-size: 1.2em;
+            transition: background 0.3s ease-in-out;
+        }
+
+        .kk:hover {
+            background: linear-gradient(to right, #df00ff, #00b4db);
+        }
+    </style>
+</head>
+
+<body>
+    <br>
+
+    <header>
+
+        <h1>Send Response</h1>
+    </header>
+
+    <main>
+        <table >
+            <tr>
+                <th>Subject</th>
+                <th>From</th>
+                <th>Message</th>
+            </tr>
+            <tr>
+                <td >{{ message.subject }}</td>
+                <td>{{ message.email }}</td>
+                <td>{{ message.message }}</td>
+            </tr>
+        </table>
+
+        <form method="post">
+            {% csrf_token %}
+            <label for="reply_content">Your Reply:</label><br>
+            <textarea id="reply_content" name="reply_content" rows="8" required></textarea><br>
+            <button class="kk" type="submit">Send Reply</button>
+        </form>
+    </main>
+
+</body>
+
+</html>
+{% endblock main_content %}

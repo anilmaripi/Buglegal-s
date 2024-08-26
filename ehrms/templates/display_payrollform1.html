@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Display Payroll Data</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        img {
+            max-width: 100px;
+            max-height: 100px;
+        }
+
+        a {
+            display: inline-block;
+            margin-right: 5px;
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h2>Payroll Data</h2>
+    <table border="1">
+        <tr>
+           
+            <th>Image</th>
+           
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        {% for i in pay1 %}
+        <tr>
+           
+            <td><img src="{{ i.image1.url }}" alt="Image 1"></td>
+            <td>
+                <a href="{% url 'edit_payroll' pk=i.pk %}">Edit</a>
+            </td>
+            <td>
+                <a href="{% url 'delete_payroll1' pk=i.pk %}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Display Employee Index Data</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        img {
+            max-width: 100px;
+            max-height: 100px;
+        }
+
+        a {
+            display: inline-block;
+            margin-right: 5px;
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h2>Employee Index Data</h2>
+    <table border="1">
+        <tr>
+           
+            <th>Image</th>
+           
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        {% for i in pay1 %}
+        <tr>
+           
+            <td><img src="{{ i.image1.url }}" alt="Image 1"></td>
+            <td>
+                <a href="{% url 'edit_payroll' pk=i.pk %}">Edit</a>
+            </td>
+            <td>
+                <a href="{% url 'delete_payroll1' pk=i.pk %}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

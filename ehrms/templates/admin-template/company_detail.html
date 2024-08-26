@@ -1,0 +1,177 @@
+{% extends 'admin-template/base_template.html' %}
+{% block main_content %}
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+
+<style>
+    /* body{
+        
+        background-color: #1E2442;
+    
+    }
+    */
+    h1,h2,h3,h4,h5,h6{
+        color:white;
+        margin-top: 4px;
+      
+        font-weight: 700;
+    }
+    
+
+a{
+  color:skyblue;
+}
+    
+</style>
+<style>
+
+  #yourTableID {
+          font-family: arial, sans-serif;
+          border-collapse: collapse;
+          width: 100%;
+          }
+  
+          /* Apply styles to table cells */
+          #yourTableID td, #yourTableID th {
+          border-color: #f6f7f4;
+          text-align: left;
+          padding: 8px;
+          color: black;
+          }
+  
+          /* Apply alternating row colors */
+          #yourTableID tbody tr:nth-child(even) {
+          background-color: rgb(239, 239, 249);
+          }
+  
+          #yourTableID tbody tr:nth-child(odd) {
+          background-color: rgb(238, 242, 244);
+          }
+  
+  </style>
+  
+
+
+      
+   
+</head>
+
+    <body style=" color: white;">
+      <div id="message">
+        {% if messages %}
+        <div class="alert alert-success">
+        <ul>
+        {% for message in messages %}
+        <li>{{message}}</li>
+        {% endfor %}
+        </ul>
+        </div>
+        {% endif %}
+        </div>
+        
+        <script>
+        $("#message").show();
+        setTimeout(function(){
+        $("#message").hide();
+        },3000) 
+        </script>
+
+                <form method="post" style=" width:80%; margin: auto;">
+                
+                      <h2>Company Details</h2><br>
+                    
+                      <a  style="float:right;font-size: 15px; text-decoration:none; color:white; margin-top: 4px;"  href="/company_details_update1/"  >Edit&nbsp;&nbsp;</a>
+                      <!-- <h4 style="background: linear-gradient(#648add,rgb(236, 198, 216));color: black;" >Name & Registred </h4> -->
+                      <h4 style="background: linear-gradient(#000000,#000000);color: white;" >&nbsp;Name & Registered Address</h4>
+
+                      <table id="yourTableID">
+                        <tr>
+                          <th>Name & Registered Address </th>
+ 
+                          <td style="padding-left: 10px;">{{a.companyid.organizationname}} & {{a.address}}<br>{{n.State}},<br> {{a.registeraddress}}<br>{{n.pincode}}</td>
+                        </tr>
+                        
+                        <tr>
+                          <th >Logo</th>
+                          <td>
+                           
+                           
+                            <a  style="float:right;font-size: 15px; text-decoration:none; color: black;margin-top: 9px;"  href="/compney_logos/">Edit&nbsp;</a>
+                          </td>
+                        </tr>
+                        
+                      </table>
+                      
+                      <br><br>
+
+                      <a  style="float:right;font-size: 15px; text-decoration:none;color: white;margin-top: 9px;"  href="/company_update1/">Edit&nbsp;&nbsp;</a>
+                      <h4  style="background: linear-gradient(#000000,#000000);color: white;">TAX SETUP</h4>
+                      <div class="table-responsive">
+                      <table id="yourTableID">
+                        <tr><th>PAN</th><td style="padding-left: 150px;">{{n.companypan}}</td></tr>
+                        <tr><th>TAN</th><td style="padding-left: 150px;">{{post1.verify_tan}}</td></tr>
+                        <tr><th>GSTIN</th><td style="padding-left:150px;">{{n.companyGSTIN}}</td></tr>
+                      </table></div><br><br>
+                  
+                      
+                      <!-- <a  style="float:right;font-size: 15px; text-decoration:none;"  href="/company_edit2/">Edit</a> -->
+                      
+                      <!-- <h6>KYC</h6>
+                      <table id="yourTableID">
+                        <tr><th>KYCSTATUS</th><td style="text-align: right;">{{company.KYCSTATUS}}</td></tr>
+                      </table><br><br>
+                       -->
+                      <!-- <a  style="float:right;font-size: 15px; text-decoration:none;color:black;margin-top: 9px;"  href="/update_data_view">Edit</a>
+                      <h4  style="background: linear-gradient(#5785e9,rgb(236, 198, 216));color: black;">PROVIDENT FUND/ESIC/PROFESSIONAL TAX/LWF</h4>
+                      <table id="yourTableID" >
+                        {% for i in k2 %}
+                            <tr>
+                              <th>PF STATUS</th><td style="text-align: right;">{{i.pf_status}}</td>
+                            </tr>
+                        {% endfor %}
+                        {% for i in k3 %}
+                        <tr><th>ESIC STATUS</th><td style="text-align: right;">{{i.esi_status}}</td></tr>
+                        {% endfor %}
+                        {% for i in k1 %}
+                        <tr><th>PT STATUS</th><td style="text-align: right;">{{i.professional_tax}}</td></tr>
+                        {% endfor %}  
+                      </table>
+                      <br>
+                      <br>
+                      
+                      <a  style="float:right;font-size: 15px; text-decoration:none;color: black;margin-top: 9px;"  href="/company_update4/">Edit</a>
+                      <h4  style="background: linear-gradient(#5785e9,rgb(236, 198, 216));color: black;">EXTERNAL CREDENTIALS</h4>
+                      
+                    <table id="yourTableID">
+                      {% for i in k %}
+
+                        <tr><th>INCOMETAX PORTAL</th><td style="text-align: right;">{% if i.userid and i.password %}Set{% else %}Not Set{% endif %}</td></tr>
+                        <tr><th>TRACES</th><td style="text-align: right;">{% if i.username and i.password1 %}Set{% else %}Not Set{% endif %}</td></tr>
+                        {% endfor %}  
+
+                        {% for i in k2 %}
+
+                        <tr><th>PF</th><td style="text-align: right;">{% if i.username1 and i.password2 %}Set{% else %}Not Set{% endif %}</td></tr>
+                        {% endfor %}  
+
+                        {% for i in k3 %}
+                        <tr><th>ESIC</th><td style="text-align: right;">{% if i.username2 and i.password3 %}Set{% else %}Not Set{% endif %}
+                        
+                        </td></tr>
+                        {% endfor %}  
+                        {% for i in k4 %}
+
+                        <tr><th>PT</th><td style="text-align: right;">{% if i.username3 and i.password4 %}Set{% else %}Not Set{% endif %}</td></tr>
+                        {% endfor %}  
+
+                      </table><br><br>
+             -->
+            
+            
+                  </form>
+          
+          </div>
+          
+    
+    {% endblock main_content %}                                                                                                                                                                                                                                                                                                                                                                                                                                   

@@ -1,0 +1,152 @@
+{% extends 'employ-template/base_template.html' %}
+
+{% block page_title %}
+<title>Upload Bulk data</title>
+{% endblock page_title %}
+
+{% block main_content %}
+<style>
+
+/**/
+
+.input-file { 
+  position:relative; 
+  overflow:hidden;  
+  padding:0;
+  display:block;
+  max-width:100%;
+  cursor:pointer;
+}
+
+.input-file .btn { 
+  white-space:nowrap; 
+  display:inline-block;
+  margin-right:1em;
+  vertical-align:top;
+}
+
+.input-file .material-icons {
+  float:left;
+  font-size:16px; 
+  line-height:inherit;
+  margin-right:4px;
+}
+
+.input-file ins { 
+  white-space:nowrap; 
+  display: block;
+  max-width:100%; 
+  overflow:hidden; 
+  text-overflow:ellipsis; 
+  font-size:12px;
+}
+
+.input-file:after {
+  content:""; 
+  display:block; clear:both; 
+} 
+
+.input-file input { 
+  width:0.1px; 
+  height:0.1px;
+  opacity:0;
+  overflow:hidden;
+  position:absolute; 
+  top:-100px;
+  z-index:-1; 
+}
+
+</style>
+<div class="row">
+<!-- <div class="col-lg-3"></div> -->
+<div class="col-lg-6">
+    {% if message %}
+
+<div class="alert alert-success">
+    {{ message }}
+</div>
+
+{% endif %}
+{% if error_message %}
+<div class="alert alert-danger">
+    {{ error_message }}
+</div>
+{% endif %}
+    <div style="justify-content: center;display: grid;">
+    <h2 style="color: black;">Upload Bulk Data</h2>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+    
+    
+    <label>First, download the Excel file below, fill it with data, and then re-upload the same Excel file.</label>
+                    <button id="downloadButton" type="button" class="btn btn-primary" style="width: fit-content;"> 
+                        <i class="bi bi-download"></i> 
+                        Download
+                      </button><br>
+    
+                    <script>
+                        // Function to generate and trigger the download
+                        function downloadExcel() {
+                            const headers = ['first_name',	'last_name',	'email',	'username',	'address',	'empid',	'role',	'location',	'package',	'pincode',	'contactno',	'dateofjoining',	'sex'];
+                            const data = [headers]; // Create an array of arrays, where the first array is the header row
+                    
+                            // Create a new workbook
+                            const workbook = XLSX.utils.book_new();
+                            const sheet = XLSX.utils.aoa_to_sheet(data);
+                    
+                            // Add the sheet to the workbook
+                            XLSX.utils.book_append_sheet(workbook, sheet, 'Sheet1');
+                    
+                            // Convert the workbook to a binary Excel file and trigger the download
+                            const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+                            const blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+                            saveAs(blob, '{{organization_name}}.xlsx');
+                        }
+                    
+                        // Attach a click event listener to the button
+                        document.getElementById('downloadButton').addEventListener('click', downloadExcel);
+                    </script>
+        <form method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+            {% csrf_token %}
+           
+            
+            <label class="input-file text-white">
+                <b class="btn btn-primary">
+                  <i class="material-icons">file_upload</i> Choose a File</b>
+                <input type="file" name="excel_file" id="file_Input" class="fileInput" accept=".xlsx, .xls" multiple>
+              </label>
+              <button class="btn btn-primary" type="submit">Upload Data</button>
+        
+        
+        </form>
+    </div>
+    </div>
+    <!-- <div class="col-lg-3"></div> -->
+</div>
+        <script>
+            //Optional code to show the file names
+  function validateForm(){
+    var fileInput = document.getElementById('file_Input');
+    if(fileInput.files.length === 0){
+      alert('Please Upload a File');
+      return false;
+    }
+    return true;
+  }
+
+
+
+$('.fileInput').change(function() {
+  var numfiles = $(this)[0].files.length;
+  var parent = $(this).closest('.input-file');
+  parent.find('ins').remove();
+  for (i = 0; i < numfiles; i++) { 
+    parent.append('<ins>' + $(this)[0].files[i].name + '</ins>')
+  }
+});
+
+
+        </script>
+        {% endblock main_content %}

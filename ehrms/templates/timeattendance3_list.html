@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TimeAttendance3</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        h2 {
+            color: #007bff;
+            text-align: center;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tbody tr:hover {
+            background-color: #f9f9f9;
+        }
+
+        img {
+            max-width: 100px;
+            max-height: 100px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        td:last-child a {
+            text-decoration: none;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>TimeAttendance3</h2>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Description1</th>
+            <th>Description2</th>
+            <th>Description3</th>
+            <th>Description4</th>
+            <th>Image</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Your Django template loop -->
+        <!-- Assuming 'projects2' is your Django context variable -->
+        {% for project in projects2 %}
+        <tr>
+            <td>{{ project.title }}</td>
+            <td>{{ project.description1 }}</td>
+            <td>{{ project.description2 }}</td>
+            <td>{{ project.description3 }}</td>
+            <td>{{ project.description4 }}</td>
+            <td><img src="{{ project.image.url }}" alt="#" style="width: 100%;"></td>
+            <td>
+                <a href="{% url 'timeattendance3_update' pk=project.pk %}">Edit</a>
+            </td>
+            <td>
+                <a href="{% url 'timeattendance3_delete' pk=project.pk %}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+</body>
+</html>

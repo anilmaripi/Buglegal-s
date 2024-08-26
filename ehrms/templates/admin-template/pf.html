@@ -1,0 +1,201 @@
+{% extends "admin-template/base_template.html" %}
+{% block main_content %}
+<style>
+  #check{
+width: 18px;
+height: 18px;
+}
+.form-check-label{
+  font-size: larger;
+}
+
+</style>
+
+<div class="container" style="width: 75%;height: auto;">
+  <div class="row justify-content-center" style="margin-top: 100px;">
+      <div class="col-lg-12 " >
+        <div class="col-lg-12" style="margin-left: 20%;">
+          <a href="/tds/">
+              <button style="background-color:#2d3354;color: white;width: 12%;border:none;font-size:x-large;">TDS</button>
+              </a>
+      
+          <a href="/pr_tax/">
+              <button style="background-color:#2d3354;color: white;;border:none;font-size: x-large;">PROFESSIONAL TAX</button>
+              </a>
+      
+          <a href="/pf/">
+            <button style="background-color:white;color: black;width: 12%;border:none;font-size: x-large;">PF</button>
+          </a>
+      
+          <a href="/esic/">
+              <button style="background-color:#2d3354;color: white;width: 14%;border:none;font-size: x-large;">ESIC</button>
+              </a>
+          </div><br>
+          
+          <div class="col-lg-12">
+          <form  method="post" style="width:100%;margin: auto;height:fit-content;" action="/pf/">{% csrf_token %}
+            <div style="background-color: #2d3354;padding:2%;color: white;text-align: justify;font-size: larger;">
+              PF is mandatory if the oraganisation size is more than 20 employees.
+            </div>
+       <br>       <br>
+
+       <div class="form-group">
+
+       <h3 style="color: white;">PF Status</h3>
+       {% for i in a1 %}
+
+       <select name="pf_status" style="background-color: #2d3354;color: white;width: 300px;border: none;font-size: larger;padding: 1%;">
+       
+        <option value="Enabled" {% if i.pf_status == "Enabled" %} selected {% endif %}>Enabled</option> 
+        <option value="Disabled"{% if i.pf_status == "Disabled" %} selected {% endif %}>Disabled</option>
+       </select>
+
+       </div>
+       <br>
+
+       <div class="form-group"  id="pf">
+
+       <h3 style="color: white;">PF Payments</h3>
+       <div style="background-color: #2d3354;padding:2%;color: white;text-align: justify;font-size: larger;">
+       Please note that the disabling the payment of PF does not disable the deduction of the same in your employee's payslips.
+       </div><br>
+      
+      <div class="form-check">
+        <label class="form-check-label" style="color:white">
+            <input type="checkbox" id="pf_payment_checkbox" name="pf_payment" {% if i.pf_payment == 'Yes' %}checked{% endif %}>
+            PF payments and filing (if applicable)
+          </label>
+      </div>
+  
+      <br>
+      <br>
+      <div id="pf_check">
+      <h3 style="color: white;">PF</h3>
+      
+      <div style="background-color: #2d3354;padding:2%;color: white;text-align: justify;font-size: larger;">
+        Your company's <a href="https://unifiedportal-epfo.epfindia.gov.in/publicPortal/no-auth/misReport/home/loadEstSearchHome">PF </a>login is required to pay provident fund dues
+       and file returns.</div>
+       <br>
+       <br>
+       <table border="2" style="border-collapse: collapse;border: none;"class="input-box">
+           <tr style="background-color: #2d3354;color: white;">
+               <th style="padding: 10px;">Username</th>
+               <th style="padding: 10px;">Password</th>
+           </tr>
+           <tr>
+            <td><input type="text" style="padding: 10px;border:none;background-color:#3a446f;color: white;" name="username1" value="{{i.username1}}" class="input-box"></td>
+            <td><input type="password" id="password" style="padding: 10px;border:none;background-color:#3a446f;color: white;" name="password2" value="{{i.password2}}" class="input-box"></td>
+        </tr>
+        
+         </table>
+         <br>
+         <br>
+         <button type="button" class="btn "onclick="togglePassword()"style="padding: 5px;background-color: rgb(107, 107, 150);color: white;font-size: larger;">Click here to Show Password</button>
+         <br>
+         <br>
+        </div>
+         <br>
+         <h3 style="color: white;">PF compliance setup</h3>
+      <br>
+      
+      <div style="background-color: #2d3354;padding:2%;color: white;text-align: justify;font-size: larger;">
+        Please choose your PF settings.</div>
+      <br>
+      <div class="form-check">
+        <label class="form-check-label" style="color:white">
+            <input type="checkbox" name="pf_setup" {% if i.pf_setup == 'Yes' %}checked{% endif %}>
+            Include employer contributon to PF in employee CTC
+          </label>
+      </div><br>
+
+      <div class="form-check">
+        <label class="form-check-label" style="color:white">
+            <input type="checkbox" name="pf_setup1" {% if i.pf_setup1 == 'Yes' %}checked{% endif %}>
+            Include PF edil + admin charges in employee Collector
+          </label>
+      </div><br>
+      <div class="form-check">
+        <label class="form-check-label" style="color:white">
+            <input type="checkbox" name="pf_setup2" {% if i.pf_setup2 == 'Yes' %}checked{% endif %}>
+            Use only basic salary for calculating PF(warning!)
+          </label>
+      </div><br>
+      <div class="form-check">
+        <label class="form-check-label" style="color:white">
+            <input type="checkbox" name="pf_setup3" {% if i.pf_setup3 == 'Yes' %}checked{% endif %}>
+            Use PF limit of Rs 15,000 while calculating contributions
+          </label>
+      </div>
+
+      {% endfor %}
+<br>
+    </div>
+    <button  style="width:auto;padding: 10px;border:none;background-color: rgb(18, 96, 252);color: rgb(247, 244, 244);font-size: larger;" >Save & Next</button>
+</form>
+
+    </div>
+  </div>
+  <script>
+    // Get the pf_payment checkbox and the pf_check div
+    const pfPaymentCheckbox = document.getElementById('pf_payment_checkbox');
+    const pfCheckDiv = document.getElementById('pf_check');
+  
+    // Function to show or hide the pf_check div based on the checkbox state
+    function togglePFCheckVisibility() {
+      if (pfPaymentCheckbox.checked) {
+        pfCheckDiv.style.display = 'block';
+      } else {
+        pfCheckDiv.style.display = 'none';
+      }
+    }
+  
+    // Add an event listener to the pf_payment checkbox to call the togglePFCheckVisibility function
+    pfPaymentCheckbox.addEventListener('change', togglePFCheckVisibility);
+  
+    // Call the function initially to set the initial visibility based on the checkbox state
+    togglePFCheckVisibility();
+  </script>
+  
+   <script>
+    // Get the dropdown menu and the PF form-group element
+const pfStatusDropdown = document.querySelector('select[name="pf_status"]');
+const pfFormGroup = document.querySelector('#pf');
+
+// Add an event listener to the dropdown menu
+pfStatusDropdown.addEventListener('change', function() {
+  // Get the selected option
+  const selectedOption = this.options[this.selectedIndex];
+
+  // Toggle the visibility of the PF form-group element based on the selected option
+  if (selectedOption.value === 'Enabled') {
+    pfFormGroup.style.display = 'block';
+  } else if (selectedOption.value === 'Disabled') {
+    pfFormGroup.style.display = 'none';
+  }
+
+});
+// Hide the PF form-group element by default
+pfFormGroup.style.display = 'none';
+// Check if the selected option is "Disabled" and hide the PF form-group element if it is
+
+if (pfStatusDropdown.value === 'Disabled') {
+  pfFormGroup.style.display = 'none';
+}else 
+{
+  pfFormGroup.style.display = 'block';
+}
+   </script>
+  <script>
+        function togglePassword() {
+          var passwordInput = document.getElementById("password");
+          if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+          } else {
+            passwordInput.type = "password";
+          }
+        }
+      </script>
+  </div>
+</div>
+
+  {% endblock main_content %}

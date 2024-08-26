@@ -1,0 +1,82 @@
+{% extends 'employ-template/base_template.html' %}
+
+{% block page_title %}
+{% endblock page_title %}
+
+{% block main_content %}
+
+<style>
+ label{
+    color:white;
+    font-size: 25px;
+}
+</style>
+
+<body>
+<form method="post" enctype="multipart/form-data" style="border: 10px solid #242b4d;padding: 30px; width: 50%;margin: auto;" action="/update_reim/{{ks.id}}">{% csrf_token %}
+  <div class="color " >
+
+   
+  <div class="form-group">
+        <label>Types of Reimbuersement *</label>
+        <br>
+        <!-- <select style="width: 100%;;height: 40px;"name="typea"required>
+               
+            {% for i in k %}
+               <option>{{i.name}}</option>
+                {% endfor %}
+            
+          </select>  -->
+            
+
+          <select class="form-control custom-select" required name="typea" value="{{k3.typea}}">
+            {% for i in k3 %}
+            {% if i.reimbursement_type != "" and i.reimbursement_type != NULL  %}
+            {% if i.select_reimbursement == "Yes" %}
+   
+              <option value="{{i.reimbursement_type}}">{{i.reimbursement_type}}</option>
+              {% endif %}
+   
+              {% endif %}
+   
+              {% endfor %}
+            
+           </select>
+
+            
+    </div>
+    <br>
+    <div class="form-group">
+        <label>Expense Date *</label>
+        <input type="date" max="9999-12-31" name="date" class="form-control" value="{{ks.date}}">
+    </div>
+    <br>
+    <div class="form-group">
+        <label>Reason </label>
+        <input type="text" class="form-control" name="detail" value="{{ks.detail}}">
+    </div>
+    <br>
+    <div class="form-group">
+        <label>Amount *</label>
+        <input type="text" class="form-control" name="amount" value="{{ks.amount}}" >
+    </div>
+    <br>
+    <div class="form-group">
+        <label>Supporting images or documents*</label>
+        <input type="file" class="form-control" name="image" value="{{ks.image}}">
+    </div>
+    <br>
+    <!-- <div class="form-group">
+        <label>status *</label>
+        <input type="text" name="reimbursement_status" class="form-control" value="{{ks.reimbursement_status}}">
+    </div> -->
+ <br>
+ <br>
+ <center>
+ <input type="submit" style="background-color:#242b4d; border-radius: 10px; height: 40px;width: 150px; font-size: x-large; color: white;">
+</center>
+ 
+</div>
+ </form>
+
+ {% endblock main_content %}

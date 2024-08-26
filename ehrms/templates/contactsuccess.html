@@ -1,0 +1,84 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You</title>
+    <link rel="stylesheet" href="{% static 'thank_you.css' %}"> </head>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 2rem; /* Use rem for scalable spacing */
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    margin-top: 5rem; /* Center vertically for better visual appeal */
+}
+
+.logo-container {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.logo {
+    width: fit-content;
+    height: 100px;
+}
+
+.thank-you-message {
+    color: #007BFF;
+    font-size: 1.5rem; /* Adjust heading size */
+    margin-bottom: 1rem;
+}
+
+.response-message {
+    font-size: 1.2rem; /* Adjust body text size */
+    margin-bottom: 2rem;
+}
+
+.action-button a {
+    text-decoration: none;
+    color: #007BFF;
+    font-weight: bold;
+    padding: 1rem 2rem;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    display: inline-block; /* Properly align button */
+}
+
+.action-button a:hover {
+    background-color: #e0e0e0;
+    text-decoration: none;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+}
+
+    </style>
+<body>
+    <div class="container">
+        <div class="logo-container">
+            <img src="{% static 'assets/images/LOGO7.png' %}" alt="Logo Image" class="logo">
+
+        </div>
+        <h2 class="thank-you-message">Thank you for your message!</h2>
+        <p class="response-message">We'll get back to you soon.</p>
+        <div class="action-button">
+            <a href="/">Return to Home</a>
+        </div>
+    </div>
+</body>
+</html>

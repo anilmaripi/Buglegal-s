@@ -1,0 +1,14 @@
+<html>
+<head>
+    <title>Delete Intro Content</title>
+</head>
+<body>
+    <h2>Confirm Deletion of Intro Content</h2>
+    <p>Are you sure you want to delete "{{ intro_content.title }}"?</p>
+    
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Delete</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,323 @@
+{% extends 'admin-template/base_template.html' %}
+
+{% block main_content %}
+<style>
+#selected-employees-list li {
+    display: inline-block;
+    margin-right: 10px; /* Optional: Add margin between list items */
+    flex: 1;
+    row-gap: 50px;
+    padding-left: 30px; /* Add left padding to each list item */
+}
+
+#selected-employees-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(530px, 1fr)); /* Adjust column width as needed */
+    gap: 15px; /* Adjust the gap as needed */
+}
+
+.grid-item {
+    border: 1px solid #ccc; /* Optional: Add a border to grid items */
+    padding: 10px; /* Optional: Add padding to grid items */
+}
+
+#selected-employees-list .grid-item:nth-child(odd) {
+    padding-left: 50px; /* Adjust the left padding as needed */
+} 
+/* Style the select box container */
+#employee-select {
+  width: 100%;
+  max-width: 1200px; /* Adjust the width as needed */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f8f8f8;
+  font-size: 16px;
+  color: #333;
+}
+
+/* Style the options within the select box */
+#employee-select option {
+  padding: 5px;
+  background-color: #fff; /* Background color for unselected options */
+  color: #333;
+}
+
+/* Style selected options */
+#employee-select option:checked {
+  background-color: #3498db; /* Background color for selected options */
+  color: #fff;
+}
+
+/* Style the hover effect for options */
+#employee-select option:hover {
+  background-color: #f0f0f0; /* Background color on hover */
+  cursor: pointer;
+}
+
+/* Remove default select box styles */
+#employee-select::-ms-expand {
+  display: none;
+}
+
+/* Style the dropdown arrow icon (if supported) */
+#employee-select::after {
+  content: '\25BC'; /* Unicode character for a downward arrow */
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+
+
+</style>
+<div class="row align-items-center d-flex  justify-content-center">
+    <div class="col-12 mb-4">
+        <div style="background-color: #242b4d;" class="card border-light shadow-sm components-section align-items-center d-flex  justify-content-center">
+            <div class="card-body align-items-center d-flex justify-content-center">
+                <div class="row mb-4">
+                    <div class="col-lg-12 col-sm-16">
+                        <div class="col-lg-12 col-sm-16">
+                            <h3 class="h3 text-center">Add Project</h3>
+                        </div>
+                    </div>
+                    <center>
+                        <lottie-player src="https://assets8.lottiefiles.com/packages/lf20_cwA7Cn.json"
+                            background="transparent" speed="1" style="width: 400px; height: 300px;" loop autoplay>
+                        </lottie-player>
+                    </center>
+                    <div class="card-body">
+                        <form action="/create-proj/" method="POST" >
+                            {% csrf_token %}
+                            <div class="mb-4">
+                                <div class="form-group">
+                                    <label class="h6" for="exampleFormControlTextarea1">Project Name:</label>
+
+                                    <select name="p_name" class="form-control">
+                                        <option disabled selected>Select Project</option>
+                                        {% for i in pname %}
+                                        <option value="{{i.project_name}}">{{i.project_name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                     
+                                </div>
+                                <div class="form-group">
+                                    <label class="h6" for="exampleFormControlTextarea1">Project Description:</label>
+ 
+                                    <textarea name="p_desc" class="form-control" placeholder="Project Description"
+                                        rows="6" required></textarea>
+                                </div>
+                                   <!-- <div class="form-group">
+                                    <label class="h6" for="exampleFormControlTextarea1">Project Manager:</label>
+
+                                    <input type="text" name="manager_name" class="form-control" placeholder="Name of the Manager"
+                                        required>
+                                </div> -->
+
+                                <!-- <div class="form-group">
+                                    <label class="h6 " for="exampleFormControlTextarea1">Project Team Lead:</label>
+                                    
+                                    <select name="team_lead" id="" class="form-control">
+                                        <option value="">Select Team Leader</option>
+                                        {% for teamlead in team_members %}
+                                        <option value="{{teamlead.id}}" >{{teamlead.first_name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div> -->
+                                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+                                <div class="form-group">
+                                    <label class="h6" for="exampleFormControlTextarea1">Project Team Lead:</label>
+                                    <select name="team_lead" id="team_lead_select" class="form-control">
+                                        <option value="">Select Team Leader</option>
+                                        {% for teamlead in team_members %}
+                                            {% if teamlead.id != selected_team_lead_id %}
+                                                <option value="{{teamlead.id}}">{{teamlead.first_name}} {{teamlead.last_name}}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                
+                                <!-- <script>
+                                    $(document).ready(function () {
+                                        $('#team_lead_select').change(function () {
+                                            var selectedValue = $(this).val();
+                                            if (selectedValue !== '') {
+                                                $('#team_lead_select option[value="' + selectedValue + '"]').hide();
+                                            }
+                                        });
+                                    });
+                                </script> -->
+                                
+                                
+                          
+<!-- 
+                                <h1>Select Employees:</h1>
+                                <ul>
+                                    {% for team in team_members %}
+                                        <li>
+                                            <label>
+                                                <input type="checkbox" name="selected_employees[]" value="{{ team.id }}">
+                                                {{ team.first_name }}
+                                            </label>
+                                        </li>
+                                    {% endfor %}
+                                </ul> -->
+                               
+
+                                <h2>Select Team Members</h2>
+                                <select id="employee-select" name="selected_employees[]" class="custom-select" multiple>
+                                    {% for team in team_members %}
+                                    <option value="{{ team.id }}" data-emp-id="{{ team.empid }}" data-role="{{ team.role }}">
+                                        {{ team.first_name }}  {{ team.last_name }}  
+                                    </option>
+                                    {% endfor %}
+                                </select>
+                                <div id="hidden-input-container"></div>
+
+
+                                
+
+                             
+                            <h2>Selected Team Members </h2>
+<div class="card alert-purple" style="height: 200px; overflow-y: scroll;">
+    <ul id="selected-employees-list" style="list-style-type: none; padding: 0;color:black">
+        <!-- Selected employees will be listed here as list items -->
+    </ul>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const employeeSelect = document.getElementById("employee-select");
+        const selectedEmployees = [];
+        const selectedEmployeesList = document.getElementById("selected-employees-list");
+        const hiddenInputContainer = document.getElementById("hidden-input-container");
+
+        // Function to remove an employee from the selected list
+        function removeEmployee(employeeId) {
+            const listItem = document.querySelector(`li[data-employee-id="${employeeId}"]`);
+            if (listItem) {
+                listItem.remove();
+            }
+        }
+
+        // Function to move an employee back to the original list
+        function moveEmployeeBack(employeeId) {
+            const option = document.querySelector(`#employee-select option[value="${employeeId}"]`);
+            if (option) {
+                option.style.display = ""; // Show the option
+            }
+            selectedEmployees.splice(selectedEmployees.indexOf(employeeId), 1); // Remove from selectedEmployees array
+        }
+
+        employeeSelect.addEventListener("change", function () {
+            const selectedOptions = Array.from(this.selectedOptions);
+
+            selectedOptions.forEach(function (option) {
+                const employeeId = option.value;
+                const employeeName = option.textContent;
+                const employeeEmpId = option.getAttribute("data-emp-id");
+                const employeeRole = option.getAttribute("data-role");
+
+                const listItem = document.createElement("li");
+                listItem.dataset.employeeId = employeeId;
+                listItem.innerHTML = `- Employee ID: ${employeeEmpId} - Name: ${employeeName} - Role: ${employeeRole} <button class="remove-item btn btn-danger">Remove</button>`;
+
+                listItem.querySelector(".remove-item").addEventListener("click", function () {
+                    removeEmployee(employeeId);
+                    option.selected = false; // Unselect the option in the <select>
+                    moveEmployeeBack(employeeId); // Move employee back to the original list
+                });
+
+                selectedEmployeesList.append(listItem);
+                option.style.display = "none";
+                // Append the selected employee ID to the hidden input field for form submission
+                var hiddenInput = `<input type="hidden" name="selected_employees[]" value="${employeeId}">`;
+                hiddenInputContainer.innerHTML += hiddenInput;
+                selectedEmployees.push(employeeId);
+            });
+        });
+
+        // Event delegation for the "Remove" button
+        selectedEmployeesList.addEventListener("click", function (event) {
+            if (event.target.classList.contains("remove-item")) {
+                const listItem = event.target.parentElement;
+                const employeeId = listItem.dataset.employeeId;
+                removeEmployee(employeeId);
+                moveEmployeeBack(employeeId);
+                listItem.remove();
+            }
+        });
+    });
+</script>
+
+
+
+ 
+                     <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const teamLeadSelect = document.getElementById("team_lead_select");
+        const employeeSelect = document.getElementById("employee-select");
+
+        // Function to hide the selected team lead in the team_members dropdown
+        function hideSelectedTeamLead() {
+            const selectedTeamLeadId = teamLeadSelect.value;
+
+            Array.from(employeeSelect.options).forEach(function (option) {
+                if (option.value === selectedTeamLeadId) {
+                    option.style.display = "none";
+                } else {
+                    option.style.display = "";
+                }
+            });
+        }
+
+        // Initial call to hide/show the selected team lead
+        hideSelectedTeamLead();
+
+        // Event listener for team lead selection change
+        teamLeadSelect.addEventListener("change", hideSelectedTeamLead);
+    });
+</script>
+
+<!-- <div class="form-group">
+    <label for="board-name">project status</label>
+    <select name="status" class="custom-select my-1 mr-sm-2" placeholder="status of the project" required>
+        <option></option>
+        <option value="completed">completed</option>
+        <option value="ongoing">ongoing</option>
+        <option value="featured">featured</option>  
+    </select>
+</div> -->
+
+
+  <div class="form-group">
+    <label for="task-name">Project Deadline Date</label>
+    <input type="date"    name="project_deadline_date"  class="form-control"
+        id="date"  required>
+</div>
+<script>
+    // Get the current date in the format "YYYY-MM-DD"
+    var today = new Date().toISOString().split('T')[0];
+
+    // Set the 'min' attribute of the date input to restrict dates before today
+    document.getElementById("date").min = today;
+</script>
+
+                             
+                                <input type="submit" class="btn btn-primary" value="Add">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Calendly badge widget begin -->
+<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+<script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+<script type="text/javascript">window.onload = function() { Calendly.initBadgeWidget({ url: 'https://calendly.com/ssvdpavankumar16/30min', text: 'Schedule time with me', color: '#0069ff', textColor: '#ffffff', branding: true }); }</script>
+<!-- Calendly badge widget end -->
+{% endblock main_content %}

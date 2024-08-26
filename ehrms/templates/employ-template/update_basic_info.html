@@ -1,0 +1,36 @@
+
+{% extends 'employ-template/base_template.html' %}
+        
+        
+        
+        
+{% block main_content %}
+
+
+<style></style>
+
+<div style="justify-content: center;">
+    <h1>Update</h1>
+    <form method="post" enctype="multipart/form-data" action="/update_basic_info/{{k.id}}" style="border: 8px solid black; width: 70%; height: auto; margin: auto; padding: 10px; border-radius: 15px; border-style: outset;">{% csrf_token %}
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-6">
+                    <label>First name</label>
+                    <input type="text" name="first_name" class="form-control" value="{{k.first_name}}"><br>
+                </div>
+                <div class="col-md-6">
+                    <label>Last Name</label>
+                    <input type="text" name="last_name" class="form-control" value="{{k.last_name}}"><br>
+                </div>
+                <div class="col-md-6">
+                    <label>email</label>
+                    <input type="text" name="email" class="form-control" value="{{k.email}}"><br>
+                </div>
+                
+                
+            </div>
+            
+        <center><input type="submit" class="btn btn-success btn-lg"></center>
+    </form>
+</div>
+{% endblock main_content %}

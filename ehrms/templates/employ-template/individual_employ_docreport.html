@@ -1,0 +1,281 @@
+{% extends 'employ-template/base_template.html' %}{% block main_content %}
+
+
+    <title>Document Report</title>
+
+    <style>
+     
+        /* th, td{
+            padding-left: 80px;
+        }
+        th, select{
+            background-color: #3c436d;
+            color: whitesmoke;
+            border: none;
+        }
+        td{
+            background-color: #242b4d;
+        }
+        h6{
+            border: 5px solid red;
+            border-bottom: none;
+            border-top: none;
+            border-right: none;
+        } */
+        .modal-content{
+            background-color: #1e2442;
+        }
+        .btn-close {
+            background-color: white;
+            color: white;
+        }
+    </style>
+    <style>
+ 
+label{
+    color: black;
+    font-size: 25px;
+}
+
+#btn{
+    background-color: rgb(16, 5, 57);
+    color: rgba(255, 255, 255, 0.815);
+    width: 75%;
+  }
+  button{
+    background-color: rgb(8, 8, 77);
+
+  }
+  #but{
+    background-color: rgb(8, 8, 77);
+    color: rgba(255, 255, 255, 0.815);
+
+  }
+  #sel{
+    background-color: rgb(8, 8, 77);
+    color: rgba(255, 255, 255, 0.815);
+  }
+  .wrapper-dropdown {
+  position: relative;
+  display: inline-block;
+  min-width: 150.5px;
+  width: 20%;
+  max-width:100px;
+  min-height: 50px;
+  border-radius: 0px 0px 15px 15px;
+  background: #1c2028;
+  text-align: left;
+  
+  cursor: pointer; 
+  margin-bottom: 20px;
+  font-family: Arial;
+}
+.button {
+  display: inline-block;
+  padding: 15px 25px;
+  font-size: 24px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+}
+
+.button:hover {background-color: #3e8e41}
+
+.button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+
+
+tr:nth-child(even) {background-color: #e6e6e6}
+tr:nth-child(odd) {background-color: #ccc}
+
+
+.pagination a, .pagination .current-page {
+    display: inline-block;
+    padding: 8px 12px;
+    text-decoration: none;
+    margin: 0 4px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    text-align: center;
+}
+.act{
+  /* background-color: orange; */
+  color: white;
+  height:43px;
+  width:43px;
+  border-radius: 20px;
+
+}
+
+
+      </style>
+
+
+    <!-- The Modal -->
+    <div class="modal" id="myModal" >
+        <div class="modal-dialog bg-white">
+            <div class="modal-content">
+                <div class="modal-body" >
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    <br>
+                    <br>
+                    <h3 style="color: white;">Download Employee Document</h3>
+                    <br>
+                    <h5 style="color: white;">Employee Status</h5>
+                    <select id="reportSelect">
+                        <!-- <option>All Employees</option> -->
+                        <option>Active Employees</option>
+                        <option>Dismissed Employees</option>
+                        <option>All Employees</option>
+                        {% for report in k %}
+                            <!-- <option value="{{ report.email }}">{{ report.name }}</option> -->
+                        {% endfor %}
+                    </select>
+                    <h6 id="selectedreportMessage"></h6>
+                    <div style="display: flex; align-items: center; padding: 5px;">
+                        <a href="mailto:your-email@example.com" style="display: flex; align-items: center; padding: 5px;">
+                            <label for="email" class="fa fa-envelope" style="background-color: blue; color: white; padding: 5px;">Email</label>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+       <div class="col-md-10"><h3 class="text-dark">Report | Document Report</h3></div>
+
+    <div class="col-md-2">
+        <button type="button" style="width: 200px; height: 60px; background-color: #2d3354; color: whitesmoke; margin-left: 550px;" data-bs-toggle="modal" data-bs-target="#myModal">
+            <i class="material-icons">download</i>Export
+        </button>  
+    </div>
+    </div>
+
+
+
+
+   
+    <br>
+    <center>
+        <div class="table-responsive">
+        <table class="table">
+            <tr style="background-color: black;">
+                <th >Employee Name</th>
+                
+                <th>Date</th>
+               
+                <th>Type</th>
+               
+                <th>Description</th>
+                
+                <th>Attachments</th>
+                
+                <!-- <th>Delete</th> -->
+              </tr>
+              {% for i in doc %}  
+             
+              <tr style="font-size:larger; color:#000">
+          
+                <td>{{i.employ_id.first_name}}{{i.employ_id.last_name}}</td>
+                
+                <td>{{i.date}}</td>
+              
+                <td>{{i.documenttype1}}</td>
+               
+                <td>{{i.description}}</td>
+                
+                <td>
+                    <a href="/media/{{i.imagefile}}" height="100px" width="150px" class="notification" style="color: #000;">
+                    <span><i class="fa fa-paperclip" aria-hidden="true"></i></span>
+                 
+                   </a>
+                </td>
+                <!-- <td>
+                    <a href="/employ_delete/{{i.id}}" style="color: #FFF;"><i class="fa fa-trash" aria-hidden="true"></i</a>
+                 </td> -->
+
+
+                
+               
+              </tr>
+              {% endfor %}
+        </table>
+    </div>
+        <!-- <div class="pagination" style=" color: white;">
+            <span class="step-links">
+                {% if doc.has_previous %}
+                    <a href="?page=1" style="border: 1px solid #ccc; border-radius: 8px; padding: 5px; margin: 2px;">First</a>
+                    <a href="?page={{ doc.previous_page_number }}" class="prev" style="border: 1px solid #ccc; border-radius: 8px; padding: 10px; margin: 2px;">&lt;&lt;</a>
+                {% endif %}
+    
+                {% for page in doc.paginator.page_range %}
+                    <a href="?page={{ page }}" {% if page == doc.number %}class="active"{% endif %}
+                        style="border: 2px solid #ccc; border-radius: 8px; padding: 10px; margin: 2px;">
+                        {{ page }}
+                    </a>
+                {% endfor %}
+    
+                {% if doc.has_next %}
+                    {% if doc.number != doc.paginator.num_pages %}
+                        <a href="?page={{ doc.paginator.num_pages }}" style="border: 2px solid #ccc; border-radius: 8px; padding: 10px; margin: 2px;">&gt;&gt;</a>
+                    {% endif %}
+                {% endif %}
+            </span>
+        </div> -->
+
+        <div class="pagination" style="color:white; margin:20px auto;">
+            <span class="step-links">
+                {% if doc.has_previous %}
+                    <a  href="?page=1">&laquo;<<</a>
+                    <a   href="?page={{ doc.previous_page_number }}" class="prev"> < </a>
+                {% endif %}
+        
+    
+                {% for i in doc.paginator.page_range %}
+                {% if doc.number == i %}
+                <button class="active act btn bg-info"><span>{{ i }} <span class="sr-only">(current)</span></span></button>
+                {% elif i > doc.number|add:'-3' and i < doc.number|add:'3' %}
+                    <a  href="?page={{ i }}">{{ i }}</a>
+                {% endif %}
+                {% endfor %}
+    
+               
+    
+                {% if doc.has_next %}
+                    {% if doc.number != doc.paginator.num_pages %}
+                    {% endif %}
+                    <a   href="?page={{ doc.next_page_number }}" class="prev">> </a>
+    
+                    <a  href="?page={{ doc.paginator.num_pages }}">>>&raquo; </a>
+                {% endif %}
+            </span>
+        </div>   
+
+    </center>
+
+    <script>
+        var select = document.getElementById("reportSelect");
+        select.addEventListener("change", function() {
+          var selectedEmail = this.value;
+          var selectedreportMessage = document.getElementById("selectedreportMessage");
+
+          if (selectedEmail !== "") {
+            selectedreportMessage.innerHTML = "File download can take up to 20 minutes. We will email the files to you at " +  + ".";
+          } else {
+            selectedreportMessage.innerHTML = "";
+          }
+        });
+    </script>
+
+{% endblock main_content %}

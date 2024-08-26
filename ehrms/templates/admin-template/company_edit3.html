@@ -1,0 +1,94 @@
+<html>
+    <head>
+        <title></title>
+        <style>
+             form{
+                background-color:#1E2442;
+                color: white;
+                margin-top: 40px;
+                width: 100%;
+                height: auto;
+            }
+            select{
+                color:aqua;
+                
+            }
+        </style>
+    </head>
+    <body>
+         <!-- <form method="post" enctype="multipart/form-data" action="/update_pt/{{pt.id}}" >{% csrf_token %}
+            <div class="form-group">
+               
+            <select name="professional_tax" >
+            
+                <option>{{pt.professional_tax}}</option>
+                <option>Enabled</option>
+                <option>Disabled</option>
+            </select>
+        </div><br><br>
+        </form>
+        <form method="post" enctype="multipart/form-data" action="/update_pf/{{pf.id}}" >
+        <div class="form-group">
+                <select  name="pf_status">
+                
+                    <option name="pf_status"value="{{pf.pf_status}}">{{pf.pf_status}}</option>
+                    <option>Enabled</option>
+                    <option>Disabled</option>
+                </select>
+                
+            </div><br><br>
+        </form>
+        <form method="post" enctype="multipart/form-data" action="/update_esic/{{esic.id}}" ></form>
+        <div class="form-group"></div>
+                <select name="esi_status"value="{{esic.esi_status}}">{{esic.esi_status}}
+                    
+                    <option>please select</option>
+                    <option>Enabled</option>
+                    <option>Disabled</option>
+                </select>
+            </div>
+        </form>
+                <div class="form-group">
+
+            </div><br><br>
+                <label>LWFSTATUS</label>
+                <input type="text" name="LWFSTATUS"  value="{{post3.LWFSTATUS}}"><br>
+               
+            </div>
+            <input type="submit" class="btn btn-success btn-lg">
+        </form>  -->
+
+
+        {% for pt in ptax %}
+    <p>{{ pt.professional_tax }}</p>
+    <form action="{% url 'update_pt' pt.pk %}" method="POST">
+        {% csrf_token %}
+        <input type="text" name="professional_tax" value="{{ pt.professional_tax }}">
+        <button type="submit">Update</button>
+    </form>
+   
+{% endfor %}
+
+
+{% for pf in pfund %}
+<p>{{ pf.pf_status }}</p>
+<form action="{% url 'update_pf' pf.pk %}" method="POST">
+    {% csrf_token %}
+    <input type="text" name="pf_status" value="{{ pt.pf_status }}">
+    <button type="submit">Update</button>
+</form>
+   
+{% endfor %}
+
+{% for esic in esicdata %}
+<p>{{ esic.esi_status }}</p>
+<form action="{% url 'update_esic' esic.pk %}" method="POST">
+    {% csrf_token %}
+    <input type="text" name="esi_status" value="{{ esic.esi_status }}">
+    <button type="submit">Update</button>
+</form>
+
+{% endfor %}
+
+    </body>            
+</html>

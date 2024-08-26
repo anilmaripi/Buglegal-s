@@ -1,0 +1,218 @@
+{% extends 'employ-template/base_template.html' %}
+{%load mathfilters%} {%load humanize%}
+{% block main_content %}
+<title>Request for gatepss</title>
+
+<style>
+
+    
+.form-hr{
+
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+border: 20px; 
+padding: 30px;
+background-color: #d1d7e0;
+border-radius: 10px;
+color: black;
+
+}
+.col-hr button{
+border-radius: 10px;
+padding:10px;
+background-color: #9878b7;
+box-shadow: 3px 0 0 3px #9878b7;
+border: none;
+color:white;
+
+}
+.col-hr{
+margin-top: 30px;
+}
+.col-hr button:hover{
+background-color: #b69ccf;
+box-shadow: 3px 0 0 3px #b69ccf;
+color:white;
+
+}
+.hed-hr{
+color:black;
+font-size: 36px;
+}
+  .col-manager button{
+    border-radius: 10px;
+    padding:10px;
+    background-color: #ffb833;
+    box-shadow: 3px 0 0 3px #cc8500;
+    border: none;
+    color:#005f66;
+
+   }
+   .col-manager{
+    margin-top: 30px;
+   }
+   .col-manager button:hover{
+    background-color: #a8cde6;
+    box-shadow: 3px 0 0 3px #000;
+    color:black;
+
+   }
+   .hed-manager{
+    color:blue;
+    font-size: 36px;
+   }
+   form{
+    width: 95%;
+   }
+   .form-manager{
+    box-shadow: 2px 3px 10px #999;
+    margin-left: 20px;
+    padding: 30px;
+    border-radius:10px;
+   }
+   label{
+    color:#666
+   }
+   .hed-tm{
+    color:#ff7733;
+    font-size: 36px;
+   }
+   .hed-tl{
+    color:#ff7733;
+    font-size: 36px;
+   }
+
+
+   .form-tm{
+    box-shadow: 2px 3px 10px #999;
+    margin-left: 20px;
+    padding: 30px;
+    border-radius:10px;
+   }
+   .col-tm button{
+    border-radius: 10px;
+    padding:10px;
+    background-color: #cccccc;
+    box-shadow: 3px 0 0 3px #bfbfbf;
+    border: none;
+    color :#000
+;
+
+   }
+   .col-tm{
+    margin-top: 30px;
+   }
+   .col-tm button:hover{
+    background-color:   #4d67ab;
+    box-shadow: 3px 0 0 3px #3f558d;
+    color: #fff;
+}
+
+</style>
+
+
+<div id="message">
+  {% if messages %}
+  {% for message in messages %}
+  {% if message.tags == 'error' %}
+  <div class="alert alert-danger" style="margin-top:20px;">{{message}}</div>
+  {% endif %}
+  {% if message.tags == 'success' %}
+  <div class="alert alert-success" style="margin-top:20px; background-color: green; color:whitesmoke;">{{message}}</div>
+  {% endif %}
+  {% endfor %}
+  {% endif %}
+</div>
+<script>
+  $("#message").show();
+  setTimeout(function(){
+      $("#message").hide();
+  },2000)
+  
+
+  
+</script>
+
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">
+      <center>
+
+        <h3 class="{% if mem_role == 'HR' and mem_hroptions == 1 %}hed-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}hed-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}hed-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}hed-tm {% endif %}">Request For gatepsss</h3>
+
+      </center>
+      <br>
+      <form action="{% url 'apply_gatepss' %}" method="post" style="float: left;" enctype="multipart/form-data" class="{% if mem_role == 'HR' and mem_hroptions == 1 %}form-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}form-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}form-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}form-tm {% endif %}">
+        {% csrf_token %}
+            <div class="form-group">
+                <label>Request Reason *</label>
+                <textarea style="background-color: #fff;color: #000;" class="form-control" rows="6"
+                    name="reason" required></textarea>
+                    <br>
+                    <label for="starttime">From Time :</label>
+                    <input type="time" id="starttime" name="starttime" class="form-control">
+                    <br>
+                    <label for="endtime">To time :</label>
+                    <input type="time" id="endtime" name="endtime" class="form-control">
+                    <span id="timeError" style="color: red;"></span>
+            </div>
+            <div class="card-footer">
+            <input type="submit" class="btn btn-primary btn-block" id="fetch_student" value="Request Gatepass">
+            </div>
+      </form>
+    </div>
+    <div class="col-md-4">
+        <a href="{% url 'gatepass_approve_data' %}">
+            <button >
+              <h5><b>View Past GatePass Requests</b></h5>
+              <h6>Review the progress of all your previous GatePass requests... </h6>
+            </button>
+          </a>
+    </div>
+
+<script>
+    const startTimeInput = document.getElementById('starttime');
+    const endTimeInput = document.getElementById('endtime');
+    const errorSpan = document.getElementById('timeError');
+    const currentTime = new Date();
+    function isValidTimeInput(inputTime) {
+        const inputTimeDate = new Date();
+        const [hours, minutes] = inputTime.split(':');
+        inputTimeDate.setHours(parseInt(hours));
+        inputTimeDate.setMinutes(parseInt(minutes));
+        return inputTimeDate > currentTime;
+    }
+
+    startTimeInput.addEventListener('input', function() {
+        const startTime = startTimeInput.value;
+        errorSpan.textContent = '';
+        if (!isValidTimeInput(startTime)) {
+            startTimeInput.value = ''; 
+        }
+
+        if (endTimeInput.value && endTimeInput.value <= startTime) {
+            endTimeInput.value = '';
+        }
+    });
+
+    endTimeInput.addEventListener('input', function() {
+
+        const endTime = endTimeInput.value;
+
+        errorSpan.textContent = '';
+
+        if (!isValidTimeInput(endTime)) {
+            endTimeInput.value = ''; 
+        }
+
+        if (startTimeInput.value && endTime <= startTimeInput.value) {
+            startTimeInput.value = ''; 
+        }
+    });
+</script>
+
+
+{% endblock main_content %}
+
+

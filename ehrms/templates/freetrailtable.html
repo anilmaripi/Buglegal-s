@@ -1,0 +1,137 @@
+{% extends 'admin-template/adminAdashboard.html' %}
+{% block main_content %}
+<html>
+    <head>
+        
+            <title>        
+                Free_trail_table
+            </title>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-...." crossorigin="anonymous" />
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+            <style>
+                body {
+                    font-family: "Roboto", helvetica, arial, sans-serif;
+                    font-size: 16px;
+                    font-weight: 400;
+                    text-rendering: optimizeLegibility;
+                    background-color: #f4f4f4;
+                    color: #333;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 100vh;
+                    margin: 0;
+                }
+        
+                .container {
+                    background-color: #ffffff;
+                    border-radius: 10px;
+                    padding: 20px;
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                    max-width: 90%;
+                    width: 1000px;
+                    margin: 20px auto;
+                }
+        
+                h2 {
+                    color: #2E294E;
+                    text-align: center;
+                    margin-bottom: 20px;
+                    font-size: 24px;
+                }
+        
+                table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    margin-bottom: 20px;
+                    font-size: 18px;
+                }
+        
+                th, td {
+                    padding: 12px 15px;
+                    text-align: center;
+                    font-size: 16px;
+                    border-bottom: 1px solid #ddd;
+                }
+        
+                th {
+                    background-color: #64113F;
+                    color: white;
+                }
+        
+                td {
+                    background-color: #ffffff;
+                    color: #333;
+                }
+        
+                tr:nth-child(even) td {
+                    background-color: #f9f9f9;
+                }
+        
+                tr:hover td {
+                    background-color: #f1f1f1;
+                }
+        
+                .btn-edit {
+                    cursor: pointer;
+                    font-size: 18px;
+                    color: grey;
+                }
+        
+                .btn-container {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+        
+                td.edit {
+                    width: 50px;
+                }
+            </style> 
+        </head>
+        <body><br><br>
+            <!-- <div class="container-fluid w-100" style="background-color:#c9c8c6;border-radius: 10px; "><br> -->
+            <div class="container-fluid w-100" style="border-radius: 10px; "><br>
+                <h2>FreeTrailDays </h2>
+            <table class="gfg">
+                <thead>
+                    <tr>
+                        <b>
+                            <tr>
+                                <th>Free Trail Days</th>
+                                <th>Monthly Days</th>
+                                <th>Yearly Days</th>
+                                <th>Edit</th>
+                            </tr>
+                        </b>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in k %}
+                    <tr>
+                        <td>{{i.freedays}}</td>
+                        <td>{{i.monthly}}</td>
+                        <td>{{i.yearly}}</td>
+                        <td>
+                      <a href="{% url 'freetrailupdate' id=i.id %}"><i class="fas fa-edit" style="color:grey; font-size: 20px;"></i></a>
+            
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            </div>
+  
+        </body>
+    </html> 
+    
+    <body>
+        
+
+    
+</html>
+{% endblock main_content %}
+

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insert Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        form {
+            display: grid;
+            gap: 10px;
+        }
+        label {
+            font-weight: bold;
+            color: #555;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Insert Form</h2>
+        <form method="post" action="">
+            {% csrf_token %}
+            
+            <!-- Main Title -->
+            <label>Main Title:</label>
+            <input type="text" name="main_title" maxlength="1000">
+
+            <!-- Title -->
+            <label>Title:</label>
+            <input type="text" name="title" maxlength="1000">
+
+            <!-- Subhead -->
+            <label>Subhead:</label>
+            <input type="text" name="subhead" maxlength="1000">
+
+            <!-- Points -->
+            <label>Point 1:</label>
+            <input type="text" name="point1" maxlength="1000">
+            
+            <label>Point 2:</label>
+            <input type="text" name="point2" maxlength="1000">
+
+            <!-- Description -->
+            <label>Description 1:</label>
+            <input type="text" name="des1" maxlength="1000">
+
+            <label>Description 2:</label>
+            <input type="text" name="des2" maxlength="1000">
+
+            <!-- Additional Points -->
+            <label>Point 3:</label>
+            <input type="text" name="point3" maxlength="1000">
+
+            <label>Point 4:</label>
+            <input type="text" name="point4" maxlength="1000">
+
+            <label>Point 5:</label>
+            <input type="text" name="point5" maxlength="1000">
+
+            <label>Point 6:</label>
+            <input type="text" name="point6" maxlength="1000">
+
+            <label>Point 7:</label>
+            <input type="text" name="point7" maxlength="1000">
+
+            <!-- Submit Button -->
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,111 @@
+{% extends 'admin-template/base_template.html' %}{% block main_content %}
+<html>
+    <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    </head>
+    <body>
+        <form method="post" enctype="multipart/form-data" action="/update_admin_home_loan/{{k.id}}" style=" width: 80%; height: auto; margin: auto; padding: 10px; border-radius: 15px; ">{% csrf_token %}
+            <h3 style="color: white;">Deductions Under House Property</h3><br>
+            <div style="color: #c2c4c7;font-size: 18px;">Home Owners can claim a deduction of up to <i class="fa-sharp fa-solid fa-indian-rupee-sign" style="font-size: 14px;"></i> 2,00,000 on their home loan interest under Section 24. For more information, please <a href="">click hear.</a></span>
+            <div style="background-color: #2f365b;">
+            <table style="width: 100%;height: 20%;color: white;">
+                <thead style="margin-left: 2%;">
+                <tr>
+                    <th style="padding-top: 2%;padding-left: 2%;">
+                        <label for="Annual interest payable/paid">Annual interest payable/paid</label>
+                    </th>
+                    <th style="padding-top: 2%;">
+                        <label for="Name of lender">Name of lender</label>
+                    </th>
+                    <th style="padding-top: 2%;">
+                        <label for="PAN of lender">PAN of lender</label>
+                    </th>
+                    <th style="padding-top: 2%;">
+                        <label for="Address of lender">Address of lender</label>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="padding-left: 2%;">
+                        <input type="number" id="Annual interest payable/paid" name="Annual_interest_payable" class="form-control" value="{{k.Annual_interest_payable}}" style="background-color: #585d7a;color: white;border: none;width: 90%;">
+                    </td>
+                    <td>
+                        <input type="text" id="Name of lender" name="Name_of_lender" class="form-control" value="{{k.Name_of_lender}}" style="background-color: #585d7a;color: white;border: none;width: 90%;">
+                    </td>
+                    <td>
+                        <input type="text" id="PAN of lender" name="PAN_of_lender" class="form-control" value="{{k.PAN_of_lender}}" style="background-color: #585d7a;color: white;border: none;width: 90%;">
+                    </td>
+                    <td>
+                        <input type="text" id="Address of lender" name="Address_of_lender" class="form-control" value="{{k.Address_of_lender}}" style="background-color: #585d7a;color: white;border: none;width: 90%;">
+                    </td>
+                </tr>
+
+            </tbody>
+
+            </table>
+            <div style="color:rgb(46, 237, 247);width:auto;padding-top:1% ;font-size: 20px;">
+            <input type="file" id="imageInput" style="display: none;" name="House_Property_proof" value="{{k.House_Property_proof}}">
+            <label for="imageInput" style="cursor: pointer;">
+                <i class="fas fa-upload"></i> Upload images
+            </label>
+        </div>                </div>
+            <br><br>
+            <h3 style="color: white;">Section 80EE/80EEA Deductions</h3><br>
+            <div style="color: #c2c4c7;font-size: 18px;">Section 80EE/80EEA allows further tax benefits for first time home buyers. Through these sections, an additional deduction of <i class="fa-sharp fa-solid fa-indian-rupee-sign" style="font-size: 14px;"></i>1,50,000 can be claimed on home loan interest, under certain conditions. this is in addition to deduction of <i class="fa-sharp fa-solid fa-indian-rupee-sign" style="font-size: 14px;"></i>2,00,000 allowed under section 24. </a></div>
+                <br><br>
+            <div style="background-color: #2f365b;">
+
+                <div style="color: #cecfd2; background-color:  #242b4d;padding: 20px;">
+                    <h3 style="color: white;">Section 80EE</h3><br>
+                    <div style="padding: 10px;"> - Rebate under Section 80EE is avalible only to those individual borrowers whose loan was sanctioned between 1 April 2016 and 31 March 2017.</div>
+                    <div style="padding: 10px;"> - Value of the house should be RS 50 lakh or less. </div>
+                    <div style="padding: 10px;"> - Loan taken for the house must be RS 35 lakh or less.</div>
+                    <div style="padding: 10px;"> - For more information, please click <a href="#">here.</a></div>
+                    <br>
+                    <label>Annual interest payable/paid</label>
+                    <input type="number" name="Additional_benefit_under_Section" class="form-control" value="{{k.Additional_benefit_under_Section}}" style="background-color: #585d7a;color: white;border: none;width: 50%;height: 60px;">
+
+                    <br>
+                    <div style="color:rgb(46, 237, 247);width:auto;padding-top:1% ;font-size: 20px;">
+                        <input type="file" id="imageInput1" style="display: none;" name="Section_80EE_proof" value="{{k.Section_80EE_proof}}">
+                        <label for="imageInput1" style="cursor: pointer;">
+                            <i class="fas fa-upload"></i> Upload images
+                        </label>
+                    </div>                        </div>
+     
+            </div><br><br>
+            <div style="background-color: #2f365b;">
+
+                <div style="color: #cecfd2; background-color:  #242b4d;padding: 20px;">
+                    <h3 style="color: white;">Section 80EEA</h3><br>
+                    <div style="padding: 10px;"> - Rebate under Section 80EEA is avalible only to those individual borrowers whose loan was sanctioned between 1 April 2019 and 31 March 2022.</div>
+                    <div style="padding: 10px;"> - Value of the house should be RS 45 lakh or less. </div>
+                    <div style="padding: 10px;"> - For more information, please click <a href="#">here.</a></div>
+                    <br>
+                    <label>Annual interest payable/paid</label>
+                    <input type="number" name="Section_80EEA" class="form-control" value="{{k.Section_80EEA}}" style="background-color: #585d7a;color: white;border: none;width: 50%;height: 60px;">
+
+                    <br>
+                    <div style="color:rgb(46, 237, 247);width:auto;padding-top:1% ;font-size: 20px;">
+                        <input type="file" id="imageInput2" style="display: none;" name="Section_80EEA_proof" value="{{k.Section_80EEA_proof}}">
+                        <label for="imageInput2" style="cursor: pointer;">
+                            <i class="fas fa-upload"></i> Upload images
+                        </label>
+                    </div>             </div>
+     
+            </div>
+
+<br><br>
+
+
+<center><input type="submit" class="btn btn-lg" style="background-color: rgb(90, 90, 143);color: white;"></center><br>
+    
+        </form>
+    
+    </body>
+</html>
+
+
+    {% endblock main_content %}

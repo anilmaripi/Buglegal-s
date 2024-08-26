@@ -1,0 +1,294 @@
+{% extends 'admin-template/adminAdashboard.html' %}
+
+
+{% block main_content %}
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-...." crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Home Page List</title>
+</head>
+<style>
+    body {
+          font-family: "Roboto", helvetica, arial, sans-serif;
+          font-size: 16px;
+          font-weight: 400;
+          text-rendering: optimizeLegibility;
+          background-color: #f4f4f4;
+          color: #333;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          /* height: 100vh; */
+          margin: 0;
+          /* margin-top: 570px; */
+      }
+ 
+      .container {
+          background-color: #ffffff;
+          border-radius: 10px;
+          padding: 20px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          max-width: 90%;
+          width: 1000px;
+          margin: 20px auto;
+      }
+  
+      .table {
+          /* margin-top: 20px; */
+          width: 1040px !important; 
+          border-radius: 10px;
+          border: none;
+          border-spacing:0 5px;
+          border-collapse:separate;
+          
+
+          
+          
+      }
+      /* tr{
+          padding-bottom: 10px;
+      } */
+      table td {
+          text-align: center;
+          border-color: none;
+          width: 300px;
+          color:black;
+          
+      }
+     
+      tr:nth-child(even) td {
+          background-color: #f9f9f9;
+      }
+
+      tr:hover td {
+          background-color: #f1f1f1;
+      }
+       
+  
+      th{
+          color:black;
+          padding: 6px;
+          font-size:20px;
+          background-color:white;
+          width: 300px;
+          text-align: center;
+
+      }
+      
+   
+      /* h2{
+          color:black;
+          font-size: xx-large;
+          text-align: center;
+      } */
+
+      h2 {
+          color: #2E294E;
+          text-align: center;
+          margin-bottom: 20px;
+          font-size: 24px;
+      }
+
+      td{
+          max-width: 200px; 
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+      } 
+      
+      th {
+          background-color: #64113F;
+          color: white;
+      }
+
+      td {
+          background-color: #ffffff;
+          color: #333;
+      }
+      button{
+          color:black;
+          background-color: #ECE1;
+          border-radius: 10px;
+      }
+      th, td {
+          padding: 12px 15px;
+          text-align: center;
+          font-size: 16px;
+          border-bottom: 1px solid #ddd;
+      }
+
+  
+      .container-fluid{
+          height: auto;
+          width: auto;
+      }
+      
+
+</style>
+<body> <br><br>
+<div class="container col-md-11">
+    <button type="button" ><a href="/homepage1/" style="border-radius:10px; padding:10px; background-color:#160b61; color:white;">Add new data</a></button><br><br>
+    <h2><b>Home Page Content List 1</b></h2>
+    <div class="container w-100" style="border-radius: 20px;"><br>
+        <table  class="table table-responsive">
+            <tr>
+                <th>Title 1</th>
+                <th>Discription 1</th>
+                <th>Image 1</th>
+                <th>Image 2</th>
+                <th>Image 3</th>
+                <th>Title 2</th>
+                <th>Image 4</th>
+                <th>Discription 2</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            
+             </tr>
+             {% for item in post %}
+             <tr>
+                <td>{{ item.title1 }}</td>
+                <td>{{ item.discription1 }}</td>
+                <td><img src="{{item.image1.url}}" alt="Image 1" style="width: 100%;"></td>
+                <td><img src="{{item.image2.url }}" alt="Image 2" style="width: 100%;"></td>
+                <td><img src="/media/{{item.image3}}" alter="Image 3" style="width:100%"></td>
+                <td>{{item.title2}}</td>
+                <td><img src="/media/{{item.image4}}"  style="width:100%"></td>
+                <td>{{item.discription2}}</td>
+                <td>
+                    <a href="/edit1/{{item.id}}"><i class="fas fa-edit" style="color:grey;" ></i></a>
+                </td>
+                <td><a href="/delete1/{{item.id}}"><i class="fas fa-trash-alt" style="color:red;"></i></a></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <br><br>
+    <button type="button" ><a href="/homepage2/" style="border-radius:10px; padding:10px; background-color:#160b61; color:white;">Add new data</a></button><br><br>
+    <h2><b>Home Page Content List 2</b></h2>
+    <div class="container w-100" style="border-radius: 20px;"><br>
+        <table class="table table-responsive">
+            <tr>
+                <th>Title</th>
+                <th>Image</th>
+                <th>Discription</th>
+                <th>Image 1</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            {% for item in home1 %}
+            <tr>
+                <td>{{ item.title }}</td>
+                <td><img src="/media/{{item.image}}" alt="image" style="width: 100%;"></td>
+                <td>{{ item.discription }}</td>
+                <td><img src="/media/{{item.image1}}" alt="image1" style="width: 100%;"></td>
+                <td><a href="/edit2/{{item.id}}"><i class="fas fa-edit" style="color:blue;" ></i></a></td>
+                <td><a href="/delete2/{{item.id}}"><i class="fas fa-trash-alt" style="color:red;"></i></a></td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        
+    </div>
+    <br><br>
+    <button type="button" ><a href="/homepage3/" style="border-radius:10px; padding:10px; background-color:#160b61; color:white;">Add new data</a></button><br><br>
+    <h2><b>Home Page Content List 3</b></h2>
+    <div class="container w-100" style="border-radius: 20px;"><br>
+        <table  class="table table-responsive">
+            <tr>
+                <th>Title</th>
+                <th>Image 1</th>
+                <th>Discription 1</th>
+                <th>Point 1</th>
+                <th>Point 2</th>
+                <th>Point 3</th>
+                <th>Point 4</th>
+                <th>Discription 2</th>
+                <th>Image 2</th>
+                <th>Image 3</th>
+                <th>Edit</th> 
+                <th>Delete</th> 
+            </tr>
+            {% for item in data %}
+            <tr>
+                <td>{{ item.title }}</td>
+                <td><img src="{{ item.image1.url }}" alt="Image1" style="width: 100%;"></td>
+                <td>{{ item.discription1 }}</td>
+                <td>{{ item.point1 }}</td>
+                <td>{{ item.point2 }}</td>
+                <td>{{ item.point3 }}</td>
+                <td>{{item.point4}}</td>
+                <td>{{ item.discription2 }}</td>
+                <td><img src="{{ item.image2.url }}" alt="Image1" style="width: 100%;"></td>
+                <td><img src="{{ item.image3.url }}" alt="Image1" style="width: 100%;"></td>
+                <td>
+                    <a href="/edit3/{{item.id}}"><i class="fas fa-edit" style="color:grey;" ></i></a>
+                </td>
+                <td>
+                    <a href="/delete3/{{item.id}}"><i class="fas fa-trash-alt" style="color:red;"></i></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <br><br>
+    <button type="button" ><a href="/homepage4/" style="border-radius:10px; padding:10px; background-color:#160b61; color:white;">Add new data</a></button><br><br>
+    <h2><b>Home Page Content List 4</b></h2>
+    <div class="container w-100" style="border-radius: 20px;"><br>
+        <table class="table table-responsive">
+            <tr>
+                <th>Title 1</th>
+                <th>Image 1</th>
+                <th>Title 2</th>
+                <th>Image 2</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            {% for item in data1 %}
+            <tr>
+                <td>{{ item.title1 }}</td>
+                <td><img src="{{ item.image1.url }}" alt="Image1" style="width: 100%;"></td>
+                <td>{{ item.title2 }}</td>
+                <td><img src="{{ item.image2.url }}" alt="Image1" style="width: 100%;"></td>
+                <td>
+                    <a href="/edit4/{{item.id}}"><i class="fas fa-edit" style="color:grey;" ></i></a>
+                </td>
+                <td>
+                    <a href="/delete4/{{item.id}}"><i class="fas fa-trash-alt" style="color:red;"></i></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+            <br><br>
+            <h2><b>Home Page Content List 5</b></h2>
+            <button type="button" ><a href="/homepage5/" style="border-radius:10px; padding:10px; background-color:#160b61; color:white;">Add new data</a></button><br><br>
+            <div class="container w-100" style="border-radius: 20px;"><br>
+                <table class="table table-responsive">
+                    <tr>
+                        <th>Image</th>
+                        <th>Title</th>
+                        <th>Discription</th>
+                        <th>Point</th>
+                        <th>edit</th>
+                        <th>Delete</th>
+                    </tr>
+                    {% for i in data2 %}
+                    <tr>
+                        <td><img src="{{ i.image.url }}" alt="Image" style="width: 100%;"></td>
+                        <td>{{ i.title }}</td>
+                        <td>{{ i.discription }}</td>
+                        <td>{{ i.p }}</td>
+                        <td><a href="/edit5/{{i.id}}"><i class="fas fa-edit" style="color:grey;" ></i></a></td>
+                        <td><a href="/delete5/{{i.id}}"><i class="fas fa-trash-alt" style="color:red;"></i></a></td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+       
+
+</div>
+</body>
+</html>
+{% endblock main_content %}<html>
+   

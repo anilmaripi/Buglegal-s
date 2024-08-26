@@ -1,0 +1,411 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <title>Customer Registration</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
+
+    <style>
+       
+        h2 {
+            color: #01080c;
+            text-align: center;
+        }
+        form {
+            display: grid;
+            gap: 10px;
+            background:none;
+        }
+        label {
+            display: block;
+            font-size: 16px;
+            color: #333;
+            text-align: left;
+        }
+        .phone-number-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        #sendOtp {
+            position: absolute;
+            right: 10px;
+            background-color: #3498db;
+            color: #fff;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            display: none; 
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .container{
+            /* background-color: whitesmoke; */
+            border-radius: 10px;
+            margin-top: 10px;  
+            width: 95%;
+            height: 97%;
+            
+        }
+        .container1{
+            width: 100%;
+            height: 100%;
+            margin-top: 14px;
+            padding-bottom: 40px;
+
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+
+            background-image:url('/media/images/bb3.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+          }
+          input[type=text],input[type=email],input[type=date]{
+            background-color:   transparent;
+            color:black;
+            box-shadow: 0px 2px 2px 0px black;
+          }
+      label{
+        font-weight: bold;
+        color: black;
+      }
+    </style>
+</head>
+<body>
+    {% if messages %}
+    {% for message in messages %}
+    {% if message.tags == 'error' %}
+    <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+    {% endif %}
+    {% if message.tags == 'success' %}
+    <div class="alert alert-success" id="successMessage" style="margin-top:15px;background-color:green;color: whitesmoke; font-size: 20px;text-align: center;">{{ message }}</div>
+
+    {% endif %}
+    {% endfor %}
+
+    {% endif %}
+    <div class="container-fluid">
+    <div class="row">
+        <!-- <div class="col-md-6">
+            <div class="container1">
+                <img src="/media/images/demo7.png" width="105%" height="100%">
+            </div>
+        </div> -->
+        <div class="col-md-6">
+            <div class="container">
+                <center><img src="/media/images/BUGLEGAL  LOGO WITHOUT BG.png" style="height:130px;padding-right: 80px;"></center>
+           <center> <h1 style="color: white;"><b>REQUEST FOR DEMO</b></h1></center>
+            <p style="text-align: justify;font-size: 25px;font-family: 'Times New Roman', Times, serif;font-weight:600;color:#e6e6e6;">&nbsp;&nbsp;&nbsp;&nbsp;Experience a personalized demo to see Buglegal's features in action, tailored to your organization's needs. Explore our website to understand why Buglegal is the right choice, with intuitive design, robust security, and customizable features that streamline legal operations. Unlock transformative potential for your organization with Buglegal.</p>
+        </div>        </div>
+
+        <div class="col-md-6">
+            <div class="container">
+                <!-- <h2>CUSTOMER REGISTRATION</h2> -->
+                <center> <h1 style="color: black;"><b>CUSTOMER REGISTRATION</b></h1></center>
+                <center><form method="post" id="registerForm">
+                    {% csrf_token %}
+                    
+                    <label>Company Name</label>
+                    <input type="text" name="name" class="form-control empty" value="{{post1.name}}" required>
+                    
+                    <label>Organization Name:</label>
+                    <input type="text" name="companyname" class="empty" value="{{post1.companyname}}"  required>
+                    <div class="row">
+                        <div class="col-lg-6">
+                
+                    <label>Email:</label>
+                    <input type="email" name="email" class="empty" value="{{post1.email}}"  required>
+                </div>
+                <div class="col-lg-6">
+
+                    <label>Register Date:</label>
+                    <input type="date" name="date" value="{{post1.date}}"  required>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6">
+
+                    <label>Phone Number:</label>
+                    <div class="phone-number-container">
+                        <input type="text" name="contactno" id="phone_number" class="empty" value="{{post1.contactno}}"  required>
+                        <button type="button" id="sendOtp">Send OTP</button>
+                    </div>
+            
+                    <input type="text" name="otp" id="indian" value="{{post1.otp}}" placeholder="Enter The OTP">
+            
+                    <span id="timer"></span>
+                    <span id="otpResult"></span>
+                </div>
+                <div class="col-lg-6">
+
+                    <label>Plan Type</label>
+                    <select name="business" value="{{post1.business}}" required>
+                        <option value="" disabled selected>Select Plan Type</option>
+                        <option value="Basic plan">Basic</option>
+                        <option value="Gold plan">Gold</option>
+                        <option value="Platinum plan">Platinum</option>
+                        <option value="Diamond plan">Diamond</option>
+                    </select>
+                </div>
+            </div>
+
+                    <label>Description</label>
+                    <textarea name="description" value="{{post1.description}}" class="empty" placeholder="Enter Your Text " required></textarea>
+                    <button type="submit">Register</button>
+                        
+        
+
+                </form></center>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+      
+        var inputs = document.querySelectorAll(".empty");
+
+        inputs.forEach(function(input) {
+            input.addEventListener("input", function(event) {
+                var targetInput = event.target;
+
+                if (targetInput.value.startsWith(" ")) {
+
+                    targetInput.value = targetInput.value.trimStart();
+                }
+            });
+        });
+    </script>
+<!-- Simplify script imports -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#indian, #timer, #resendotp').hide();
+
+        $('#phone_number').on('input', function () {
+            var phoneNumber = $('#phone_number').val();
+            var isValidPhoneNumber = /^\d{10}$/.test(phoneNumber);
+
+            if (isValidPhoneNumber) {
+                $('#sendOtp').show();
+            } else {
+                $('#sendOtp').hide();
+            }
+        });
+
+        var timer;
+        var timeRemaining = 60; 
+
+        $('#sendOtp').click(function () {
+            var phoneNumber = $('#phone_number').val();
+
+            $.ajax({
+                url: '/store_phone_number1/',
+                type: 'POST',
+                data: {
+                    'contactno': phoneNumber,
+                    'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+                },
+                success: function (data) {
+                    if (data.success) {
+                        $('#cole').text('OTP will be sent to ' + phoneNumber + '. Enter the OTP to verify.');
+                        sendOtpRequest();
+                        startTimer();
+                    } else {
+                        $('#cole').text('Failed to store phone number. Please try again.');
+                    }
+                },
+                error: function () {
+                    $('#cole').text('Error occurred during phone number storage.');
+                }
+            });
+
+            function sendOtpRequest() {
+                $.ajax({
+                    url: '/send_otp1/',
+                    type: 'POST',
+                    data: {
+                        'contactno': phoneNumber,
+                        'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+                    },
+                    success: function (data) {
+                        if (data.success) {
+                            $('#cole').text('OTP has been sent to your phone. Enter the OTP to verify.');
+                            $('#indian, #timer').show(); 
+                        } else {
+                            $('#cole').text('Failed to send OTP. Please try again.');
+                        }
+                    },
+                    error: function () {
+                        $('#cole').text('Error occurred during OTP generation.');
+                    }
+                });
+            }
+
+            function startTimer() {
+                timer = setInterval(function () {
+                    timeRemaining--;
+
+                    var minutes = Math.floor(timeRemaining / 60);
+                    var seconds = timeRemaining % 60;
+
+                    $('#timer').text('Resend OTP in: ' + minutes + ':' + (seconds < 10 ? '0' : '') + seconds);
+
+                    if (timeRemaining <= 0) {
+                        clearInterval(timer);
+
+                        timeRemaining = 60;
+                        $('#timer').text('Time remaining: 1:00');
+                        $('#timer').hide();
+                        $('#resendotp').show();
+                    }
+                }, 1000);
+            }
+        });
+
+        $('#resendotp').click(function () {
+            var phoneNumber = $('#phone_number').val();    
+            $.ajax({
+                url: '/resend_otp1/',
+                type: 'POST',
+                data: {
+                    'contactno': phoneNumber,
+                    'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+                },
+                success: function (data) {
+                    if (data.success) {
+                        $('#cole').text('OTP has been resent to your phone. Enter the OTP to verify.');
+                        $('#indian, #timer').show(); 
+                        startTimer(); 
+                    } else {
+                        $('#cole').text('Failed to resend OTP. Please try again.');
+                    }
+                },
+                error: function () {
+                    $('#cole').text('Error occurred during OTP resending.');
+                }  
+            });
+            function startTimer() {
+                timer = setInterval(function () {
+                    timeRemaining--;
+
+                    var minutes = Math.floor(timeRemaining / 60);
+                    var seconds = timeRemaining % 60;
+
+                    $('#timer').text('Resend OTP in: ' + minutes + ':' + (seconds < 10 ? '0' : '') + seconds);
+
+                    if (timeRemaining <= 0) {
+                        clearInterval(timer);
+
+                        timeRemaining = 60;
+                        $('#timer').text('Time remaining: 1:00');
+                        $('#timer').hide();
+                        $('#resendotp').show();
+                    }
+                }, 1000);
+            }   
+        });
+
+        $('#indian').on('input', function () {
+            var userEnteredOTP = $('#indian').val();
+            $.ajax({
+                url: '/verify_otp1/',
+                type: 'POST',
+                data: {
+                    'otp': userEnteredOTP,
+                    'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+                },
+                success: function (data) {
+                    $('#otpResult').text(data.message);
+
+                    if (data.message === 'OTP is valid.') {
+                        var formData = $('#registerForm').serialize();
+
+                        $.ajax({
+                            url: '/register_company/',  
+                            type: 'POST',
+                            data: formData,
+                            success: function (response) {
+                            },
+                            error: function () {
+                            }
+                        });
+                    } else {
+                        $('#otpResult').text('Invalid OTP. Please try again.');
+                    }
+                },
+                error: function () {
+                    $('#otpResult').text('Error occurred during OTP verification.');
+                }
+            });
+        });
+    });
+</script>
+<script>
+    document.getElementById("phone_number").addEventListener("input", function(evt) {
+        let inputValue = evt.target.value;
+        let numbersOnly = inputValue.replace(/[^\d]/g, ""); 
+        evt.target.value = numbersOnly.slice(0, 10); 
+    });
+    </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const emailInput = document.querySelector('input[name="email"]');
+        
+        function validateEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+  
+        function handleEmailValidation() {
+            const email = emailInput.value.trim();
+            const isValidEmail = validateEmail(email);
+  
+            if (!isValidEmail) {
+                emailInput.setCustomValidity("Please enter a valid email address");
+                emailInput.reportValidity(); 
+            } else {
+                emailInput.setCustomValidity("");
+            }
+        }
+  
+        emailInput.addEventListener("input", handleEmailValidation);
+  
+        const form = document.querySelector("form");
+        form.addEventListener("submit", function (event) {
+            if (!validateEmail(emailInput.value.trim())) {
+                event.preventDefault(); 
+                emailInput.focus(); 
+                handleEmailValidation(); 
+            }
+        });
+    });
+  </script>

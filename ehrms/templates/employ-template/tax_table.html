@@ -1,0 +1,382 @@
+
+{% extends 'employ-template/base_template.html' %}
+{%load mathfilters%} {%load humanize%}
+{% block page_title %}
+
+{% endblock page_title %}
+
+{% block main_content %}
+    <!-- Main content -->
+    <style>
+        .open-button1{
+            background-color: transparent;
+            
+        }
+        table{
+            color: white;
+            
+        }
+        td{
+        color: white;
+        justify-content: center;
+        text-align: center;
+       } 
+       th{
+        color: white;
+       }
+       tr:nth-child(even) {background-color: #242b4d}
+       tr:nth-child(odd) {background-color: #2d3354}
+       h5{
+        color: white;
+       }
+    </style>
+    
+    <div class="row" >
+        <div class="col-lg-8">
+    
+        <div class="row" style="width: 100%;">
+   <h2> Tax Deductions FY 2023-2024</h2>
+   <div class="head col-lg-12" >
+<div class="small-box">
+    <div class="inner" style="background-color: #282f51;">
+   <p style="text-align: justify; padding-bottom: 0%; margin: 0%;">You have the option of either using a new tax regime (with no tax deductions), or using the same regime as FY 2019-20. To help you make an informed decision, we are displaying your tax liability in both these regimes, and you can choose the option that you prefer. For us to accurately calculate your tax liabilities, please ensure you fill in all the information requested below, irrespective of the regime that you pick.</p>
+</div>
+</div>
+</div><br>
+   
+    
+        <div class="inner">
+        <table class="table" style="overflow-x:auto;">
+            <tbody >
+                
+                <tr>
+
+                    <td >&nbsp;</td>
+                   
+                    <td>New tax regime</td>
+                    <td>Old tax regime</td>
+                </tr>
+                <tr>{% for i in tax %}
+                    <th >Earnings</th>
+                   
+                    <td>{{emp.package | div:100 | mul:83.333| floatformat:0}}</td>
+                    <td>{{emp.package | div:100 | mul:83.333| floatformat:0}}</td>
+                </tr>
+                <tr>
+                    <th >Exemptions</th>
+                   
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th >Standard Deduction</th>
+                   
+                    <td>250000</td>
+                    <td>50000</td>
+                </tr>
+                <tr>
+                    <th >Deductions</th>
+                   
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>{% with sd=50000 %}
+                    <th >Taxable Income</th>
+                   
+                    <td>{{student.package | div:100 | mul:83.333 | sub:sd | floatformat:0}}</td>
+                    <td>{{student.package | div:100 | mul:83.333 | sub:sd | floatformat:0}}</td>
+                </tr>
+                {% endwith %}
+                <tr>
+                    <th >Total Tax Liability</th>
+                   
+                    <td></td>
+                    <td></td>
+                </tr>
+              
+            </tbody>
+            
+        </table></div></div><br><br><br>
+        
+        
+            <div class="col-lg-12 col-12 ">
+            
+                <h5>Current Home Rent <p style="float: right;color: rgb(255, 255, 255);"><a href="/edit_home_rent/{{ i.id }}"><i class="far fa-edit">&nbsp;Edit</i></a>
+                </p></h5>
+            
+                <!-- <div style="display: flex; flex-direction: row; height: 20px;margin-bottom: 10px;width: 800px;">
+
+                    <div >
+                        Current home rent 
+                        <button class="open-button1" style=" 458px;"><a style="color: white;"   href = "/edit_home_rent/{{ i.id }}">Edit</a></button>
+                    </div>
+                    </div> -->
+                    
+        <div class="inner">
+        <table class="table" style="overflow-x:auto;" >
+            
+            
+            <tbody>
+                
+              
+                <tr>
+                    
+                   
+                    <th>Current Monthly Rent</th>
+                    <td><i class="fa fa-inr" aria-hidden="true">&nbsp;{{i.Current_Monthly_Rent}}</i></td>
+                </tr>
+                <tr>
+                    
+                   
+                    <th>Name Of Landlord</th>
+                    <td>{{i.Name_of_landlord}}</td>
+                </tr>
+                <tr>
+                    
+                   
+                    <th>PAN Of Landlord</th>
+                    <td>{{i.PAN_of_landlord}}</td>
+                </tr>
+                <tr>
+                    
+                   
+                    <th>Address Of Landlord</th>
+                    <td>{{i.Address_of_landlord}}</td>
+                </tr>
+                
+              
+            </tbody>
+        </table></div></div><br>
+        
+
+        
+            <div class="col-lg-12 col-12 ">
+            
+                <h5 style="word-wrap: break-word">Section 80 Deductions  <p style="float: right;color: rgb(255, 255, 255);"><a href="/edit_tax_sections/{{ i.id }}"><i class="far fa-edit">&nbsp;Edit</i></a>
+                </p></h5>
+            <!-- <div style="display: flex; flex-direction: row; height: 20px;margin-bottom: 10px;width: 900px;">
+
+                <div>
+                    
+                    Section 80 deductions (investments, education loans, medical insurance etc.)
+                <button class="open-button1" style=" 182px;"><a style="color: white;"   href ="/edit_tax_sections/{{ i.id }}">Edit</a></button style=" 100px;">
+                </div></div> -->
+        <div class="inner">
+            
+        <table class="table" >
+            
+            
+            
+            <tbody>
+                
+              
+                <tr>
+                    
+                   
+                    <th>Section 80C</th>
+                    <td><i class="fa fa-inr " aria-hidden="true">&nbsp;{{i.Section_80C}}</i></td>
+                </tr>
+                <tr>
+                    
+                   
+                    <th>Section 80CCD (1B)</th>
+                    <td><i class="fa fa-inr fa-2xs" aria-hidden="true">&nbsp;{{i.Section_80CCD}}</i></td>
+                </tr>
+                <tr>
+                    
+                   
+                    <th>Section 80D</th>
+                    <td><i class="fa fa-inr fa-2xs" aria-hidden="true">&nbsp;{{i.Section_80D}}</i></td>
+                </tr>
+                <tr>
+                    
+                   
+                    <th>Section 80DD</th>
+                    <td><i class="fa fa-inr fa-2xs" aria-hidden="true">&nbsp;{{i.Section_80DD}}</i></td>
+                </tr>
+                <tr>
+                    
+                   
+                    <th>Section 80E</th>
+                    <td><i class="fa fa-inr" aria-hidden="true">&nbsp;{{i.Section_80E}}</i></td>
+                </tr>
+                <tr>
+                    
+                   
+                    <th>Section 80EEB</th>
+                    <td><i class="fa fa-inr" aria-hidden="true">&nbsp;{{i.Section_80EEB}}</i></td>
+                </tr>
+                <tr>
+                    
+                   
+                    <th>Section 80G</th>
+                    <td><i class="fa fa-inr" aria-hidden="true">&nbsp;{{i.Section_80G}}</i></td>
+                </tr>
+                <tr>
+                    
+                   
+                    <th>Section 80U</th>
+                    <td><i class="fa fa-inr" aria-hidden="true">{{i.Section_80U}}</i></td>
+                </tr>
+                <tr>
+                    
+                   
+                    <th>Section 80DDB</th>
+                    <td><i class="fa fa-inr" aria-hidden="true">{{i.Section_80DDB}}</i></td>
+                </tr>
+
+                <tr>
+                    
+                   
+                    <th>Section 80TTA</th>
+                    <td><i class="fa fa-inr" aria-hidden="true">{{i.Section_80TTA}}</i></td>
+                </tr>
+                <tr>
+                    
+                   
+                    <th>Section 80TTB</th>
+                    <td><i class="fa fa-inr" aria-hidden="true">{{i.Section_80TTB}}</i></td>
+                </tr>
+
+                
+              
+            </tbody>
+        </table>
+    </div></div><br>
+    
+            
+                
+                <div class="col-lg-12 col-12 ">
+            
+                    <h5>Interest On Home Loan  <p style="float: right;color: rgb(255, 255, 255);"><a href="/edit_home_loan/{{ i.id }}"><i class="far fa-edit">&nbsp;Edit</i></a>
+                    </p></h5>
+                    <!-- <div style="display: flex; flex-direction: row; height:20px;margin-bottom: 10px;width: 800px;">
+
+                        <div >
+                            Interest on home loan               
+                             <button class="open-button1" ><a style="color: white;"   href = "/edit_home_loan/{{ i.id }}">Edit</a></button>
+                            </div></div> -->
+            <div class="inner">
+                
+        <table class="table" >
+            
+            
+            <tbody>
+                
+              
+                <tr>
+                    
+                   
+                    <th>Annual Interest Payable / Paid</th>
+                    <td><i class="fa fa-inr" aria-hidden="true">&nbsp;{{i.Annual_interest_payable}}</i></td>
+                </tr>
+                <tr>
+                    
+                   
+                    <th>Additional benefit under Section 80EE</th>
+                    <td><i class="fa fa-inr" aria-hidden="true">&nbsp;{{i.Additional_benefit_under_Section}}</i></td>
+                </tr>
+                <tr>
+                    
+                   
+                    <th>Name Of Lender</th>
+                    <td>{{i.Name_of_lender}}</td>
+                </tr>
+                <tr>
+                    
+                   
+                    <th>PAN Of Lender</th>
+                    <td>{{i.PAN_of_lender}}</td>
+                </tr>
+                <tr>
+                    
+                   
+                    <th>Address Of Lender</th>
+                    <td>{{i.Address_of_lender}}</td>
+                </tr>
+                <tr>
+                    <th>Section 80EEA</th>
+                    <td><i class="fa fa-inr" aria-hidden="true">&nbsp;{{i.Section_80EEA}}</i></td>
+                </tr>
+               
+
+                
+              
+            </tbody>
+        </table></div></div><br>
+        
+        <div class="col-lg-12 col-12 ">
+            
+            <h5>Leave Travel Allowance  <p style="float: right;color: rgb(255, 255, 255);"><a href="/edit_travel_allowance/{{ i.id }}"><i class="far fa-edit">&nbsp;Edit</i></a>
+            </p></h5>
+        <!-- <div style="display: flex; flex-direction: row; height:20px;margin-bottom: 10px;width: 800px;">
+
+            <div >
+                Leave Travel Allowance              
+                 <button class="open-button1" style=" 563px;"><a style="color: white;"   href = "/edit_travel_allowance/{{ i.id }}">Edit</a></button>
+                </div></div> -->
+        <div class="inner">
+            
+        <table class="table" >
+           
+            <tbody>
+                <tr>
+                    
+                   
+                    <th>Amount</th>
+                    <td><i class="fa fa-inr" aria-hidden="true">&nbsp;{{i.Amount}}</i></td>
+                </tr>
+                <tr>
+                    
+                   
+                    <th>Origin</th>
+                    <td>{{i.Origin}}</td>
+                </tr>
+                <tr>
+                    
+                   
+                    <th>Destination</th>
+                    <td>{{i.Destination}}</td>
+                </tr>
+                <tr>
+                
+               
+
+                
+              
+            </tbody>
+        </table></div></div></div>
+        
+    
+          
+     
+    <!-- /.content -->
+    
+        
+            <div class="col-lg-4 " style="padding: 0px; float: right; ;display: flex; background-color: #282f51; color: white;">
+          
+                <div class="small-box" style="height: fit-content; width: 100%;">
+                  <div class="inner" style="height: fit-content; width: fit-content;"  >
+          
+        <h2>June 2023 Salary Preview</h2>
+        
+           <tr>
+            <th>Earnings</th>
+        </tr><tr>
+            <td><i class="fa fa-inr" >&nbsp;{{student.package | div:12 | floatformat:0}}/-</i> </td><br>
+        </tr>
+            <div>TDS</div> 
+            <div><i class="fa fa-inr" >&nbsp;0</i></div><br>
+            <div>Total Deductions</div>
+            <div><i class="fa fa-inr" >&nbsp;0</i></div><br>
+            <div>Net Pay</div>
+            <div><i class="fa fa-inr" >&nbsp;{{student.package | div:12 | floatformat:0}}/-</i></div><br>
+            <a href="{% url 'paysliprequest' %}">View Payslip</a>
+            {% endfor %}
+        </div>
+        
+       
+      </div></div>
+    </div>
+
+{% endblock main_content %}

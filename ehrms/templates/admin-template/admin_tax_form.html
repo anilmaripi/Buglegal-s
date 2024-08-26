@@ -1,0 +1,97 @@
+{% extends 'admin-template/base_template.html' %}
+
+{% block page_title %}
+{% endblock page_title %}
+
+{% block main_content %}
+        <form  id="msform"  class="tax" class="msform fieldset" method="POST" enctype="multipart/form-data" >{% csrf_token %} 
+            <!-- Step 1 Content -->
+            <fieldset>
+            
+                <h3 class="font-normal">pay</h3>
+                <!-- Step 1 input fields -->
+                
+                <div class="mt-3">
+                    
+                    <br>
+                    
+                    <!-- <input type="email" name="email3" placeholder="Email ID" class="form-control" required><br> -->
+                    <div class="form-group"><br>
+                        <label><b>Email I'D:</b></label>
+                        <select name="email">
+                           <option disabled selected><b>Please Select Employ Email I'D</b></option>
+                            {% for i in kol %}  
+                            <option name="email" value="{{i.id}}">{{i.email}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <!-- <input type="number" name="emp_annual_salary" placeholder="emp_annual_salary" class="form-control"> -->
+                   <br>
+                   <h2>Current home rent</h2><br>
+                   <input type="number" name="Current_Monthly_Rent" placeholder="Current_Monthly_Rent" class="form-control">
+                   <br>
+                   <input type="text" name="Name_of_landlord" placeholder="Name_of_landlord" class="form-control">
+                   <br>
+                   <input type="text" name="PAN_of_landlord" placeholder="PAN_of_landlord" class="form-control">
+                   <br>
+                   <input type="text" name="Address_of_landlord" placeholder="Address_of_landlord" class="form-control">
+                   <br>
+                   <h2>Section 80 deductions (investments, education loans, medical insurance etc.)</h2><br>
+                   <input type="number" name="Section_80C" placeholder="Section_80C" class="form-control">
+                   <br>
+                   <input type="number" name="Section_80CCD" placeholder="Section_80CCD" class="form-control">
+                   <br>
+                   <input type="number" name="Section_80D" placeholder="Section_80D" class="form-control">
+                   <br>
+                   <input type="number" name="Section_80DD" placeholder="Section_80DD" class="form-control">
+                   <br>
+                   <input type="number" name="Section_80E" placeholder="Section_80E" class="form-control">
+                   <br>
+                   <input type="number" name="Section_80EEB" placeholder="Section_80EEB" class="form-control">
+                   <br>
+                   <input type="number" name="Section_80G" placeholder="Section_80G" class="form-control">
+                   <br>
+                   <input type="number" name="Section_80U" placeholder="Section_80U" class="form-control">
+                   <br>
+                   <input type="number" name="Section_80DDB" placeholder="Section_80DDB" class="form-control">
+                   <br>
+                   <input type="number" name="Section_80TTA" placeholder="Section_80TTA" class="form-control">
+                   <br>
+                   <input type="number" name="Section_80TTB" placeholder="Section_80TTB" class="form-control">
+                   <br>
+                   <h2>
+                    Interest on home loan
+                   </h2><br>
+                   <input type="number" name="Annual_interest_payable" placeholder="Annual_interest_payable" class="form-control">
+                   <br>
+                   <input type="number" name="Additional_benefit_under_Section" placeholder="Additional_benefit_under_Section" class="form-control">
+                   <br>
+                   <input type="text" name="Name_of_lender" placeholder="Name_of_lender" class="form-control">
+                   <br>
+                   <input type="text" name="PAN_of_lender" placeholder="PAN_of_lender" class="form-control">
+                   <br>
+                   <input type="text" name="Address_of_lender" placeholder="Address_of_lender" class="form-control">
+                   <br>
+                   <input type="number" name="Section_80EEA" placeholder="Section_80EEA" class="form-control">
+                   <br><h2>Leave Travel Allowance</h2><br>
+                   <input type="number" name="Amount" placeholder="Amount" class="form-control">
+                   <br>
+                   <input type="text" name="Origin" placeholder="Origin" class="form-control">
+                   <br>
+                   <input type="text" name="Destination" placeholder="Destination" class="form-control">
+                   <br>
+
+
+                </div>
+                <div class="mt-3">
+                    <button class="button submit-btn" type="submit">Save</button>
+                </div><br>
+            </fieldset>
+        </form>
+                {% endblock main_content %}
+
+
+
+
+
+

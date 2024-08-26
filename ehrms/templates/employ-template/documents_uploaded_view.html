@@ -1,0 +1,706 @@
+{% extends 'employ-template/base_template.html' %}
+
+
+    
+    {% block main_content %}
+<title>Documents</title>
+
+<!-- <style>
+
+tr:nth-child(even) {
+        background-color: #1e2442;
+        
+    }
+
+    tr:nth-child(odd) {
+        background-color:#2d3354 ;
+        padding: 20px;
+       
+    }
+
+
+    .pagination {
+        margin: 20px 0;
+        text-align: center;
+    }
+    
+    .pagination a, .pagination .current-page {
+        display: inline-block;
+        padding: 8px 12px;
+        text-decoration: none;
+        margin: 0 4px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+    }
+    
+    .pagination a, .pagination .current-page {
+        display: inline-block;
+        padding: 8px 12px;
+        text-decoration: none;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+        border-radius: 20px;
+        text-align: center;
+        background-color: #3775e0;
+        color: white;
+    }
+      .act{
+  background-color: orange;
+  color: white;
+  height:43px;
+  width:43px;
+  border-radius: 20px;
+
+}
+ 
+
+
+
+    @media (max-width: 768px){
+  .form1 {
+    padding: 0px;
+    margin-left: 0px;
+  }
+
+}
+
+.pagination .step-links a.active {
+    background-color: orange;
+}
+  
+</style> -->
+
+<style>
+    .hed-manager{
+        color: blue;
+        font-size: 36px;
+        margin-bottom: 30px;
+        text-align: center;
+        margin-top: 10px;
+    }
+    .head-manager{
+        color: blue;
+        font-size: 36px;
+        margin-bottom: 30px;
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    label{
+        color: #737373;
+    }
+    .search-bar{
+        box-shadow: 0 2px 0 4px #cccccc;
+
+    }
+    .table-manager tr th{
+        color: #fff;
+        background-color: black;
+        text-align: center;
+
+    }
+    .table-manager tr:nth-child(even){
+        color: #000;
+        background-color: #e6e6e6;
+        text-align: center;
+
+    }
+    .table-manager tr:nth-child(odd){
+        color: #000;
+        background-color: #ccc;
+        text-align: center;
+
+    }
+.pagination a{
+    color:red;
+    text-decoration: none;
+
+}
+.act{
+    border-radius: 20px;
+    padding: 4px 8px;
+    background-color: #007880;
+    border: 1px solid #ccc;
+    color:fff;
+}
+.hed-hr{
+        color: black;
+        font-size: 36px;
+        margin-bottom: 30px;
+        text-align: center;
+        margin-top: 10px;
+    }
+    .head-hr{
+        color: black;
+        font-size: 36px;
+        margin-bottom: 30px;
+        text-align: center;
+        margin-top: 10px;
+    }
+    .table-hr tr th{
+        color: #fff;
+        background-color: black;
+        text-align: center;
+
+    }
+    .table-hr tr:nth-child(even){
+        color: #000;
+        background-color: #e6e6e6;
+        text-align: center;
+
+    }
+    .table-hr tr:nth-child(odd){
+        color: #000;
+        background-color: #ccc;
+        text-align: center;
+
+    }
+    .form1-hr{
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+           
+            border: 20px; 
+            padding: 30px;
+            background-color: #d1d7e0;
+            border-radius: 10px;
+            color: black;
+    }
+    .hed-tm{
+    color: #ff7733;
+    font-size: 36px;
+    margin-bottom: 30px;
+    text-align: center;
+    margin-top: 10px;
+}
+.head-tm{
+    color: #ff7733;
+    font-size: 36px;
+    margin-bottom: 30px;
+    text-align: center;
+    margin-top: 10px;
+}
+.table-tm tr th{
+    color: #fff;
+    background-color: black;
+    text-align: center;
+
+}
+.table-tm tr:nth-child(even){
+    color: #000;
+    background-color: #e6e6e6;
+    text-align: center;
+
+}
+.table-tm tr:nth-child(odd){
+    color: #000;
+    background-color: #ccc;
+    text-align: center;
+
+}
+.form-tm{
+    box-shadow: 2px 3px 10px #999;
+    margin-left: 20px;
+    padding: 30px;
+    border-radius:10px;
+   }
+   .form-manager{
+    box-shadow: 2px 3px 10px #999;
+    margin-left: 20px;
+    padding: 30px;
+    border-radius:10px;
+   }
+body{
+    color:#000;
+}
+
+</style>
+
+<div id="message">
+    {% if messages %}
+    {% for message in messages %}
+    {% if message.tags == 'error' %}
+    <div class="alert alert-danger" style="margin-top:10px;">{{message}}</div>
+    {% endif %}
+    {% if message.tags == 'success' %}
+    <div class="alert alert-success" style="margin-top:10px;background-color: green; color:whitesmoke">{{message}}</div>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+</div>
+<script>
+    $('#message').show()
+    setTimeout(function(){
+        $('#message').hide()
+    },2000)
+</script>
+
+<div class="row">
+    <div class="col-1"></div>
+    <div class="col-10">
+        <h3 class="{% if mem_role == 'HR' and mem_hroptions == 1 %}head-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}head-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}head-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}head-tm {% endif %}">Uploaded Documents</h3>
+
+
+
+
+<div class="search-bar">
+    <div class="input-group input-group-sm" >
+        <input type="text" id="searchInput" onkeyup="searchTable()" class="form-control float-right" placeholder="Search by Type" style="background-color: white; border: none; color: blue;">
+        <!-- <div class="input-group-append">
+            <button type="button" class="btn btn-default" style="color: white; background-color: rgba(96, 163, 199, 0.87); margin-left: 5px; width: 110%;" onclick="searchTable()">Search</button>
+        </div> -->
+    </div>
+</div>  
+
+<br><br>
+<div class="table-responsive">
+    <table id="myTable"  class="table  {% if mem_role == 'HR' and mem_hroptions == 1 %}table-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}table-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}table-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}table-tm {% endif %}" >
+        <tr>
+        <th >Date</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Attachment(s)</th>
+    </tr>
+    
+    {% for i in leave_data %}
+    <tr>
+        <td style="padding: 15px;">{{i.date}}</td>
+        <td class="typeColumn">{{i.documenttype1}}</td>
+        <td class="">{{i.description}}</td>
+        <td class=""><a href="/media/{{i.imagefile}}" target="_blank">file</a></td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="4" class="text-center" style="color: red;">Currently, there are no uploaded documents available......
+        </td>
+    </tr>
+
+
+    {% endfor %}
+</table>
+</div>
+<div id="noDataFound" style="color: red; display: none; text-align: center;">
+    There is no documents available for search items.....
+</div>
+
+<script>
+    function searchTable() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("searchInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+
+        // Flag to check if any matching results were found
+        var matchFound = false;
+
+        // Loop through all table rows, and hide those that don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByClassName("typeColumn")[0]; // Change to the appropriate column class
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                    matchFound = true;
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+
+        // Handle pagination and display error message
+        var pagination = document.querySelector(".pagination");
+        var errorMessage = document.getElementById("noDataFound");
+
+        if (matchFound) {
+            pagination.style.display = ""; // Show pagination if matches are found
+            errorMessage.style.display = "none"; // Hide error message
+        } else {
+            pagination.style.display = "none"; // Hide pagination if no matches are found
+
+
+            errorMessage.style.display = ""; // Show error message
+        }
+    }
+</script>
+
+    <!-- <div class="pagination" style="color:white ;" >
+        <span class="step-links">
+            {% if leave_data.has_previous %}
+                <a href="?page=1">&laquo; First</a>
+                <a href="?page={{ leave_data.previous_page_number }}" class="prev">&#8249; << </a>
+            {% endif %}
+      
+            {% for page in leave_data.paginator.page_range %}
+                <a href="?page={{ page }}" {% if page == leave_data.number %}class="active"{% endif %}>{{ page }}</a>
+            {% endfor %}
+      
+            {% if leave_data.has_next %}
+                {% if leave_data.number != leave_data.paginator.num_pages %}
+                {% endif %}
+                <a href="?page={{ leave_data.paginator.num_pages }}">&raquo; >> </a>
+            {% endif %}
+        </span>
+      </div> -->
+      
+      <div class="pagination" style="color:white; margin:20px auto;">
+        <span class="step-links">
+            {% if leave_data.has_previous %}
+                <a  href="?page=1">First</a>
+                <a   href="?page={{ leave_data.previous_page_number }}" class="prev"> << </a>
+            {% endif %}
+    
+
+            {% for i in leave_data.paginator.page_range %}
+            {% if leave_data.number == i %}
+            <button class="active act "><span>{{ i }} <span class="sr-only">(current)</span></span></button>
+            {% elif i > leave_data.number|add:'-3' and i < leave_data.number|add:'3' %}
+                <a  href="?page={{ i }}">{{ i }}</a>
+            {% endif %}
+            {% endfor %}
+
+           
+
+            {% if leave_data.has_next %}
+                {% if leave_data.number != leave_data.paginator.num_pages %}
+                {% endif %}
+                <a   href="?page={{ leave_data.next_page_number }}" class="prev">>> </a>
+
+                <a  href="?page={{ leave_data.paginator.num_pages }}">Next </a>
+            {% endif %}
+        </span>
+    </div>   
+
+
+    <!-- </div>
+    </div> -->
+    <h3 class="{% if mem_role == 'HR' and mem_hroptions == 1 %}hed-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}hed-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}hed-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}hed-tm {% endif %}">Upload a fresh Document</h3>
+
+    <form method="post" enctype="multipart/form-data" class="form1 {% if mem_role == 'HR' and mem_hroptions == 1 %}form-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}form-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}form-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}form-tm {% endif %}" >
+
+        {% csrf_token %}
+      <div class="form-group">
+            <label>Choose a new Document*</label>
+                
+
+            <!-- <select  name="documenttype"class="form-control"style="background-color:#2d3354; color: white; border:none;" class="form-control">
+                  <a href=""><i class="fa fa-chevron-circle-down" aria-hidden="true"></i></a>
+                 <option>please pick a type </option>
+
+            {% for i in r %}
+            
+            <option>{{i.certificates}}</option>
+            {% endfor %}
+                
+            </select>
+               -->
+
+               <select  name="documenttype1" class="form-control" required>
+               
+                <option value="" disabled selected  >Please pick a type</option>
+                {% for i in r %}
+                {% if i.document_type != "" and i.document_type != NULL  %}
+                {% if i.Enabled == "Yes" %}
+                  <option value="{{i.document_type}}">
+                    {{i.document_type}}  {% if i.compulsory == "Yes" %}*{% endif %}
+                 </option>
+                {% endif %}
+                {% endif %}
+                {% endfor %}
+
+            </select>
+            </div>
+            
+        <br>
+
+            <!-- <div class="form-group">
+              <label style="color: white;">Supporting Images Or Documents*</label>
+              <input type="file" name="imagefile[]" id="file" style="background-color: #2d3354;border:none;color:#ffff" class="form-control" multiple required><br>
+              <span id="file-size-error" style="color: red;"></span>
+            </div>
+           -->
+           <!-- <div class="form-group">
+            <label style="color: white;">Supporting Images Or Documents*</label>
+            <input type="file" name="imagefile" accept="image/*" style="background-color: #2d3354;border:none;color:#ffff" class="form-control" multiple required><br>
+            <span id="file-size-error" style="color: red;"></span>
+        </div> -->
+
+
+        <div class="form-group">
+            <label >Supporting Image or Document*</label>
+            <input type="file" id="imagefile" name="imagefile" accept="image/jpeg, image/jpg, image/png, application/pdf"  class="form-control" required><br>
+            <span id="file-error" style="color: red;"></span>
+        </div>
+
+     
+        <script>
+            //attaching "change" event to the file upload button
+  document.getElementById("file").addEventListener("change", validateFile)
+  
+  function validateFile(){
+    const allowedExtensions =  ['jpg','jpeg','png','pdf'],
+          sizeLimit = 1000000; // 1 megabyte
+    
+    // destructuring file name and size from file object
+    const { name:fileName, size:fileSize } = this.files[0];
+    
+    /*
+    * if the filename is apple.png, we split the string to get ["apple","png"]
+    * then apply the pop() method to return the file extension (png)
+    *
+    */
+    const fileExtension = fileName.split(".").pop();
+    
+    /* 
+      check if the extension of the uploaded file is included 
+      in our array of allowed file extensions
+    */
+    if(!allowedExtensions.includes(fileExtension)){
+      alert("please upload only jpg, jpeg, pdf and png files only");
+      this.value = null;
+    }else if(fileSize > sizeLimit){
+      alert("file size too large")
+      this.value = null;
+    }
+  }
+          </script>
+  
+          <script>
+              // Get the file input element
+              const fileInput = document.querySelector('input[type="file"]');
+          
+              // Add an event listener to check the file size when a file is selected
+              fileInput.addEventListener('change', function () {
+                  const maxFileSize = 5 * 1024 * 1024; // 5MB in bytes
+                  const fileSize = this.files[0].size; // Size of the selected file
+          
+                  if (fileSize > maxFileSize) {
+                      // Display an error message if the file size is too large
+                      document.getElementById('file-size-error').textContent = 'The file is too large. Allowed maximum size is 5MB';
+                      this.value = ''; // Clear the file input
+                  } else {
+                      document.getElementById('file-size-error').textContent = ''; // Clear any previous error message
+                  }
+              });
+          </script>
+  
+
+
+
+<!--         
+        <script>
+            document.getElementById('imagefile').addEventListener('change', function() {
+                var input = this;
+                var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.pdf)$/i;
+                var files = input.files;
+                var errorMessage = "";
+        
+                // Check if more than one file is selected
+                if (files.length > 1) {
+                    errorMessage = "Please select only one file.";
+                    // Clear the file input
+                    input.value = '';
+                } else {
+                    var file = files[0];
+                    if (!allowedExtensions.exec(file.name)) {
+                        errorMessage = file.name + ' is not a valid file format. Please upload files with extensions .jpg, .jpeg, .png, or .pdf.';
+                        // Clear the file input
+                        input.value = '';
+                    }
+                }
+        
+                // Display error message if any
+                document.getElementById('file-error').textContent = errorMessage;
+            });
+        </script>
+         -->
+
+         <script>
+            document.getElementById('imagefile').addEventListener('change', function() {
+                var input = this;
+                var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.pdf)$/i;
+                var maxFileSize = 5 * 1024 * 1024; // 5 MB in bytes
+                var files = input.files;
+                var errorMessage = "";
+        
+                // Check if more than one file is selected
+                if (files.length > 1) {
+                    errorMessage = "Please select only one file.";
+                    // Clear the file input
+                    input.value = '';
+                } else {
+                    var file = files[0];
+                    if (!allowedExtensions.exec(file.name)) {
+                        errorMessage = file.name + ' is not a valid file format. Please upload files with extensions .jpg, .jpeg, .png, or .pdf.';
+                        // Clear the file input
+                        input.value = '';
+                    } else if (file.size > maxFileSize) {
+                        errorMessage = file.name + ' exceeds the maximum file size of 5MB.';
+                        // Clear the file input
+                        input.value = '';
+                    }
+                }
+        
+                // Display error message if any
+                document.getElementById('file-error').textContent = errorMessage;
+            });
+        </script>
+
+          <script>
+              // Get the file input element
+              const fileInput = document.querySelector('input[type="file"]');
+          
+              // Add an event listener to check the file size when a file is selected
+              fileInput.addEventListener('change', function () {
+                  const maxFileSize = 5 * 1024 * 1024; // 5MB in bytes
+                  const fileSize = this.files[0].size; // Size of the selected file
+          
+                  if (fileSize > maxFileSize) {
+                      // Display an error message if the file size is too large
+                      document.getElementById('file-size-error').textContent = 'The file is too large. Allowed maximum size is 5MB';
+                      this.value = ''; // Clear the file input
+                  } else {
+                      document.getElementById('file-size-error').textContent = ''; // Clear any previous error message
+                  }
+              });
+          </script>
+
+
+       <div class="form-group">
+            <label><b>Description*</b></label><br>
+
+            <input type="text" name="description"   class="form-control" required >
+        </div>
+        <div class="card-footer">
+      
+            <input class="btn btn-primary btn-block"  value="UPLOAD DOCUMENTS" type="SUBMIT">
+        </div>
+        </form>
+       
+  </div>
+  <div class="col-2"></div>
+</div>
+</div>
+  
+<script>
+  var currentPage = 1; // Initialize the current page
+  var currentFilter = "all"; // Initialize the current filter (all/employees/dismissed)
+
+  // Functions for filtering data
+  function showAllRows() {
+      currentFilter = "all";
+      showPage(1);
+  }
+
+  function showActiveEmployees() {
+      currentFilter = "employees";
+      showPage(1);
+  }
+
+  function showDismissedEmployees() {
+      currentFilter = "dismissed";
+      showPage(1);
+  }
+
+  function showPage(pageNumber) {
+      var rowsPerPage = 10; // Number of rows to display per page
+      var table = document.getElementById("myTable");
+      var rows = table.rows;
+      
+      for (var i = 1; i < rows.length; i++) {
+          var is_active = rows[i].getAttribute("data-is-active");
+          if ((currentFilter === "all") ||
+              (currentFilter === "employees" && is_active === "True") ||
+              (currentFilter === "dismissed" && is_active === "False")) {
+              if (i >= (pageNumber - 1) * rowsPerPage + 1 && i <= pageNumber * rowsPerPage) {
+                  rows[i].style.display = ""; // Display rows within the current page range
+              } else {
+                  rows[i].style.display = "none"; // Hide rows outside the current page range
+              }
+          } else {
+              rows[i].style.display = "none"; // Hide rows that don't match the current filter
+          }
+      }
+      
+      // Update the current page indicator
+      document.getElementById("currentPage").textContent = "Page " + pageNumber;
+      currentPage = pageNumber;
+  }
+
+  function nextPage() {
+      if (currentPage < totalPageCount()) {
+          showPage(currentPage + 1);
+      }
+  }
+
+  function prevPage() {
+      if (currentPage > 1) {
+          showPage(currentPage - 1);
+      }
+  }
+
+  function totalPageCount() {
+      var rowsPerPage = 10; // Number of rows to display per page
+      var table = document.getElementById("myTable");
+      var totalRows = table.rows.length - 1; // Exclude the header row
+      return Math.ceil(totalRows / rowsPerPage);
+  }
+
+  // Initialize pagination on page load
+  showPage(1);
+
+  // Attach event listeners to the Previous and Next buttons
+  document.getElementById("prevPage").addEventListener("click", prevPage);
+  document.getElementById("nextPage").addEventListener("click", nextPage);
+</script>
+<script>
+    function checkFileSize(input) {
+      const fileSize = input.files[0].size; // Size in bytes
+      const maxSize = 5*1024 * 1024; // 5MB
+  
+      if (fileSize > maxSize) {
+        document.getElementById("fileSizeError").innerText = "File size exceeds 5MB.";
+        input.value = ""; // Clear the file input
+      } else {
+        document.getElementById("fileSizeError").innerText = "";
+      }
+    }
+  </script>
+
+<script>
+    //attaching "change" event to the file upload button
+document.getElementById("file").addEventListener("change", validateFile)
+
+function validateFile(){
+const allowedExtensions =  ['jpg','jpeg','png','pdf'],
+  sizeLimit = 1000000; // 1 megabyte
+
+// destructuring file name and size from file object
+const { name:fileName, size:fileSize } = this.files[0];
+
+/*
+* if the filename is apple.png, we split the string to get ["apple","png"]
+* then apply the pop() method to return the file extension (png)
+*
+*/
+const fileExtension = fileName.split(".").pop();
+
+/* 
+check if the extension of the uploaded file is included 
+in our array of allowed file extensions
+*/
+if(!allowedExtensions.includes(fileExtension)){
+alert("please upload only jpg, jpeg, pdf, and png files");
+this.value = null;
+}else if(fileSize > sizeLimit){
+alert("file size too large")
+this.value = null;
+}
+}
+  </script>
+
+  {% endblock main_content %}
+  </body>
+    </html>
+    
+                                                                

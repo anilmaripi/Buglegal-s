@@ -1,0 +1,627 @@
+{% extends 'admin-template/base_template.html' %}
+        
+        
+        
+        
+{% block main_content %}
+
+<style>
+.table td{
+    width: 50%;
+    color: black;
+}
+/* h4{
+    color: rgb(255, 255, 255);
+} */
+.model-open .model{
+    overflow-x:hidden;
+    overflow-y: auto;
+
+}
+.content p{
+    padding: 0%;
+
+}
+.main{
+    position: absolute;
+}
+tr:nth-child(even) {background-color: rgb(239,239,247)}
+tr:nth-child(odd) {background-color: rgb(238,242,244)}
+/* @media (max-width: 768px) {
+    .small-box{
+        position: absolute;
+    }
+    
+}
+.deg{
+    position: fixed;
+} */
+p{
+    color: white;
+}
+
+a{
+    text-decoration: none;
+}
+a:hover{
+    text-decoration: underline;
+}
+
+
+</style>
+<br><br>
+<script>
+$(document).ready(function() {
+// Show the popup when a specific element is clicked
+$('#show-popup-button').click(function() {
+$('#popup').fadeIn();
+});
+
+// Hide the popup when the close button is clicked
+$('#close-popup-button').click(function() {
+$('#popup').fadeOut();
+});
+});
+</script>
+
+<div class="row" >
+    <div class="col-lg-8">
+<div style="text-transform: capitalize;color: red;padding: 10px;"><a href="{% url 'people_count' %}">people</a> | {{employ.first_name}}.{{employ.last_name}}</div>
+{% if users.is_active  %}
+<!-- <span style="color: white;"></span> -->
+<!-- <span class="alert alert-danger" role="alert">This employee is Enabled</span> -->
+
+                        {% else %}
+                        
+                        <span class="alert alert-danger" role="alert" >This employee is Disabled</span>
+                        {% endif %}
+<section class="content" style="background-color: white;" >
+    
+    <div class="container-fluid">
+        
+        <div class="row">
+            
+            <div class="col-lg-12 col-12 ">
+                <!-- <div class="small-box " style="padding: 10px;width: 100%;"> -->
+                    <h4 class="text-dark">Basic Information
+                        <p style="float: right;" type="button" class="btn" data-toggle="modal" >
+                            <a href="/empedit/{{ employ.id }}">  <i class="far fa-edit" style="font-size: 20px;color: blue;">&nbsp;EDIT</i></a>
+                        </p>
+                    </h4>
+    <!-- <div class="card1"> -->
+       
+        <div class="inner">
+            <!-- <div class="card-body1" style="padding: 0px;"> -->
+                
+              
+                
+                <table class="table">
+                  
+                    <tbody >
+                      
+    
+                     
+                   <tr>
+                            <td>First Name:</td>
+                           
+                            <td>{{employ.first_name}}</td>
+                            
+                        </tr>
+                        <tr>
+                            <td>Last Name:</td>
+                            <td>{{employ.last_name}}</td>
+                        </tr>
+    
+                        <tr>
+                            <td>Date of brith:</td>
+                            <td>{{employ.dateofbirth}}</td>
+                        </tr>
+                        <td>User Name:</td>
+                        <td>{{employ.username}}</td>
+                        </tr>
+                        <!-- <tr>
+                            <td>Password</td>
+                            <td>{{employ.password}}</td>
+                        </tr> -->
+                        <tr>
+                            <td>Email</td>
+                            <td>{{employ.email}}</td>
+                        </tr>
+    
+                        <tr>
+                            <td>Office Mail</td>
+                            <td>{{employ.web_mail}}</td>
+                        </tr>
+                        <tr>
+                            <td>Gender</td>
+                            <td>{{employ.gender}}</td>
+                        </tr>
+                        <tr>
+                            <td>Address:</td>
+                            <td>{{employ.address}}</td>
+                        </tr>
+    
+                        <tr>
+                            <td>Employ Id</td>
+                            <td>{{employ.empid}}</td>
+                        </tr>
+    
+                           <tr>
+                            <td>Bloodgroup</td>
+                            <td>{{employ.bloodgroup}}</td>
+                           </tr>
+                           <tr>
+                            <td>Date of Joining</td>
+                            <td>{{employ.dateofjoining}}</td>
+                           </tr> 
+                        {% if employ.designation_employ.designation_name %}
+                           <tr>
+                               <td>Designation</td>
+                               <td>{{ employ.designation_employ.designation_name }}</td>
+                           </tr>
+                           {% else %}
+                           <tr>
+                            <td>Designation</td>
+                            <td>Null</td>
+                        </tr>
+                       
+                       {% endif %}
+
+                        <tr>
+                            <td>Annual Salary</td>
+                            <td>{{employ.package}}</td>
+                        </tr>
+                        <tr>
+                            <td>Location</td>
+                            <td>{{employ.location}}</td>
+                        </tr>
+                        <tr>
+                            <td>Pincode</td>
+                            <td>{{employ.pincode}}</td>
+                        </tr>
+                        <tr>
+                            <td>Address</td>
+                            <td>{{employ.address}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <br>
+    <!-- <div class="row">
+        <div class="col-lg-12 col-12 ">
+
+    <h4>Compensation & Perquisites</h4>
+   
+   
+    <div class="card1">
+        <div class="card-body1" style="padding: 0px;">
+             
+            
+                     <div class="small-box " style="padding: 10px;width: 100%;"> 
+            <table class="table">
+                <tbody >
+                    <tr >
+                        <td >Annual Salary</td>
+                       
+                        <td>₹&nbsp;&nbsp;{{employ.package}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div> -->
+    <br>
+    <div class="row">
+        <div class="col-lg-12 col-12 ">
+   
+            <h4 style="color: black;">Leaves & Attendance
+                <p style="float: right;" type="button" class="btn" data-toggle="modal" data-target="#exampleModalCenter">
+                    <i class="far fa-edit" style="font-size: 20px;color: blue;">&nbsp;EDIT</i>
+                </p>
+            </h4>
+            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header" style="background-color: #282f51">
+                            <h5 class="modal-title" id="exampleModalLongTitle" style="color:white;">Update Shift  for  {{employ.empid}}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white;">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body" style="background-color: #2d3354;">
+                            <form id="updateShiftForm">
+                                {% csrf_token %}
+                                <label>Select Shift-Name</label>
+                                <select name="working12" class="form-control">
+                                    <option disabled selected value="">Select shift</option>
+                                    {% for i in work %}
+                                        <option value="{{ i.shift_name }}">{{ i.shift_name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </form>
+                        </div>
+                        <div class="modal-footer" style="background-color: #2d3354;">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" onclick="updateShift()">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script>
+                function updateShift() {
+                    const newShift = $('#updateShiftForm select[name="working12"]').val();
+                    const employeeId = "{{employ.id}}";  // Replace with actual employee ID
+            
+                    $.ajax({
+                        type: 'POST',
+                        url: '/update_shift/' + employeeId + '/',
+                        data: {
+                            'working12': newShift,
+                            csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+                        },
+                        success: function (response) {
+                            if (response.success) {
+                                alert('Shift updated successfully');
+                                $('#exampleModalCenter').modal('hide'); // Close the modal
+                                location.reload(); // Refresh the page or update the UI as needed
+                            } else {
+                                alert('Error: ' + response.error);
+                            }
+                        },
+                        error: function (error) {
+                            alert('An error occurred while updating the shift.');
+                        }
+                    });
+                }
+            </script>
+    <!-- <div class="card1">
+        <div class="card-body1"> -->
+            <table class="table">
+                <tbody >
+                    <tr >
+                        <td >Shift Name</td>
+                       
+                        <td>{{employ.working12}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-lg-12 col-12 ">
+
+        <h4 style="color: black;">Salary Structure</h4>
+    <!-- <div class="card1">
+        <div class="card-body1"> -->
+            <table class="table text-dark">
+                <tbody >
+                    {% for i in saltur%}
+                    <tr >
+                        <td >{{i.salarycomponent}}</td>
+                       
+                        <td>{{i.percentageofCTC}}%</td>
+                    </tr>
+                    {% endfor %}
+                    {% for i in salduct %}
+                    <tr >
+                        <td >{{i.deductcomponent}}</td>
+                         {% if i.percentageordfixed == "Percentage" %}
+                        <td>-{{i.percentageofdctc}}%</td>
+                        {% else %}
+                        <td>-{{i.percentageofdctc}}</td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+            </tbody>
+            </table>
+        </div>
+    </div>
+   
+
+    <br>
+    <div class="row">
+        <div class="col-lg-12 col-12 ">
+            {% for data in datas %}
+    <h4 style="color: black;">Payment Information
+    </h4>
+
+    
+<div class="inner">
+    <!-- <div class="card1">
+        <div class="card-body1" style="padding: 0%;"> -->
+         
+            
+            <table class="table" >
+                <tbody >
+                    <tr >
+                        <td >PAN</td>
+                       
+                        <td>{{data.pan}}</td>
+                    </tr>
+                    <tr >
+                        <td>IFSC Code</td>
+                       
+                        <td>{{data.ifsecode}}</td>
+                    </tr>
+                    <tr >
+                        <td>Account Number</td>
+                       
+                        <td>{{data.acno}}</td>
+                    </tr>
+                    <tr >
+                        <td>Beneficiary Name</td>
+                        
+                        <td>{{data.beneficiaryname}}</td>
+                    </tr>
+                   
+                </tbody>
+            </table>
+        </div>
+    </div></div>
+    
+    <br>
+    <!-- <div style="display: flex; flex-direction: row; height: 50px;margin-bottom: 10px;width: 800px;"> -->
+        <div class="row">
+            <div class="col-lg-12 col-12 ">
+                <h4>Other Information</h4>
+    
+               
+   
+   <div class="inner">
+    <!-- <div class="card1">
+        <div class="card-body1" style="padding: 0px;" > 
+           -->
+            
+           <table class="table">
+                  
+            <tbody >
+              
+
+             
+           <tr >
+                    <td>First Name:</td>
+                   
+                    <td>{{employ.first_name}}</td>
+                    
+                </tr>
+                <tr>
+                    <td>Last Name:</td>
+                    <td>{{employ.last_name}}</td>
+                </tr>
+
+                <tr>
+                    <td>Date of brith:</td>
+                    <td>{{employ.dateofbirth}}</td>
+                </tr>
+                <td>User Name:</td>
+                <td>{{employ.username}}</td>
+                </tr>
+                <!-- <tr>
+                    <td>Password</td>
+                    <td>{{employ.password}}</td>
+                </tr> -->
+                <tr>
+                    <td>Email</td>
+                    <td>{{employ.email}}</td>
+                </tr>
+
+                <tr>
+                    <td>Office Mail</td>
+                    <td>{{employ.web_mail}}</td>
+                </tr>
+                <tr>
+                    <td>Gender</td>
+                    <td>{{employ.gender}}</td>
+                </tr>
+                <tr>
+                    <td>Address:</td>
+                    <td>{{employ.address}}</td>
+                </tr>
+
+                <tr>
+                    <td>Employ Id</td>
+                    <td>{{employ.empid}}</td>
+                </tr>
+
+                   <tr>
+                    <td>Bloodgroup</td>
+                    <td>{{employ.bloodgroup}}</td>
+                   </tr>
+                   <tr>
+                    <td>Date of Joining</td>
+                    <td>{{employ.dateofjoining}}</td>
+                   </tr> 
+                <tr>
+                    <td>Designation</td>
+                    <td>{{employ.designation}}</td>
+                </tr>
+                <tr>
+                    <td>Annual Salary</td>
+                    <td>{{employ.package}}</td>
+                </tr>
+                <tr>
+                    <td>Location</td>
+                    <td>{{employ.location}}</td>
+                </tr>
+                <tr>
+                    <td>Pincode</td>
+                    <td>{{employ.pincode}}</td>
+                </tr>
+                <tr>
+                    <td>Address</td>
+                    <td>{{employ.address}}</td>
+                </tr>
+
+
+
+
+
+
+
+            </tbody>
+        </table>
+
+            {% endfor %}
+        </div>
+    </div></div>
+   
+    <!-- <div class="row">
+        <div class="col-lg-12 col-12 ">
+    
+        <h4>User Roles & Permissions</h4>
+   
+   <div class="inner">
+           
+            
+            <table class="table">
+                <tbody >
+                    <tr >
+                        <td >Role</td>
+                       
+                        <td>Employee / Contractor</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div></div> -->
+
+    <div class="row">
+        <div class="col-lg-12 col-12 ">
+    
+            <h4 style="color: black;">User Roles & Permissions
+                <p style="float: right;color: rgb(255, 255, 255);">
+                    {% if complan == "1" %}
+                    {% elif employ.role == "HR" %}
+                    {% elif employ.role == "Project Manager" %}
+                    {% elif employ.role == "Receptionist" %}
+                    {% else %}
+                    <a href="/edit_role_permission/{{ employ.id }}"><i class="far fa-edit">&nbsp;EDIT</i></a>
+                    {% endif %}
+                </p>
+            </h4>   
+   <div class="inner">
+              <!-- <div class="card1">
+        <div class="card-body1"> -->
+       
+            
+            <table class="table">
+                <tbody >
+                    <tr >
+                        <td >Role</td>
+                       
+                        <td>{{employ.role}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    <div class="col-lg-12" style="padding: 20px;text-align: center;">
+        <div class="inner" style="height: 50px;">
+            {% if not users.is_active  %}
+    <button class="btn btn-danger"> <a style="color: white;" href="{% url 'enable_button' std=employ.admin.id %}">Enable Employee</a></button>
+            {% else %}
+    <button class="btn btn-danger"><a style="color: white;" href="{% url 'disable_button' std=employ.admin.id %}">Disable Employee</a></button>
+            {% endif %}
+    <button class="btn btn-danger" data-toggle="modal" data-target="#myModal">Delete</button>
+    </div>
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+        
+            <div class="modal-content">
+                    
+            <div class="modal-body " >
+                <span style="color: black;">Please be aware that once you delete the employee, the data will be permanently removed and cannot be restored. Are you absolutely sure you want to delete the employee?<br>
+                <b style="color: rgb(97, 94, 94);">{{employ.first_name}}&nbsp;{{employ.last_name}}</b></span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-primary" data-dismiss="modal">No</button>
+                <button class="btn btn-danger" data-toggle="modal" data-target="#myModal"> <a style="color: white;" href="{% url 'enable_button2' std=employ.admin.id %}">Yes</a></button>
+
+            </div>
+            </div>
+          
+        </div>
+    </div>
+        
+    
+
+
+    
+
+ 
+
+<script>
+function showDiv(buttonId) {
+    var div = document.getElementById(buttonId);
+    if (div.style.display === "none") {
+        div.style.display = "block";
+    } else {
+        div.style.display = "none";
+    }
+}
+
+function hideDiv(buttonId) {
+    var div = document.getElementById(buttonId);
+    div.style.display = "none";
+}
+
+</script></div></section></div>
+<!-- <div class=col-lg-1></div> -->
+<div class="col-lg-4 " style="padding: 0; justify-content: center; padding: 10px; height: fit-content;box-shadow: 1px 1px 5px 1px lightblue;" >
+    <div class="row" style="justify-content: center; padding: 10px;">
+<div class="small-box deg" style="text-align: center; padding: 15px; background-color: rgb(41, 215, 231);  ">
+    <!-- <div class="inner" > -->
+<!-- <div class="sidenav1"> -->
+
+<h5  ><a style="color: white;"  href="{% url 'individual_reimbursement_view' std=employ.id %}"  > Reimbursement's</a></h5>
+<span>View report of employee reimbursement </span>
+
+</div>
+
+</div>
+
+    <!-- <div class="inner" > -->
+<!-- <div class="sidenav1"> -->
+<div class="row" style="justify-content: center; padding: 10px;">
+    <div class="small-box deg" style="text-align: center; padding: 15px; background-color: rgb(41, 215, 231);  ">
+    <h5  ><a style="color: white;"  href="{% url 'individual_documentreport' std=employ.id %}"  >Document's</a></h5>
+    <span>View report of employee document </span>
+</div>
+</div>
+<div class="row" style="justify-content: center; padding: 10px;">
+    <div class="small-box deg" style="text-align: center; padding: 15px; background-color: rgb(41, 215, 231) ;  ">
+    <h5  ><a style="color: white;"  href="{% url 'individual_leaveReport' std=employ.id %}"  > Leaves Report</a></h5>
+    <span>View report of employee leave report </span>
+</div>
+</div>
+<!-- <div class="row" style="justify-content: center; padding: 10px;">
+    <div class="small-box deg" style="text-align: center; padding: 15px; background-color: #1e2442;  ">
+    <h5  ><a style="color: white;"  href="{% url 'individual_employ_tax_report' std=employ.id %}"  >View Tax Report</a></h5>
+    <span>View report of employee tax report </span>
+</div>
+</div> -->
+
+<div class="row" style="justify-content: center; padding: 10px;">
+    <div class="small-box deg" style="text-align: center; padding: 15px; background-color: rgb(41, 215, 231);  ">
+    <h5  ><a style="color: white;"  href="{% url 'individual_advancesalary_Report' std=employ.id %}"  >View Advance Salary Report</a></h5>
+    <span>View report of employee advance salary report </span>
+</div>
+</div>
+
+<div class="row" style="justify-content: center; padding: 10px;">
+    <div class="small-box deg" style="text-align: center; padding: 15px; background-color: rgb(41, 215, 231);  ">
+    <h5  ><a style="color: white;"  href="/empcl/"  >View Attendance Report</a></h5>
+    <span>View report of employee attendance report </span>
+</div>
+</div>
+
+
+
+</div>
+
+</div>   
+
+</div>
+ {% endblock main_content %}

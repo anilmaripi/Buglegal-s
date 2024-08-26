@@ -1,0 +1,42 @@
+{% extends 'employhelp/basehelp.html' %}
+{% block main_content %}
+<style>
+    h5{
+        font-size: medium;
+    }
+</style>
+<form>
+    <p id="p">All collections > Other Modules > Holidays,Leaves& Attendance > </p>
+    <p id="ha1" style="font-size: xx-large;">How does loss of pay for unpaid/excessive leave work?</p>
+    <p id="r1">This article is applicable only if your organization is using our Leave & Attendance feature.There are 3 options for adding loss-of-pay based on attendance, and you can select the option that you want from <b>Settings > Holidays, Leaves & Attendance</b> -</p>
+
+    <button style="background-color: #242B4D";>
+        <div> 
+            <p  id="r2" style="color:white;">automatically add a loss-of-pay for unpaid leaves</p>
+        </div>
+    </button><br><br>
+    <p id="f ">1. Automatic addition of loss-of-pay by XPayroll </p>
+    <p id="f2">If you enable this option, then XPayroll will automatically add loss-of-pay for your employees for the payroll month on the basis of unpaid leaves in their attendance. The loss-of-pay is calculated as </p>
+
+    <button>
+        <div> 
+            <p id="f3">[salary] * [number of unpaid leaves] / [total number of days in the month]</p>
+        </div>
+    </button><br>
+     
+    <p id="t">2. Manual addition of loss-of-pay based on our suggestions</p>
+    <p id="t1">If the option for automatic loss-of-pay is disabled, then you can use our LOP suggestions report under <b>Reports > Attendance > Payroll Adjustments</b>. These suggestions are based on the same logic as the automatic adjustments, and you can manually select which loss-of-pay to add to the payroll.</p>
+
+    <p id="t2"><b>Manual addition based on manual input</b></p>
+    <p id="t3">If you want completely manual control on loss-of-pay, then the same can be done by <a href="">adding a deduction manually</a>.Please keep the option for automatic loss-of-pay disabled if you opt for this option.</p><br>
+    
+    
+    <center><button style="width:50%;height: auto;font-size: x-large;border: 2px solid whitesmoke;">
+        <div id="a">
+            <p id="section10" style="text-align: center;">Did this answer your question?</p>
+            <p><a class="ex1" style="text-decoration: none;color: black;"><center>😄 😶 😔</center></a> </p>
+        </div>
+    </button></center><br><br><br>  
+    
+</form>
+{% endblock main_content %}

@@ -1,0 +1,47 @@
+{% extends 'adminhelp/basehelp.html' %}
+{% block main_content %}
+
+
+    <form>
+    <p1>Hrms Account Setup Guide</p1><br>
+    <p>Follow these steps to complete your company account onboarding.</p><br>
+    <p2>Here is a checklist for your HRMS account, please<br>
+         ensure you go through these 10 steps to get your<br> 
+         account ready for your first payroll.</p2><br>
+    <p>1. Training Videos</p>
+    <p>a. <a href="/home7">For Admins</a>(Get Started Guide)<br>
+    b. daily live products demo sessions<br>
+
+    <a href="https://www.youtube.com/watch?v=XZ3J6s3Lz7U">For employees</a>
+    </p>
+    <p>2. Ensure you have added all employees:</p>
+    <p>a. single add: Admin options>people>Add one<br>
+    b. Add many: <a href="/upload">Bulk update employee list</a><br>
+    </p> 
+    <p>3. Let us know what compliances are enabled.</p>
+    <p>a. Enable<a href="/payments_edit">compliances</a><br>
+    b. <a href="/tds">connect compliances portal</a>(if applicable)<br>
+    </p>
+    <p>4. Update your logo:(this will reflect on payslips)</p>
+    <p><a href="/company_detail/">company details > Logo </a><br>
+    
+    </p>
+    <p>5. Set your default salary structure</p>
+    <p><a href="/setup_guide">Admin option>settings>basic info>Default salary structure </a><br></p>
+    <p>6. Check for Missing information</p>
+    <p>You can track which employee profiles have mandatory information missing.</p><br>
+    <p><a href="/all_employees_missing_info/">Admin option>Reports>Missing information</a><br></p>
+    <p>7. Check the Salary Register to reconfirm all salary components.</p>
+    <p>You can reconfirm if the salary components and the net salaries are accurate here.</p>
+    <p><a href="/yearmonth_uploaded">Admin option>Reports>SalaryResister</a><br></p>
+    
+        </form>
+    
+    <center><button style="width:50%;height: auto;font-size: x-large;border: 2px solid whitesmoke;">
+    <div>
+        <p>Did this answer your question?</p>
+        <p style="font-size: x-large;">😄 😶 😔 </p>
+        
+    </div>
+</button></center><br>
+{% endblock main_content %}

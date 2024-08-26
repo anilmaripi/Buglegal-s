@@ -1,0 +1,26 @@
+{% extends 'adminhelp/basehelp.html' %}
+{% block main_content %}
+<style>
+    h5{
+        font-size: medium;
+    }
+</style>
+<form><br><br>
+    <span id="ha1" class="sres">How can we give special access (like an administrator) to somebody else?</span>
+    <ol type="a" style="line-height: 2;">
+    <b><li id="h1">Please ensure that the person is added to your organization. This can be either as an employee or a contractor.</li></b>
+    <b><li id="e1">Go to that person's profile from the People page. Scroll to the User Role / Privileges section, and click on Assign New Privileges.</li></b>
+    <b><li id="e2">From the drop-down, select the new user role that you would like to assign to that person. There are several pre-defined roles for you to select from.</li></b>
+    </ol>
+    <img src="/media/edit.png"style="width: 100% ;height: 100%;"><br>
+    <p id="e3">If required, you can also tweak the permissions that each user role has, by going to Settings > User Roles >  Create/Edit roles. </p>
+    <p id="e4">To see a list of people who have special user roles assigned to them, please check Settings > Collaborators.</p><br>
+       <!-- <center><button style="width:50%;height: auto;font-size: x-large;border: 2px solid whitesmoke;">
+        <div id="a">
+            <p id="section10" style="text-align: center;">Did this answer your question?</p>
+            <p><a class="ex1" style="text-decoration: none;color: black;"><center>😄 😶 😔</center></a> </p>
+        </div>
+    </button></center><br><br><br>   -->
+    
+</form>
+{% endblock main_content %}

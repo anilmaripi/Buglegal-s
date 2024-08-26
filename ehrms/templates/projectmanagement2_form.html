@@ -1,0 +1,81 @@
+
+{% extends 'admin-template/adminAdashboard.html' %}
+{% block main_content %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Project</title>
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          background-color: #f4f4f4;
+          margin: 0;
+          padding: 0;
+        }
+        .container {
+          width: 50%;
+          margin: 50px auto;
+          background-color: #fff;
+          padding: 20px;
+          border-radius: 8px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+          font-size: 24px;
+          margin-bottom: 20px;
+        }
+        label {
+          display: block;
+          margin-bottom: 8px;
+        }
+        input[type="text"],
+        input[type="file"],
+        textarea {
+          width: calc(100% - 12px);
+          padding: 8px;
+          margin-bottom: 15px;
+          border-radius: 4px;
+          border: 1px solid #ccc;
+        }
+        button {
+          padding: 10px 20px;
+          background-color: #007bff;
+          color: #fff;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          font-size: 16px;
+        }
+        button:hover {
+          background-color: #cfd1d3;
+        }
+      </style>
+    
+</head>
+<body>
+<div class="container">
+<center><h2>Create Project</h2></center>
+
+<form method="post" style="width:600px">
+    {% csrf_token %}
+    <label for="title">Title:</label>
+    <input type="text" name="title" required><br>
+
+    <label for="description">Description:</label>
+    <input type="text" name="discription" required><br>
+
+    <label for="title2">title2:</label>
+    <input type="text" name="title2" required><br>
+
+    <label for="subtitle2">subtitle2:</label>
+    <input type="text" name="subtitle2" required><br>
+
+  <center> <input type="submit"></center>
+</form>
+
+{% comment %} <a href="{% url 'projectmanagement2_list' %}">Cancel</a> {% endcomment %}
+</div>
+</body>
+</html>
+{% endblock main_content %}

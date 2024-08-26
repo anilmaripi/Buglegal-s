@@ -1,0 +1,92 @@
+{% extends 'employ-template/base_template.html' %}
+
+
+{% block main_content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Messages</title>
+    <style>
+        .hed-manager{
+            color:blue;
+            font-size: 36px;
+           }
+        .mg{
+            padding: 10px;
+        }
+        .card:nth-child(even){
+            background-color: #cccccc;
+            color:#000;
+        }
+        .card:nth-child(odd){
+            background-color: #e6e6e6;
+            color:#000;
+        }
+        .hed-tm{
+            color: #ff7733;
+            font-size: 36px;
+           }
+        .card-tm:nth-child(even){
+            background-color:rgb(239,239,247);
+            color:#000;
+        }
+        .card-tm:nth-child(odd){
+            background-color: rgb(238, 242, 244);
+            color:#000;
+        }
+        .hed-tl{
+            color: #000;
+        }
+        .hed-hr{
+            color: #000;
+        }
+    </style>
+</head> 
+<body>
+    <center>
+
+        <h3 class="{% if mem_role == 'HR' and mem_hroptions == 1 %}hed-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}hed-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}hed-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}hed-tm {% endif %}">Admin-Messages</h3>
+
+      </center>
+    <br>
+    <div class="row d-flex  justify-content-center">
+        <div class="col-md-2"></div>
+        <div class="col-md-8 "> <br>
+            {% if admin_messages %}
+    {% for message in admin_messages %}
+    <div class="card {% if mem_role == 'HR' and mem_hroptions == 1 %}card-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}card-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}card-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}card-tm {% endif %}">
+
+        <div class="row mg">
+            <div class="col-md-9">
+                {{message.title}}<span style="font-size: 12px;margin-left: 10px;">({{message.date}})</span>
+            </div>
+            <div class="col-md-3">
+                <div class="row">
+                        <div class="col">
+                            <a href="/display_message/{{message.id}}"><button class="btn-sm btn-primary btn-block">View</button></a>
+                        </div>
+                        <!-- <div class="col">
+                            <form action="{% url 'delete_admin_message' message.id %}" method="post">
+                                {% csrf_token %}
+                            <button type="submit"  class="btn-sm btn-danger btn-block">Remove</button>
+                        </form>
+                        </div> -->
+                </div>
+        </div>
+        </div>
+
+    </div>
+    {% endfor %} <br>
+    {% else %}
+    <h5 class="d-flex justify-content-center" style="color: red;">----No Date Found----</h5>
+    {% endif %}
+    </div>
+    <div class="col-md-2"></div>
+    </div>
+</body>
+</html>
+{% endblock main_content %}
+
+

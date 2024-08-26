@@ -1,0 +1,19 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Insert Help Topic</title>
+</head>
+<body>
+    <h2>Insert Help Topic</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="icon">Icon:</label>
+        <input type="file" name="icon" id="icon" ><br><br>
+        
+        <label for="title">Title:</label>
+        <input type="text" name="title" id="title" maxlength="200" ><br><br>
+        
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

@@ -1,0 +1,538 @@
+
+{% extends 'navbar.html' %}
+{% block main_content %}
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     -->
+     <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+    {% block title %} contact us {% endblock title %}
+    <style>
+      .dropdown-menu .dropdown-item:hover {
+            background-color: #9830de; 
+            color: #fff; 
+             transform: scale(1.02);
+            transition: color 0.3s, transform 0.3s;
+        }
+
+p.text-center.w-responsive.mx-auto.pb-5 {
+  text-align: center; /* Align text to the center */
+  max-width: 500px; /* Set a maximum width for responsiveness */
+  margin-left: auto; /* Automatically center horizontally */
+  margin-right: auto; /* Automatically center horizontally */
+  margin-bottom: 50px; /* Add spacing below the paragraph */
+  font-size: large;
+  font-family: 'Inter', sans-serif;
+
+  color: black;
+  font-weight: 600;
+}
+
+/* Overall container styling */
+.row.text-center {
+  margin-top: 30px; /* Adjust as needed for spacing */
+}
+
+/* Individual contact information sections */
+.row.text-center .col-md-4 {
+  margin-bottom: 30px; /* Space between sections */
+}
+
+/* Icons for each section */
+.btn-floating.blue.accent-1 {
+  margin-bottom: 15px; /* Space between icon and text */
+  color:orange;
+  font-size: 30px;
+}
+
+/* Address formatting */
+.row.text-center .col-md-4 p {
+  margin: 0; /* Remove default paragraph margins */
+  font-size: 16px; /* Adjust font size as needed */
+  line-height: 1.5; /* Improve readability */
+  color: black;
+  font-weight: 400;
+  font-family: 'Inter', sans-serif;
+
+}
+
+/* Phone number and hours formatting */
+.row.text-center .col-md-4:nth-child(2) p {
+  margin-bottom: 5px; /* Space between phone number and hours */
+}
+
+/* Email addresses formatting */
+.row.text-center .col-md-4:last-child p {
+  margin-bottom: 0; /* Remove extra space below emails */
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+  .row.text-center .col-md-4 {
+    text-align: left; /* Adjust alignment for smaller screens */
+  }
+}
+.contact_banner {
+  position: relative;
+  height: 400px; /* Adjust as needed */
+  overflow: hidden;
+}
+.carousel-caption {
+  position: absolute;
+  text-align: center;
+  color: #fff;
+  z-index: 1; /* Ensure caption is above the image */
+  margin-bottom: 10%;
+  justify-content: center;
+  align-items: center;
+
+}
+.carousel-caption h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+}
+
+.carousel-caption p {
+  font-size: 1.5rem;
+  line-height: 1.5;
+  font-family: 'Inter', sans-serif;
+  font-weight: 200;
+
+}
+/* Responsive styles for smaller screens */
+@media (max-width: 768px) {
+  .contact_banner {
+    height: 300px; /* Adjust height for smaller screens */
+  }
+
+  .carousel-caption {
+    font-size: 1.4rem; /* Reduce font size for better readability */
+    margin-bottom: -10%;
+  }
+  .contact_banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+  .carousel-caption h1 {
+    font-size: 2rem;
+  }
+
+  /* Additional adjustments for mobile-friendly layout */
+  .carousel-caption p {
+    font-size: 1rem; /* Further reduce paragraph font size */
+    font-family: 'Inter', sans-serif;
+   
+  }
+
+ 
+}
+.appbutton{
+            font-size: 20px;
+        }
+.footer-contact{
+  color: black;
+}
+    </style>
+    <style>
+    .button {
+      background-color: #04AA6D;
+      border: none;
+      color: white;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      font-family: 'Inter', sans-serif;
+
+      margin: 4px 2px;
+      cursor: pointer;
+    }
+
+    
+   
+    @media only screen and (max-width: 600px) {
+     
+    #c{
+      text-align: left;
+      justify-content: left;
+    }}
+    #c{
+      text-align: left;
+      justify-content: left;
+      color: #fff;
+    }
+    </style>
+ <style>
+  /* Card Styles */
+.card {
+  margin: 0 auto;
+  max-width: 1200px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+li,.copyright,.credits
+{
+  font-weight: 200;
+  color:white;
+}
+
+/* Form Header Styles */
+.form-header {
+  background-color: #2196F3; /* Blue accent-1 */
+  color: #fff;
+  padding: 10px 15px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+/* Form Body Styles */
+.form-body {
+  padding: 20px 0;
+}
+
+/* Form Input Styles */
+.form-control {
+  margin-bottom: 20px;
+  border-radius: 5px;
+}
+
+/* Button Styles */
+.btn-primary {
+  background-color: #2196F3; /* Blue */
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background-color: #0d8bf5; /* Darker Blue */
+}
+
+/* Error Message Styles */
+.error-message {
+  color: red;
+  margin-top: 5px;
+}
+
+/* Optional: Add some spacing between elements */
+.md-form {
+  margin-bottom: 20px;
+}
+
+</style>
+     
+</head>
+<body>
+  <br><br>
+  <div class="container-fluid w-100">
+ 
+
+ <div class="contact_banner">
+    <img src="/media/contactus11.PNG" alt="test" class="img-responsive" style="opacity:0.9;">
+    <div class="carousel slide text-center">
+      <div class="carousel-caption centered">
+       <h1 class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s"><b style="font-size: 50px;color:blue;">Contact Us</b></h1>
+        <p class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s" id="c" style="color: #ffff;"><b style="color:navy;">Let's build something together! Reach out and explore the possibilities – we're always looking for new collaborations and conversations.</b></p>
+      </div>
+      </div>
+</div>
+ 
+ <br><br>
+   
+    <div class="container ">
+
+        <!--Section: Content-->
+        <section class="dark-grey-text mb-5">
+
+      
+          <style>
+            .map-container-section {
+              overflow: hidden;
+              padding-bottom: 56.25%;
+              position: relative;
+              height: 0;
+            }
+      
+            .map-container-section iframe {
+              left: 0;
+              top: 0;
+              height: 100%;
+              width: 100%;
+              position: absolute;
+            }
+            
+          </style>
+      
+          <!-- Grid row -->
+          <div class="row">
+            <div class="col-lg-12 mb-lg-0 pb-lg-3 mb-4">
+              <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="form-header blue accent-1">
+                                <h3 class="mt-2"><i  class="fas fa-envelope fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s"></i> Write to Us:</h3>
+                            </div>
+                            <p class="dark-grey-text"></p>
+                            <!-- Form -->
+                            <form method="post" action="{% url 'contact' %}">
+                                {% csrf_token %}
+                                <div class="md-form">
+                                    <i class="fas fa-user prefix grey-text"></i>
+                                    <label for="form-name" class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s">Your name</label>
+                                    <input type="text" class="form-control fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s" id="form-name"  name="name" required>                      
+                                </div>
+                      
+                                <div class="md-form">
+                                    <i class="fas fa-envelope prefix grey-text"></i>
+                                    <label for="form-email" class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s">Your email</label>
+                                    <input type="text" id="form-email"  class="form-control fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s" name="email" required>                      
+                                </div>
+                                
+                                <script>
+                                  document.addEventListener("DOMContentLoaded", function () {
+                                      const emailInput = document.querySelector('input[name="email"]');
+                                      
+                                      function validateEmail(email) {
+                                          // Regular expression for email validation
+                                          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                                          return emailRegex.test(email);
+                                      }
+                              
+                                      function handleEmailValidation() {
+                                          const email = emailInput.value.trim();
+                                          const isValidEmail = validateEmail(email);
+                              
+                                          if (!isValidEmail) {
+                                              // If email is not valid, display an error message
+                                              emailInput.setCustomValidity("Please enter a valid email address");
+                                              emailInput.reportValidity(); // Show the error message
+                                          } else {
+                                              // If email is valid, clear any previous error message
+                                              emailInput.setCustomValidity("");
+                                          }
+                                      }
+                              
+                                      // Validate email input when user types in the field
+                                      emailInput.addEventListener("input", handleEmailValidation);
+                              
+                                      // Validate email input when the form is submitted
+                                      const form = document.querySelector("form");
+                                      form.addEventListener("submit", function (event) {
+                                          if (!validateEmail(emailInput.value.trim())) {
+                                              event.preventDefault(); // Prevent form submission if email is not valid
+                                              emailInput.focus(); // Focus on the email input field
+                                              handleEmailValidation(); // Show error message for invalid email
+                                          }
+                                      });
+                                  });
+                              </script>                              
+                                <div class="md-form">
+                                    <i class="fas fa-tag prefix grey-text"></i>
+                                    <label for="form-Subject" class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s">Subject</label>
+                                    <input type="text" id="form-Subject" class="form-control fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s"  name="subject" required>                      
+                                </div>
+                      
+                                <div class="md-form">
+                                    <i class="fas fa-pencil-alt prefix grey-text"></i>
+                                    <label for="form-text" class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s">Send message</label>
+                                    <textarea id="form-text"  class="form-control md-textarea fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s" name="message" rows="3" required></textarea>                      
+                                </div><br>
+                      
+                                <div class="text-center">
+                                    <button  class="btn btn-primary fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s" type="submit">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="text-center contact-info">
+                                        <a class="btn-floating blue accent-1">
+                                            <i style="color:black; margin-right:230px ; font-size: xx-large;"  class="fas fa-map-marker-alt fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s"></i>
+                                        </a>
+                                        <p style="text-align: left;justify-content: left;font-size: x-larger;color: black;" class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s">{{ contact_info2.address }},&nbsp;{{ contact_info2.city }},&nbsp;{{ contact_info2.state }} {{ contact_info2.zip_code }},{{ contact_info2.country }}</p>
+                                    </div>
+                                    <div class="text-center contact-info">
+                                        <a class="btn-floating blue accent-1">
+                                            <i style="color:black; margin-right: 240px; font-size: xx-large;"  class="fas fa-phone fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s"></i>
+                                        </a>
+                                        <p style="text-align: left;justify-content: left;font-size: x-larger;color: black;" class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s">{{ contact_info2.phone_number }}</p>
+                                        <p style="text-align: left;justify-content: left;font-size: x-larger;color: black;" class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s">{{ contact_info2.phone_hours }}</p>
+                                    </div><br>
+                                    <div class="text-center contact-info">
+                                        <a class="btn-floating blue accent-1">
+                                            <i style="color:black; margin-right:240px; font-size: xx-large;" class="fas fa-envelope fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s"></i>
+                                        </a>
+                                        <p style="text-align: left;justify-content: left;font-size: x-larger;color: black;" class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s">{{ contact_info2.email_addresses | linebreaksbr }}</p>  
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+
+                        <div class="col-md-4">
+                          <div class="card" style="background-color: #2196F3;">
+                              <div class="card-body">
+                                  <!-- Contact information 
+                                  style="color:black; margin-right:230px ; font-size: xx-large;"
+                                -->
+                                  <div class="text-center contact-info">
+                                      <a class="btn-floating blue accent-1">
+                                          <i class="fas fa-map-marker-alt fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s"></i>
+                                      </a>
+                                      <p style="text-align: left;justify-content: left;font-size: x-larger;color: black;" class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s"><b style="color: #fff;font-size: 20px;">{{ contact_info2.address }},&nbsp;{{ contact_info2.city }},&nbsp;{{ contact_info2.state }} {{ contact_info2.zip_code }},{{ contact_info2.country }}</b></p>
+                                  </div>
+                                  <div class="text-center contact-info">
+                                      <a class="btn-floating blue accent-1">
+                                          <i class="fas fa-phone fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s"></i>
+                                      </a>
+                                      <p style="text-align: left;justify-content: left;font-size: x-larger;" class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s"><b style="color: #fff;font-size: 20px;"> {{ contact_info2.phone_number }}</b></p>
+                                  </div>
+                                  <div class="text-center contact-info">
+                                      <a class="btn-floating blue accent-1">
+                                         <i class="fas fa-clock fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s"></i>
+                                      </a>
+                                      <p style="text-align: left;justify-content: left;font-size: x-larger;color: black;" class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s"><b style="color: #fff;font-size: 20px;">{{ contact_info2.phone_hours }}</b></p>
+
+                                  </div>
+
+
+                                  <div class="text-center contact-info">
+                                      <a class="btn-floating blue accent-1">
+                                          <i class="fas fa-envelope fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s"></i>
+                                      </a>
+                                      <p style="text-align: left;justify-content: left;font-size: x-larger;color: black;" class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s"><b style="color: #fff;font-size: 20px;">{{ contact_info2.email_addresses | linebreaksbr }}<b></p>  
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+
+
+                    </div>
+                </div>
+            </div><br>
+            
+            <!-- Map section -->
+            <div class="col-lg-12">
+                <div id="map-container-section" class="map-container-section">
+                    <style>
+                        .map-container-section {
+                            position: relative;
+                            width: 100%;
+                            height: 0;
+                            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+                            overflow: hidden;
+                            max-width: 100%;
+                            margin-bottom: 2rem;
+                            border-radius: 10px;
+                            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+                        }
+                        
+                        .map-container-section iframe {
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            width: 100%;
+                            height: 100%;
+                            border: 0;
+                            border-radius: 10px;
+                        }
+                    </style>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5939.5769429319425!2d80.43020900735664!3d16.314911237721304!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a4a75cd48dfe015%3A0xa7b2378a4590b4c!2sDeveloptrees%20Dsr%20It%20Solutions%20Private%20Limited!5e0!3m2!1sen!2sin!4v1704263146083!5m2!1sen!2sin" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </div>
+        
+          <!-- Grid row -->
+        </head>
+        <body>
+        
+          <div class="container" style="margin-left: 60px;">
+            <div class="row">
+          
+             
+              <div class="col-lg-4 mb-lg-0 pb-lg-3 mb-4">
+                <a href="/Terms_and_Conditions"  class="button fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s">Terms and Conditions</a>
+          
+              </div>
+              <div class="col-lg-4 mb-lg-0 pb-lg-3 mb-4">
+                <a href="/Privacy_and_Policy" class="button fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s">Privacy and Policy</a>
+          
+              </div>
+              <div class="col-lg-4 mb-lg-0 pb-lg-3 mb-4">
+                <a href="/Cancellation_Policy"  class="button fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s">Cancellation Policy</a>
+          
+              </div> 
+            </div>
+          </div>         
+<!-- <div class="container" style="margin-left: 60px;">
+  <div class="row">
+
+   
+    <div class="col-lg-4 mb-lg-0 pb-lg-3 mb-4">
+      <a href="{% url 'terms_conditions2' %}"  class="button fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s">Terms and conditions</a>
+
+    </div>
+    <div class="col-lg-4 mb-lg-0 pb-lg-3 mb-4">
+      <a href="{% url 'privacy_policy2' %}" class="button fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s">Privacy and policy</a>
+
+    </div>
+    <div class="col-lg-4 mb-lg-0 pb-lg-3 mb-4">
+      <a href="/Cancellation_policy/"  class="button fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s">Cancellation_policy</a>
+
+    </div> 
+  </div>
+</div> -->
+
+        </section>
+        <!--Section: Content-->
+      
+      </div>
+
+      <script>
+        $(document).ready(function() {
+        
+          // Image animation:
+          $('.contact_banner img').fadeIn(1500); // Fade in smoothly
+        
+          // H1 animation:
+          $('.carousel-caption h1').animate({
+            opacity: 1, // Fade in
+            top: '50%' // Move to center vertically
+          }, 1500);
+        
+          // Tag animation:
+          $('.carousel-caption p').delay(500).fadeIn(1000).animate({
+            left: '10px', // Move slightly to the right
+          }, 500);
+        
+        });
+        </script>
+      
+</body>
+</html>
+
+{% endblock main_content %}

@@ -1,0 +1,486 @@
+{% extends 'navbar.html' %}
+
+{% block main_content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Team</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Custom styles for card hover */
+        .card {
+            border: none;
+            transition: transform 0.3s, box-shadow 0.3s;
+            
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(0,0,0,0.3);
+            
+            
+        }
+
+        .social-icons {
+            margin-top: 10px;
+        }
+
+        .social-icon {
+            margin-right: 5px;
+            color: black; /* Adjust icon color */
+        }
+
+        .social-icon:hover {
+            color: #333; /* Adjust hover color */
+        }
+    
+  .dropdown-menu .dropdown-item:hover {
+            background-color: #9830de; 
+            color: #fff; 
+             transform: scale(1.02);
+            transition: color 0.3s, transform 0.3s;
+        }
+    .inh{
+        background-color: rgb(100, 97, 97,.5);  
+       
+    }
+    /* img {
+  -webkit-filter: grayscale(10%); 
+  filter: grayscale(95%);
+} */
+
+/* span{
+    color:blueviolet
+} */
+
+.appbutton{
+            font-size: 20px;
+        }
+        
+.button{
+  color:black;
+  display:inline-block;
+  font-size:18px;
+  background-color:rgb(248, 246, 246);
+  width:200px;
+  height:50px;
+  border-radius: 10px;
+  text-align:center;
+  padding-top:8px;
+  margin-top:30px;
+  margin-right:30px;
+}
+#app{
+  animation-duration: 10s;
+  animation-name: example;
+  position:relative;
+  animation-iteration-count: infinite;
+}
+@keyframes example {
+ 
+  100% {color:red; left:0px; top:0px;}
+}
+
+.mhcard1-usecases:hover{
+    box-shadow : 0 0 10px rgba(0, 0, 0, 0.3);
+    transform :scale(1.05);
+    animation: textclip 2s linear infinite;
+    
+  
+ 
+}
+.mhcard1 {
+          border: 1px solid #ddd;
+          border-radius: 18px;
+          width: 100%;
+         
+          padding: 20px;
+          margin: 20px;
+          font-family: Arial, sans-serif;
+          transition: transform 0.3s;
+          display: inline-block;
+      }
+
+      .mhcard1-img {
+          width: 100%;
+          border-radius: 18px;
+      }
+
+      .flexbox {
+          display: flex;
+          justify-content: center;
+      }
+      .mhcard1-hovered {
+  transform: scale(1.05);  
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);  
+}
+
+.mhcard1-hovered-more {
+  transform: scale(1.05);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+.use-case-card-hovered {
+  transform: scale(1.05);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+.flexbox {
+  display: flex;
+  justify-content: space-around; 
+}
+
+.use-case-card1 {
+  
+  border: 1px solid #ddd;
+  border-radius: 18px;
+  width: 600px; 
+  padding: 20px;
+  margin: 10px; 
+  font-family: Arial, sans-serif;
+  transition: transform 0.3s;
+}
+/* @media(max-width:768px){
+    .mhcard{
+        margin-right: -25px;
+    }
+    
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 1rem; 
+    }
+
+    .mhcard1 {
+        max-width: 100%; 
+        margin: 10px 0; 
+    }
+
+    .flexbox {
+        flex-direction: column; 
+        align-items: center; 
+    }
+
+   
+        } */
+.mhcard{
+    margin-left:120px;
+}
+
+.mySlides {display:none;}
+.animate__animated.animate__slideInUp {
+  --animate-duration: 2s;
+}
+
+/* This changes all the animations globally */
+:root {
+  --animate-duration: 800ms;
+  --animate-delay: 0.9s;
+}
+.img:hover  .tex{
+   display:block; 
+}
+.hover-content {
+    display: none;
+    position: absolute;
+    background: white;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    z-index: 999;
+}
+.tex {
+ 
+  transition: all 0.3s;
+}
+
+.tex:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/* .ima:hover{
+    transform: scale(1.05);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+} */
+
+.jm{
+  display: none;
+}
+@media (max-width:768px) {
+  .jm{
+  display: block;
+}
+.mhcard{
+  display: none;
+}
+.ic{
+margin: auto;
+width: 250px;
+display: block;
+margin-bottom: 15px;
+}
+}
+.custom-shape-divider-bottom-1715242362 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  transform: rotate(180deg);
+}
+
+.custom-shape-divider-bottom-1715242362 svg {
+  position: relative;
+  display: block;
+  width: calc(147% + 1.3px);
+  height: 193px;
+  transform: rotateY(180deg);
+}
+
+.custom-shape-divider-bottom-1715242362 .shape-fill {
+  fill:   #ffff;
+}
+#card{
+  border-top-left-radius: 100px;
+  border-bottom-right-radius: 100px; 
+  margin-top:10px ;
+  margin-bottom: 30px;
+  margin-left: 150px;
+  margin-right: 150px;
+  box-shadow: 4px 4px 4px 4px black;
+  background-color: #f2f2f2;
+}
+.card-a{
+  margin: 100px;
+}
+#card:hover{
+  background-color:black ;
+  box-shadow: 3px 3px 3px 3px #bfbfbf;
+  cursor: pointer;
+
+}
+#quot{
+  font-size: 20px;
+  background: transparent;
+  color: #fff;
+  font-weight: bold;
+}
+#quot:hover{
+  color:gold;
+  cursor: default;
+
+}
+#spn{
+  font-size: 20px;
+  color: #2862a4
+}
+#spn:hover{
+  color:#fff
+}
+#l{
+  text-align: center;
+
+}
+
+    </style>
+</head>
+<body>
+</head>
+<body><br><br><br><br>
+  <div class="container-fluid d-flex justify-content-center">
+    <div class="row w-100 border">
+
+    {% load static %}
+    
+        <div class="col-lg-12 col-md-12 col-sm-12" style="background-color:#1486d3">
+          <div class="row">
+            <center style="margin-top: 50px;margin-bottom: 30px; color:#f2f2f2"><h1 class="fadeInUp wow" data-wow-duration="1.5s" data-wow-delay="1s">DevelopTrees Redefinding IT Solutions <br> To Builds The Dreams of The Future.</h1></center>
+            <div class="col-lg-12 col-md-12 col-sm-12" >
+              <div class="card fadeInUp wow" data-wow-duration="1s" data-wow-delay="0.3s" id="card">  
+                <div class="card-body" >            
+                  <center style="color: #009999;"><h1 class="fadeInUp wow" data-wow-duration="1.5s" data-wow-delay="1s">Unity Has Power.....</h1></center>
+                  <center id="spn"><span  class="fadeInUp wow" data-wow-duration="1.5s" data-wow-delay="1s">The way a team plays as a whole determines its <i><b>Success</b></i>.</span></center> 
+                  <center id="spn"><span  class="fadeInUp wow" data-wow-duration="1.5s" data-wow-delay="1s">An individual can make a difference, but a team can make a <i><b>Miracle</b></i>.</span></center>
+                  <center id="spn"><span  class="fadeInUp wow" data-wow-duration="1.5s" data-wow-delay="1s">We stay united in all situations, Unity gives us the <i><b>Courage, Hope and Strength</b></i>.</span></center>
+                  <center id="spn"><span  class="fadeInUp wow" data-wow-duration="1.5s" data-wow-delay="1s">And that's the way to our <b><i>Sucess</i></b>. When we are united, we can bring change to the <i><b>World</b></i>.</span></center>
+                  <center style="color:#e69500;"><h3 class="fadeInUp wow" data-wow-duration="1.5s" data-wow-delay="1s">Join with us and bulid the <i><b>Future</b></i>.</h3></center><br>
+            </div>
+          </div>
+            </div>
+
+          </div>
+          <div class="row" style="margin-top: 0px;margin-bottom: 20px;">
+
+          <div class="col-lg-12 col-md-12 col-sm-12"  >
+
+            {% comment %} <script  src="https://unpkg.com/typewriter-effect@latest/dist/core.js"></script> {% endcomment %}
+          {% comment %} <center><h2>DevelopTrees Redefinding IT solutions <span2 id="app"> builds the dreams of <span>Future</span></span2>.</h2></center><br><br><br> {% endcomment %}
+          <center><h3 class="fadeInUp wow" data-wow-duration="1.5s" data-wow-delay="1s">Once Our <i>Leaders</i> Said.....</h3></center>
+          <center><span  class="fadeInUp wow" data-wow-duration="1.5s" data-wow-delay="1s"><i id="quot">"The greatest leader is not necessarily the one who does the greatest things.<br> He is the one that gets the people to do the greatest things."</i></span></center>
+          <center><b><span class="fadeInUp wow" data-wow-duration="1.5s" data-wow-delay="1s" >- Ronald Reagan</span></b></center>
+    </div>
+
+          </div>
+
+          <br><br><br><br><br><br>
+            {% comment %} <script  src="https://unpkg.com/typewriter-effect@latest/dist/core.js"></script>
+            <center><h2>DevelopTrees Redefinding IT solutions <span2 id="app"> builds the dreams of <span>Future</span></span2>.</h2></center><br><br><br>
+            <center><h3>Once our <span>Leaders</span> said...</h3></center>
+            <center><span1 style="font-size: 20px;background: transparent;color: #fff;">"The greatest leader is not necessarily the one who does the greatest things.<br> He is the one that gets the people to do the greatest things."</span1></center>
+            <center><b><span >- Ronald Reagan</span></b></center><br><br><br><br> {% endcomment %}
+            
+          <div class="custom-shape-divider-bottom-1715242362">
+              <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                  <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" class="shape-fill"></path>
+                  <path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" class="shape-fill"></path>
+                  <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" class="shape-fill"></path>
+              </svg>
+          </div>
+
+        </div>
+
+       
+          <div class="container">
+
+          <div class="row d-flex justify-content-center">
+              <div class="mhcard1 mhcard1-usecases" onmouseover="hoverCardMore(this)" onmouseout="unhoverCardMore(this)">
+
+              {% for i in b3 %}
+              <div class="row">
+              <div class="col-md-4 mhcard-img fadeInUp top-image wow w-100 h-50" data-wow-duration="1s" data-wow-delay="0.3s">
+                  <center><img src="{{i.image.url}}" alt="" class="rounded-circle inh"  height="350"></center>
+                  <br><br><center><a href="https://www.facebook.com/people/Buglegal-Hrms/pfbid02ztvHBMtt8KDyrsDdrkweECzz4F7XDtnEfNYUsvvL3K3KiGRv348ZtooeqGLtarRQl/" class="social-icon"><i class="fab fa-facebook-f fa-lg"></i></a>
+                    <a href="https://x.com/Buglegal_hrms" class="social-icon"><i class="fab fa-twitter fa-lg"></i></a>
+                    <a href="https://www.instagram.com/buglegal_hrms/" class="social-icon"><i class="fab fa-instagram fa-lg"></i></a>
+                    <a href="https://www.linkedin.com/in/bug-legal-673a7430a/" class="social-icon"><i class="fab fa-linkedin fa-lg"></i></a></center>
+
+              </div>
+              <div class="col-md-8 mhcard-img fadeInUp top-image wow w-100 h-50" data-wow-duration="1s" data-wow-delay="0.3s" >
+                  <center> <h5 style="text-transform:uppercase; font-size: 30px;">{{i.name}}</h5></center>
+                  <center><h7 style="font-size: 16px;text-transform:uppercase; font-size: 24px; font-weight: 300;">{{i.role}}</h7><br></center>
+               <h8 id="anim" style="text-align: justify; word-spacing: 3px;" >{{i.description}}</h8>
+
+               </div>
+                </div>
+              </div>
+                {% endfor %}
+                <div class="container-fluid">
+                  <div class="row justify-content-center mt-5">
+                      <div class="col-lg-10">
+                          <div class="row">
+                              {% for member in b1 %}
+                              <div class="col-md-6 mb-5">
+                                  <div class="card">
+                                      <div class="row no-gutters">
+                                          <div class="col-md-4">
+                                              <img src="{{ member.image.url }}" class="card-img rounded-circle" alt="{{ member.name }}">
+                                              <br><br>
+                                              <center>
+                                                  <a href="https://www.facebook.com/people/Buglegal-Hrms/pfbid02ztvHBMtt8KDyrsDdrkweECzz4F7XDtnEfNYUsvvL3K3KiGR" class="social-icon"><i class="fab fa-facebook-f fa-lg"></i></a>
+                                                  <a href="https://x.com/Buglegal_hrms" class="social-icon"><i class="fab fa-twitter fa-lg"></i></a>
+                                                  <a href="https://www.instagram.com/buglegal_hrms/" class="social-icon"><i class="fab fa-instagram fa-lg"></i></a>
+                                                  <a href="https://www.linkedin.com/in/bug-legal-673a7430a/" class="social-icon"><i class="fab fa-linkedin fa-lg"></i></a>
+                                              </center>
+                                          </div>
+                                          <div class="col-md-8">
+                                              <div class="card-body">
+                                                  <h4 class="card-title text-uppercase" style="color: black;">{{ member.name }}</h4>
+                                                  <p class="card-text" style="color: black;font-weight: 600;">{{ member.role }}</p>
+                                                  <p class="card-text description" id="desc-{{ member.id }}" style="color: black;">
+                                                      
+                                                      <span id="des1" class="more" style="color:rgb(48, 48, 48);">{{ member.description }}</span>
+                                                  </p>
+                                                  <!-- <b><p id="des1" class="more" style="color:rgb(48, 48, 48);text-align: justify;">{{member.description}}</p></b> -->
+
+                                                  <!-- <button class="btn btn-link toggle-btn more" id="des1" style="color: rgb(76, 25, 196);">view more</button><br><br> -->
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              {% endfor %}
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              
+                
+              
+              
+              
+              
+               <!-- Loop through b2 -->
+               {% for i in b2 %}
+               <div class="col-md-3 mb-4">
+                   <div class="card">
+                   <img src="{{i.image.url}}" class="card-img-top rounded-circle inh" alt="" height="230">
+                       <div class="card-body">
+                           <h6 class="card-title text-uppercase">{{i.name}}</h6>
+                           <p class="card-text " style="color:black; font-weight: 600;">{{i.role}}</p>
+                           <!-- Social media icons -->
+                           <div class="social-icons">
+                               <!-- Add your social media icons here -->
+                               <center> <a href="https://www.facebook.com/people/Buglegal-Hrms/pfbid02ztvHBMtt8KDyrsDdrkweECzz4F7XDtnEfNYUsvvL3K3KiGRv348ZtooeqGLtarRQl/" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                               <a href="https://x.com/Buglegal_hrms" class="social-icon"><i class="fab fa-twitter "></i></a>
+                               <a href="https://www.instagram.com/buglegal_hrms/" class="social-icon"><i class="fab fa-instagram"></i></a>
+                               <a href="https://www.linkedin.com/in/bug-legal-673a7430a/" class="social-icon"><i class="fab fa-linkedin fa-lg"></i></a></center>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+               {% endfor %}
+           </div>
+       </div>
+
+       <script>
+        $(document).ready(function() {
+            var showChar = 150;
+            var ellipsestext = "...";
+            var moretext = "View More";
+            var lesstext = "View Less";
+    
+            $('.more').each(function() {
+                var content = $(this).html();
+    
+                if (content.length <= showChar) {
+                    var c = content;
+                    var html = c;
+    
+                    $(this).html(html);
+                } else {
+                    var c = content.substr(0, showChar);
+                    var h = content.substr(showChar, content.length - showChar);
+    
+                    var html = c + '<span class="moreellipses">' + ellipsestext + '&nbsp;</span><span class="morecontent"><span style="display:none; color:black;">' + h + '</span>&nbsp;&nbsp;<a href="" class="morelink">' + moretext + '</a></span>';
+    
+                    $(this).html(html);
+                }
+            });
+    
+            $(".morelink").click(function() {
+                if ($(this).hasClass("less")) {
+                    $(this).removeClass("less");
+                    $(this).html(moretext);
+                    $(this).parent().prev().toggle();
+                    $(this).prev().toggle();
+                } else {
+                    $(this).addClass("less");
+                    $(this).html(lesstext);
+                    $(this).parent().prev().toggle();
+                    $(this).prev().toggle();
+                }
+                return false;
+            });
+        });
+    </script>
+    
+</body>
+</html>
+{% endblock main_content %}
+
+

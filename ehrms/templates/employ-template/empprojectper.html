@@ -1,0 +1,357 @@
+{% extends 'employ-template/base_template.html' %}
+{% block main_content %}
+<title>Employee Project Performance</title>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- <style>
+    /* Style table cells (td) */
+    table.table tbody td {
+        color: white; /* Text color for table cells */
+    }
+   table{
+    width: 100% !important;
+   }
+   .pagination {
+    margin: 20px 0;
+    text-align: center;
+}
+
+/* .pagination a, .pagination .current-page {
+    display: inline-block;
+    padding: 8px 12px;
+    text-decoration: none;
+    margin: 0 4px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.pagination .step-links a.active {
+    background-color: orange;
+} */
+
+.pagination a, .pagination .current-page {
+        display: inline-block;
+        padding: 8px 12px;
+        text-decoration: none;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+        border-radius: 20px;
+        text-align: center;
+        /* background-color: #3775e0;
+        color: white; */
+    }
+      .act{
+  /* background-color: orange; */
+  color: white;
+  height:43px;
+  width:43px;
+  border-radius: 20px;
+
+}
+ 
+ 
+.table-hr thead tr{
+        background-color:#000; 
+            color:#fff;   
+       }
+       .table-hr tbody tr td{
+            background: linear-gradient(rgb(238, 242, 244),rgb(239,239,247));
+            color:black;
+         }
+
+
+</style> -->
+
+<style>
+    .hed-manager{
+        color: blue;
+        font-size: 36px;
+        margin-bottom: 30px;
+        text-align: center;
+        margin-top: 10px;
+    }
+    .table-manager thead tr{
+        background-color: #000;
+        color:#fff;
+    }
+    .table-manager tbody tr:nth-child(even){
+        color: #000;
+        background-color: #ccc;
+    }
+    .table-manager tbody tr:nth-child(odd){
+        color: #000;
+        background-color: #e6e6e6;
+    }
+    .pagination a{
+        color:red;
+        text-decoration: none;
+      
+      }
+      .act{
+        border-radius: 20px;
+        padding: 4px 8px;
+        background-color: #007880;
+        border: 1px solid #ccc;
+        color:fff;
+      }
+
+      .no-data-message {
+        color: red; 
+        text-align: center;
+    }
+    .table-hr thead tr{
+        background-color:#000; 
+        color:#fff;   
+       }
+    .table-hr tbody tr td{
+        background: linear-gradient(rgb(238, 242, 244),rgb(239,239,247));
+        color:black;
+    }
+    .hed-hr{
+            color: black;
+            font-size: 36px;
+            margin-bottom: 30px;
+            text-align: center;
+            margin-top: 10px;
+            font-weight:bold ;
+        }
+
+
+    
+</style>
+
+    
+<body>
+    
+<!-- <h3 class="text-dark" style="font-weight: bold;color: black;">Employee Project Performance</h3> -->
+
+<!-- <button type="button" class="btn btn-success" id="export-btn" style="width:50%;margin-top:10px;">
+    <i class="fa fa-download" aria-hidden="true"></i> Download All Performance Data
+</button>
+
+<form method="post" id="projectSelectionForm" >
+    {% csrf_token %}
+    <select id="projectSelect" name="project" class="form-control">
+        <option value="">Select a project</option>
+        {% for project in projects %}
+            <option value="{{ project.id }}">{{ project.p_name }}</option>
+        {% endfor %}
+    </select>
+</form> -->
+
+<div class="row" >
+    <div class="col-lg-1 col-sm-1 col-md-1"></div>
+    <div class="col-lg-10 col-sm-10 col-md-10">
+
+<div class="row" >
+    <div class="col">
+        <h3 class="{% if mem_role == 'HR' and mem_hroptions == 1 %}hed-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}hed-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}hed-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}hed-tm {% endif %}">
+            Employee Project Performance
+        </h3>
+    </div>
+</div>
+<br>
+
+
+<br><br>
+<form method="post" id="projectSelectionForm" >
+    {% csrf_token %}
+   
+    <!-- <div class="container"> -->
+        <div class="row">
+            <div class="col-5">
+                <button type="button" class="btn btn-success w-100" id="export-btn" >
+                    <i class="fa fa-download" aria-hidden="true"></i> Download All Performance Data
+                </button>
+            </div>
+            <div class="col-3">
+            </div>
+
+            <div class="col-4">
+                <select id="projectSelect" name="project" class="form-control" style="background-color: #e6e6e6;">
+                    <option value="" disabled selected style="background-color: #ccc;">Select a project</option>
+                    {% for i in projects %}
+                        <option value="{{ i.id }}" style="background-color: #ccc;">{{ i.p_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+        </div>
+
+    
+</form> <br> 
+
+  
+<div id="results  table-responsive">
+    <table class="table {% if mem_role == 'HR' and mem_hroptions == 1 %}table-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}table-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}table-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}head-tm {% endif %} table-striped " id="yourTableID">
+<thead>
+            <tr>
+                <th>Employee ID</th>
+                <th>Employee Name</th>
+                <th>Project Name</th>
+                <th>Performance</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for employee_performance in employee_average_performances %}
+            <tr>
+                <td>{{employee_performance.employee_id}}</td>
+                <td>{{ employee_performance.employee_name}}</td>
+                <td>{{selected_project.p_name }}
+                </td>
+                <td>{{ employee_performance.average_performance }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4" style="text-align: center; color: red; background-color: #f2f2f2;">There is no reports available for the project performance.....</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+</div>
+<!-- <div class="pagination" style="color:white ;" >
+    <span class="step-links">
+        {% if employee_average_performances.has_previous %}
+            <a href="?page=1">&laquo; First</a>
+            <a href="?page={{ employee_average_performances.previous_page_number }}" class="prev">&#8249; << </a>
+        {% endif %}
+
+        {% for page in employee_average_performances.paginator.page_range %}
+            <a href="?page={{ page }}" {% if page == tsk1_data.number %}class="active"{% endif %}>{{ page }}</a>
+        {% endfor %}
+
+        {% if employee_average_performances.has_next %}
+            {% if employee_average_performances.number != employee_average_performances.paginator.num_pages %}
+                <a href="?page={{ employee_average_performances.next_page_number }}">{{ employee_average_performances.next_page_number }}</a>
+            {% endif %}
+            <a href="?page={{ employee_average_performances.paginator.num_pages }}">&raquo; >> </a>
+        {% endif %}
+    </span>
+</div> -->
+
+<div class="pagination">
+    <span class="step-links">
+        {% if employee_average_performances.has_previous %}
+            <a  href="?page=1">First</a>
+            <a   href="?page={{ employee_average_performances.previous_page_number }}" class="prev"> << </a>
+        {% endif %}
+
+
+        {% for i in employee_average_performances.paginator.page_range %}
+        {% if employee_average_performances.number == i %}
+        <button class="active act "><span>{{ i }} <span class="sr-only">(current)</span></span></button>
+        {% elif i > employee_average_performances.number|add:'-3' and i < employee_average_performances.number|add:'3' %}
+            <a  href="?page={{ i }}">{{ i }}</a>
+        {% endif %}
+        {% endfor %}
+
+       
+
+        {% if employee_average_performances.has_next %}
+            {% if employee_average_performances.number != employee_average_performances.paginator.num_pages %}
+            {% endif %}
+            <a   href="?page={{ employee_average_performances.next_page_number }}" class="prev">>> </a>
+
+            <a  href="?page={{ employee_average_performances.paginator.num_pages }}">Next</a>
+        {% endif %}
+    </span>
+</div> 
+</div>   
+
+<div class="col-lg-1 col-sm-1 col-md-1"></div>
+</div>  
+
+
+<script>
+    document.getElementById("projectSelect").addEventListener("change", function() {
+        document.getElementById("projectSelectionForm").submit();
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $("#name-search, #date-search").on("keyup change", function () {
+            var nameValue = $("#name-search").val().toLowerCase();
+            var dateValue = $("#date-search").val();
+
+            $("#yourTableID tbody tr").filter(function () {
+                var nameMatch = $(this).text().toLowerCase().indexOf(nameValue) > -1;
+                var dateCell = $(this).find("td:eq(4)").text(); // Index 4 corresponds to the Date column
+                var dateMatch = dateValue === "" || dateCell === dateValue;
+
+                $(this).toggle(nameMatch && dateMatch);
+            });
+        });
+    });
+</script>
+
+
+    <script>
+        $(document).ready(function () {
+            $("#name-search-avg").on("keyup change", function () {
+                var nameValue = $("#name-search-avg").val().toLowerCase();
+              
+    
+                $("#yourTableID-avg tbody tr").filter(function () {
+                    var nameMatch = $(this).text().toLowerCase().indexOf(nameValue) > -1;
+                  
+                    $(this).toggle(nameMatch );
+                });
+            });
+        });
+    </script>
+
+<script>
+    document.getElementById('export-btn').addEventListener('click', function() {
+        var table = document.getElementById('yourTableID');
+        var csv = [];
+
+        // Iterate over rows
+        var rows = table.rows;
+        for (var i = 0; i < rows.length; i++) {
+            var row = [];
+            var cells = rows[i].cells;
+
+            // Iterate over columns
+            for (var j = 0; j < cells.length; j++) {
+                var cellText = cells[j].textContent.trim();
+
+                // Check if the cell is a date cell
+                if (cells[j].classList.contains('date-cell')) {
+                    // If it's a date cell, check if the next cell contains the month
+                    if (j < cells.length - 1 && cells[j + 1].classList.contains('date-cell')) {
+                        // If the next cell is also a date cell, combine text with the next cell
+                        cellText += ' ' + cells[j + 1].textContent.trim();
+                        j++; // Skip the next cell
+                    }
+                }
+
+                row.push(cellText);
+            }
+
+            // Join row data with comma
+            csv.push(row.join(','));
+        }
+
+        // Join rows with newline
+        var csvString = csv.join('\n');
+
+        // Create download link
+        var downloadLink = document.createElement('a');
+        downloadLink.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csvString);
+        downloadLink.download = 'table_data.csv';
+
+        // Trigger download
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+    });
+</script>
+
+</body>
+{% endblock main_content %}

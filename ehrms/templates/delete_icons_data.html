@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete Icons Data</title>
+</head>
+<body>
+    <h1>Delete Icons Data</h1>
+    <p>Are you sure you want to delete the following record?</p>
+    <p>Title: {{ data.title }}</p>
+    <p>Icon1: {{ data.icon1 }}</p>
+    <p>Icon: {{ data.icon }}</p>
+    <p>URL: {{ data.url }}</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <input type="submit" value="Delete">
+    </form>
+</body>
+</html>

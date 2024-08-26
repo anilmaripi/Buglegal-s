@@ -1,0 +1,261 @@
+<html>
+    <head>
+        <title>logo upload</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+       <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+
+.btn_upload {
+  cursor: pointer;
+  display: inline-block;
+  overflow: hidden;
+  position: relative;
+  color: #fff;
+  background-color: #2a72d4;
+  border: 1px solid #166b8a;
+  padding: 5px 10px;
+}
+
+.btn_upload:hover,
+.btn_upload:focus {
+  background-color: #7ca9e6;
+}
+
+.yes {
+  display: flex;
+  align-items: flex-start;
+  margin-top: 10px !important;
+}
+
+.btn_upload input {
+  cursor: pointer;
+  height: 100%;
+  position: absolute;
+  filter: alpha(opacity=1);
+  -moz-opacity: 0;
+  opacity: 0;
+}
+
+.it {
+  height: 100px;
+  margin-left: 10px;
+}
+
+.btn-rmv1,
+.btn-rmv2,
+.btn-rmv3,
+.btn-rmv4,
+.btn-rmv5 {
+  display: none;
+}
+
+.rmv {
+  cursor: pointer;
+  color: #fff;
+  border-radius: 30px;
+  border: 1px solid #fff;
+  display: inline-block;
+  background: rgba(255, 0, 0, 1);
+  margin: -5px -10px;
+}
+
+.rmv:hover {
+  background: rgba(255, 0, 0, 0.5);
+}
+
+    </style>
+    </head>
+    <body>
+
+
+
+   
+    <h1>Upload an Image</h1>
+    <form method="post" enctype="multipart/form-data" id="uploadForm">
+        {% csrf_token %}
+       
+        <input type="file" name="image" id="id_image">
+        <input type="submit" value="Upload">
+    </form>
+
+    <div id="previewArea">
+        {% if image %}
+            <h1>Uploaded Image:</h1>
+            <img src="{{ image.image.url }}" alt="Uploaded Image">
+            <form method="post" action="{% url 'cancel_upload' %}">
+                {% csrf_token %}
+                <input type="submit" value="Cancel">
+            </form>
+        {% else %}
+            <p>No image uploaded.</p>
+        {% endif %}
+    </div>
+
+    <script>
+        function previewImage(event) {
+            var input = event.target;
+            var previewArea = document.getElementById('previewArea');
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    var img = document.createElement('img');
+                    img.setAttribute('src', e.target.result);
+                    img.setAttribute('alt', 'Preview');
+                    img.setAttribute('style', 'max-width: 300px; max-height: 300px;');
+                    previewArea.innerHTML = '';
+                    previewArea.appendChild(img);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                previewArea.innerHTML = '';
+            }
+        }
+
+        document.getElementById('id_image').addEventListener('change', previewImage);
+    </script>
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+        <form id="myform"method="post" enctype="multipart/form-data" action="/logo_update/{{post.id}}">{% csrf_token %}
+            <div class="yes">
+              <span class="btn_upload">
+                <input type="file" id="imag" name="logo" title="" class="input-img"/>
+                Choose Image
+                </span>
+              <img id="ImgPreview" src="" class="preview1" />
+              <input type="button" id="removeImage1" value="x" class="btn-rmv1" />
+            </div>
+          
+            <!-- <div class="yes">
+              <span class="btn_upload">
+                <input type="file" id="imag2" title="" />
+                Choose Image
+                </span>
+              <img id="ImgPreview2" src="" class="preview2" />
+              <input type="button" id="removeImage2" value="x" class="btn-rmv2" />
+            </div>
+          
+            <div class="yes">
+              <span class="btn_upload">
+                <input type="file" id="imag3" title="" />
+                Choose Image
+                </span>
+              <img id="ImgPreview3" src="" class="preview3" />
+              <input type="button" id="removeImage3" value="x" class="btn-rmv3" />
+            </div>
+          
+            <div class="yes">
+              <span class="btn_upload">
+                <input type="file" id="imag4" title="" />
+                Choose Image
+                </span>
+              <img id="ImgPreview4" src="" class="preview4" />
+              <input type="button" id="removeImage4" value="x" class="btn-rmv4" />
+            </div>
+          
+            <div class="yes">
+              <span class="btn_upload">
+                <input type="file" id="imag5" title="" />
+                Choose Image
+                </span>
+              <img id="ImgPreview5" src="" class="preview5" />
+              <input type="button" id="removeImage5" value="x" class="btn-rmv5" />
+            </div> -->
+          </form>
+          
+          <script>
+
+            function readURL(input, imgControlName) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      $(imgControlName).attr('src', e.target.result);
+    }
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+$("#imag").change(function() {
+  // add your logic to decide which image control you'll use
+  var imgControlName = "#ImgPreview";
+  readURL(this, imgControlName);
+  $('.preview1').addClass('it');
+  $('.btn-rmv1').addClass('rmv');
+});
+// $("#imag2").change(function() {
+//   // add your logic to decide which image control you'll use
+//   var imgControlName = "#ImgPreview2";
+//   readURL(this, imgControlName);
+//   $('.preview2').addClass('it');
+//   $('.btn-rmv2').addClass('rmv');
+// });
+// $("#imag3").change(function() {
+//   // add your logic to decide which image control you'll use
+//   var imgControlName = "#ImgPreview3";
+//   readURL(this, imgControlName);
+//   $('.preview3').addClass('it');
+//   $('.btn-rmv3').addClass('rmv');
+// });
+// $("#imag4").change(function() {
+//   // add your logic to decide which image control you'll use
+//   var imgControlName = "#ImgPreview4";
+//   readURL(this, imgControlName);
+//   $('.preview4').addClass('it');
+//   $('.btn-rmv4').addClass('rmv');
+// });
+// $("#imag5").change(function() {
+//   // add your logic to decide which image control you'll use
+//   var imgControlName = "#ImgPreview5";
+//   readURL(this, imgControlName);
+//   $('.preview5').addClass('it');
+//   $('.btn-rmv5').addClass('rmv');
+// });
+
+$("#removeImage1").click(function(e) {
+  e.preventDefault();
+  $("#imag").val("");
+  $("#ImgPreview").attr("src", "");
+  $('.preview1').removeClass('it');
+  $('.btn-rmv1').removeClass('rmv');
+});
+// $("#removeImage2").click(function(e) {
+//   e.preventDefault();
+//   $("#imag2").val("");
+//   $("#ImgPreview2").attr("src", "");
+//   $('.preview2').removeClass('it');
+//   $('.btn-rmv2').removeClass('rmv');
+// });
+// $("#removeImage3").click(function(e) {
+//   e.preventDefault();
+//   $("#imag3").val("");
+//   $("#ImgPreview3").attr("src", "");
+//   $('.preview3').removeClass('it');
+//   $('.btn-rmv3').removeClass('rmv');
+// });
+// $("#removeImage4").click(function(e) {
+//   e.preventDefault();
+//   $("#imag4").val("");
+//   $("#ImgPreview4").attr("src", "");
+//   $('.preview4').removeClass('it');
+//   $('.btn-rmv4').removeClass('rmv');
+// });
+// $("#removeImage5").click(function(e) {
+//   e.preventDefault();
+//   $("#imag5").val("");
+//   $("#ImgPreview5").attr("src", "");
+//   $('.preview5').removeClass('it');
+//   $('.btn-rmv5').removeClass('rmv');
+// });
+
+          </script>
+    </body>
+</html>

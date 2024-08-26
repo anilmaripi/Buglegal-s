@@ -1,0 +1,507 @@
+{% extends 'employ-template/base_template.html' %}
+
+        
+{% block main_content %}
+{%load mathfilters%}{%load humanize%}{%load static%}
+
+<html>
+
+<head>
+<title>Master CTC Report</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.js"
+    integrity="sha512-8Z5++K1rB3U+USaLKG6oO8uWWBhdYsM3hmdirnOEWp8h2B1aOikj5zBzlXs8QOrvY9OxEnD2QDkbSKKpfqcIWw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+    integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+    integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+    crossorigin="anonymous"></script>
+  <style>
+    @import url(//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
+    @import url(https://fonts.googleapis.com/css?family=Titillium+Web:300);
+
+   
+table{
+  margin-left: 0.1%;
+  margin-top: 3%;
+  height: 50%;
+
+}
+
+
+tr:nth-child(even) {
+  background-color: #e6e6e6;
+}
+tr:nth-child(even) {
+  background-color: #ccc;
+}
+
+.pagination {
+  margin: 20px 0;
+  text-align: center;
+}
+th{
+  color: white;
+}
+td{
+  color: black;
+}
+
+/* .pagination a, .pagination .current-page {
+  display: inline-block;
+  padding: 8px 12px;
+  text-decoration: none;
+  margin: 0 4px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.pagination .step-links a.active {
+    background-color: orange;
+} */
+
+
+.pagination a, .pagination .current-page {
+        display: inline-block;
+        padding: 8px 12px;
+        text-decoration: none;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+        border-radius: 20px;
+        text-align: center;
+        /* background-color: #3775e0;
+        color: white; */
+    }
+.act{
+  /* background-color: orange; */
+  color: white;
+  height:43px;
+  width:43px;
+  border-radius: 20px;
+
+}
+
+.table-container {
+        overflow-x: auto;
+        max-width: 100%;
+    }
+    .hold {
+        border-collapse: collapse;
+        width: auto;
+    }
+    .hold th, .hold td {
+      border: 1px solid rgb(19, 18, 19);
+        padding: 6px; 
+        text-align: center;
+        white-space: nowrap;
+        max-width: 180px; 
+        overflow: hidden; 
+        text-overflow: ellipsis;
+    }
+
+
+
+
+
+  </style>
+</head>
+
+
+
+      <h3><a  href="/reports/">Reports</a><b style="color: black;">| Master CTC Report</b></h3>
+      <div>
+      <h5
+      style="border-style: groove; margin-top: 10px; background-color:rgb(23, 3, 71);color:white; width: 45%;">
+      This is an exhaustive list of your employees CTC data</h5>
+<div>
+  <form method="post">
+    {% csrf_token %}
+    <div class="container">
+
+    
+    <div class="row">
+        <div class="col-7">
+            <input type="text" name="se" class="form-control" placeholder="Enter Employee ID  " >
+        </div>
+       
+        <div class="col-1">
+          <button type="submit" class="btn btn-primary" >Search</button>
+      </div>
+      <div class="col-2">
+    </div>
+    <div class="col-2">
+      <button onclick="exportTableToCSV('person.csv')" style="background-color: #2d3354;color: whitesmoke;" class="btn"><i class="fa fa-download"> Export</i></button>
+    </div>
+      
+    
+    
+    <br><br>
+    <!-- <div>
+      <button onclick="exportTableToCSV('person.csv')" style="background-color:skyblue;color:white"> Download CSV </button> 
+    
+    </div> -->
+</div>
+</div>
+</form>
+       
+
+{% block content %}
+ 
+  <ul>
+    {% for i in k %}
+      <li>{{ i.name }}</li>
+      <li>{{i.empid}}</li>
+    {% empty %}
+      
+
+    {% endfor %}
+  </ul>
+{% endblock %}
+
+</div>
+        </div>
+        
+        <div style="width: 100%; margin-bottom: 3%;">
+          <div class="table-responsive">
+          <!-- <table id="myTable"  class="freeze-table">
+                  <thead>
+                    <tr>
+                    <th class="col-id-no fixed-header" scope=colum >Emp ID</th>
+                    <th style="min-width: 100px; width: 100px;" class="col-name fixed-header" scope=colum>Name</th>
+                    <th style="min-width: 150px; width: 150px;">Email</th>
+                 
+                    <th>Department</th>
+                    <th>Location</th>
+                    <th>Status </th>
+                    <th>DOJ
+                    (yyyy-mm-dd)</th>
+                    <th>DOL
+                    (yyyy-mm-dd)</th>
+                    <th>Gross ctc</th>
+                    <th>Basic Salary</th>
+                    <th>DA</th>
+                    <th>HRA</th>
+                    <th>SA</th>
+                    <th>LTA</th>
+                   
+                </tr>
+                
+                </thead>
+                {% for i in rst %}
+                  <tbody>
+                    <tr>
+                    <td class="col-id-no" scope="row" >{{i.empid}}</td>
+                    <td class="col-name" scope="row">{{i.first_name}}</td>
+                    <td >{{i.admin.email }}</td>
+                    <td>{{i.designation}}</td>
+                    <td>{{i.location}}</td>
+                    <td>{{i.status}}</td>
+                    <td>{{i.dateofjoining | date:"M d- Y" }}</td>
+                    <td>{{i.dateofbirth | date:"M d- Y"}}</td>
+                  <td>{{i.package}}</td>
+    
+                  <td>{{i.package | div:12 | mul:50 | div:100 | floatformat:0}}</td>
+                  <td>{{i.package | div:12 | mul:10 | div:100 | floatformat:0}}</td>
+                  <td>{{i.package | div:12 | mul:25 | div:100 | floatformat:0}}</td>                    
+                      
+                  <td>{{i.package | div:12 | mul:15 | div:100 | floatformat:0}}</td>
+                      
+                  <td>{{i.package | div:12 | mul:10 | div:100 | floatformat:0}}</td>
+                      
+                 
+                  
+                </tr>
+              </tbody>
+          
+                {% endfor %}
+          
+              </table> -->
+              </div>
+              <br><br>
+              <div class="table-reponsive">
+              <table  id="myTable" class="hold" >
+          
+                <tr style="background-color: black;" >
+                  <th>Employee Id</th>
+                  <th>Employee Name</th>
+                  <th style="min-width: 150px; width: 150px;">Email</th>
+                  <th>Department</th>
+                  <th>Location</th>
+                  <th>Status </th>
+                  <th>DOJ
+                  (yyyy-mm-dd)</th>
+                  <th>DOL
+                  (yyyy-mm-dd)</th>
+               
+                 
+                  <th>Employee Package</th>
+                             
+                  <th>Gross CTC</th>
+                  
+                  <th >Date of join</th>
+                 
+                  {% for i in salarper %}
+                  <th>{{i.salarycomponent}}</th>
+                  {% endfor %}
+                  {% for i in salarded %}
+                  <th>{{i.deductcomponent}}</th>
+                  {% endfor %}      
+                  <th>Net Pay</th>
+            
+                </tr>
+                {% with totalnetpay=0 %}
+                {% for i in rst %}
+                <tr>
+                  <td>{{i.empid}}</td>
+                  
+                  <td>{{i.first_name}}</td>
+                  <td >{{i.admin.email }}</td>
+                  <td>{{i.designation}}</td>
+                  <td>{{i.location}}</td>
+                  <td>{{i.status}}</td>
+                  <td>{{i.dateofjoining | date:"M d- Y"}}</td>
+                  <td>{{i.dateofbirth | date:"M d- Y"}}</td>
+                  
+                
+                  <td>{{i.package|floatformat:2}}</td>
+                  <td>{{i.package| div:12 | mul:100 | div:100 | floatformat:2}}</td>
+                {% if i.dateofjoining %}
+                  <td >{{i.dateofjoining}}</td>
+                  {% else %}
+                  <td>-</td>
+                  {% endif %}
+            
+                     {% for st in salbasic %}
+                     {% with basicsalary=i.package|div:12|mul:st.percentageofCTC|div:100|floatformat:2 %}
+                     <td>{{basicsalary}}</td>
+                     {% for sb in salaryexbasic %}
+                     {% with alow=i.package|div:12|mul:100|div:100|mul:sb.percentageofCTC|div:100|floatformat:2%}
+                     <td>{{alow}}</td>
+                     {% endwith %}
+                     {% endfor %}
+                     {% for sd in salarded %}
+                     {% if sd.percentageordfixed == "Percentage" %}
+                     {% with deduct=basicsalary|mul:sd.percentageofdctc|div:100|floatformat:2%}
+                    <td>-{{deduct}}</td>
+                    {% endwith %}
+                    {% else %}
+                    <td>-{{sd.percentageofdctc }}</td>
+                    {% endif %}
+                     {% endfor %}
+                     {% endwith %}
+                   {% endfor %}
+            
+            
+                     {% if deductfix or deduct %}
+                       {% for st in salbasic %}
+                       {% with allalow=i.package|div:12|mul:100|div:100|mul:alowsum|div:100|floatformat:2 %}
+                            {% with allded=i.package|div:12|mul:st.percentageofCTC|div:100|mul:deduct|div:100|add:deductfix|floatformat:2 %}
+                                         {% with aftersum=allalow|sub:allded %}
+                                         
+                                         <td>{{i.package|div:12|mul:st.percentageofCTC|div:100|add:aftersum}}</td>
+                                
+                                         {% endwith %}
+                            {% endwith %}
+                       {% endwith %}
+                       {% endfor %}
+                   {% else %}
+                   <td>{{i.package| div:12 | mul:100 | div:100 | floatformat:2}}</td>
+                   {% endif %}
+            
+                   
+                </tr>
+                {% endfor %}
+                {% endwith %}
+            
+            
+              </table>
+              </div>
+
+
+             
+              <!-- <div class="pagination" style="color:white ;" >
+                <span class="step-links">
+                    {% if rst.has_previous %}
+                        <a href="?page=1">&laquo; First</a>
+                        <a href="?page={{ rst.previous_page_number }}" class="prev">&#8249; << </a>
+                    {% endif %}
+              
+                    {% for page in rst.paginator.page_range %}
+                        <a href="?page={{ page }}" {% if page == rst.number %}class="active"{% endif %}>{{ page }}</a>
+                    {% endfor %}
+              
+                    {% if rst.has_next %}
+                        {% if rst.number != rst.paginator.num_pages %}
+                        {% endif %}
+                        <a href="?page={{ rst.paginator.num_pages }}">&raquo; >> </a>
+                    {% endif %}
+                </span>
+              </div> -->
+
+              <div class="pagination" style="color:white; margin:20px auto;">
+                <span class="step-links">
+                    {% if rst.has_previous %}
+                        <a  href="?page=1">&laquo;<<</a>
+                        <a   href="?page={{ rst.previous_page_number }}" class="prev"> < </a>
+                    {% endif %}
+            
+        
+                    {% for i in rst.paginator.page_range %}
+                    {% if rst.number == i %}
+                    <button class="active act bg-info"><span>{{ i }} <span class="sr-only">(current)</span></span></button>
+                    {% elif i > rst.number|add:'-3' and i < rst.number|add:'3' %}
+                        <a  href="?page={{ i }}">{{ i }}</a>
+                    {% endif %}
+                    {% endfor %}
+        
+                   
+        
+                    {% if rst.has_next %}
+                        {% if rst.number != rst.paginator.num_pages %}
+                        {% endif %}
+                        <a   href="?page={{ rst.next_page_number }}" class="prev">> </a>
+        
+                        <a  href="?page={{ rst.paginator.num_pages }}">>>&raquo; </a>
+                    {% endif %}
+                </span>
+            </div>   
+
+              </div>
+
+        <!-- <div style="margin-top:2%;margin-left: 40px;">
+            <button onclick="exportTableToCSV('person.csv')" style="background-color:skyblue;color:white"> Download CSV </button> 
+          
+          </div> -->
+      <script>
+        //user-defined function to download CSV file
+        function downloadCSV(csv, filename) {
+            var csvFile;
+            var downloadLink;
+           
+            //define the file type to text/csv
+            csvFile = new Blob([csv], {type: 'text/csv'});
+            downloadLink = document.createElement("a");
+            downloadLink.download = filename;
+            downloadLink.href = window.URL.createObjectURL(csvFile);
+            downloadLink.style.display = "none";
+        
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+        }
+        
+        //user-defined function to export the data to CSV file format
+        function exportTableToCSV(filename) {
+           //declare a JavaScript variable of array type
+           var csv = [];
+           var rows = document.querySelectorAll("table tr");
+         
+           //merge the whole data in tabular form 
+           for(var i=0; i<rows.length; i++) {
+          var row = [], cols = rows[i].querySelectorAll("td, th");
+          for( var j=0; j<cols.length; j++)
+             row.push(cols[j].innerText);
+          csv.push(row.join(","));
+           } 
+           //call the function to download the CSV file
+           downloadCSV(csv.join("\n"), filename);
+        }
+        </script>
+    
+
+    <script>
+      var currentPage = 1; // Initialize the current page
+      var currentFilter = "all"; // Initialize the current filter (all/employees/dismissed)
+    
+      // Functions for filtering data
+      function showAllRows() {
+          currentFilter = "all";
+          showPage(1);
+      }
+    
+      function showActiveEmployees() {
+          currentFilter = "employees";
+          showPage(1);
+      }
+    
+      function showDismissedEmployees() {
+          currentFilter = "dismissed";
+          showPage(1);
+      }
+    
+      function showPage(pageNumber) {
+          var rowsPerPage = 10; // Number of rows to display per page
+          var table = document.getElementById("myTable");
+          var rows = table.rows;
+          
+          for (var i = 1; i < rows.length; i++) {
+              var is_active = rows[i].getAttribute("data-is-active");
+              if ((currentFilter === "all") ||
+                  (currentFilter === "employees" && is_active === "True") ||
+                  (currentFilter === "dismissed" && is_active === "False")) {
+                  if (i >= (pageNumber - 1) * rowsPerPage + 1 && i <= pageNumber * rowsPerPage) {
+                      rows[i].style.display = ""; // Display rows within the current page range
+                  } else {
+                      rows[i].style.display = "none"; // Hide rows outside the current page range
+                  }
+              } else {
+                  rows[i].style.display = "none"; // Hide rows that don't match the current filter
+              }
+          }
+          
+          // Update the current page indicator
+          document.getElementById("currentPage").textContent = "Page " + pageNumber;
+          currentPage = pageNumber;
+      }
+    
+      function nextPage() {
+          if (currentPage < totalPageCount()) {
+              showPage(currentPage + 1);
+          }
+      }
+    
+      function prevPage() {
+          if (currentPage > 1) {
+              showPage(currentPage - 1);
+          }
+      }
+    
+      function totalPageCount() {
+          var rowsPerPage = 2; // Number of rows to display per page
+          var table = document.getElementById("myTable");
+          var totalRows = table.rows.length - 1; // Exclude the header row
+          return Math.ceil(totalRows / rowsPerPage);
+      }
+    
+      // Initialize pagination on page load
+      showPage(1);
+    
+      // Attach event listeners to the Previous and Next buttons
+      document.getElementById("prevPage").addEventListener("click", prevPage);
+      document.getElementById("nextPage").addEventListener("click", nextPage);
+    </script>
+  
+  </div>
+ 
+
+
+
+
+
+</body>
+
+</html>
+        
+{% endblock main_content %}

@@ -1,0 +1,96 @@
+{% extends 'admin-template/base_template.html'%}
+{% block main_content %}
+    <style>
+        tbody tr:nth-child(even) {
+            background-color: #2e3a5f; /* Even row color */
+        }
+
+        tbody tr:nth-child(odd) {
+            background-color: #212b4d; /* Odd row color */
+        }
+        th, td {
+            padding: 20px;
+        }
+    </style>
+    <script>
+        $("#message").show();
+        setTimeout(function() {
+            $("#message").hide();
+        }, 5000);
+    </script>
+    <br>
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.tags == 'error' %}
+                <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+            {% endif %}
+            {% if message.tags == 'success' %}
+                <div class="alert alert-success" style="margin-top:20px;background-color:green;color: whitesmoke;">{{ message }}</div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+    <br><br>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-8">
+                <form method="POST" action="{% url 'employ_designation_form' %}">{% csrf_token %}
+
+                    <h2>Designation Setup</h2><br>
+
+                    <div class="table-responsive">
+                        <table style="width: 100%; border:none;">
+                            <thead style="background-color:#323a5f;color: white;font-size: 20px;height: 50px;">
+                                <tr class="text-center">
+                                    <th>Designation Type</th>
+                                    <th>Enabled</th>
+                                    <th>Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody style="background-color:#242b4d;color: white;font-size: 18px;height: 50px;">
+                                {% for r in k %}
+                                    {% if r.designation_name %}
+                                        <tr>
+                                            <td >{{ r.designation_name }}</td>
+                                            <td>
+                                                <input type="checkbox" name="Enabled_{{ r.id }}" {% if r.Enabled == 'Yes' %}checked{% endif %}>
+                                               
+                                            </td>
+                                            <td> <a href="{% url 'delete_desgination_setup' r.id %}">
+                                                <i class="fa fa-trash" aria-hidden="true" style="padding-left: 100px;"></i>
+                                            </a></td>
+                                        </tr>
+                                    {% endif %}
+                                {% endfor %}
+
+                                <!-- Dynamic row addition -->
+                                <tr id="newRow" style="display: none;">
+                                    <td><input type="text" name="designation_name"></td>
+                                    <td><input type="checkbox" name="Enabled"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br><br>
+                    <h6>* indicates required fields </h6><br><br>
+
+                    <button type="button" id="addButton" class="btn btn-info" onclick="addRow()">Add</button>
+                    <button type="submit" style="padding-left: 10px; height: 50px; width: 180px;background-color: #0079bf;">
+                        <b style="color: white;">CONTINUE</b>
+                    </button>
+
+                </form>
+            </div>
+            <div class="col-2"></div>
+        </div>
+    </div>
+
+    <script>
+        function addRow() {
+            document.getElementById("newRow").style.display = "table-row";
+            document.getElementById("addButton").disabled = true;
+        }
+    </script>
+
+{% endblock main_content %}

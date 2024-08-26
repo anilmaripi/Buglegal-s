@@ -1,0 +1,30 @@
+{% extends 'employhelp/basehelp.html' %}
+{% block main_content %}
+<style>
+    h5{
+        font-size: medium;
+    }
+</style>
+<form>
+
+    <p id="ha1" style="font-size: xx-large;">Insurance - Post Purchase Guide</p>    
+    <p id="e1">Congratulations! Your team's health is now covered under Health Insurance  🎉 🎉  </p><br>
+    <h5 id="e3">A few important points to get you and your team up to speed</h5>
+    <p id="e4">1. <b>Coverage:</b> The coverage for your team is active from the time when the payment is made successfully to the insurer. The state of the payment is reflected in the Ledger (Reports > Ledger) and on the <a href="/setup_guide">Insurance tab</a> on the Dashboard.</p>
+    <p id="e5">2. <b>Payment Receipt:</b> We generate a payment receipt for the Insurance payment. This is available in the Ledger and is attached along with the transaction for the Insurance purchase</p>
+    <p id="e6">3. <b>Admin onboarding:</b> For any new employees who join in your organization you can add them to your Insurance plan from the <a href="/setup_guide">HRMS</a> dashboard directly</p><br>
+    <h5 id="e7 ">Information for your team</h5>
+    <p id="e8">1. <b>Employee onboarding: </b>Your team receives onboarding emails from our partners, Plum. The Plum App serves as a one-stop solution for your team’s insurance requirements - have access to their insurance, view inclusions and exclusions of the insurance policy, get support for their queries, and even initiate the requests for an insurance claim. </p>
+    <p id="e9">2. <b>Digital Health IDs:</b> It takes up to 14 working days to generate the digital health IDs.These IDs are available to your team members on the <a href="{% url 'Employ_home'%}">hrms dashboard</a> and the <a href="/setup_guide">Plum web app</a></p>
+    <p id="e10">3. <b>Claims:</b> For any claims, your team can initiate their request directly from the Plum web app. They can alternatively reach out to them at care@plumhq.com. Do note that Health ID cards are not required for initiating a claim. Both cashless treatments and reimbursement claims are available.</p><br>
+    
+
+         <center><button style="width:50%;height: auto;font-size: x-large;border: 2px solid whitesmoke;">
+            <div id="a">
+                <p id="section10" style="text-align: center;">Did this answer your question?</p>
+                <p><a class="ex1" style="text-decoration: none;color: black;"><center>😄 😶 😔</center></a> </p>
+            </div>
+        </button></center><br><br><br>  
+        
+    </form>
+    {% endblock main_content %}

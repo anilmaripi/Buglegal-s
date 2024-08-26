@@ -1,0 +1,22 @@
+{% extends 'employhelp/basehelp.html' %}
+{% block main_content %}
+<style>
+    h5{
+        font-size: medium;
+    }
+</style>
+<form>
+
+    <p id="ha1" style="font-size: xx-large;">Can we change the payment narration onthe bank account statement?</p>        
+    <p id="h">Hrms passes your company name in the narration when we initiate the payment from our end. However, what is actually displayed on the beneficiary's account statement depends on their bank and is not in our control.</p><br>
+    <p id="hy">For better narration support, try switching your payment method to NEFT from Settings > Payments & Compliance Setup. It does help the narration issue with some beneficiary banks.</p><br>
+    <p id="hi">You can also sign up for a <a href="/setup_guide">Developtress current account,</a> in which case the salary and contractor payments will get routed through a current account which is under your company's name, and thus the narration will appear correctly. If you're interested in this, please write to us at <a href="https://www.developtrees.com/">Hrms@Developtress.com.</a></p><br>
+           <center><button style="width:50%;height: auto;font-size: x-large;border: 2px solid whitesmoke;">
+            <div id="a">
+                <p id="section10" style="text-align: center;">Did this answer your question?</p>
+                <p><a class="ex1" style="text-decoration: none;color: black;"><center>😄 😶 😔</center></a> </p>
+            </div>
+        </button></center><br><br><br>  
+        
+    </form>
+    {% endblock main_content %}

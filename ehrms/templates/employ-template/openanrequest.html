@@ -1,0 +1,270 @@
+{% extends 'employ-template/base_template.html' %}
+{% block main_content %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Present Month Days Table</title>
+    <style>
+        .pagination {
+    margin: 20px 0;
+    text-align: center;
+}
+
+/* .pagination a, .pagination .current-page {
+    display: inline-block;
+    padding: 8px 12px;
+    text-decoration: none;
+    margin: 0 4px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.pagination .step-links a.active {
+    background-color: orange;
+}
+ */
+ .pagination a, .pagination .current-page {
+        display: inline-block;
+        padding: 8px 12px;
+        text-decoration: none;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+        border-radius: 20px;
+        text-align: center;
+        /* background-color: #3775e0;
+        color: white; */
+    }
+.act{
+  /* background-color: orange; */
+  color: white;
+  height:43px;
+  width:43px;
+  border-radius: 20px;
+
+}
+tr:nth-child(even) {
+      background-color: #e6e6e6;
+    }
+    tr:nth-child(odd) {
+      background-color: #ccc;
+    }
+    th{
+      color: white;
+    }
+    td{
+      color: black;
+    }
+    label{
+        color: black;
+    }
+    </style>
+
+     
+
+</head>
+<body>
+    <form id="filterForm" method="GET" action="">
+        <div class="row" style="color: white;">
+        <div class="row">
+            <div class="col">
+                <div class="form-group" style="color: white;">
+                    <label>Type:</label><br>
+                    <select name="ss" id="options" class="form-control">
+                        <option>--select--</option>
+                        <option value="table">Summary</option>
+                        <option value="table1">Day-Wise Attendance History</option>
+                        <option value="table2">Leave Balance History</option>
+                        <option value="table3">Open Request for Leave</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </form>
+    <h3 class="text-center" style="color: black;font-weight: 700;">Open Request for Leave</h3> <br> <br> <br>
+    <form>
+            
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="col">
+                        <label>Start date:</label>
+                    </div>
+                    <div class="col">
+                        <input type="date" name="start_date" class="form-control" >
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="col">
+                    <label>End date:</label>
+                </div>
+                <div class="col">
+                    <input type="date" name="end_date"class="form-control">
+                </div>
+            </div>
+            
+
+            
+            <div class="col-md-2">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <button class="btn btn-primary" style="margin-top: 35px;" type="submit">Apply Filter</button>
+                </div>
+</div>
+        </div>
+    
+
+        </div>
+    </form>
+      <div style="width: 100%; overflow-x: auto; margin-bottom: 3%;color: white;" class="table">
+    <table class="table w-100" style="color: white; border:2px solid white;">
+        <thead>
+            <tr class="text-center">
+                <th class="col-id-no fixed-header" scope="col">Emp ID</th>
+                <th style="min-width: 100px; width: 100px;" class="col-name fixed-header" scope="col">Employee Name</th>
+                {% for day in date_range %}
+                    <th>{{ day|date:'d/m/Y' }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for employee, checkin_status_for_employee in checkin_statuses.items %}
+            <tr class="text-center">
+                <td class="col-id-no" scope="row">{{ employee.empid }}</td>
+                <td class="col-name" scope="row">{{ employee.first_name }} {{ employee.last_name }}</td>
+                {% for status in checkin_status_for_employee %}
+                    <td>{{ status }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div class="pagination" style="color:white; margin:20px auto;">
+    <span class="step-links">
+        {% if checkin_statuses_page.has_previous %}
+            <a  href="?page=1 " class="btn bg-info" style="border-radius: 20px;">&laquo;<<</a>
+            <a   href="?page={{ checkin_statuses_page.previous_page_number }}" class="btn bg-info" style="border-radius: 20px;" class="prev"> < </a>
+        {% endif %}
+
+        {% for i in checkin_statuses_page.paginator.page_range %}
+        {% if checkin_statuses_page.number == i %}
+        <button class="active act bg-info btn" style="border-radius: 20px;"><span>{{ i }} <span class="sr-only">(current)</span></span></button>
+        {% elif i > checkin_statuses_page.number|add:'-3' and i < checkin_statuses_page.number|add:'3' %}
+            <a  href="?page={{ i }}" style="border-radius: 20px;" class="btn bg-info">{{ i }}</a>
+        {% endif %}
+        {% endfor %}
+
+        {% if checkin_statuses_page.has_next %}
+            {% if checkin_statuses_page.number != checkin_statuses_page.paginator.num_pages %}
+            {% endif %}
+            <a   href="?page={{ checkin_statuses_page.next_page_number }}" style="border-radius: 20px;" class="prev btn bg-info">> </a>
+
+            <a  href="?page={{ checkin_statuses_page.paginator.num_pages }}"  class="btn bg-info" style="border-radius: 20px;">>>&raquo; </a>
+        {% endif %}
+    </span>
+</div>
+
+    
+    <script>
+        document.getElementById("generateDates").addEventListener("click", function () {
+            const fromDate = new Date(document.getElementById("fromDate").value);
+            const toDate = new Date(document.getElementById("toDate").value);
+            // const options = document.getElementById("options");
+            
+            // Check if toDate is greater than or equal to fromDate
+            if (fromDate <= toDate) {
+                // Loop through the date range
+                while (fromDate <= toDate) {
+                    const day = fromDate.getDate();
+                    const month = fromDate.getMonth() + 1;
+                    const year = fromDate.getFullYear();
+    
+                    // Format the date
+                    const formattedDate = `${day}/${month}/${year}`;
+                    
+                    // Find the corresponding cell by its forloop.counter
+                    const cell = document.getElementById(`date_${fromDate.getDate()}`);
+                    
+                    // Update the cell's content
+                    if (cell) {
+                        cell.textContent = formattedDate;
+                    }
+    
+                    // Increment the fromDate by one day
+                    fromDate.setDate(fromDate.getDate() + 1);
+                }
+    
+                // Show the selected table based on the dropdown value
+            //     const selectedOption = options.value;
+            //     const tables = document.querySelectorAll("table");
+            //     tables.forEach(table => {
+            //         table.style.display = "none";
+            //     });
+            //     if (selectedOption === "table") {
+            //         document.getElementById("summaryTable").style.display = "table";
+            //     } else {
+            //         document.getElementById(selectedOption).style.display = "table";
+            //     }
+            // } else {
+            //     console.log("To date must be greater than or equal to From date.");
+            }
+        });
+    </script>
+
+    <script>
+        document.getElementById("filterForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent the default form submission
+        
+            var selectedOption = document.getElementById("options").value;
+        
+            // Redirect to the appropriate URL based on the selected option
+            switch (selectedOption) {
+                case "table1":
+                    window.location.href = "{% url 'paid3' %}";
+                    break;
+                case "table":
+                    window.location.href = "{% url 'paid1' %}";
+                    break;
+                case "table2":
+                    window.location.href = "{% url 'balance1' %}";
+                    break;
+                case "table3":
+                    window.location.href = "{% url 'opeanrequest1' %}";
+                    break;
+                default:
+                    // Handle other cases or provide an error message
+                    break;
+            }
+        });
+        </script>
+        <script>
+            // Add an onchange event handler to the <select> element
+            document.getElementById("options").addEventListener("change", function() {
+                var selectedOption = this.value;
+        
+                // Redirect to the appropriate URL based on the selected option
+                switch (selectedOption) {
+                    case "table":
+                        window.location.href = "{% url 'paid1' %}";
+                        break;
+                    case "table1":
+                        window.location.href = "{% url 'paid3' %}";
+                        break;
+                    case "table2":
+                        window.location.href = "{% url 'balance1' %}";
+                        break;
+                    case "table3":
+                        window.location.href = "{% url 'opeanrequest1' %}";
+                        break;
+                    default:
+                        // Handle other cases or provide an error message
+                        break;
+                }
+            });
+        </script>
+
+</body>
+</html>
+
+{% endblock main_content %}

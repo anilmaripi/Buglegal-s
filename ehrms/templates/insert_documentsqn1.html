@@ -1,0 +1,169 @@
+{% extends 'admin-template/adminAdashboard.html' %}
+{% block main_content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insert Data</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        form {
+            max-width: 700px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+    <body>
+        <form method="post" action="" enctype="multipart/form-data">{% csrf_token %}
+            <center><div><h1><b>Insert Form</b></h1></div></center>
+            <div class="form-group">
+                <label>Question :</label>
+                <input type="text" name="question" class="form-control" >
+            </div>
+            <div class="form-group">
+                <label>Start of Answer :</label>
+                <input type="text" name="start" class="form-control" >
+            </div>
+            <div class="form-group">
+                <label>Introduction :</label>
+                <input type="text" name="intro" class="form-control" >
+            </div>
+            <div class="form-group">
+                <label>Description line1 :</label>
+                <input type="text" name="line1" class="form-control" >
+            </div>
+            <div class="form-group">
+                <label>Description line2 :</label>
+                <input type="text" name="line2" class="form-control" >
+            </div>
+            <div class="form-group">
+                <label>Description line3 :</label>
+                <input type="text" name="line3" class="form-control" >
+            </div>
+            <div class="form-group">
+                <label>Description line4 :</label>
+                <input type="text" name="line4" class="form-control" >
+            </div>
+            <div class="form-group">
+                <label>Description line5 :</label>
+                <input type="text" name="line5" class="form-control" >
+            </div>
+            <div class="form-group">
+                <label>Description line6 :</label>
+                <input type="text" name="line6" class="form-control" >
+            </div>
+            <div class="form-group">
+                <label>Description line7 :</label>
+                <input type="text" name="line7" class="form-control" >
+            </div>
+            <div class="form-group">
+                <label>Description line8 :</label>
+                <input type="text" name="line8" class="form-control" >
+            </div>
+            <div class="form-group">
+                <label>Description line9 :</label>
+                <input type="text" name="line9" class="form-control" >
+            </div>
+            <div class="form-group">
+                <label>Description line10 :</label>
+                <input type="text" name="line10" class="form-control" >
+            </div>
+            <div class="form-group">
+                <label>Description line11 :</label>
+                <input type="text" name="line11" class="form-control" >
+            </div>
+            <div class="form-group">
+                <label>Description line12 :</label>
+                <input type="text" name="line12" class="form-control" >
+            </div>
+            <div class="form-group">
+                <label>Description line13 :</label>
+                <input type="text" name="line13" class="form-control" >
+            </div>
+            <div class="form-group">
+                <label>Description line14 :</label>
+                <input type="text" name="line14" class="form-control" >
+            </div>
+            <div class="form-group">
+                <label>Description line15 :</label>
+                <input type="text" name="line15" class="form-control" >
+            </div>
+            <div class="form-group">
+                <label>Description line16 :</label>
+                <input type="text" name="line16" class="form-control" >
+            </div>
+            <div class="form-group">
+                <label>Description line17 :</label>
+                <input type="text" name="line17" class="form-control" >
+            </div>
+            <div class="form-group">
+                <label>Description line18 :</label>
+                <input type="text" name="line18" class="form-control" >
+            </div>
+            <div class="form-group">
+                <label>Description line19 :</label>
+                <input type="text" name="line19" class="form-control" >
+            </div>
+            <div class="form-group">
+                <label>Description line20 :</label>
+                <input type="text" name="line20" class="form-control" >
+            </div>
+            <div class="form-group">
+                <label>Description line21 :</label>
+                <input type="text" name="line21" class="form-control" >
+            </div>
+            <div class="form-group">
+                <label>Image :</label>
+                <input type="image" name="image" class="form-control" >
+            </div>
+            
+            <center>
+            <div class="form-group ">
+                <button type="submit"  value="Submit">Save</button>
+            </div>
+            </center>
+
+        </form>
+    </body>
+</html>
+{% endblock main_content %}

@@ -1,0 +1,115 @@
+{% extends 'admin-template/base_template.html' %}{% block main_content %}
+<style>
+    label {
+  text-transform: capitalize;
+}
+</style>
+<div class="row justify-content-center">
+    <div class="col-lg-8 col-12">
+        <h2>Update Company Details</h2><br>
+    
+    <form method="post" action="/company_details_update1/{{com.id}}" >{% csrf_token %}
+
+            <label style="color:black"><b>Company Name*</b></label>                 
+            <input type="text" name="companyname" placeholder="companyname " value="{{a.companyname}}"  class="form-control text-dark" style="background-color:rgb(239, 239, 247); color:white; border:none;" required />
+            <div style="display: flex; flex-direction: column;">
+            </div>
+
+            <div class="form-control" style="background-color:#282f51; color:white; border:none;">
+            <label>the name of the legal entity</label>
+            </div><br><br>
+            
+            <label style="color:black"><b>Register Address*</b></label>    
+            <input type="text" name="registeraddress" placeholder="registeraddress"  value="{{a.registeraddress}}" class="form-control text-dark" style="background-color:rgb(239, 239, 247); color:white; border:none;" required>
+            <div style="display: flex; flex-direction: column;">
+            </div><br><br>
+
+            <label style="color:black"><b>State*</b></label><br>
+            <select name="State" class="form-control" value="{{a.State}}"  style="background-color: rgb(239, 239, 247); color:black;border:none; ">
+                    <option>Andhra Pradesh</option>
+                    <option>Assam</option>
+                    <option>Bihar</option>
+                    <option>Chhattisgarh</option>
+                    <option>Goa</option>
+                    <option>Gujarat</option>
+                    <option>Himachal Pradesh</option>
+                    <option>Jharkhand</option>
+                    <option>Kerala</option>
+                    <option>Karnataka</option>
+                    <option>Manipur</option>
+                    <option>Meghalaya</option>
+                    <option>Madhya Pradesh</option>
+                    <option>Maharashtra</option>
+                    <option>Mizoram</option>
+                    <option>Nagaland</option>
+                    <option>Odisha</option>
+                    <option>Punjab</option>
+                    <option>Rajasthan</option>
+                    <option>Sikkim</option>
+                    <option>Tripura</option>
+                    <option>Telangana</option>
+                    <option>Tamil Nadu</option>
+                    <option>Uttar Pradesh</option>
+                    <option>Uttarakhand</option>
+                    <option>West Bengal</option>                
+                </select><br><br>
+
+            <label style="color:black"><b>Pincode*</b></label>
+            <input type="text" name="pincode" placeholder="pincode" value="{{a.pincode}}" class="form-control" style="background-color:rgb(239, 239, 247); color:black; border:none;" required><br>
+            <div style="display: flex; flex-direction: column;">
+            </div> 
+            <br>
+            <center> <input type="submit" class="btn btn-lg btn-info w-50" value="Submit"></center>
+
+    </form>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const pincodeInput = document.querySelector('input[name="pincode"]');
+    
+            
+    
+            pincodeInput.addEventListener("input", function () {
+                const inputValue = pincodeInput.value.trim();
+                
+                // Remove non-digit characters
+                const numericValue = inputValue.replace(/[^0-9]/g, "");
+    
+                // Limit the input to 6 digits
+                const maxLength = 6;
+                const truncatedValue = numericValue.slice(0, maxLength);
+    
+                // Update the input value
+                pincodeInput.value = truncatedValue;
+            });
+        });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const companynameInput = document.querySelector('input[name="companyname"]');
+    
+            const alphabeticRegex = /^[A-Za-z]+$/; // Regular expression to allow only letters
+    
+            function validateAlphabets(inputField) {
+                const inputValue = inputField.value.trim();
+    
+                if (!alphabeticRegex.test(inputValue)) {
+                    // Remove non-alphabetic characters
+                    inputField.value = inputValue.replace(/[^A-Za-z]/g, "");
+                }
+            }
+    
+            
+    
+            companynameInput.addEventListener("input", function () {
+                validateAlphabets(companynameInput);
+            });
+    
+           
+        
+        });
+    </script>
+    </div>
+</div>
+
+   {% endblock main_content %}

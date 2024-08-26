@@ -1,0 +1,226 @@
+{% extends "admin-template/base_template.html" %}
+{% block main_content %}  
+<br><br>
+<div class="row justify-content-center">
+    <div class="col-lg-8 col-12">
+
+        <h2>Update Payroll Setup</h2>
+        <form method="post" action="{% url 'update_payroll_setup' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <!-- Checkbox for Payroll -->
+            <div class="form-check">
+                <input type="checkbox" name="payroll" id="payrollCheckbox" class="form-check-input" {% if existing_payroll_data.payroll == 'Yes' %}checked{% endif %}>
+                <label class="form-check-label" style="color: black !important;;">Payroll enabled</label>
+            </div>
+
+            <!-- Description for Payroll Date -->
+            <div class="form-control" id="payrollDateDescription" style="background-color: black !important; color: white; width: auto; height: auto; border:none;font-size: medium;text-align: justify;padding: 30px;margin-top: 20px;margin-bottom: 20px;">
+                Choose when you would like to pay your employees. Select a date after the 15th to pay your employees for the same month, e.g., if you pick 31, then your employees will get paid for January on January 31. Alternatively, if you pick 1, then your employees will get paid for January on 1st February.
+            </div>
+            
+            <!-- Dropdown for Payroll Date -->
+            <div class="form-group" id="payrollDateDropdown">
+                <label style="width: 120px; color: black !important;">Payrolldate*</label><br>
+                <select name="payrolldate" class="form-control" style="background-color:black !important; color:white;" >
+                    <option value="" {% if existing_payroll_data.payrolldate == '' %}selected{% endif %}>Please select date</option>
+                    <option {% if existing_payroll_data.payrolldate == '01' %}selected{% endif %}>01</option>
+                    <option {% if existing_payroll_data.payrolldate == '02' %}selected{% endif %}>02</option>
+                    <option {% if existing_payroll_data.payrolldate == '03' %}selected{% endif %}>03</option>
+                    <option {% if existing_payroll_data.payrolldate == '04' %}selected{% endif %}>04</option>
+                    <option {% if existing_payroll_data.payrolldate == '05' %}selected{% endif %}>05</option>
+                    <option {% if existing_payroll_data.payrolldate == '06' %}selected{% endif %}>06</option>
+                    <option {% if existing_payroll_data.payrolldate == '07' %}selected{% endif %}>07</option>
+                    <option {% if existing_payroll_data.payrolldate == '08' %}selected{% endif %}>08</option>
+                    <option {% if existing_payroll_data.payrolldate == '09' %}selected{% endif %}>09</option>
+                    <option {% if existing_payroll_data.payrolldate == '10' %}selected{% endif %}>10</option>
+                    <option {% if existing_payroll_data.payrolldate == '11' %}selected{% endif %}>11</option>
+                    <option {% if existing_payroll_data.payrolldate == '12' %}selected{% endif %}>12</option>
+                    <option {% if existing_payroll_data.payrolldate == '13' %}selected{% endif %}>13</option>
+                    <option {% if existing_payroll_data.payrolldate == '14' %}selected{% endif %}>14</option>
+                    <option {% if existing_payroll_data.payrolldate == '15' %}selected{% endif %}>15</option>
+                    <option {% if existing_payroll_data.payrolldate == '16' %}selected{% endif %}>16</option>
+                    <option {% if existing_payroll_data.payrolldate == '17' %}selected{% endif %}>17</option>
+                    <option {% if existing_payroll_data.payrolldate == '18' %}selected{% endif %}>18</option>
+                    <option {% if existing_payroll_data.payrolldate == '19' %}selected{% endif %}>19</option>
+                    <option {% if existing_payroll_data.payrolldate == '20' %}selected{% endif %}>20</option>
+                    <option {% if existing_payroll_data.payrolldate == '21' %}selected{% endif %}>21</option>
+                    <option {% if existing_payroll_data.payrolldate == '22' %}selected{% endif %}>22</option>
+                    <option {% if existing_payroll_data.payrolldate == '23' %}selected{% endif %}>23</option>
+                    <option {% if existing_payroll_data.payrolldate == '24' %}selected{% endif %}>24</option>
+                    <option {% if existing_payroll_data.payrolldate == '25' %}selected{% endif %}>25</option>
+                    <option {% if existing_payroll_data.payrolldate == '26' %}selected{% endif %}>26</option>
+                    <option {% if existing_payroll_data.payrolldate == '27' %}selected{% endif %}>27</option>
+                    <option {% if existing_payroll_data.payrolldate == '28' %}selected{% endif %}>28</option>
+                    <option {% if existing_payroll_data.payrolldate == '29' %}selected{% endif %}>29</option>
+                    <option {% if existing_payroll_data.payrolldate == '30' %}selected{% endif %}>30</option>
+                    <option {% if existing_payroll_data.payrolldate == '31' %}selected{% endif %}>31</option>
+                    </select>
+            </div>
+            
+            <!-- Description for Auto Run Payroll -->
+            <div class="form-control" id="autoRunDescription" style="background-color: black  !important; color: white; width: auto; height: auto; border:none;font-size: medium;text-align: justify;padding: 30px;margin-top: 20px;margin-bottom: 20px;">
+                You can choose to either manually request execution each month before the payroll is executed, or xpayroll can automatically execute your payroll on your chosen date.
+            </div>
+            
+            <!-- Checkbox for Auto Run Payroll -->
+            <div class="form-check" id="autoRunCheckboxDiv">
+                <label class="form-check-label" style="color:black !important;">
+                    <input type="checkbox" name="auto_run_payroll" class="form-check-input" {% if existing_payroll_data.auto_run_payroll == 'Yes' %}checked{% endif %}>
+                    Automatically run payroll on selected date
+                </label>
+            </div>
+            
+            <!-- Description for Advance Salary Request -->
+            <div class="form-control" id="advanceSalaryDescription" style="background-color: black !important; color: white; width: auto; height: auto; border:none;font-size: medium;text-align: justify;padding: 30px;margin-top: 20px;margin-bottom: 20px;">
+                Employees can request salary advances through xpayroll. If approved, the advance amount will be paid immediately and automatically recovered from future payments to the employees.
+            </div>
+            
+            <!-- Checkbox for Advance Salary Request -->
+            <div class="form-check" id="advanceSalaryCheckboxDiv">
+                <label class="form-check-label" style="color:black !important;">
+                    <input type="checkbox" name="advance_salary_request" class="form-check-input" {% if existing_payroll_data.advance_salary_request == 'Enabled' %}checked{% endif %}>
+                    Let employees request salary advance
+                </label>
+            </div>
+<br>
+            <b style="color: black !important;">* Indicates required fields</b>
+<br><br>
+            <button type="submit" style="padding-left: 10px; height: 50px; width: 180px; background-color: #0079bf;">
+                <b style="color: white;">CONTINUE</b>
+            </button>
+        </form>
+
+    </div>
+</div>
+<script>
+    // Function to show/hide form elements based on the payroll checkbox
+    function togglePayrollElements() {
+        const payrollCheckbox = document.getElementById('payrollCheckbox');
+        const payrollDateDescription = document.getElementById('payrollDateDescription');
+        const payrollDateDropdown = document.getElementById('payrollDateDropdown');
+        const autoRunDescription = document.getElementById('autoRunDescription');
+        const autoRunCheckboxDiv = document.getElementById('autoRunCheckboxDiv');
+        const advanceSalaryDescription = document.getElementById('advanceSalaryDescription');
+        const advanceSalaryCheckboxDiv = document.getElementById('advanceSalaryCheckboxDiv');
+
+        if (payrollCheckbox.checked) {
+            payrollDateDescription.style.display = 'block';
+            payrollDateDropdown.style.display = 'block';
+            autoRunDescription.style.display = 'block';
+            autoRunCheckboxDiv.style.display = 'block';
+            advanceSalaryDescription.style.display = 'block';
+            advanceSalaryCheckboxDiv.style.display = 'block';
+        } else {
+            payrollDateDescription.style.display = 'none';
+            payrollDateDropdown.style.display = 'none';
+            autoRunDescription.style.display = 'none';
+            autoRunCheckboxDiv.style.display = 'none';
+            advanceSalaryDescription.style.display = 'none';
+            advanceSalaryCheckboxDiv.style.display = 'none';
+        }
+    }
+
+    // Add an event listener to the payroll checkbox
+    const payrollCheckbox = document.getElementById('payrollCheckbox');
+    payrollCheckbox.addEventListener('change', togglePayrollElements);
+
+    // Call the togglePayrollElements function initially to set the initial state
+    togglePayrollElements();
+</script>
+{% endblock main_content %}
+
+<!-- 
+<div class="row justify-content-center">
+    <div class="col-lg-8 col-12">
+
+        <h2>Update Payroll Setup</h2>
+        <form method="post" action="{% url 'update_payroll_setup' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <div class="form-check">
+              <input type="checkbox" name="payroll" class="form-check-input" {% if existing_payroll_data.payroll %}checked{% endif %}>
+              <label class="form-check-label" style="color:white;">Payroll enabled</label>
+            </div>
+            
+            <div class="form-control" style="background-color:#282f51; color:white; width:100%; height:auto; border:none;">
+                <label>Choose when you would like to pay your employees. Select a date after the 15th to pay your employees for the same month, e.g., if you pick 31, then your employees will get paid for January on January 31. Alternatively, if you pick 1, then your employees will get paid for January on 1st February.</label>
+            </div><br>
+            
+            <div class="form-group">
+              <label style="width: 120px; color: white;">Payrolldate*</label><br>
+              <select name="payrolldate" class="form-control" style="background-color:#282f51; color:white;" >
+                <option></option>
+                <option {% if existing_payroll_data.payrolldate == '01' %}selected{% endif %}>01</option>
+                <option {% if existing_payroll_data.payrolldate == '02' %}selected{% endif %}>02</option>
+                <option {% if existing_payroll_data.payrolldate == '03' %}selected{% endif %}>03</option>
+                <option {% if existing_payroll_data.payrolldate == '04' %}selected{% endif %}>04</option>
+                <option {% if existing_payroll_data.payrolldate == '05' %}selected{% endif %}>05</option>
+                <option {% if existing_payroll_data.payrolldate == '06' %}selected{% endif %}>06</option>
+                <option {% if existing_payroll_data.payrolldate == '07' %}selected{% endif %}>07</option>
+                <option {% if existing_payroll_data.payrolldate == '08' %}selected{% endif %}>08</option>
+                <option {% if existing_payroll_data.payrolldate == '09' %}selected{% endif %}>09</option>
+                <option {% if existing_payroll_data.payrolldate == '10' %}selected{% endif %}>10</option>
+                <option {% if existing_payroll_data.payrolldate == '11' %}selected{% endif %}>11</option>
+                <option {% if existing_payroll_data.payrolldate == '12' %}selected{% endif %}>12</option>
+                <option {% if existing_payroll_data.payrolldate == '13' %}selected{% endif %}>13</option>
+                <option {% if existing_payroll_data.payrolldate == '14' %}selected{% endif %}>14</option>
+                <option {% if existing_payroll_data.payrolldate == '15' %}selected{% endif %}>15</option>
+                <option {% if existing_payroll_data.payrolldate == '16' %}selected{% endif %}>16</option>
+                <option {% if existing_payroll_data.payrolldate == '17' %}selected{% endif %}>17</option>
+                <option {% if existing_payroll_data.payrolldate == '18' %}selected{% endif %}>18</option>
+                <option {% if existing_payroll_data.payrolldate == '19' %}selected{% endif %}>19</option>
+                <option {% if existing_payroll_data.payrolldate == '20' %}selected{% endif %}>20</option>
+                <option {% if existing_payroll_data.payrolldate == '21' %}selected{% endif %}>21</option>
+                <option {% if existing_payroll_data.payrolldate == '22' %}selected{% endif %}>22</option>
+                <option {% if existing_payroll_data.payrolldate == '23' %}selected{% endif %}>23</option>
+                <option {% if existing_payroll_data.payrolldate == '24' %}selected{% endif %}>24</option>
+                <option {% if existing_payroll_data.payrolldate == '25' %}selected{% endif %}>25</option>
+                <option {% if existing_payroll_data.payrolldate == '26' %}selected{% endif %}>26</option>
+                <option {% if existing_payroll_data.payrolldate == '27' %}selected{% endif %}>27</option>
+                <option {% if existing_payroll_data.payrolldate == '28' %}selected{% endif %}>28</option>
+                <option {% if existing_payroll_data.payrolldate == '29' %}selected{% endif %}>29</option>
+                <option {% if existing_payroll_data.payrolldate == '30' %}selected{% endif %}>30</option>
+                <option {% if existing_payroll_data.payrolldate == '31' %}selected{% endif %}>31</option>
+              </select>
+            </div>
+            <br>
+            
+            <div class="form-control" style="background-color: #282f51; color: white; width: auto; height: auto; border:none;">
+              <label>You can choose to either manually request execution each month before the payroll is executed, or xpayroll can automatically execute your payroll on your chosen date.</label>
+            </div>
+            <br>
+            
+            <div class="form-check">
+                <label class="form-check-label" style="color:white;">
+                    <input type="checkbox" name="auto_run_payroll" class="form-check-input" {% if existing_payroll_data.auto_run_payroll %}checked{% endif %}>
+                    Automatically run payroll on selected date
+                </label>
+            </div>
+            <br>
+            
+            <div class="form-control" style="background-color: #282f51; color: white; width: auto; height: auto; border:none;">
+              <label>Employees can request salary advances through xpayroll. If approved, the advance amount will be paid immediately and automatically recovered from future payments to the employees.</label>
+            </div>
+            <br>
+            
+            <div class="form-check">
+                <label class="form-check-label" style="color:white;">
+                    <input type="checkbox" name="advance_salary_request" class="form-check-input" {% if existing_payroll_data.advance_salary_request %}checked{% endif %}>
+                    Let employees request salary advance
+                </label>
+            </div>
+            <br>
+
+            <b>* Indicates required fields</b>
+            <br>
+            <br>
+
+            <button type="submit" style="padding-left: 10px; height: 50px; width: 180px; background-color: #0079bf;">
+              <a href="setting/"><b style="color: white;">CONTINUE</b></a>
+            </button>
+        </form>
+
+    </div>
+</div> -->
+

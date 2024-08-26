@@ -1,0 +1,104 @@
+{% extends 'admin-template/adminAdashboard.html' %}
+{% block main_content %}<!DOCTYPE html>
+<html>
+<head>
+    <title>Time Tracking Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+       
+        h2 {
+            color: black;
+            text-align: center;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="file"],
+        button {
+            width: calc(100% - 24px);
+            padding: 8px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <center><h2><b>Time Tracking Form 1</b></h2></center>
+    <form method="post" enctype="multipart/form-data" style="width:600px">
+        {% csrf_token %}
+        <label>Title 1:</label>
+        <input type="text" name="title1"><br>
+
+        <label>Title 2:</label>
+        <input type="text" name="title2"><br>
+
+        <label >Title3:</label>
+        <input type="text" name="title3" ><br>
+        
+        <label >Title4:</label>
+        <input type="text" name="title4" ><br>
+        
+        <label >Title5:</label>
+        <input type="text" name="title5" ><br>
+        <!-- Add other title inputs similarly -->
+
+        <label>Subtitle 1:</label>
+        <input type="text" name="subtitle1"><br>
+
+        <label>Image 1:</label>
+        <input type="file" name="image1" accept="image/*"><br>
+
+        <label>Image 2:</label>
+        <input type="file" name="image2" accept="image/*"><br>
+
+        <!-- Add other image inputs similarly -->
+
+        <label>Description 1:</label>
+        <input type="text" name="description1"><br>
+
+        <label>Description 2:</label>
+        <input type="text" name="description2"><br>
+
+        <label>Description3:</label>
+        <input type="text" name="discription3"><br>
+
+        <!-- Add other description inputs similarly -->
+
+        <button type="submit">Save</button>
+    </form>
+    {% comment %} <a href="{% url 'projectmanagement_list' %}">Back to Project List</a> {% endcomment %}
+</body>
+</html>
+{% endblock main_content %}

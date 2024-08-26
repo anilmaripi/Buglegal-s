@@ -1,0 +1,51 @@
+<html>
+    <head>
+        <title></title>
+        <style>
+             form{
+                background-color:#1E2442;
+                color: white;
+                margin-top: 40px;
+                text-align: center;
+                font-size:xx-large;
+            }
+            body{
+                background-color: #1E2442;
+            }
+        </style>
+    </head>
+    <body>
+       <center> <form method="post" enctype="multipart/form-data" action="/runpay_update/{{post.id}}" style="border: 2px solid black; width: 30%; height: 280px;">{% csrf_token %}
+            
+            <div class="form-group">
+                <label>name</label>
+                <input type="text" name="name" class="form-control" value="{{post.name}}"><br>
+            </div>
+            <div class="form-group">
+                <label>monthly_ctc</label>
+                <input type="number" name="monthly_ctc" class="form-control" value="{{post.monthly_ctc}}"><br>
+            </div>
+            <div class="form-group">
+                <label>addition</label>
+                <input type="number" name="addition" class="form-control" value="{{post.addition}}"><br>
+            </div>
+            <div class="form-group">
+                <label>deduction</label>
+                <input type="number" name="deduction" class="form-control" value="{{post.deduction}}"><br>
+            </div>
+            <div class="form-group">
+                <label>reimbursement</label>
+                <input type="number" name="reimbursement" class="form-control" value="{{post.reimbursement}}"><br>
+            </div>
+            <div class="form-group">
+                <label>remarks</label>
+                <input type="text" name="remarks" class="form-control" value="{{post.remarks}}"><br>
+            </div>
+            <div class="form-group">
+                <label>gross_pay</label>
+                <input type="number" name="gross_pay" class="form-control" value="{{post.gross_pay}}"><br>
+            </div>
+            <input type="submit" class="btn btn-success btn-lg">
+        </form></center>
+    </body>            
+</html>

@@ -1,0 +1,173 @@
+{% extends 'employ-template/base_template.html' %}
+{% load mathfilters %}
+{% load humanize %}
+
+{% block page_title %}
+{% endblock page_title %}
+
+{% block main_content %}
+<title>Project Status</title>
+<style>
+    .update-status-button {
+        background-color: #4CAF50; /* Green background color */
+        border: none; /* Remove border */
+        color: white; /* White text color */
+        padding: 10px 20px; /* Add padding */
+        text-align: center; /* Center text */
+        text-decoration: none; /* Remove underline */
+        display: inline-block; /* Display as inline-block to fit content */
+        font-size: 16px; /* Set font size */
+        cursor: pointer; /* Change cursor to pointer */
+        border-radius: 4px; /* Add border radius */
+    }
+
+    .update-status-button:hover {
+        background-color: #45a049; /* Darker green on hover */
+    }
+    table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+            }
+    
+            /* Apply styles to table cells */
+            table td, table th {
+            border-color: #f6f7f4;
+            text-align: left;
+            padding: 8px;
+            color: black;
+            }
+    
+            /* Apply alternating row colors */
+            table tbody tr:nth-child(even) {
+            background-color: #e6e6e6;
+            }
+    
+            table tbody tr:nth-child(odd) {
+            background-color: #ccc;
+            }
+		
+	    select{
+            padding: 10px;
+    	    }
+            option{
+                background-color: #f2f2f2;
+            }
+
+
+            .head-manager{
+                color: blue;
+                font-size: 36px;
+                margin-bottom: 30px;
+                text-align: center;
+            }
+        
+            .table tr th{
+           background-color: #000;
+           color:#fff;
+
+            }
+</style>
+
+<div class="row">
+    <div class="col-lg-1 col-sm-1 col-md-1"></div>
+
+    <div class="col-lg-10 col-sm-10 col-md-10">
+        <h3 class="{% if mem_role == 'HR' and mem_hroptions == 1 %}head-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}head-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}head-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}head-tm {% endif %}">Update Project Status</h3>
+
+        <table class="table">
+            <tr > 
+                <th>Project Title</th>
+                <th>Status</th>
+                <th>Project Status</th>
+            </tr>
+            <form method="post" id="form"> {% csrf_token %}
+                {% for i in projectm %}
+            <tr>
+        <td>{{ i.project_name }}</td>
+        <td>
+            <select name="status-{{ i.id }}">
+                <option selected disabled value="">Select the status</option>
+                <option>Ongoing</option>
+                <option>Complete</option>
+                <option>Incomplete</option>
+                {% if i.read == 1 %}
+                <option>On Hold</option>
+                {% endif %}
+            </select>
+            <button type="button" class="update-status-button" onclick="updateProjectStatus('{{ i.id }}')">Update Status</button>
+        </td>
+        <td id="project-status-{{ i.id }}">{{ i.status }}</td>
+    </tr>
+{% endfor %}
+            </form>
+        </table>
+    </div>
+
+    <div class="col-lg-1 col-sm-1 col-md-1"></div>
+
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Set the initial values of the "Project Status" cells
+        {% for i in projectm %}
+            var projectId = "{{ i.id }}";
+            var currentStatus = document.getElementById('project-status-' + projectId).innerText.trim();
+            var initialStatus = localStorage.getItem('projectStatus-' + projectId) || "{{ i.status }}";
+
+            // Set the initial value only if it's not already set
+            if (currentStatus === "") {
+                document.getElementById('project-status-' + projectId).innerText = initialStatus;
+            }
+        {% endfor %}
+    });
+
+    function updateProjectStatus(projectId) {
+        // Get the selected status for the current project
+        var selectedStatus = document.querySelector('[name="status-' + projectId + '"]').value;
+
+        // Get the current status for the current project
+        var currentStatusElement = document.getElementById('project-status-' + projectId);
+        var currentStatus = currentStatusElement.innerText.trim();
+
+        // Only update if the selected status is different from the current status
+        if (selectedStatus !== currentStatus) {
+            // Update the "Project Status" cell for the current project
+            currentStatusElement.innerText = selectedStatus;
+
+            // Store the updated status in localStorage
+            localStorage.setItem('projectStatus-' + projectId, selectedStatus);
+
+            // Send AJAX request to update status on the server
+            updateStatusOnServer(projectId, selectedStatus);
+        }
+    }
+
+    function updateStatusOnServer(projectId, status) {
+    // Get CSRF token from the page
+    var csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+    // Send AJAX request to update the project status
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/update_project_status/', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.setRequestHeader('X-CSRFToken', csrfToken);
+
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            var response = JSON.parse(xhr.responseText);
+            if (response.success) {
+                console.log('Status updated on the server successfully.');
+            } else {
+                console.error('Failed to update status on the server.');
+            }
+        }
+    };
+
+    // Convert data to JSON string
+    var data = JSON.stringify({ projectId: projectId, status: status });
+
+    xhr.send(data);
+}
+</script>
+{% endblock main_content %}

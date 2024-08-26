@@ -1,0 +1,171 @@
+{% extends "admin-template/base_template.html" %}
+{% block main_content %}
+<style>
+  #check{
+width: 18px;
+height: 18px;
+}
+.form-check-label{
+  font-size: larger;
+}
+
+
+</style>
+
+<div class="container" style="width: 75%;height: auto;">
+  <div class="row justify-content-center" style="margin-top: 100px;">
+      <div class="col-lg-12 " >
+        <div class="col-lg-12" style="margin-left: 20%;">
+          <a href="/tds/">
+              <button style="background-color:#2d3354;color: white;width: 12%;border:none;font-size:x-large;">TDS</button>
+              </a>
+      
+          <a href="/pr_tax/">
+
+            <button style="background-color:white;color: black;;border:none;font-size: x-large;">PROFESSIONAL TAX</button>
+          </a>
+      
+          <a href="/pf/">
+              <button style="background-color:#2d3354;color: white;width: 12%;border:none;font-size: x-large;">PF</button>
+              </a>
+      
+          <a href="/esic/">
+              <button style="background-color:#2d3354;color: white;width: 14%;border:none;font-size: x-large;">ESIC</button>
+              </a>
+          </div><br>
+          
+          <div class="col-lg-12">
+          <form  method="post" style="width:100%;margin: auto;height:fit-content;" action="/pr_tax/">{% csrf_token %}
+            <div style="background-color: #2d3354;padding:2%;color: white;text-align: justify;font-size: 18px;">
+                Professional tax is mandatory similar to income tax and is paid by every employee in private companies. The maximum amount payable per year is Rs. 2, 500. Nevertheless, every state has a different rate and method of collecting professional tax.
+            </div>
+       <br>       <br>
+
+       <div class="form-group">
+
+       <h3 style="color: white;">PT Status</h3>
+       {% for i in a1 %}
+       <select name="professional_tax" style="background-color: #2d3354;color: white;width: 300px;border: none;font-size: 18px;padding: 1%;">
+        <option value="Enabled" {% if i.professional_tax == "Enabled" %} selected {% endif %}>Enabled</option> 
+        <option value="Disabled"{% if i.professional_tax == "Disabled" %} selected {% endif %}>Disabled</option>
+       </select>
+       </div>
+       <br>
+
+       <div class="form-group"  id="pt">
+
+       <h3 style="color: white;">PT Payments</h3>
+       <div style="background-color: #2d3354;padding:2%;color: white;text-align: justify;font-size: 18px;">
+        Please note that the disabling the payment of PT does not disable the deduction of the same in your employee's payslips.
+    </div><br>
+      <div class="form-check">
+        <label class="form-check-label" style="color:white ; font-size: 18px;">
+            <input type="checkbox" id="pt_payment_check" name="pt_payment" {% if i.pt_payment == 'Yes' %}checked{% endif %}>
+            PT payments and filing (if applicable)
+          </label>
+      </div>
+  
+      <br>
+      <br>
+      <div id="pt_check">
+      <h3 style="color: white;">PT</h3>
+      
+      <div style="background-color: #2d3354;padding:2%;color: white;text-align: justify;font-size: 18px;">
+        Your company's <a href="https://apct.gov.in/GSTPortal/GST_Portal/Member/Login.aspx">PT </a>login is required to pay provident fund dues
+       and file returns.</div>
+       <br>
+       <br>
+       <table border="2" style="border-collapse: collapse;border: none;"class="input-box">
+           <tr style="background-color: #2d3354;color: white;">
+               <th style="padding: 10px;">Username</th>
+               <th style="padding: 10px;">Password</th>
+           </tr>
+           <tr>
+            <td><input type="text" style="padding: 10px;border:none;background-color:#3a446f;color: white;" name="username3" value="{{i.username3}}" class="input-box"></td>
+            <td><input type="password" id="password" style="padding: 10px;border:none;background-color:#3a446f;color: white;" name="password4" value="{{i.password4}}" class="input-box"></td>
+        </tr>
+        
+         </table>
+         {% endfor %}
+
+         <br>
+         <br>
+         <button type="button" class="btn "onclick="togglePassword()"style="padding: 5px;background-color: rgb(107, 107, 150);color: white;font-size: larger;">Click here to Show Password</button>
+         <br>
+        </div>
+<br>
+    </div>
+    <button  style="width:auto;padding: 10px;border:none;background-color: rgb(18, 96, 252);color: rgb(247, 244, 244);font-size: larger;" >Save & Next</button>
+</form>
+
+    </div>
+  </div>
+  <script>
+    // Get the pt_payment checkbox and the pt_check div
+    const ptPaymentCheckbox = document.getElementById('pt_payment_check');
+    const ptCheckDiv = document.getElementById('pt_check');
+  
+    // Function to show or hide the pt_check div based on the checkbox state
+    function togglePTCheckVisibility() {
+      if (ptPaymentCheckbox.checked) {
+        ptCheckDiv.style.display = 'block';
+      } else {
+        ptCheckDiv.style.display = 'none';
+      }
+    }
+  
+    // Add an event listener to the pt_payment checkbox to call the togglePTCheckVisibility function
+    ptPaymentCheckbox.addEventListener('change', togglePTCheckVisibility);
+  
+    // Call the function initially to set the initial visibility based on the checkbox state
+    togglePTCheckVisibility();
+  </script>
+
+   <script>
+    // Get the dropdown menu and the P_t form-group element
+const P_tStatusDropdown = document.querySelector('select[name="professional_tax"]');
+const P_tFormGroup = document.querySelector('#pt');
+
+// Add an event listener to the dropdown menu
+P_tStatusDropdown.addEventListener('change', function() {
+  // Get the selected option
+  const selectedOption = this.options[this.selectedIndex];
+
+  // Toggle the visibility of the P_t form-group element based on the selected option
+  if (selectedOption.value === 'Enabled') {
+    P_tFormGroup.style.display = 'block';
+  } else if (selectedOption.value === 'Disabled') {
+    P_tFormGroup.style.display = 'none';
+  }
+
+});
+// Hide the PF form-group element by default
+P_tFormGroup.style.display = 'none';
+// Check if the selected option is "Disabled" and hide the PF form-group element if it is
+
+if (P_tStatusDropdown.value === 'Disabled') {
+  P_tFormGroup.style.display = 'none';
+}else 
+{
+  P_tFormGroup.style.display = 'block';
+}
+   </script>
+  <script>
+        function togglePassword() {
+          var passwordInput = document.getElementById("password");
+          if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+          } else {
+            passwordInput.type = "password";
+          }
+        }
+      </script>
+  </div>
+</div>
+
+  {% endblock main_content %}
+
+
+
+
+  

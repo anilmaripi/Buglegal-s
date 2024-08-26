@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <title>Company Registration Form</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #3498db;
+            text-align: center;
+        }
+        form {
+            display: grid;
+            gap: 15px;
+        }
+        label {
+            display: block;
+            font-size: 16px;
+            color: #333;
+        }
+        .phone-number-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        #sendOtp {
+            position: absolute;
+            right: 10px;
+            background-color: #3498db;
+            color: #fff;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            display: none; /* Initially hide the button */
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <!-- {% if messages %}
+    {% for message in messages %}
+    {% if message.tags == 'error' %}
+    <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+    {% endif %}
+    {% if message.tags == 'success' %}
+    <div class="alert alert-success" style="margin-top:20px;background-color:green;color: whitesmoke; font-size: 30px;text-align: center;">{{ message }}</div>
+    {% endif %}
+    {% endfor %}
+  {% endif %} -->
+    <div class="container">
+        <h2>Company Registration</h2>
+        <form method="post" id="registerForm">
+            {% csrf_token %}
+            
+            <label>Organization Name:</label>
+            <input type="text" name="organizationname" value="{{post1.organizationname}}" placeholder="Enter The Organization Name" required>
+
+            <label>Registration Number:</label>
+            <input type="text" name="registration_number" value="{{ post1.registration_number }}" placeholder="Auto-generated" readonly>
+
+            <label>Address:</label>
+            <textarea name="address" value="{{post1.address}}" placeholder="Enter The Address" required></textarea>
+
+            <label>Username</label>
+            <input type="text" name="contact_person" value="{{post1.contact_person}}" placeholder="Enter The Username" required>
+
+            <label>Email:</label>
+            <input type="email" name="email" value="{{post1.email}}" placeholder="Enter The Email" required>
+
+            <label>Phone Number:</label>
+            <div class="phone-number-container">
+                <input type="text" name="phone_number" id="phone_number" value="{{post1.phone_number}}" placeholder="Enter The Phone Number" required>
+                <button type="button" id="sendOtp">Send OTP</button>
+            </div>
+    
+            <input type="text" name="otp" id="indian" value="{{post1.otp}}" placeholder="Enter The OTP">
+            <span id="timer"></span>
+            <span id="otpResult"></span>
+
+            <label>Password:</label>
+            <input type="password" name="password" value="{{post1.password}}" placeholder="Enter The Password" required>
+
+            <label>Number of Employees</label>
+            <select name="Numberofemployees" value="{{post1.Numberofemployees}}" required>
+                <option value="" disabled selected>Number of Employees</option>
+                <option value="1-50">1-50</option>
+                <option value="50-100">50-100</option>
+                <option value="100-200">100-200</option>
+                <!-- Add more options as needed -->
+            </select>
+
+            <label>Your Title</label>
+            <select name="your_title" value="{{post1.your_title}}" required>
+                <option value="" disabled selected>Your Title</option>
+                <option value="CEO">CEO</option>
+                <option value="manager">Manager</option>
+                <option value="employee">Employee</option>
+                <!-- Add more options as needed -->
+            </select>
+
+            <button type="submit">Register</button>
+        </form>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('#indian, #timer').hide();
+
+            $('#phone_number').on('input', function () {
+                var phoneNumber = $('#phone_number').val();
+                var isValidPhoneNumber = /^\d{10}$/.test(phoneNumber);
+
+                if (isValidPhoneNumber) {
+                    $('#sendOtp').show();
+                } else {
+                    $('#sendOtp').hide();
+                }
+            });
+
+            var timer;
+            var timeRemaining = 60; // 60 seconds
+
+            $('#sendOtp').click(function () {
+                var phoneNumber = $('#phone_number').val();
+
+                $.ajax({
+                    url: '/store_phone_number/',
+                    type: 'POST',
+                    data: {
+                        'phone_number': phoneNumber,
+                        'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+                    },
+                    success: function (data) {
+                        if (data.success) {
+                            $('#cole').text('OTP will be sent to ' + phoneNumber + '. Enter the OTP to verify.');
+                            sendOtpRequest();
+                            startTimer();
+                        } else {
+                            $('#cole').text('Failed to store phone number. Please try again.');
+                        }
+                    },
+                    error: function () {
+                        $('#cole').text('Error occurred during phone number storage.');
+                    }
+                });
+
+                function sendOtpRequest() {
+                    $.ajax({
+                        url: '/send_otp/',
+                        type: 'POST',
+                        data: {
+                            'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+                        },
+                        success: function (data) {
+                            if (data.success) {
+                                $('#cole').text('OTP has been sent to your phone. Enter the OTP to verify.');
+                                $('#indian, #timer').show(); // Show OTP input and timer
+                            } else {
+                                $('#cole').text('Failed to send OTP. Please try again.');
+                            }
+                        },
+                        error: function () {
+                            $('#cole').text('Error occurred during OTP generation.');
+                        }
+                    });
+                }
+
+                function startTimer() {
+                    timer = setInterval(function () {
+                        timeRemaining--;
+
+                        // Format the time in minutes and seconds
+                        var minutes = Math.floor(timeRemaining / 60);
+                        var seconds = timeRemaining % 60;
+
+                        // Display the time in the timer span
+                        $('#timer').text('Time remaining: ' + minutes + ':' + (seconds < 10 ? '0' : '') + seconds);
+
+                        if (timeRemaining <= 0) {
+                            // Stop the timer when the time is up
+                            clearInterval(timer);
+
+                            // Reset the timer and hide the OTP input
+                            timeRemaining = 60;
+                            $('#timer').text('Time remaining: 1:00');
+                            $('#indian').hide();
+                        }
+                    }, 1000);
+                }
+            });
+
+            $('#indian').on('input', function () {
+                var userEnteredOTP = $('#indian').val();
+
+                $.ajax({
+                    url: '/verify_otp/',
+                    type: 'POST',
+                    data: {
+                        'otp': userEnteredOTP,
+                        'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+                    },
+                    success: function (data) {
+                        $('#otpResult').text(data.message);
+
+                        if (data.message === 'OTP is valid.') {
+                            var formData = $('#registerForm').serialize();
+
+                            $.ajax({
+                                url: '/register_company/',  // Replace with the correct URL for your view
+                                type: 'POST',
+                                data: formData,
+                                success: function (response) {
+                                    // Handle the response if needed
+                                },
+                                error: function () {
+                                    // Handle the error if needed
+                                }
+                            });
+                        } else {
+                            $('#otpResult').text('Invalid OTP. Please try again.');
+                        }
+                    },
+                    error: function () {
+                        $('#otpResult').text('Error occurred during OTP verification.');
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
+

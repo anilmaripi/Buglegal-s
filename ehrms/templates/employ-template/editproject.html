@@ -1,0 +1,335 @@
+{% extends 'employ-template/base_template.html' %}
+
+{% block main_content %}
+<title>Update Project</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<style>
+/* General styles for containers and elements */
+.employee-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.employee-item {
+    width: 19%;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.card-manager {
+    background-color: #F2F2F2;
+    box-shadow: 2px 3px 10px #999;
+    border-radius: 10px;
+}
+
+.head-manager {
+    color: blue;
+    font-size: 36px;
+    margin-bottom: 30px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+/* Specific styles for form elements */
+#selected-employees-list li {
+    display: inline-block;
+    margin-right: 10px;
+    flex: 1;
+    row-gap: 50px;
+    padding-left: 30px;
+}
+
+#selected-employees-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.grid-item {
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+/* Styling for select and options */
+#employee-select {
+    width: 100%;
+    max-width: 1200px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f8f8f8;
+    font-size: 16px;
+    color: #333;
+}
+
+#employee-select option {
+    padding: 5px;
+    background-color: #fff;
+    color: #333;
+}
+
+#employee-select option:checked {
+    background-color: #3498db;
+    color: #fff;
+}
+
+#employee-select option:hover {
+    background-color: #f0f0f0;
+    cursor: pointer;
+}
+
+#employee-select::-ms-expand {
+    display: none;
+}
+
+#employee-select::after {
+    content: '\25BC';
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+.employee-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* Adjust the gap between items */
+    justify-content: flex-start; /* Align items to the start of the container */
+}
+
+.employee-item {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 2px 3px 10px #999;
+    padding: 10px;
+    margin-bottom: 10px;
+    width: calc(20% - 15px); /* Adjust the width as per your requirement */
+    text-align: center;
+    background-color: #F2F2F2;
+    color: #333;
+}
+.h6{
+    color:black
+}
+</style>
+
+
+<form action="{% url 'update_data1' project.id %}" method="POST">
+    {% csrf_token %}
+    <div class="mb-4">
+        <div class="form-group">
+            <label class="h6" for="exampleFormControlTextarea1">Project Name:</label>
+            <input type="text" class="form-control" name="p_name" value="{{ project.p_name }}">
+        </div>
+        <div class="form-group">
+            <label class="h6" for="exampleFormControlTextarea1">Project Description:</label>
+            <textarea name="p_desc" class="form-control" rows="6" required>{{ project.p_desc }}</textarea>
+        </div>
+        <div class="form-group">
+            <label class="h6" for="exampleFormControlTextarea1">Project Manager:</label>
+            <input type="text" class="form-control" name="manager_name" value="{{project.project_manager}}">
+        </div>
+        
+        <div class="form-group">
+            <label class="h6">Select the Role:</label><br>
+            {% for role in roles %}
+            <div class="form-check">
+                <input class="form-check-input team-lead-checkbox" type="checkbox" name="team_lead[]" id="role_{{ role.id }}" value="{{ role.designation_name }}">
+                <label class="form-check-label" for="role_{{ role.id }}" style="color:black">
+                    {{ role.designation_name }}
+                </label>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="form-group">
+            <label class="h6" for="team_lead_select1">Project Team Lead:</label>
+            <select name="team_lead" id="team_lead_select1" class="form-control team-leader-select" required>
+                <option value="0" selected>Select</option>
+                {% for teamlead in available_team_members %}
+                    <option style="color:black" value="{{ teamlead.id }}" {% if teamlead.id == team_leader_info.team_id %} selected {% endif %}>
+                        {{ teamlead.first_name }} {{ teamlead.last_name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <h2>Select Team Members</h2>
+        <select id="employee-select" name="selected_employees[]" class="custom-select" multiple>
+            <option value="0" selected>Select</option>
+            {% for employee in all_employees %}
+                <option value="{{ employee.id }}" style="color:black">{{ employee.first_name }} {{ employee.last_name }}</option>
+            {% endfor %}
+        </select>
+        <div id="hidden-input-container"></div>
+        
+        <h2>Selected Team Members</h2>
+        <div class="card alert-purple" style="height: 200px; overflow-y: scroll;">
+            <ul id="selected-employees-list" style="list-style-type: none; padding: 0; color: black;">
+                <!-- Selected employees will be listed here as list items -->
+                {% for member in selected_team_members %}
+                <li data-employee-id="{{ member.id }}" style="background-color: lightgreen;">
+                    - {{ member.first_name }} {{ member.last_name }} 
+                    <button class="remove-item btn btn-danger">Remove</button>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="form-group">
+            <label for="task-name">Project Deadline Date</label>
+            <input type="date" name="project_deadline_date" value="{{ project.project_deadline|date:'Y-m-d' }}" class="form-control" id="date" required>
+        </div>
+
+        <input type="submit" class="btn btn-primary" value="Update">
+    </div>
+</form>
+
+<div class="employee-container">
+    {% for team_member in team_members %}
+    <div class="employee-item">
+        <b><h4 style="padding-top: 20px; padding-left: 20px;">{{ team_member.employee.first_name }} {{ team_member.employee.last_name }}</h4></b>
+        <a class="btn btn-danger" href="/delete_user1/{{team_member.employee_id}}/{{team_member.project_id}}">Remove user</a>
+    </div>
+    {% endfor %}
+</div>
+
+<script>
+$(document).ready(function() {
+    var previouslySelectedEmployees = {};
+    
+    // Initialize previously selected employees
+    $('#selected-employees-list li').each(function() {
+        var employeeId = $(this).data('employee-id');
+        previouslySelectedEmployees[employeeId] = true;
+    });
+
+    function updateEmployeeOptions(department, appendOnly) {
+        $.ajax({
+            url: `/get_teamb/${department}/`,
+            method: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                data.team_members.forEach(function(member) {
+                    var optionExists = $('#employee-select option[value="' + member.id + '"]').length > 0;
+                    if (!optionExists || appendOnly) {
+                        var teamLeadOption = `<option value="${member.id}">${member.name}</option>`;
+                        var employeeOption = `<option value="${member.id}" ${previouslySelectedEmployees[member.id] ? 'style="background-color: lightgreen;"' : ''}>${member.name}</option>`;
+
+                        if (!optionExists) {
+                            $('#employee-select').append(employeeOption);
+                        } else if (previouslySelectedEmployees[member.id]) {
+                            $('#employee-select option[value="' + member.id + '"]').css('background-color', 'lightgreen');
+                        }
+
+                        $('#team_lead_select1').append(teamLeadOption);
+                    }
+                });
+            },
+            error: function() {
+                console.log('Error fetching team members');
+            }
+        });
+    }
+
+    $('.team-lead-checkbox').change(function() {
+        var selectedDepartments = $('.team-lead-checkbox:checked').map(function() {
+            return $(this).val();
+        }).get();
+
+        var teamLeadSelect = $('#team_lead_select1');
+        var employeeSelect = $('#employee-select');
+
+        teamLeadSelect.empty();
+        employeeSelect.empty();
+
+        teamLeadSelect.append('<option value="0" selected>Select</option>');
+
+        selectedDepartments.forEach(function(department) {
+            updateEmployeeOptions(department, false);
+        });
+    });
+
+    const employeeSelect = document.getElementById("employee-select");
+    const selectedEmployeesList = document.getElementById("selected-employees-list");
+    const hiddenInputContainer = document.getElementById("hidden-input-container");
+
+    function updateHiddenInputs() {
+        hiddenInputContainer.innerHTML = ''; // Clear existing hidden inputs
+        $('#selected-employees-list li').each(function() {
+            const employeeId = $(this).data('employee-id');
+            hiddenInputContainer.innerHTML += `<input type="hidden" name="selected_employees[]" value="${employeeId}">`;
+        });
+    }
+
+    employeeSelect.addEventListener("change", function() {
+        const selectedOptions = Array.from(this.selectedOptions);
+
+        selectedOptions.forEach(function(option) {
+            const employeeId = option.value;
+            const employeeName = option.textContent;
+
+            if (!document.querySelector(`li[data-employee-id="${employeeId}"]`)) {
+                const listItem = document.createElement("li");
+                listItem.dataset.employeeId = employeeId;
+                listItem.innerHTML = `- ${employeeName} <button class="remove-item btn btn-danger">Remove</button>`;
+                listItem.style.backgroundColor = "lightgreen";
+
+                listItem.querySelector(".remove-item").addEventListener("click", function() {
+                    removeEmployee(employeeId);
+                    option.selected = false;
+                    moveEmployeeBack(employeeId);
+                });
+
+                selectedEmployeesList.append(listItem);
+                option.style.display = "none";
+
+                previouslySelectedEmployees[employeeId] = true;
+                updateHiddenInputs();
+            }
+        });
+    });
+
+    function removeEmployee(employeeId) {
+        const listItem = document.querySelector(`li[data-employee-id="${employeeId}"]`);
+        if (listItem) {
+            listItem.remove();
+            delete previouslySelectedEmployees[employeeId]; // Remove from previouslySelectedEmployees
+            updateHiddenInputs(); // Update hidden inputs
+        }
+    }
+
+    function moveEmployeeBack(employeeId) {
+        const option = document.querySelector(`#employee-select option[value="${employeeId}"]`);
+        if (option) {
+            option.style.display = "";
+            option.style.backgroundColor = "";
+        }
+    }
+
+    selectedEmployeesList.addEventListener("click", function(event) {
+        if (event.target.classList.contains("remove-item")) {
+            const listItem = event.target.parentElement;
+            const employeeId = listItem.dataset.employeeId;
+            removeEmployee(employeeId);
+        }
+    });
+
+    $('#team_lead_select1').change(function() {
+        var selectedLeadId = $(this).val();
+        if (selectedLeadId !== '0') {
+            $('#employee-select option').each(function() {
+                if ($(this).val() === selectedLeadId) {
+                    $(this).hide();
+                } else {
+                    $(this).show();
+                }
+            });
+        }
+    });
+});
+</script>
+
+{% endblock main_content %}

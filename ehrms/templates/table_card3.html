@@ -1,0 +1,279 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Table Detail</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        table th, table td {
+            border: 2px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        table th {
+            background-color: black;
+            color: white;
+        }
+
+        table td img {
+            max-width: 100px;
+            max-height: 100px;
+            display: block;
+            margin: auto;
+        }
+
+        .logo1 {
+            max-width: 100%;
+            height: auto;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+
+        .btn-edit, .btn-delete {
+            padding: 5px 10px;
+            margin-right: 5px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .btn-delete {
+            background-color: #f44336;
+        }
+    </style>
+</head>
+<body>
+    <table class="table"><br>
+        <h3 style="text-align: center;">1.Payroll Process|Reimbursements|Salary Of Employees|</h3>
+
+        <thead>
+            <tr>
+                <th>Sno</th>
+
+                <th>Main Title</th>
+                <th>Description</th>
+                <th>Title</th>
+                <th>Steps</th>
+                <th>Actions</th>
+
+
+                
+            </tr>
+        </thead><br>
+        <tbody>
+            {% for data in pay1 %}
+            <tr>
+                <td>{{ data.id }}</td>
+
+                <td>{{ data.maintitle }}</td>
+                <td>{{ data.des }}</td>
+                <td>{{ data.title }}</td>
+                <td>
+                <ol type="a">
+                    {% for step in data.steps %}
+                    <li>{{ step }}</li>
+                    {% endfor %}
+                </ol>  </td>
+            <td>
+                    <a href="{% url 'edit_payrollqns1' data.id %}" class="btn-edit">Edit</a><br>
+                    
+                    <a href="{% url 'delete_payrollqns1' data.id %}" class="btn-delete">Delete</a>
+
+                </td>
+
+                           </tr>
+            {% endfor %}
+            
+        </tbody>
+
+
+
+
+
+        <table class="table"><br>
+            <h3 style="text-align: center;">2.How To Add Employeesin Single Or Multiple Data ?</h3>
+
+            <thead>
+                <tr>
+                    <th style="text-align: center;">Sno</th>
+
+                    <th style="text-align: center;">Main Title</th>
+                    <th style="text-align: center;" >Title</th>
+                    <th style="text-align: center;">Steps</th>
+                    <th>Actions</th>
+    
+    
+                    
+                </tr>
+            </thead><br>
+            <tbody>
+                {% for data1 in emp1 %}
+                <tr>
+                    <td>{{ data1.id }}</td>
+
+                    <td>{{ data1.maintitle }}</td>
+                    <td>{{ data1.title }}</td>
+                    <td>
+                    <ol type="a">
+                        {% for allsteps in data1.steps %}
+                        <li style="padding-bottom: 7px;">{{ allsteps }}</li>
+                        {% endfor %}
+                    </ol>  </td>
+                <td>
+                        <a href="{% url 'edit_addempqns2' data1.id %}" class="btn-edit">Edit</a><br>
+                        
+                        <a href="{% url 'delete_addempqns2' data1.id %}" class="btn-delete">Delete</a>
+    
+                    </td>
+    
+                               </tr>
+                {% endfor %}
+                
+            </tbody>
+    
+            <table class="table"><br>
+                <h3 style="text-align: center;">3.How To Apply The Reimbursements For Employees?</h3>
+    
+                <thead>
+                    <tr>
+                        <th style="text-align: center;">Sno</th>
+
+                        <th style="text-align: center;">Title</th>
+                        <th style="text-align: center;">Steps</th>
+                        <th style="text-align: center;">Actions</th>
+        
+        
+                        
+                    </tr>
+                </thead><br>
+                <tbody>
+                    {% for data2 in rrr %}
+                    <tr>
+                        <td>{{ data2.id }}</td>
+
+                        <td>{{ data2.title }}</td>
+                        <td>
+                        <ol type="a">
+                            {% for allsteps2 in data2.steps %}
+                            <li style="padding-bottom: 7px;">{{ allsteps2 }}</li>
+                            {% endfor %}
+                        </ol>  </td>
+                    <td>
+                            <a href="{% url 'edit_reimbursementqns3' data2.id %}" class="btn-edit">Edit</a><br>
+                            
+                            <a href="{% url 'delete_reimbursementqns3' data2.id %}" class="btn-delete">Delete</a>
+        
+                        </td>
+        
+                                   </tr>
+                    {% endfor %}
+                    
+                </tbody>
+        
+
+
+
+                <table class="table"><br>
+                    <h3 style="text-align: center;">4.How Can Admin Approve And Disapprove The Employees Reimburusment Requests?
+                    </h3>
+        
+                    <thead>
+                        <tr>
+                            <th style="text-align: center;">Sno</th>
+    
+                            <th style="text-align: center;">mainitle</th>
+                            <th style="text-align: center;">Steps</th>
+                            <th style="text-align: center;">Actions</th>
+            
+            
+                            
+                        </tr>
+                    </thead><br>
+                    <tbody>
+                        {% for data3 in ads1 %}
+                        <tr>
+                            <td>{{ data3.id }}</td>
+    
+                            <td>{{ data3.maintitle }}</td>
+                            <td>
+                            <ol type="a">
+                                {% for allsteps3 in data3.steps %}
+                                <li style="padding-bottom: 7px;">{{ allsteps3 }}</li>
+                                {% endfor %}
+                            </ol>  </td>
+                        <td>
+                                <a href="{% url 'edit_requestqns4' data3.id %}" class="btn-edit">Edit</a><br>
+                                
+                                <a href="{% url 'delete_requestqns4' data3.id %}" class="btn-delete">Delete</a>
+            
+                            </td>
+            
+                                       </tr>
+                        {% endfor %}
+                        
+                    </tbody>
+            
+            
+        
+                    <table class="table"><br>
+                        <h3 style="text-align: center;">5.How Admin Can See Advance Salary Requested By Employee?</h3>
+            
+                        <thead>
+                            <tr>
+                                <th style="text-align: center;">Sno</th>
+        
+                                <th style="text-align: center;">mainitle</th>
+                                <th style="text-align: center;">des</th>
+                                <th style="text-align: center;">title</th>
+
+                                <th style="text-align: center;">Steps</th>
+                                <th style="text-align: center;">Actions</th>
+                
+                
+                                
+                            </tr>
+                        </thead><br>
+                        <tbody>
+                            {% for data4 in last_qns %}
+                            <tr>
+                                <td>{{ data4.id }}</td>
+        
+                                <td>{{ data4.maintitle }}</td>
+                                <td>{{ data4.des1 }}</td>
+                                <td>{{ data4.title }}</td>
+
+
+                                <td>
+                                <ol type="a">
+                                    {% for allsteps4 in data4.steps %}
+                                    <li style="padding-bottom: 7px;">{{ allsteps4 }}</li>
+                                    {% endfor %}
+                                </ol>  </td>
+                            <td>
+                                    <a href="{% url 'edit_advanceqns5' data4.id %}" class="btn-edit">Edit</a><br>
+                                    
+                                    <a href="{% url 'delete_advanceqns5' data4.id %}" class="btn-delete">Delete</a>
+                
+                                </td>
+                
+                                           </tr>
+                            {% endfor %}
+                            
+                        </tbody>
+                
+                
+            

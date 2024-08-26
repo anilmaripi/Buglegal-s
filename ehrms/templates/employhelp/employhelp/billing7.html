@@ -1,0 +1,19 @@
+{% extends 'employhelp/basehelp.html' %}
+{% block main_content %}
+<style>
+    h5{
+        font-size: medium;
+    }
+</style>
+<form>
+    <p id="ha1" style="font-size: xx-large;">I have been getting invoices for so long, why is it failing now?</p>    
+    <p id="hq">Due to government regulations, GSTIN invoices have to be registered at the GSP portal from January 1, 2021. So your GSTIN will be validated with the place of supply. If they do not match, the e-invoice will not be generated. You can either update your GSTIN to match your place of supply, or remove it and get a regular Invoice for which you cannot claim GST credit.</p><br>
+        <center><button style="width:50%;height: auto;font-size: x-large;border: 2px solid whitesmoke;">
+            <div id="a">
+                <p id="section10" style="text-align: center;">Did this answer your question?</p>
+                <p><a class="ex1" style="text-decoration: none;color: black;"><center>😄 😶 😔</center></a> </p>
+            </div>
+        </button></center><br><br><br>  
+        
+    </form>
+    {% endblock main_content %}

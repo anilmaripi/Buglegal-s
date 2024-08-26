@@ -1,0 +1,366 @@
+{% extends 'employ-template/base_template.html' %}
+{% block main_content %}
+<title>Employee Task Performance</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+<!-- <style>
+
+    /* Style table cells (td) */
+    table.table tbody td,th{
+        color: white; /* Text color for table cells */
+    }
+    h4{
+        color: white; 
+    }
+   table{
+    width: 100% !important;
+   }
+   .pagination {
+        margin: 20px 0;
+        text-align: center;
+    }
+    
+    /* .pagination a, .pagination .current-page {
+        display: inline-block;
+        padding: 8px 12px;
+        text-decoration: none;
+        margin: 0 4px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+    }
+     */
+
+     .pagination a, .pagination .current-page {
+        display: inline-block;
+        padding: 8px 12px;
+        text-decoration: none;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+        border-radius: 20px;
+        text-align: center;
+        /* background-color: #3775e0;
+        color: white; */
+    }
+      .act{
+  /* background-color: orange; */
+  color: white;
+  height:43px;
+  width:43px;
+  border-radius: 20px;
+
+}
+ 
+ 
+.table-hr thead tr{
+        background-color:#000; 
+            color:#fff;   
+       }
+       .table-hr tbody tr td{
+            background: linear-gradient(rgb(238, 242, 244),rgb(239,239,247));
+            color:black;
+         }
+</style> -->
+
+<style>
+    .hed-manager{
+        color: blue;
+        font-size: 36px;
+        margin-bottom: 30px;
+        text-align: center;
+        margin-top: 10px;
+    }
+    .table-manager thead tr{
+        background-color: #000;
+        color:#fff;
+    }
+    .table-manager tbody tr:nth-child(even){
+        color: #000;
+        background-color: #ccc;
+    }
+    .table-manager tbody tr:nth-child(odd){
+        color: #000;
+        background-color: #e6e6e6;
+    }
+    .pagination a{
+        color:red;
+        text-decoration: none;
+      
+      }
+      .act{
+        border-radius: 20px;
+        padding: 4px 8px;
+        background-color: #007880;
+        border: 1px solid #ccc;
+        color:fff;
+      }
+
+      .table-hr thead tr{
+        background-color:#000; 
+            color:#fff;   
+       }
+       .table-hr tbody tr td{
+            /* background: linear-gradient(rgb(238, 242, 244),rgb(239,239,247)); */
+            color:black;
+         }
+         .hed-hr{
+            color: black;
+            font-size: 36px;
+            margin-bottom: 30px;
+            text-align: center;
+            margin-top: 10px;
+            font-weight:bold ;
+        }
+        .table-tl tr{
+            /* background: linear-gradient(rgb(239,239,247),rgb(238, 242, 244)); */
+            color:#000;
+        }
+        .hed-tl{
+            color: #000;
+            text-align: center;
+        }
+ 
+        table, tr, td, th{
+            border: 2px solid;
+            border-color: #000;
+          }
+    
+</style>
+
+
+      
+  <!-- <h3 class="text-dark" style="font-weight: bold;"> Employee Performance </h3> -->
+  <!-- <button type="button" class="btn btn-success" id="export-btn" style="width:50%;margin-top:10px;">
+    <i class="fa fa-download" aria-hidden="true"></i> Download All Performance Data
+</button>
+  <div class="row">
+    <div class="col-md-8"></div>
+    <div class="col-md-4">
+        <div class="search-bar" >
+            <form method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col">
+                        <input type="text" name="se" class="form-control" placeholder="Search for name..." >
+                    </div>
+              
+                <div class="col">
+                    <button type="submit" class="btn btn-primary" style="padding: 5px;color:#5785e9; border: 2px solid #ccc; border-radius: 5px;">Search</button>
+                </div>
+            </div>
+            </form>
+          </div> 
+    </div>
+  </div>
+
+<br> -->
+
+<div class="row" >
+    <div class="col-lg-1 col-sm-1 col-md-1"></div>
+    <div class="col-lg-10 col-sm-10 col-md-10">
+
+<div class="row" >
+    <div class="col">
+        <h3 class="{% if mem_role == 'HR' and mem_hroptions == 1 %}hed-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}hed-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}hed-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}hed-tm {% endif %}">
+            Employee Task Performance
+        </h3>
+    </div>
+</div>
+<br>
+
+
+<form method="post">
+    {% csrf_token %}
+   <!-- <div class="container"> -->
+    <div class="row">
+        <div class="col-5">
+            <button type="button" class="btn btn-success w-100" id="export-btn" >
+                <i class="fa fa-download" aria-hidden="true"></i> Download All Performance Data
+            </button>
+        </div>
+        <div class="col-3"></div>
+        <div class="col-4">
+            <input type="text" name="se" class="form-control" placeholder="Search for name..." onkeyup="submitSearch()" style="background-color: #e6e6e6;">
+
+        </div>
+        <!-- <div class="col-2">
+            <button type="submit" class="btn btn-primary" style="padding: 5px;color:black; border: 2px solid #ccc; border-radius: 5px;">Search</button>
+
+        </div> -->
+    </div>
+
+</form> 
+<br>
+<center>
+    <table class="table {% if mem_role == 'HR' and mem_hroptions == 1 %}table-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}table-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}table-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}head-tm {% endif %}  " id="yourTableID">
+    <thead>
+        <tr >
+            <th>Employee Name</th>
+            <th>Project Name</th>
+            <th>Task</th>
+            <th>Performance</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for task in tsk1_data %}
+            <tr style="width: 800px;">
+                <td>{{ task.employ_name.first_name }}</td>
+                <td>{{ task.project_name }}</td>
+                <!-- <td>{{ task.project_task1 }}</td> -->
+                <td>{{ task.task_name1 }}</td>
+
+                <td>{{ task.performance }}</td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="4" style="text-align: center; color: red;background-color: #f2f2f2;">There is no reports available for the task performance.....</td>
+
+            </tr>
+        {% endfor %}
+    </tbody>
+
+</table>
+</center>
+<!-- <div class="pagination" style="color:white ;" >
+    <span class="step-links">
+        {% if tsk1_data.has_previous %}
+            <a href="?page=1">&laquo; First</a>
+            <a href="?page={{ tsk1_data.previous_page_number }}" class="prev">&#8249; << </a>
+        {% endif %}
+  
+        {% for page in tsk1_data.paginator.page_range %}
+            <a href="?page={{ page }}" {% if page == tsk1_data.number %}class="active"{% endif %}>{{ page }}</a>
+        {% endfor %}
+  
+        {% if tsk1_data.has_next %}
+            {% if tsk1_data.number != tsk1_data.paginator.num_pages %}
+            {% endif %}
+            <a href="?page={{ tsk1_data.paginator.num_pages }}">&raquo; >> </a>
+        {% endif %}
+    </span>
+  </div> -->
+
+  <div class="pagination">
+    <span class="step-links">
+        {% if tsk1_data.has_previous %}
+            <a  href="?page=1">First</a>
+            <a   href="?page={{ tsk1_data.previous_page_number }}" class="prev"> << </a>
+        {% endif %}
+
+
+        {% for i in tsk1_data.paginator.page_range %}
+        {% if tsk1_data.number == i %}
+        <button class="active act "><span>{{ i }} <span class="sr-only">(current)</span></span></button>
+        {% elif i > tsk1_data.number|add:'-3' and i < tsk1_data.number|add:'3' %}
+            <a  href="?page={{ i }}">{{ i }}</a>
+        {% endif %}
+        {% endfor %}
+
+       
+
+        {% if tsk1_data.has_next %}
+            {% if tsk1_data.number != tsk1_data.paginator.num_pages %}
+            {% endif %}
+            <a   href="?page={{ tsk1_data.next_page_number }}" class="prev">>> </a>
+
+            <a  href="?page={{ tsk1_data.paginator.num_pages }}">Next </a>
+        {% endif %}
+    </span>
+</div>
+</div>   
+
+<div class="col-lg-1 col-sm-1 col-md-1"></div>
+</div>      
+
+
+  <script>
+    // Search script
+    function submitSearch() {
+        var input = document.getElementById("myInput");
+        var filter = input.value.toUpperCase();
+        var table = document.getElementById("yourTableID");
+        var tr = table.getElementsByTagName("tr");
+
+        // Remove previously added no data found row if it exists
+        var existingNoDataRow = document.getElementById("noDataFoundRow");
+        if (existingNoDataRow) {
+            existingNoDataRow.remove();
+        }
+
+        var dataFound = false;
+
+        for (var i = 0; i < tr.length; i++) {
+            var employeeNameCell = tr[i].getElementsByTagName("td")[0];
+            if (employeeNameCell) {
+                var txtValue = employeeNameCell.textContent || employeeNameCell.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                    dataFound = true;
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+
+        // Create and append a no data found row if no data is found
+        if (!dataFound && filter !== "") {
+            var noDataRow = table.insertRow(table.rows.length);
+            noDataRow.id = "noDataFoundRow";
+            var cell = noDataRow.insertCell(0);
+            cell.colSpan = 4;
+            cell.innerHTML = "There is no reports available for search items.....";
+            cell.style.color = "red"; // You can change "red" to any color you want
+            cell.style.textAlign = "center"; // Horizontally center the text
+        }
+    }
+</script>
+
+<script>
+    document.getElementById('export-btn').addEventListener('click', function() {
+        var table = document.getElementById('yourTableID');
+        var csv = [];
+
+        // Iterate over rows
+        var rows = table.rows;
+        for (var i = 0; i < rows.length; i++) {
+            var row = [];
+            var cells = rows[i].cells;
+
+            // Iterate over columns
+            for (var j = 0; j < cells.length; j++) {
+                var cellText = cells[j].textContent.trim();
+
+                // Check if the cell is a date cell
+                if (cells[j].classList.contains('date-cell')) {
+                    // If it's a date cell, check if the next cell contains the month
+                    if (j < cells.length - 1 && cells[j + 1].classList.contains('date-cell')) {
+                        // If the next cell is also a date cell, combine text with the next cell
+                        cellText += ' ' + cells[j + 1].textContent.trim();
+                        j++; // Skip the next cell
+                    }
+                }
+
+                row.push(cellText);
+            }
+
+            // Join row data with comma
+            csv.push(row.join(','));
+        }
+
+        // Join rows with newline
+        var csvString = csv.join('\n');
+
+        // Create download link
+        var downloadLink = document.createElement('a');
+        downloadLink.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csvString);
+        downloadLink.download = 'table_data.csv';
+
+        // Trigger download
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+    });
+</script>
+
+{% endblock main_content %}

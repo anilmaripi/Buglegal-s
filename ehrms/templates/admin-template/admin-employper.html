@@ -1,0 +1,148 @@
+{% extends 'admin-template/base_template.html' %}
+{% block main_content %}
+<style>
+
+    /* Style table cells (td) */
+    table.table tbody td {
+        color: white; /* Text color for table cells */
+    }
+</style>
+<div class="row align-items-center d-flex  justify-content-center" style="padding-left: ">
+    <div class="col-12 mb-4">
+        <div class="card border-light shadow-sm components-section align-items-center d-flex  justify-content-center">
+            <div class="card-body align-items-center d-flex justify-content-center">
+                <div class="row mb-4">
+                    <div class="col-lg-12 col-sm-16">
+                        <h3 class="h3 text-center" style="color: black;">Employ Performance On Task</h3>
+                    </div>
+                    <div class="card-body">
+                       
+                        {% for project in projects  %}
+                        <form action="" method="POST">
+                            {% endfor %}
+                            {% csrf_token %}
+
+                            <div class="form-group">
+                                <label for="project-name" style="color: black;">Project Name:</label>
+                                <select name="project_name" class="custom-select my-1 mr-sm-2" id="p_id">
+                                    <option value="0" selected>Select</option>
+                                    {% for project in projects %}
+                                        <option  value="{{project.id}}">{{project.p_name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+
+                
+
+                            <div class="form-group">
+                                <label for="task-name" style="color: black;">Employee Name:</label>
+                                <select name="employ_name" class="custom-select my-1 mr-sm-2" id="e_id">
+                                    <option value="0" selected>Select</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="task-name" style="color: black;">Task </label>
+                                <input type="text" id="task" name="task_name" class="form-control" id="task" required readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="performance" style="color: black;">Performance </label>
+                                <input type="text"  id="performance" name="performance" class="form-control"
+                                    id="performance" required>
+                            </div>
+
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary">SUBMIT</button>
+                            </div>
+
+                        </form>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<center><h4>Retrive Table</h4></center>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Employee Name</th>
+            <th>Project Name</th>
+            <th>Task</th>
+            <th>Performance</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for task in tsk1_data %}
+            <tr>
+                <td>{{ task.employ_name.first_name }}</td>            
+                <td>{{ task.project_name }}</td>
+                <td>{{ task.task_name }}</td>
+                <td>{{ task.performance }}</td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="4">No tasks available.</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $('#p_id').on('change', function() {
+        var project_id = $(this).val();
+        if (project_id !== '0') {
+            $.ajax({
+                url: `/get_team_members/${project_id}/`,
+                method: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    var teamMembersSelect = $('#e_id');
+                    teamMembersSelect.empty(); // Clear previous options
+                    teamMembersSelect.append('<option value="0" selected>Select</option>');
+                    data.team_members.forEach(function(member) {
+                        teamMembersSelect.append(`<option value="${member.id}">${member.name}</option>`);
+                    });
+                },
+                error: function() {
+                    console.log('Error fetching team members');
+                }
+            });
+        } else {
+            // Reset the team members dropdown when no project is selected
+            var teamMembersSelect = $('#e_id');
+            teamMembersSelect.empty();
+            teamMembersSelect.append('<option value="0" selected>Select</option>');
+            $('#tasks-container').empty(); // Clear task list
+        }
+    });
+    $('#e_id').on('change', function() {
+    var employee_id = $(this).val();
+    if (employee_id !== '0') {
+        $.ajax({
+            url: `/get_employee_tasks/${employee_id}/`,
+            method: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                var taskInput = $('#task');
+                var selectedTask = data.tasks[0]; // Assuming you want to display the first task in the list
+                taskInput.val(` ${selectedTask.task_name}`);
+            },
+            error: function() {
+                console.log('Error fetching employee tasks');
+            }
+        });
+    } else {
+        // Clear the task displayed in the input box if no employee is selected
+        var taskInput = $('#task');
+        taskInput.val('');
+    }
+});
+  });
+
+</script>
+{% endblock main_content %}

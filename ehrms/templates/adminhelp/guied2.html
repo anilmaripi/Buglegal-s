@@ -1,0 +1,29 @@
+{% extends 'adminhelp/basehelp.html' %}
+{% block main_content %}
+    <form>
+        <p id="ha1" style="font-size: xx-large;">Checklist before you execute your next HRMS!</p>
+        <p id="p1">There are 5 key steps to complete before you run HRMS:</p>
+        <h5 id="p2">1. Update the list of employees</h5>
+        <p id="p3">Ensure that you have an updated list of all employees in your HRMS account. Add or dismiss employees according to their employment status.</p>
+        <h5 id="p4">2. Check for employee-missing information </h5>
+        <p id="p5">Under <a href="/all_employees_missing_info">Reports>Missing information</a> you would be able to track if any employee has critical information like bank accounts, and PAN missing before HRMS</p>
+        <h5 id="p6">3. Adjust any variables for the month</h5>
+        <p id="p7">Variables can be either an addition to the salary a deduction based on LOP or a recovery</p>
+        <p id="p8">a.Additions:</p>
+        <p id="p9">This can be updated by clicking the edit button against the employee's name under the 'Run HRMS section' after selecting the HRMS month. You may add any bonus or incentives under the addition section.</p>
+        <p id="p10">b.Deductions</p>
+        <p id="p11">In case your team is using the attendance module to track leaves, you can navigate to. <a href="/setup_guide">Reports>Attendence>HRMS Adjustments</a> and approve any loss of pay recommendations HRMS suggests.</p>
+        <p id="p12">In case you are tracking LOP outside HRMS, you may update the deductions by clicking the edit button against the employee's name under Run HRMS and updating this data under deductions.</p>
+        <h5 id="p13">4. Verify salaries being calculated</h5>
+        <p id="p14">You may take a look at the Salary Register under reports to do a cross-verification of employee's salaries.</p>
+        <h5 id="p15">5. Finalize and execute HRMS.</h5>
+        <p id="p16">Finalize HRMS, transfer required funds and execute HRMS.</p>
+        <center><button style="width:50%;height: auto;font-size: x-large;border: 2px solid whitesmoke;">
+            <div id="a">
+                <p id="section10" style="text-align: center;">Did this answer your question?</p>
+                <p><a class="ex1" style="text-decoration: none;color: black;"><center>😄 😶 😔</center></a> </p>
+                
+            </div>
+        </button></center><br><br><br>  
+</form> 
+{% endblock main_content %}

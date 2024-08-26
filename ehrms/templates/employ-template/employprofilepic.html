@@ -1,0 +1,47 @@
+{% extends 'employ-template/base_template.html' %}
+
+{% block page_title %}
+Upload profile picture
+{% endblock page_title %}
+
+{% block main_content %}
+<style>
+    img{
+        color:#fff
+    }
+</style>
+
+
+<div class="container-fluid">
+    <h1>
+        Upload Photo
+    </h1>
+    {% if data.profile_pic %}
+    <div class="inner" style="width: 250px;">
+        <img src="/media/{{ data.profile_pic }}" alt="upload photo" style="width: 100%; height: fit-content;">
+    </div>
+    {% endif %}
+    <br>
+    <div class="small-box col-lg-8">
+        <p>Please upload a photo of yourself so your colleagues can identify you. We suggest a close-up of the face, of 300x300 pixels dimensions. Large photos will automatically get resized.</p>
+    </div>
+    <form method="post" style="color: white;" enctype="multipart/form-data" action="{% url 'upload_photo' %}">
+        {% csrf_token %}
+        <label style="border: 2px solid white; padding: 10px; cursor:default;">
+            <input type="file" name="profile_pic">
+        </label>
+        <br>
+        <button class="btn btn-primary btn-block" style="width: 150px;" type="submit" class="mt-3">Upload photo</button>
+    </form>
+    <br>
+    {% if data.profile_pic %}
+    <form method="post" action="{% url 'employdelete_profile_pic' %}">
+        {% csrf_token %}
+        <button class="btn btn-primary btn-block" style="width: 100px;" type="submit" id="delete-button-{{ data.id }}" class="delete-button">Remove</button>
+    </form>
+{% endif %}
+
+</div>
+
+
+{% endblock main_content %}

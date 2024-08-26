@@ -1,0 +1,98 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+{% extends 'employ-template/base_template.html' %}{% block main_content %}
+<body>
+
+<div class="container mt-3">
+  <!-- <h3>Modal Example</h3>
+  <p>Click on the button to open the modal.</p> -->
+
+  
+
+  <form method="post">{% csrf_token %}
+
+    <h2><b>Pay Slip</b></h2>
+    
+    <div class="row">
+        <div class="col-8">
+    <select name="select Financial Year" class="form-control" required>
+        <a href=""><i class="fa fa-chevron-circle-down" aria-hidden="true"></i></a>
+       <option disabled="true" selected>select finanacial year
+       </option>
+
+   {% for i in y %}
+   
+   <option>{{i.fin_year}}</option>
+   {% endfor %}
+       
+   </select>
+   </div>
+   <div class="col-4">
+  
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+      Download your payslip
+    </button>
+    <!-- <button  id="mybtn"><i class="fa fa-download"></i> Download your payslip</button> -->
+  </div>
+</div>
+</form>
+  
+ 
+</div>
+
+<!-- The Modal -->
+<div class="modal" id="myModal" style="color: rgb(240, 242, 245);">
+  <div class="modal-dialog bg-info">
+    <div class="modal-content bg-info">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Download your pay slips</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <select name="select Financial Year" class="form-control" required>
+          <a href=""><i class="fa fa-chevron-circle-down" aria-hidden="true"></i></a>
+         <option disabled="true" selected>select finanacial year
+         </option>
+  
+     {% for i in y %}
+     
+     <option>{{i.duration}}</option>
+     {% endfor %}
+         
+     </select>
+     <br>
+     <!-- {% for i in n %}
+     <p>File download can take upto 20 minutes. We will email the files to you at {{i.email}}</p>
+     
+     {% endfor %} -->
+     <button class="btn btn-primary"><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;Email</button>
+      </div>
+
+      <!-- Modal footer -->
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+      </div> -->
+
+    </div>
+  </div>
+</div>
+
+
+</body>
+{% endblock main_content %}
+</html>

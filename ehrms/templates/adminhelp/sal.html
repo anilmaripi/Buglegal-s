@@ -1,0 +1,30 @@
+{% extends 'adminhelp/basehelp.html' %}
+{% block main_content %}
+<style>
+   
+</style>
+<form><br><br>
+    <span id="ha1" class="sres">Professional Tax Setup for your Company</span><br><br>
+    <h3 id="k1">Professional Tax:</h3>
+<ol type="a" style="line-height: 2;">
+    <li id="k2">This is a state tax and requires a monthly payment and a monthly filing.</li> 
+    <li id="k3">Individual state governments have their website portals to manage this.</li> 
+    <li id="k4">A company needs to register for PT if it is applicable in their registered state.</li>
+</ol>
+    <h3 id="k5">Setup:</h3>
+<ol type="a" style="line-height: 2;">
+    
+    <li id="k6"> Enable PT under <a href="/company_detail">Admin Options > Company Details > Provident Fund / ESIC / Professional Tax</a>.</li>
+    <li id="k7"> We need credentials of the PT portal of the state you're in, so go to <a href="/company_update4">Company Details > External Credentials</a> and update the same.</li>
+    <li id="k8"> Next, enable PT payments and filings by going to <a href="/payments_edit">Settings > Payments & Compliance Setup</a>.</li>
+    <li id="k9"> By default when you add a new employee, they will get added to the same state as your organization, and if PT is applicable for the state then it will automatically be enabled for the employee as well. However, in case you have to pay PT in a different state for an employee, please edit the Provident Fund, Professional Tax & ESI section of their profile and set the state accordingly.</li>
+</ol>   
+    <h3 id="k10">Review:</h3>
+<ol type="a" style="line-height: 2;">
+    <li id="k11"> Go to <a href="/yearmonth_uploaded">Reports > Salary Register</a> and look for PT as a column and ensure Deductions are showing up for all employees.</li>
+    <li id="k12"> Once you finalize HRMS, click on the HRMS Amount and ensure PT is showing up as a row.</li>
+    <li id="k13"> Once executed, HRMS will automatically make the payments and filings on your behalf before the due date which is generally the 15th of the following month. Till then it would be in the pending state under Reports .</a></li>
+    <li id="k14"> Go to <a href="/payments_edit">Settings > Payments and Compliance > PF, ESIC & PT</a> to access payment receipts and challans.</li><br>
+</ol>
+</form>
+{% endblock main_content %}

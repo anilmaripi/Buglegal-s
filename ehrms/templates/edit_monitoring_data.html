@@ -1,0 +1,96 @@
+{% extends 'admin-template/adminAdashboard.html' %}
+{% block main_content %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Monitoring Data</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            /* text-align: center; */
+        }
+        h2 {
+            color: #007bff;
+            text-align: center;
+            
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 600px;
+            margin: 0 auto;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        input[type="text"],
+        input[type="file"],
+        input[type="submit"] {
+            width: calc(100% - 12px);
+            margin-bottom: 10px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            transition: background-color 0.3s ease;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+        @media (max-width:765px) {
+            form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            margin: 0 auto;
+        }
+            
+        }
+    </style>
+</head>
+<body>
+    <h2>Edit Monitoring Data</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="title">Title:</label>
+        <input type="text" name="title" value="{{ data.title }}" required><br>
+        
+        <label for="description">Description:</label>
+        <!-- Change name attribute from "description" to "discription" -->
+        <input type="text" name="discription" value="{{ data.discription }}" required><br>
+
+        <label for="image1">Image 1:</label>
+        <input type="file" name="image1" value="{{data.image1}}"><br>
+
+        <label for="image2">Image 2:</label>
+        <input type="file" name="image2" value="{{data.image2}}"><br>
+
+        <button type="submit" style="background-color: green;color: white;">Save changes</button>
+    </form>
+</body>
+</html>
+{% endblock main_content %}

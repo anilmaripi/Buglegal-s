@@ -1,0 +1,681 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.1/gsap.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <link  type="text/css" href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/templatemo-chain-app-dev.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/animated.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/owl.css' %}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <!-- <link rel="icon" type="image/x-icon" href="/media/images/buglegal (1).png">              -->
+    <link rel="icon" type="image/x-icon" href="{% static 'assets/images/buglegal (1).png' %}">             
+               
+
+
+    <style>
+ .nav-link.active, .nav-link.active:hover {
+    background-color: orange;
+    color: white !important;
+}
+ .active{
+      
+      background-color: orange !important;
+      border-radius: 5px;
+      color: white;
+  }
+header{
+
+position: fixed;
+top: 0;
+width: 100%;
+background-color: #fff;
+z-index: 300;
+height: auto;
+
+
+}
+
+.container{
+
+width: 1280px;
+margin: auto;
+
+}
+
+.nav_checkbox{
+
+display: grid;
+grid-template-columns: 1fr 1fr;
+align-items: center;
+padding: 10px 0px;
+
+}
+
+.logo img {
+    width: 200px; /* Adjust the size as needed */
+    height: auto;
+    margin-left: -50px!important;
+}
+
+.logo h2 {
+    text-decoration: none;
+    color: white;
+    padding-left: 10px;
+}
+
+.tab-nav{
+
+outline: none;
+display: none;
+
+}
+
+.label{
+
+display: none;
+color: #333;
+
+}
+
+.burger{
+
+width: 35px;
+height: 5px;
+background-color: rgb(12, 1, 1);
+margin-top: 5px;
+
+}
+
+.content_nav{
+
+grid-column: 3;
+
+margin: 0;
+padding: 0;
+display: flex;
+
+}
+/* Dropdown styles */
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    padding: 10px;
+    font-size: 16px;
+    
+}
+
+.nav-item:hover .dropdown-menu {
+    display: block;
+}
+
+.dropdown-item {
+    display: block;
+    padding: 10px 0;
+    color: #555;
+    text-decoration: none;
+    transition: background-color 0.3s;
+  
+    font-size: 16px;
+}
+
+.dropdown-item:hover {
+    background-color: #1385f7;
+}
+.dropdown-items{
+    display: block
+}
+.dropdown-item:hover.dropdown-items {
+    display: block;
+}
+
+
+
+.content_nav li{
+
+display: inline-block;
+padding-right:20px;
+
+}
+
+.content_nav li a{
+
+
+color: #0a0909;
+position: relative;
+font-family: Poppins", sans-serif;
+
+
+}
+
+.content_nav li a::after {
+    content: '';
+    display: block;
+    height: 2px;
+    background-color: transparent; /* Initially set to transparent */
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0; /* Position it at the bottom of the link text */
+    transform-origin: right;
+    transform: scaleX(0); /* Initially set to no width */
+    transition: transform ease-in-out 0.3s, background-color ease-in-out 0.3s; /* Add transitions for smoother animation */
+}
+
+.content_nav li a:hover::after {
+    transform: scaleX(1); /* Expand the width on hover */
+    background-color: green; /* Change background color on hover */
+  
+}
+.content_nav li a:hover {
+        text-decoration: none;
+        color: green; /* Change the text color to red on hover */
+    }
+
+.content_section{
+
+height: 4vh;
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
+display: grid;
+justify-items: center;
+align-items: center;
+
+
+}
+.nav-item {
+    font-size: 16px;
+}
+header {
+        position: fixed;
+        left: 0;
+        right: 0;
+        width: 100%;
+        background-color: #fff;
+        transition: top 0.5s ease;
+    }
+
+        /* Add a class to control the animation */
+        /* .header-slide-down {
+            top: 0;
+        } */
+
+@media screen and (max-width: 1280px){
+    .header{
+        height: auto;
+    }
+
+
+
+}
+
+@media screen and (max-width: 770px){
+
+.label{
+
+    display: grid;
+    cursor: pointer;
+    grid-column: 3;
+    padding-right: 10px;
+
+}
+
+
+.content_nav{
+
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-column: 1/4;
+    text-align: center;
+    max-height: 0;
+    overflow: hidden;
+    transition: all ease-in-out 0.6s;
+
+}
+
+.nav_checkbox input:checked ~ .content_nav{
+
+    max-height: 500px;
+
+}
+
+.content_nav li{
+
+    padding: 15px 0px;
+
+}
+.content_nav li a:hover::after {
+        transform: scaleX(1); /* Expand the width on hover */
+        background-color: green; /* Change background color on hover */
+    }
+.content_nav li a:hover {
+        text-decoration: none;
+        color: green; /* Change the text color to green on hover for mobile screens */
+    }
+
+
+}
+.multi-column {
+    width: auto; 
+}
+.dropdown-menu.multi-column .dropdown-item {
+    display: block;
+    width: auto;
+    clear: both;
+    color: #333;
+    white-space: nowrap;
+    line-height: 1.5;
+}
+
+@media (min-width: 576px) {
+    .dropdown-menu.multi-column .dropdown-item {
+        display: inline-block;
+        width: auto;
+    }
+}
+
+.dropdown-menu.multi-column .dropdown-item img {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+@media (min-width: 576px) {
+    .dropdown-menu.multi-column .dropdown-item img {
+        margin-right: 1px;
+    }
+}
+
+.dropdown-menu.multi-column .row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.dropdown-menu.multi-column .col-sm-6 {
+    width: 50%;
+    padding: 0 10px; 
+    box-sizing: border-box; 
+}
+
+@media (max-width: 768px) {
+    .dropdown-menu.multi-column .col-sm-6 {
+        width: auto;    }
+}
+
+   
+body {
+            top: 0 !important;
+        }
+        .VIpgJd-ZVi9od-ORHb-OEVmcd{
+  display: none;
+}
+
+/* Google Translate widget */
+#google_translate_element {
+    position: absolute;
+    right: -50px;
+    z-index: 1000;
+    padding: 15px;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+    #traducoes {
+        top: 0;
+        right: 50px;
+    }
+    #translateButton .bi-globe {
+        font-size: 1.2rem;
+    }
+    .flag-icon {
+        width: 25px;
+    }
+}
+
+  .VIpgJd-ZVi9od-aZ2wEe-wOHMyf{
+   z-index: 9724790009779!important;
+   top:0;
+   left:unset;
+   right:-5px;
+   display:none!important;
+   border-radius:50%;
+   border:2px solid gold;
+  }
+  .VIpgJd-ZVi9od-aZ2wEe-OiiCO{
+    width:80px;
+    height:80px;
+  }
+  /*hide google translate link | logo | banner-frame */
+  .goog-logo-link,.gskiptranslate,.goog-te-gadget span,.goog-te-banner-frame,#goog-gt-tt, .goog-te-balloon-frame,div#goog-gt-{
+    display: none!important;
+  }
+  .goog-te-gadget {
+    color: transparent!important;
+    font-size:0px;
+  }
+  .goog-te-gadget {
+            font-size: 0;
+            margin-right: 4px;
+        }
+
+        /* Hide the "Select Language" option */
+        .goog-te-combo option[value=""] {
+            display: none;
+        }
+  .goog-text-highlight {
+    background: none !important;
+    box-shadow: none !important;
+  }
+   
+ /*google translate Dropdown */
+ 
+ #google_translate_element select{
+ background:#f6edfd;
+ color:#333;
+ border: none;
+ border-radius:3px;
+ padding:6px 8px
+ }
+.nav-link font{
+    font-size: 13px;
+}
+
+
+body {
+            top: 0 !important;
+        }
+        .VIpgJd-ZVi9od-ORHb-OEVmcd {
+            display: none;
+        }
+
+        /* Google Translate widget */
+        #google_translate_element {
+            position: absolute;
+            right: -50px;
+            z-index: 1000;
+            padding: 15px;
+            top: 5px;
+            margin-right: 15px;
+            
+        }
+        
+
+        /* Responsive adjustments */
+        @media screen and (max-width: 768px) {
+          /* Google Translate widget */
+          #google_translate_element {
+            position: absolute;
+            right: -50px;
+            z-index: 1000;
+            padding: 15px;
+            margin-right: 100px;
+            margin-top: -8px;
+            
+        }
+        .logo img {
+            width: 150px; /* Adjust the size as needed */
+            height: auto;
+            left: 0;
+        }
+
+      
+        }
+
+        .VIpgJd-ZVi9od-aZ2wEe-wOHMyf {
+            z-index: 9724790009779!important;
+            top: 0;
+            left: unset;
+            right: -5px;
+            display: none!important;
+            border-radius: 50%;
+            border: 2px solid gold;
+        }
+        .goog-te-gadget-simple .goog-te-menu-value span:nth-child(5) {
+            display: none;
+        }
+        .goog-te-gadget-simple .goog-te-menu-value span:nth-child(3) {
+            display: none;
+        }
+        .goog-te-gadget-simple .goog-te-menu-value span:nth-child(1) {
+            font-size: 0px;
+        }
+        .goog-te-gadget-simple .goog-te-menu-value span:nth-child(2) {
+            font-size: 0px;
+        }
+        .goog-te-gadget-simple .goog-te-menu-value span:nth-child(4) {
+            font-size: 0px;
+        }
+        .goog-te-gadget-simple .goog-te-menu-value span:nth-child(6) {
+            font-size: 14px;
+            color: black;
+        }
+        .goog-te-combo {
+            font-size: 14px;
+            background: transparent;
+            border: none;
+            margin-left: -40px;
+            color: black;
+            font-weight: bold;
+            margin-top: 5px;
+            width: 150px;
+            background-color: #fff;
+        }
+        .goog-te-gadget {
+            font-size: 0;
+            margin-right: 40px;
+            background-color: #fff;
+
+        }
+        /* Hide the "Select Language" option */
+        .goog-te-combo option[value=''] {
+            display: block;
+        }
+/* Custom styles for Google Translate dropdown */
+#google_translate_element select {
+    background: white;
+    color: #333;
+    border: 1px solid black;
+    border-radius: 3px;
+    padding: 6px 8px;
+    font-size: 14px; /* Adjust font size as needed */
+    text-align: center;
+}
+
+/* Option styling with background images */
+#google_translate_element select option {
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    padding-left: 30px; /* Space for icon/image */
+}
+
+/* Example styling for specific languages */
+#google_translate_element select option[value="es"] {
+    background-image: url('{% static "assets/images/help1.PNG" %}');
+}
+
+#google_translate_element select option[value="fr"] {
+    background-image: url('{% static "images/flags/france.png" %}');
+}
+
+/* Add more styles and images for other languages as needed */
+
+.bi{
+    display: none;
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container" style="margin-right: 300px;">
+          <nav class="nav_checkbox">
+            <a href="/" class="logo" style="margin-left: 10px;">
+                <img src="{% static 'assets/images/buglegal__1_-removebg-preview.png' %}" alt="Logo Image" style="margin-left: 20px;margin-top: -10px;">
+               
+            </a>
+            <input type="checkbox" id="tab-nav" class="tab-nav">
+            <label for="tab-nav" class="label">
+                <div class="burger"></div>
+                <div class="burger"></div>
+                <div class="burger"></div>
+            </label>
+            
+            <ul class="content_nav">
+                {% for item in navbar_items %}
+                {% if item.children.all %}
+                        <!-- <li class="nav-item dropdown">
+                            <a class="nav-link {% if item.is_active %}active{% endif %}" aria-current="page" href="#" role="button" id="{{ item.name }}Dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{ item.name }}
+                            </a>
+                            <div class="dropdown-menu " aria-labelledby="{{ item.name }}Dropdown" style="width: max-content;height: fit-content;">
+                                {% for child in item.children.all %}
+                                    <a class="dropdown-item dropdown {% if request.path == child.url %}active{% endif %}" href="{{ child.url }}" >
+                                        <img src="/media/{{child.photo1}}" style="width: 27px; height: 26px;" class="rounded float-left" alt="#">&nbsp;
+                                        {{ child.name }}</a>
+                                        {% for sub in child.children.all%}
+                                        {% if sub.children.exists %}
+                                        <a class="dropdown-item dropdown {% if request.path == child.url %}active{% endif %}" href="{{ child.url }}" >
+                                            <img src="/media/{{child.photo1}}" style="width: 27px; height: 26px;" class="rounded float-left" alt="#">&nbsp;
+                                            {{ sub.name }}</a>
+                                        {% else %}
+                                        <a class="dropdown-items  {% if request.path == child.url %}active{% endif %}" href="{{ child.url }}" >
+                                            <img src="/media/{{child.photo1}}" style="width: 27px; height: 26px;" class="rounded float-left" alt="#">&nbsp;
+                                            {{ sub.name }}</a>
+                                        
+                                        {% endif %}
+                                        {% endfor %}
+                                {% endfor %}
+                            </div>
+             
+                          
+                        </li> -->
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link {% if item.is_active %}active{% endif %}" aria-current="page" href="#" role="button" id="{{ item.name }}Dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{ item.name }}
+                            </a>
+                            <div class="dropdown-menu multi-column" aria-labelledby="{{ item.name }}Dropdown">
+                                {% if item.children.all|length > 2 %}
+                                <div class="row" style="width: 600px;">
+                                    {% for child in item.children.all %}
+                                        <div class="col-sm-6" >
+                                            <a class="dropdown-item {% if request.path == child.url %}active{% endif %}" href="{{ child.url }}">
+                                                <img src="/media/{{child.photo1}}" style="width: 27px; height: 26px;" class="rounded float-left" alt="#">&nbsp;
+                                                {{ child.name }}
+                                            </a>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                {% else %}
+                                {% for child in item.children.all %}
+                                <a href="{{ child.url }}" class="dropdown-item {% if request.path == child.url %}active{% endif %}">{{ child.name}}</a>
+                                {% endfor %}
+                                {% endif %}
+                            </div>
+                            
+                        </li>    
+                    {% else %}
+                        <li class="nav-item">
+        
+                            <a class="nav-link {% if request.path == item.url %}active{% endif %} "  href="{{ item.url }}">{{item.name}}</a>
+                         
+                        </li>
+            
+                    {% endif %}
+                {% endfor %}
+                <li class="nav-item">
+                    <a class="nav-link" href="/#products" id="productsLink">Products</a>
+                </li>
+                <li class="nav-item">
+                    <div class="gradient-button">
+                        <a id="modal_trigger" class="nav-link" href="/show_login/">
+                            <i class="fa fa-sign-in-alt"></i> Sign In
+                        </a>
+                    </div>
+                </li>
+
+                <div id="google_translate_element">
+                </div>
+                
+            </ul>
+            
+        </nav>
+        
+        </div>
+    </header>
+    <script src="{% static "js/jquery.min.js" %}"></script>
+    <script src="{% static "js/bootstrap.bundle.min.js" %}"></script>
+    <script src="{% static "js/owl-carousel.js" %}"></script>
+    <script src="{% static "js/animation.js" %}"></script>
+    <script src="{% static "js/imagesloaded.js" %}"></script>
+    <script src="{% static "js/popup.js" %}"></script>
+    <script src="{% static "js/custom.js" %}"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    
+
+       <!-- Add JavaScript to trigger the animation -->
+       <script>
+        // After the page loads, add a class to the header to trigger the animation
+        window.addEventListener('load', function () {
+            const header = document.querySelector('header');
+            header.classList.add('header-slide-down');
+        });
+       </script>
+
+     <script>
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en', // Page language is Portuguese
+                includedLanguages: 'en,hi,te', // Included languages
+                layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL
+            }, 'google_translate_element');
+        }
+    
+        $(document).ready(function() {
+            // Show/hide Google Translate widget based on globe icon click
+            $('#translateButton').click(function(e) {
+                e.preventDefault(); // Prevent default link behavior
+                $('#google_translate_element').toggle();
+            });
+    
+            // Load Google Translate script
+            var script = document.createElement('script');
+            script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+            script.type = 'text/javascript';
+            document.getElementsByTagName('head')[0].appendChild(script);
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+        const productsLink = document.getElementById('productsLink');
+        const navLinks = document.querySelectorAll('.nav-link');
+    
+        productsLink.addEventListener('click', function () {
+            navLinks.forEach(link => link.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+    
+    </script>
+          
+{% block main_content %} {% endblock main_content %}
+{% include 'footer.html' %}
+</body>
+</html>

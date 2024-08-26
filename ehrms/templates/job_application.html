@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Job Application Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: whitesmoke;
+            padding: 20px;
+        }
+        .form-container {
+            max-width: 800px;
+            margin: auto;
+            background-color: #cdd0eb;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .form-group textarea {
+            height: 120px;
+        }
+        .form-group .btn-submit {
+            background-color: white;
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 16px;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+        h2 {
+            text-align: center;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-size: xx-large;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-group">
+        {% if messages %}
+          {% for message in messages %}
+          {% if message.tags == 'error' %}
+          <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+          {% endif %}
+          {% if message.tags == 'success' %}
+          <div class="alert alert-success" style="margin-top:20px;background-color:green;color: whitesmoke;">{{ message }}</div>
+          {% endif %}
+          {% endfor %}
+        {% endif %}
+      </div>
+
+
+      
+    <div class="form-container">
+        <h2>Job Application Form</h2>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="hidden" name="companyid" value="{{ job_listing.companyid_id }}">
+            <div class="form-group">
+                <label for="full_name">Full Name:</label>
+                <input type="text" id="full_name" name="full_name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="phone_number">Phone Number:</label>
+                <input type="text" id="phone_number" name="phone_number" required>
+            </div>
+            <div class="form-group">
+                <label for="resume">Resume (PDF, DOCX):</label>
+                <input type="file" id="resume" name="resume" accept=".pdf,.docx" required>
+            </div>
+            <div class="form-group">
+                <label for="cover_letter">Cover Letter:</label>
+                <textarea id="cover_letter" name="cover_letter" rows="6" required></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="education">Education:</label>
+                <select id="education" name="education" required>
+                    <option value="">Select a Education</option>
+                    {% for education in education_list %}
+                        <option value="{{ education }}">{{ education }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="branch">Branch:</label>
+                <select id="branch" name="branch" required>
+                    <option value="">Select a Branch</option>
+                    {% for branch in branch_list %}
+                        <option value="{{ branch }}">{{ branch }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="work_experience">work_experience:</label>
+                <select id="work_experience" name="work_experience" required>
+                    <option value="">Select a work_experience</option>
+                    {% for work_experience in work_experience_list %}
+                        <option value="{{ work_experience }}">{{ work_experience }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="skills">Skills:</label>
+                <select id="skills" name="skills" required>
+                    <option value="">Select a skill</option>
+                    {% for skill in skills_list %}
+                        <option value="{{ skill }}">{{ skill }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+
+            <div class="form-group">
+                <center><button type="submit" class="btn-submit">Submit Application</button></center>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

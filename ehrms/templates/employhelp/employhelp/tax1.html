@@ -1,0 +1,41 @@
+{% extends 'employhelp/basehelp.html' %}
+{% block main_content %}
+<style>
+    h5{
+        font-size: medium;
+    }
+</style>
+
+<form> 
+    <p id="ha1" style="font-size: xx-large;">PT Setup for your Company</p>
+    <p id="ta">Professional Tax:</p>
+    <p id="tb">This is a state tax and requires a monthly payment and a monthly filing. Individual state governments have their own website portals to manage this. A company needs to register for PT if it is applicable in their registered state. </p><br>
+    <p id="tc">Setup:</p>
+    <p id="td">1.Enable PT under Company Details > Provident Fund / ESIC / Professional Tax.<br><br>
+
+        2.We will need credentials to the PT portal of the state you're in, so go to Company Details > External Credentials and update the same.<br><br>
+        
+        3.Next, enable PT payments and filings by going to Settings > Payments & Compliance Setup.<br><br>
+        
+        4.By default when you add a new employee, they will get added to the same state as your organization, and if PT is applicable for the state then it will automatically be enabled for the employee as well. However, in case you have to pay PT in a different state for an employee, please edit the Provident Fund, Professional Tax & ESI section of their profile and set the state accordingly.</p><br><br>
+    <p id="te">Review:</p>
+    <p id="tf">1.Go to Reports > Salary Register and look for PT as a column and ensure Deductions are showing up for all employees.<br><br>
+
+        2.Once you finalize payroll, click on the Payroll Amount and ensure PT is showing up as a row.<br> <br>
+        
+        3.Once executed, XPayroll will automatically make the payments and filings on your behalf before the due date which is generally the 15th of the following month. Till then it would be in the pending state under Reports > Ledger >Type by PT<br><br>
+        
+        4.Go to Reports > PF, ESIC & PT to access payment receipts and challans </p><br>
+    
+
+    
+    
+<center><button style="width:50%;height: auto;font-size: x-large;border: 2px solid whitesmoke;">
+    <div id="a">
+        <p id="section10" style="text-align: center;">Did this answer your question?</p>
+        <p><a class="ex1" style="text-decoration: none;color: black;"><center>😄 😶 😔</center></a> </p>
+    </div>
+</button></center><br><br><br>  
+
+</form>
+{% endblock main_content %}

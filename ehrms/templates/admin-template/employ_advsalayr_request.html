@@ -1,0 +1,366 @@
+{% extends 'admin-template/base_template.html' %}
+{%load mathfilters%} {%load humanize%}
+{% block page_title %}
+Leave Report and Apply for Leave
+{% endblock page_title %}
+<style>
+  .table td{
+    height: 100px;
+    padding: 20px;
+  }
+  .label{
+    font-size: medium;
+  }
+  input{
+    background-color: #393f5c;
+  }
+  h4{
+    color: white;
+  }
+  @media (max-width: 768px) {
+     .table{
+      width: 100px;
+     }
+  }
+  tr:nth-child(even) {background-color: #242b4d}
+       tr:nth-child(odd) {background-color: #2d3354}
+</style>
+{% block main_content %}
+<style>
+          .table-bordered {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        
+        .table-row {
+            display: table-row;
+        }
+        
+        .table-cell {
+            display: table-cell;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+        .table--hide{
+                display: none;
+            }
+        /* Responsive layout for smaller screens */
+        @media (max-width: 900px) {
+            .table-container {
+                overflow-x: hidden;
+            }
+            
+            /* .table-row {
+                display: block;
+                margin-bottom: 10px;
+            } */
+            
+            /* .table-cell {
+                display: block;
+                border: none;
+                padding: 6px 10px;
+                width: 100%;
+                box-sizing: border-box;
+                text-align: left;
+            } */
+            .table-hide{
+                display: none;
+            }
+            .col-12{
+                padding: 0%;
+            }
+            .table--row{
+                width: 100%;
+                margin: 0;
+            }
+             ul{
+                display: inline-block;
+                list-style-type: none;
+                margin: 0%;
+                padding: 0%;
+
+            }
+             span.dtr-title{
+                display: inline-block;
+                font-weight: bold;
+
+            }
+            .child{
+                padding: 20px;
+            }
+            .table--hide{
+                display:initial;
+            }
+            .expand-button{
+                height: 16px;
+                width: 16px;
+                border-radius: 16px;
+                position: absolute;
+                display: block;
+                color: white;
+                box-shadow: 0 0 3px #444;
+                box-sizing: content-box;
+                line-height: 16px;
+                background-color: green;
+                 
+            }
+        }
+        .table-row-details {
+    display: none;
+    
+  }
+
+</style>
+    <!-- Main content -->
+    <section class="content" style="background-color: #1e2442;">
+      <div class="container-fluid" >
+                    <div class="row">
+              <div class="col-md-10">
+            <!-- general form elements -->
+            <div class="card " style="background-color: #242b4d; color: white;">
+              <div class="card-header" style="background-color: #1f2745;">
+                <h3 class="card-title" style="color: rgb(255, 255, 255) ; font-size: xx-large;">Apply for Advancesalary</h3>
+              </div>
+              <!-- /.card-header -->
+              
+              <br>
+            
+            <form action="{% url 'advancesalary_request_save' %}" method="post"  style="width:auto;margin: auto;color: whitesmoke;">{% csrf_token %}
+              
+              
+              <br>
+              <label>Amount *</label><br>
+              <input type="number" name="amount" placeholder="Amount" class="form-control" style="background-color: #393f5c; color:white; width:70%;">
+              <h6  style="background-color: #2d3354;padding:10px;border-top: none;width:70%; ">Enter the amount to recieve in advance</h6>
+              <br>
+              <label>EMI *</label><br>
+              <input type="number" name="emi"  class="form-control" style="background-color:#393f5c; color:white; width:70%;">
+              <h6  style="background-color: #2d3354;padding:10px;border-top: none; width:70%;">To repay the advance as quickly as possible,enter "0".Otherwise,enter the maximum
+              <br>
+              amount that should be deducted from the net pay every month.If approved,this will
+              <br>
+              override any current EMI setting
+              </h6>
+            
+              <br>
+              <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    const amountInput = document.querySelector('input[name="amount"]');
+                    const emiInput = document.querySelector('input[name="emi"]');
+            
+                    amountInput.addEventListener("input", function () {
+                        const inputValue = amountInput.value.trim();
+                        
+                        // Remove non-digit characters
+                        const numericValue = inputValue.replace(/[^0-9]/g, "");
+            
+                        // Limit the input to 6 digits
+                        const maxLength = 6;
+                        const truncatedValue = numericValue.slice(0, maxLength);
+            
+                        // Update the input value
+                        amountInput.value = truncatedValue;
+                    });
+            
+                    emiInput.addEventListener("input", function () {
+                        const inputValue = emiInput.value.trim();
+                        
+                        // Remove non-digit characters
+                        const numericValue = inputValue.replace(/[^0-9]/g, "");
+            
+                        // Limit the input to 6 digits
+                        const maxLength = 5;
+                        const truncatedValue = numericValue.slice(0, maxLength);
+            
+                        // Update the input value
+                        emiInput.value = truncatedValue;
+                    });
+                });
+            </script>
+          
+                  <div class="form-group">
+                    <h4 >Request Reason</h4>
+                    <textarea style="background-color: #393f5c;color: white;" class="form-control" rows="6" name="reason"></textarea>
+                  </div> 
+                </div></div>
+                   <div class="form-group">
+                      {% if messages %}
+                        {% for message in messages %}
+                        {% if message.tags == 'error' %}
+                        <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+                        {% endif %}
+                        {% if message.tags == 'success' %}
+                        <div class="alert alert-success" style="margin-top:10px">{{ message }}</div>
+                        {% endif %}
+                        {% endfor %}
+                      {% endif %}
+                    </div>
+
+                
+                <!-- /.card-body -->
+
+                <div class="card-footer">
+                  <input type="submit" class="btn btn-primary btn-block" id="fetch_student" value="Apply for Advance salary">
+                </div>
+               </form>
+            </div><br> <br></div>
+
+            <!-- /.card -->
+           <div class="card "  style="background-color: #242b4d; color: white;" >
+              <div class="card-header" style="background-color: #1f2745;">
+                <h3 style="color: white;">Advance Salary Request History</h3>
+              </div>
+
+               <div class="col">
+               <table class="table table-bordered">
+                <thead style="background-color: #1e2442" >
+                   <tr class="table-row">
+                       <th>ID</th>
+                      
+                       <th class="table-hide">Amount</th>
+                       <th class="table-hide">EMI</th>
+                       <th class="table-hide">Reason</th>
+                       <th class="table-hide">Request Status</th>
+                   </tr></thead>
+                   {% for row in leave_data %}
+                      
+                          <tbody id="myTable">
+                            <tr class="table-row" >
+                            <td class="table-cell" tabindex="0" scope="row">
+                                <button   class="expand-button table--hide " onclick="toggleRow(this)">+</button> {{row.id}}
+                            </td>
+                            
+                            <td>{{ row.amount }}</td>
+                            
+                            <td class="table-cell table-hide" >{{ row.emi }}</td>
+                            <td class="table-cell table-hide" >{{ row.reason }}</td>
+                            <td class="table-cell table-hide"  style="padding: 20px;" >
+                                {% if row.request_status == 1 %}
+                                    <span class="alert alert-success">Approved</span>
+                                {% elif row.request_status == 2 %}
+                                    <span class="alert alert-danger">Rejected</span>
+                                {% else %}
+                                    <span class="alert alert-info ">Pending</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                  
+                   <tr class="table-row-details">
+                    <td class="child" colspan="6" style="padding: 20px;">
+                        <ul data-dtr-index="0" >
+                            
+                            <li data-dtr-index="3" >
+                                <span class="dtr-title"> Amount</span>
+                            <span class="dtr-data">
+                                <p class="text-success">{{row.amount}}</p> </span></li>
+                            <li data-dtr-index="4" >
+                                <span class="dtr-title"> EMI</span>
+                                <span class="dtr-data">
+                                    <p class="text-success">{{row.emi}}</p> </span>
+                                </li>
+                            <li data-dtr-index="5" >
+                                <span class="dtr-title">Reason </span>
+                                <span class="dtr-data">
+                                    <p class="text-success">{{row.reason}}</p> </span>
+                                  </li>
+            <li data-dtr-index="6">
+              {% if row.request_status == 1 %}
+              <span class="alert alert-success">Approved</span>
+          {% elif row.request_status == 2 %}
+              <span class="alert alert-danger">Rejected</span>
+          {% else %}
+              <span class="alert alert-info ">Pending</span>
+          {% endif %}
+            </li>
+                        </ul>
+                    </td>
+                    
+                    
+                    
+                  </tr>
+                
+                 
+                
+                </tbody> {% endfor %}
+               </table>
+               </div>
+            </div>
+
+        </div>
+
+          </div>
+          </div>
+      </div>
+    </section>
+    <script>
+      function toggleRow(button) {
+        const row = button.parentNode.parentNode;
+        const detailsRow = row.nextElementSibling;
+        detailsRow.classList.toggle('table-row-details');
+        button.textContent = detailsRow.classList.contains('table-row-details') ? '+' : '-';
+      }
+    </script>
+  <script>
+      const headers = document.querySelectorAll('.sortable');
+      let currentColumn = '';
+      let isAscending = true;
+    
+      headers.forEach(header => {
+        header.addEventListener('click', () => {
+          const column = header.getAttribute('data-column');
+          if (column === currentColumn) {
+            isAscending = !isAscending;
+          } else {
+            currentColumn = column;
+            isAscending = true;
+          }
+    
+          // Update arrow direction
+          headers.forEach(h => {
+            if (h === header) {
+              h.textContent = `${h.getAttribute('data-column')} ${isAscending ? '▲' : '▼'}`;
+            } else {
+              h.textContent = `${h.getAttribute('data-column')} ▼`;
+            }
+          });
+    
+          // Sort the table
+          const table = header.closest('table');
+          const rows = Array.from(table.querySelectorAll('tr')).slice(1);
+          rows.sort((rowA, rowB) => {
+            const cellA = rowA.querySelector(`td:nth-child(${currentColumn === 'item' ? 1 : 2})`).textContent;
+            const cellB = rowB.querySelector(`td:nth-child(${currentColumn === 'item' ? 1 : 2})`).textContent;
+            return isAscending ? cellA.localeCompare(cellB) : cellB.localeCompare(cellA);
+          });
+          table.tBodies[0].append(...rows);
+        });
+      });
+    
+      const searchInput = document.getElementById('searchInput');
+      searchInput.addEventListener('input', () => {
+        const searchTerm = searchInput.value.trim().toLowerCase();
+        const rows = Array.from(document.querySelectorAll('tr')).slice(1);
+    
+        rows.forEach(row => {
+          const cells = Array.from(row.querySelectorAll('td'));
+          const rowText = cells.map(cell => cell.textContent.trim().toLowerCase());
+          const isVisible = rowText.some(text => text.includes(searchTerm));
+          row.style.display = isVisible ? '' : 'none';
+        });
+      });
+    </script>
+    
+  <script type="text/javascript">
+      $(document).ready(function () {
+  
+         //Filter table
+          $("#myInput").on("keyup", function () {
+              var value = $(this).val().toLowerCase();
+              $("#myTable tr").filter(function () {
+                  $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+              });
+          });
+  });
+  </script>
+    <!-- /.content -->
+{% endblock main_content %}

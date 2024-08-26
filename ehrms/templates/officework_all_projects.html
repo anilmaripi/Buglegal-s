@@ -1,0 +1,238 @@
+{% extends 'admin-template/adminAdashboard.html' %}
+{% block main_content %}
+
+
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-...." crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>officework</title>
+</head>
+<style>    
+    .table {
+        margin-top: 20px;
+        width: 1000px !important; 
+        height: auto;
+        border-radius: 10px;
+        border: none;
+        border-spacing:0 25px;
+        border-collapse:separate;
+
+        
+    }
+    tr{
+        padding-bottom: 50px;
+    }
+    table td {
+        text-align: left;
+        border-color: none;
+        width: 300px;
+        color:black;
+        padding: 8px;
+        font-size: 18px;
+
+        
+    }
+  
+  
+    
+    table tr:nth-child(odd){background-color: white;}
+    table tr:hover {background-color: #e9e7e7;}
+
+    table tr:nth-child(even){background-color:white;}
+    table tr:hover {background-color: #e9e7e7;}
+    
+     
+    th{
+        color:black;
+        padding: 6px;
+        font-size:20px;
+        background-color:white;
+        width: 300px;
+        text-align: left;
+
+    }
+    
+   
+    h2{
+        text-align: center;
+        font-size: xx-large;
+        color:black;
+    }
+    td{
+            max-width: 200px; 
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        button{
+            color:black;
+            background-color: #ECE1;
+            border-radius: 10px;
+
+        }
+   
+
+
+</style>
+
+<body> <br><br>
+<div class="container col-md-11">
+
+<button type="button" ><a href="/officework1_create/" style="border-radius:10px; padding:10px; background-color:#160b61; color:white;">Add new data</a></button><br>
+
+<h2><b>Office Work List 1</b></h2>
+
+<div class="container w-100" style="border-radius: 20px;"><br>
+    <!-- <h2><b>Office Work List 1</b></h2> -->
+
+<table  class="table table-responsive">
+        <tr>
+            <th>Title1</th>
+            <th>Image1</th>
+            <th>Discription1</th>
+            <th>Discription2</th>
+            <th>Discription3</th>
+            <th>Discription4</th>
+            <th>image2</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        {% for item in officework1_items %}       
+         <tr>
+            <td>{{ item.title1 }}</td>
+            <td><img src="{{ item.image1.url }}" alt="{{ item.image1 }}" style="max-width: 100px; max-height: 100px;"></td>
+            <td>{{ item.discription1 }}</td>
+            <td>{{ item.discription2 }}</td>
+            <td>{{ item.discription3 }}</td>
+            <td>{{ item.discription4 }}</td>
+
+            <td><img src="{{ item.image2.url }}" alt="{{ item.image2 }}" style="max-width: 100px; max-height: 100px;"></td>
+            <td>
+                <a href="{% url 'officework1_update' pk=item.pk %}"><i class="fas fa-edit" style="color:black;" ></i></a> 
+              </td>
+              <td>  
+                <a href="{% url 'officework1_delete' pk=item.pk %}"><i class="fas fa-trash-alt" style="color:red;"></i></a>
+            </td>
+        </tr>
+        {% endfor %}
+</table>
+</div>
+<br><br>
+
+<button type="button" ><a href="/officework2_create/" style="border-radius:10px; padding:10px; background-color:#160b61; color:white;">Add new data</a></button><br>
+
+<h2><b>Office Work List 2</b></h2>
+
+<div class="container w-100" style="border-radius: 20px;"><br>
+    <!-- <h2><b>Office Work List 2</b></h2> -->
+
+<table  class="table table-responsive">
+        <tr>
+            <th>Title1</th>
+            <th>Title2</th>
+
+            <th>Image1</th>
+            <th>Discription</th>
+            <th>Edit</th>
+            <th>Delete</th>
+            
+        </tr>
+        {% for item in officework2_items %}       
+         <tr>
+            <td>{{ item.title1 }}</td>
+            <td>{{ item.title2 }}</td>
+
+            <td><img src="{{ item.image.url }}" alt="{{ item.image1 }}" style="max-width: 100px; max-height: 100px;"></td>
+            <td>{{ item.discription }}</td>
+            
+
+            <td>
+                <a href="{% url 'officework2_update' pk=item.pk %}"><i class="fas fa-edit" style="color:black;" ></i></a> 
+             </td>
+             <td>
+                <a href="{% url 'officework2_delete' pk=item.pk %}"><i class="fas fa-trash-alt" style="color:red;"></i></a>
+            </td>
+        </tr>
+        {% endfor %}
+</table>
+</div>
+<br><br>
+
+
+<button type="button" ><a href="/officework3_create/" style="border-radius:10px; padding:10px; background-color:#160b61; color:white;">Add new data</a></button><br>
+<h2><b>Office Work List3</b></h2>
+
+<div class="container w-100" style="border-radius: 20px;"><br>
+    <!-- <h2><b>Office Work List 3</b></h2> -->
+
+    <table class="table table-responsive">
+            <tr>
+                <th>title1</th>
+                <th>title2</th>    
+                <th>discription</th>
+                <th>Edit</th>
+                <th>Delete</th>                
+            </tr>
+            {% for item in officework3_items %}       
+             <tr>
+                <td>{{ item.title1 }}</td>
+                <td>{{ item.title2 }}</td>    
+                <td>{{ item.discription }}</td>    
+                <td>
+                    <a href="{% url 'officework3_update' pk=item.pk %}"><i class="fas fa-edit" style="color:black;" ></i></a> 
+                </td>
+                <td>   
+                    <a href="{% url 'officework3_delete' pk=item.pk %}"><i class="fas fa-trash-alt" style="color:red;"></i></a>
+                </td>
+            </tr>
+            {% endfor %}
+    </table>
+</div>
+    <br><br>
+   
+    <button type="button" ><a href="/officework4_create/" style="border-radius:10px; padding:10px; background-color:#160b61; color:white;">Add new data</a></button><br>
+
+    <h2><b>Office Work List 4</b></h2>
+    
+    <div class="container w-100" style="border-radius: 20px;"><br>
+        <!-- <h2><b>Office Work List 4</b></h2> -->
+
+        <table class="table table-responsive">
+            <thead>
+                <tr>
+                    <th>title1</th>
+                    <th>title2</th>        
+                    <th>discription</th>
+                    <th>image1</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in officework4_items %}       
+                 <tr>
+                    <td>{{ item.title1 }}</td>
+                    <td>{{ item.title2 }}</td>        
+                    <td>{{ item.discription }}</td>
+                    <td><img src="{{ item.image.url }}" alt="{{ item.image1 }}" style="max-width: 100px; max-height: 100px;"></td>
+        
+                    <td>
+                        <a href="{% url 'officework4_update' pk=item.pk %}"><i class="fas fa-edit" style="color:black;" ></i></a>
+                    </td>
+                    <td> 
+                        <a href="{% url 'officework4_delete' pk=item.pk %}"><i class="fas fa-trash-alt" style="color:red;"></i></a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+        
+        
+</div>
+</body>
+</html>
+
+{% endblock main_content %}

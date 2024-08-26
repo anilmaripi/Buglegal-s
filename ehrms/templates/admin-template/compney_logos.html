@@ -1,0 +1,107 @@
+{% extends 'admin-template/base_template.html' %}{% block main_content %}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> -->
+    
+    <script>
+        var selectedFile = null;
+
+        function previewImage() {
+            var fileInput = document.getElementById('fileUpload');
+            var preview = document.getElementById('imagePreview');
+            
+            selectedFile = fileInput.files[0];
+
+            var reader = new FileReader();
+            
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+            };
+            
+            if (selectedFile) {
+                reader.readAsDataURL(selectedFile);
+            }
+        }
+
+        function clearPreview() {
+            var preview = document.getElementById('imagePreview');
+            preview.src = '#';
+            preview.style.display = 'none';
+            selectedFile = null;
+        }
+
+    </script>
+    <style>
+      p{
+        font-size: medium;
+      }
+      button{
+        width: auto;
+        height:auto ;
+        font-size: large;
+        background-color:rgb(125, 125, 240);
+        color:white;
+        font-style: italic;
+      }
+    </style>
+    
+</head>
+<br> <br>  <br> <br>
+<body>
+    <div class="">
+    <div class="container">
+    <h1><b>Add Organization Logo</b></h1><br>
+    <p style="color: black;">
+        Logo should be in PNG format and rectangle shape,ideally in 5:1 aspect ratio.    
+        square logos do not look good,and will appear in very small.     
+        please give high resolution image with a transparent background.     
+        we will automatically generate a white logo of out of your logo to show on the dashboard.     
+        payslips and invoices will contain your original logo.    
+    </p><br>
+
+    {% if a.logo %}
+    <h2><b>Current Logo</b></h2>
+    <div style="background-color: white; display: inline-block;padding: 20px;padding-top:2px;padding-bottom:2px; ">
+
+        <img src="{{a.logo.url}}"style=" margin:20px auto; width: 230px; display:block">
+        </div> 
+        
+     <br><br>
+    {% else %}
+    {% endif %}
+{% if a.logo %}
+<a href="/compney_logos1/"><button style="width: 100px;">DELETE</button></a><br><br>
+    <h2><b>update organization logo</b></h2><br>
+    {% else %}
+    {% endif %}
+
+    <form method="post"enctype="multipart/form-data">
+        {% csrf_token %}
+
+    <input type="file" id="fileUpload" name="logo" accept="image/png, image/gif, image/jpeg" required>
+    <button style="width: 100px;" onclick="SubmitEvent()">UPLOAD</button>    
+</form>
+
+    <br>
+    <button style="width: 100px;" onclick="previewImage()">PREVIEW</button><br><br>
+    <img id="imagePreview" alt="Image Preview" style="width: 250px;height: 200px; display: none;">
+    <button style="width: 100px;"  onclick="clearPreview()">CLEAR</button>
+    </div>
+    <script>
+    function SubmitEvent(element) {
+                              var submit = $(element).next(".submit");
+                              element.click();
+                          }
+                      
+                         
+
+    </script>
+    </div>
+</body>
+</html>
+   {% endblock main_content %}

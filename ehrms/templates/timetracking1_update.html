@@ -1,0 +1,140 @@
+{% extends 'admin-template/adminAdashboard.html' %}
+{% block main_content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>timetracking</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+        }
+
+        h2 {
+            
+            text-align: center;
+        }
+
+        form {
+            background-color: #fff;
+            width: 600px;
+            margin: 20px auto;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            color: #555;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="file"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"],
+        a {
+            padding: 12px 24px;
+   
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            cursor: pointer;
+            display: inline-block;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+  
+ 
+        @media (max-width:765px) {
+            form {
+            background-color: #fff;
+            width: 100%;
+            margin: 20px auto;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+            
+        }
+    </style>
+
+</head>
+<body>
+
+    <center><h2><b>Update Time Tracking Data 1</b></h2></center>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label for="title1">Title1:</label>
+    <input type="text" name="title1" value="{{ project.title1 }}"><br>
+
+    <label for="title2">Title2:</label>
+    <input type="text" name="title2" value="{{ project.title2 }}"><br>
+
+    <!-- Repeat the label and input pattern for other fields -->
+    <label for="title">Title3:</label>
+    <input type="text" name="title3" value="{{ project.title3 }}"><br>
+
+
+    <label for="title">Title4:</label>
+    <input type="text" name="title4" value="{{ project.title4 }}"><br>
+
+
+    <label for="title">Title5:</label>
+    <input type="text" name="title5" value="{{ project.title5 }}"><br>
+
+
+    <label for="title">SubTitle1:</label>
+    <input type="text" name="subtitle1" value="{{ project.subtitle1 }}"><br>
+
+
+    <label for="image1">Image1:</label>
+    <input type="file" name="image1"><br>
+
+    <label for="image2">Image2:</label>
+    <input type="file" name="image2"><br>
+
+
+        
+    <label for="discription">Description1:</label>
+    <input type="text" name="discription1" value="{{ project.discription1 }}"><br>
+
+    <label for="discription">Description2:</label>
+    <input type="text" name="discription2" value="{{ project.discription2 }}"><br>
+
+
+    <label for="discription">Description3:</label>
+    <input type="text" name="discription3" value="{{ project.discription3 }}"><br>
+
+
+    
+
+    <input type="submit" class="btn btn-primary btn-sm" value="Update">
+
+    <a href="{% url 'timetracking1_list' %}" style="margin-left: 20px;" class="btn btn-info">Cancel</a>
+
+</form>
+
+
+
+</body>
+</html>
+
+{% endblock main_content %}
+
+
+

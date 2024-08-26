@@ -1,0 +1,114 @@
+{% extends 'admin-template/base_template.html' %}
+{% block main_content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hired List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <style>
+       body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: #f8f9fa;
+            padding-top: 20px;
+        }
+        .container {
+            max-width: 1200px;
+        }
+        .page-title {
+            text-align: center;
+            font-weight: bold;
+            color: #495057;
+            margin-bottom: 30px;
+        }
+        .table-container {
+            background-color: #fff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .table-responsive {
+            overflow-x: auto;
+        }
+        .table {
+            width: 100%;
+            margin-bottom: 0;
+            color: #495057;
+        }
+        .table th, .table td {
+            border: none;
+            padding: 12px 15px;
+            text-align: center;
+            font-size: 14px;
+        }
+        .table th {
+            background-color: #007bff;
+            color: #fff;
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+        .table td {
+            background-color: #fff;
+        } 
+        .readonly {
+            background-color: #e9ecef;
+            color: #6c757d;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+    <h1 style="text-align: center;">Final Selected Applicants</h1>
+    <div class="table-container">
+    <div class="table-responsive">
+
+    <table id="qualifiedApplicantsTable" class="table table-striped">
+        <thead>
+            <tr>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+                <th>Applied On</th>
+                <th>Exam</th>
+                <th>Marks</th>
+                <th>Grades</th>
+                <th>Exam Status</th>
+                <th>Interview</th>
+                <th>Interview Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for applicant in final_applicants %}
+            <tr>
+                <td>{{ applicant.full_name }}</td>
+                <td>{{ applicant.email }}</td>
+                <td>{{ applicant.phone_number }}</td>
+                <td>{{ applicant.applied_on }}</td>
+                <td>{{ applicant.task_status }}</td>
+                <td>{{ applicant.marks }}</td>
+                <td>{{ applicant.grades }}</td>
+                <td>{{ applicant.exam_status }}</td>
+                <td>{{ applicant.interview }}</td>
+                <td>{{ applicant.interview_status }}</td>
+
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+</div>
+</div>
+
+    
+
+</body>
+</html>
+{% endblock main_content %}
+

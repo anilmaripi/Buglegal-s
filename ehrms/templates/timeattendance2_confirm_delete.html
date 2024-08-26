@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Confirm Delete</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h2 {
+            color: #007bff;
+            text-align: center;
+        }
+        p {
+            color: #555;
+        }
+        form {
+            margin-top: 20px;
+        }
+        input[type="submit"] {
+            padding: 8px 16px;
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #c82333;
+        }
+        a {
+            display: inline-block;
+            margin-top: 10px;
+            text-decoration: none;
+            color: #007bff;
+            border: 1px solid #007bff;
+            padding: 8px 16px;
+            border-radius: 3px;
+        }
+        a:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+<h2>Confirm Delete Time Attendance Data 2</h2>
+
+<p>Are you sure you want to delete "{{ project.title1 }}"?</p>
+
+<form method="post">
+    {% csrf_token %}
+    <input type="submit" value="Delete">
+
+
+<a href="{% url 'timeattendance_all_projects' %}">Cancel</a>
+
+</form>
+</div>
+
+</body>
+</html>

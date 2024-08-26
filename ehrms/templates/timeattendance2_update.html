@@ -1,0 +1,89 @@
+
+{% extends 'admin-template/adminAdashboard.html' %}
+{% block main_content %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update Project</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        h2 {
+          
+            text-align: center;
+        }
+        form {
+            width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+        input[type="text"] {
+            width: calc(100% - 22px); /* Adjusting for padding and border */
+            padding: 8px;
+            margin-bottom: 10px;
+            border-radius: 3px;
+            border: 1px solid #ccc;
+        }
+        input[type="submit"],
+        a {
+            display: inline-block;
+            padding: 8px 16px;
+            text-decoration: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+ @media (max-width:765px) {
+    form {
+            width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    
+ }
+    </style>
+</head>
+<body>
+    <center><h2><b>Update Time Attendance Data 2</b></h2></center>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="title">Title:</label>
+        <input type="text" name="title" value="{{ project1.title }}"><br>
+        
+        <label for="discription">Description:</label>
+        <input type="text" name="discription" value="{{ project1.discription }}"><br>
+
+        <input type="submit" value="Update">
+
+        <a href="{% url 'timeattendance2_list' %}" class="btn btn-info">Cancel</a>
+    </form>
+
+</body>
+</html>
+{% endblock main_content %}

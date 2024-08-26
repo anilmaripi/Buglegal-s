@@ -1,0 +1,120 @@
+{% extends 'employ-template/base_template.html' %}
+{% block main_content %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Employee Record</title>
+   
+</head>
+<body >
+    <div class="container mt-4">
+        <!-- Employee Info Section -->
+        <div class="text-center">
+            
+            <h1>{{ employee.first_name|upper }} {{ employee.last_name|upper }}</h1>
+            <h1>Overall Performance: {{ performance_data.performance_score }}</h1>
+            <h1>Overall Score Points: {{ total_score_across_all_projects }}</h1>
+        </div>
+        <div class="text-center">
+            {% if is_team_lead %}
+            <h3>Projects</h3>
+        <div class="card col-md-2">
+            {% for project in projects %}
+          <h2>  View  projects </h2><br>
+            <a href="/team_lead_read_proj/{{employee.id}}/"><button class="btn-dark btn">View</button></a>
+            {% endfor %}
+        </div>
+            {% endif %}
+        </div>
+    
+        <div class="row mt-4">
+            <!-- Projects Section -->
+            <div class="col-md-12 ">
+                <div class="card">
+                    <div class="card-header">
+                        Projects: {{ projects.count }}
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Project Name</th>
+                                    <th>Success Rate</th>
+                                    <th>Status</th>
+                                    <th>Performance</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for project in projects %}
+                                    <tr>
+                                        <td>{{ project.p_name }}</td>
+                                        <td>{{ project.calculate_project_performance.completion_rate }}%</td>
+                                        <td>{{ project.status }}</td>
+                                        <td>{{ project.teammember.calculate_total_score_in_project }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Tasks Section -->
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        Total Tasks: {{ employee.calculate_overall_performance.total_tasks_taken }}
+                        Completed Tasks: {{ employee.calculate_overall_performance.total_tasks_completed }}  
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                
+                                High: {{ employee.calculate_overall_performance.high_priority_tasks_completed }}
+                            </div>
+                            <div class="col-md-4">
+                                Medium: {{ employee.calculate_overall_performance.medium_priority_tasks_completed }}
+                            </div>
+                            <div class="col-md-4">
+                                Low: {{ employee.calculate_overall_performance.low_priority_tasks_completed }}
+                            </div>
+                        </div>
+                        <table class="table mt-3">
+                            <thead>
+                                <tr>
+                                    <th>Task Name</th>
+                                    <th>Difficulty</th>
+                                    <th>Points</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                               
+                                {% for task in tasks %}
+                                    <tr>
+                                        <td>{{ task.t_name }}</td>
+                                     
+                                        <td class="badge {% if task.t_priority == 'High' %}  bg-danger {% elif task.t_priority == 'Medium' %} bg-warning {% elif task.t_priority == 'Low' %} bg-info {% endif %} ">{{ task.t_priority }}</td>
+                                        <td>{{ task.calculate_task_score }} points</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+{% endblock main_content %}

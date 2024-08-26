@@ -1,0 +1,557 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <title>Home Page </title>
+
+     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+
+  </head> 
+  <style>
+   
+/*--------------------------------------------------------------
+# Footer
+--------------------------------------------------------------*/
+.footer {
+  background: #f6f9ff;
+  padding: 0 0 30px 0;
+  font-size: 14px;
+}
+
+.footer .footer-newsletter {
+  padding: 50px 0;
+  background: #f6f9ff;
+  border-top: 1px solid #e1ecff;
+}
+
+.footer .footer-newsletter h4 {
+  font-size: 24px;
+  margin: 0 0 10px 0;
+  padding: 0;
+  line-height: 1;
+  font-weight: 700;
+  color: #700701;
+}
+
+.footer .footer-newsletter form {
+  margin-top: 20px;
+  background: #fff;
+  padding: 6px 10px;
+  position: relative;
+  border-radius: 4px;
+  border: 1px solid #e1ecff;
+}
+
+.footer .footer-newsletter form input[type=email] {
+  border: 0;
+  padding: 8px;
+  width: calc(100% - 140px);
+}
+
+.footer .footer-newsletter form input[type=submit] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  border: 0;
+  background: none;
+  font-size: 16px;
+  padding: 0 30px;
+  margin: 3px;
+  background: #4154f1;
+  color: #fff;
+  transition: 0.3s;
+  border-radius: 4px
+  ;
+}
+
+.footer .footer-newsletter form input[type=submit]:hover {
+  background: #5969f3;
+}
+
+.footer .footer-top {
+  background: white url(../img/footer-bg.png) no-repeat right top;
+  background-size: contain;
+  border-top: 1px solid #e1ecff;
+  border-bottom: 1px solid #e1ecff;
+  padding: 60px 0 30px 0;
+}
+
+@media (max-width: 992px) {
+  .footer .footer-top {
+    background-position: center bottom;
+  }
+}
+
+.footer .footer-top .footer-info {
+  margin-bottom: 30px;
+}
+
+.footer .footer-top .footer-info .logo {
+  line-height: 0;
+  margin-bottom: 15px;
+ }
+
+.footer .footer-top .footer-info .logo img {
+  max-height: 40px;
+  margin-left: 80px;
+  width: 200px;
+  height: 300px;
+}
+
+.footer .footer-top .footer-info .logo span {
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #012970;
+  font-family: "Nunito", sans-serif;
+  margin-top: 3px;
+}
+
+.footer .footer-top .footer-info p {
+  font-size: 14px;
+  line-height: 24px;
+  margin-bottom: 0;
+  font-family: "Nunito", sans-serif;
+}
+
+.footer .footer-top .social-links a {
+  font-size: 20px;
+  display: inline-block;
+  color: rgba(1, 41, 112, 0.5);
+  line-height: 0;
+  margin-right: 10px;
+  transition: 0.3s;
+  justify-content: center;
+  align-items: center;
+  align-items: center;
+}
+
+.footer .footer-top .social-links a:hover {
+  color: #012970;
+}
+
+.footer .footer-top h4 {
+  font-size: 25px;
+  font-weight: bold;
+  color: #012970;
+  text-transform: uppercase;
+  position: relative;
+  padding-bottom: 12px;
+}
+
+@media (max-width: 768px){
+.footer .footer-top .footer-links {
+  margin-bottom: 30px;
+}
+
+.footer .footer-top .footer-links ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer .footer-top .footer-links ul i {
+  padding-right: 2px;
+  color: #d0d4fc;
+  font-size: 12px;
+  line-height: 0;
+}
+
+.footer .footer-top .footer-links ul li {
+  padding: 6px 0;
+  display: flex;
+  font-size: 15px;
+  align-items: center;
+}
+
+.footer .footer-top .footer-links ul li:first-child {
+  padding-top: 0;
+}
+
+.footer .footer-top .footer-links ul a {
+  color: #013289;
+  transition: 0.3s;
+  display: inline-block;
+  line-height: 1;
+}
+
+.footer .footer-top .footer-links ul a:hover {
+  color: #4154f1;
+}
+}
+.footer .footer-top .footer-contact p {
+  line-height: 26px;
+}
+
+.footer .copyright {
+  text-align: center;
+  padding-top: 15px;
+  color: #012970;
+}
+
+.footer .credits {
+  padding-top: 10px;
+  text-align: center;
+  font-size: 13px;
+  color: #012970;
+}
+.download-buttons a img{
+    width: 100px;
+}
+
+@media (max-width: 768px) {
+    .download-buttons {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /* flex-wrap: wrap; */
+    }
+  
+    .download-buttons a {
+        margin-bottom: 10px;
+    }
+    .download-buttons img{
+        width: 100px;
+    }
+}
+
+  h2 {
+    color: #333; /* Set heading color */
+  }
+  .fz{
+    font-size: 40px;
+    text-align: center;
+    padding-top: 40px;
+  }
+  .bt1{
+    margin-left:40%;font-size:20px;
+  }
+  /* #req{
+    font-size: 20px;
+    background-color: darkcyan;
+    color: white;
+    font-weight: 600;
+    padding: 8px;
+  }
+  .rqt{
+text-align:center;
+  } */
+  #req{
+    font-size: 20px;
+    background-color: darkcyan;
+    color: white;
+    font-weight: 600;
+    padding: 8px;
+    margin-left: 770px;
+  } 
+/* @media only screen and (max-width: 768px){
+    .rqt {
+      text-align: right;
+      padding-right: 25%; 
+    }
+  
+    #req {
+      display: inline-block;
+      margin-left: auto;
+      font-size: 8px;
+      background-color: darkcyan;
+      color: white;
+      font-weight: 600;
+      padding: 4px;
+      margin-left: 208px;
+      margin-top: 60px;
+
+    }
+  }
+  @media only screen 
+  and (device-width : 414px) 
+  and (device-height : 896px) 
+  and (-webkit-device-pixel-ratio : 2) { 
+    #req {
+      margin-left: 235px;
+
+    }
+  } */
+  @media only screen and (max-width: 768px){
+    .rqt {
+      text-align: right;
+      padding-right: 25%; 
+    }
+  
+    #req {
+      display: inline-block;
+      margin-left: auto;
+      font-size: 7px;
+      background-color: darkcyan;
+      color: white;
+      font-weight: 600;
+      padding: 2px;
+      margin-left: 210px;
+      margin-top: 60px;
+
+    }
+  }
+
+
+
+  @media only screen and (max-width: 768px){
+    .container1{
+        text-align: center;
+    }
+  }
+
+
+  
+</style> 
+<body>
+  <!-- <div class="container" style="margin-bottom: -90px;">
+    <div class="row">
+      <div class="col-lg-12 "       background-image:url('/media/images/Add a subheading.png');
+      >
+        <a class="fadeInUp  wow bt1 btn btn-info"  data-wow-duration="1s" data-wow-delay="0.3s" href="/solution1" >Request a Demo</a> 
+
+        {% comment %} <img src="/media/images/Add a subheading.png" class="fadeInUp wow " data-wow-duration="1s" data-wow-delay="0.3s" alt="" > {% endcomment %}
+        {% comment %} <div class="rqt">
+        <b class="fadeInUp wow " data-wow-duration="2s" data-wow-delay="1s" alt="">
+        <a  href="/solution1"   id="req">Request a Demo</a> </b>
+      </div>
+ {% endcomment %}
+      </div>
+    
+
+    </div>
+
+  </div>
+<div style="margin-left: 400px;">
+
+</div> -->
+<!-- <div class="container" style="margin-bottom: -90px;">
+  <div class="row">
+    <div class="col-lg-12 ";>
+
+      <img src="/media/images/Add a subheading.png" class="fadeInUp wow " data-wow-duration="1s" data-wow-delay="0.3s" alt="" >
+      <div class="rqt">
+      <b>
+    </div>
+
+    </div>
+  
+
+  </div>
+
+</div>
+<div>
+<a  href="/solution1/" class="fadeInUp wow " data-wow-duration="1s" data-wow-delay="1s" alt=""   id="req">Request a Demo</a> </b>
+
+</div>  -->
+
+<div class="container1" style="margin-bottom: -80px;margin: 20px;">
+  <div class="row fadeInUp wow " data-wow-duration="1s" data-wow-delay="0.5s" alt="">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <a href="/solution1/" ><img src="/media/images/reqestadmo.png" style="width: 100%;"></a>
+    </div>
+  </div>
+</div>
+
+
+<footer class="footer" style="margin-top: 0px;" >
+  <div class="footer-top" style=" background-image: linear-gradient(to bottom right,navy,green);">
+      <div class="container" >
+          <div class="row gy-4">
+      
+             
+
+              <div class="col-lg-4 col-sm-4 col-md-4 footer-content" >
+                  <li style="color: #fff;font-size: 28px;font-weight: bold;" >Our Services</li><br>
+                  <div class="row">
+                      <div class="col-lg-6 col-sm-6 col-md-6 footer-content">
+
+                  <ul>
+                      {% for service in services %}
+                      
+
+
+                      <li class="li"></i><a href="{{ service.url }}" style="color: #fff;">{{ service.label }}</a></li><br>
+
+
+                      {% endfor %}
+                  </ul>
+              </div>
+              <div class="col-lg-6 col-sm-6 col-md-6 footer-content">
+
+                  <ul>
+                      {% for service in services %}
+                      
+
+
+                      <li class="li"></i><a href="{{ service.url1  }}" style="color: #fff;">{{ service.label1 }}</a></li><br>
+
+
+                      {% endfor %}
+                  </ul>
+              </div>
+
+              </div>
+
+              </div>
+
+              <div class="col-lg-2 col-sm-2 col-md-2 footer-content">
+                  <center><li style="color: #fff;font-size: 28px;font-weight: bold;" >Quick Links</li></center> <br>  
+
+                  <ul style=""> 
+                      {% for link in links %}
+                        <center>  <li class="li"><a href="{{ link.url }}" style="color: #fff;">{{ link.label }}</a></li></center><br>
+                      {% endfor %}
+                  </ul>
+              </div>
+
+
+              <div class="col-lg-3 col-sm-3 col-md-3 footer-content ">
+                    <li style="color: #fff;font-size: 28px;font-weight: bold;padding-left: 30px;" >Contact Us</li>
+                <br>
+                    <li class="li" style="color: #fff; padding-left: 30px;"> <i class="fas fa-envelope" style="margin-right: 10px;color: orange;"></i>{{ contact_info.email }}</li><br>
+                    <li class="li" style="color: #fff; padding-left: 30px;" ><i class="fas fa-phone" style="margin-right: 10px;color: orange;"></i> {{ contact_info.phone }}</li><br>
+                    <li class="li" style="color: #fff; padding-left: 30px;" > <i class="fas fa-map-marker-alt" style="margin-right: 10px;color: orange;"></i>{{ contact_info.address }}</li>
+                    <li class="li" style="color: #fff; padding-left: 30px;" > <i style="margin-right: 20px;color: orange;"></i>{{ contact_info.address3 }}</li>
+                    <li class="li" style="color: #fff; padding-left: 30px;" > <i style="margin-right: 20px;color: orange;"></i>{{ contact_info.address1 }}</li>
+                    <li class="li" style="color: #fff; padding-left: 30px;" > <i style="margin-right: 20px;color: orange;"></i>{{ contact_info.address2 }}</li>
+                    {% comment %} <c style="color: #fff;margin-left: 20px;margin-bottom: 15px;padding-left: 30px;" > {{ contact_info.address3 }}</c>
+                    <c style="color: #fff;margin-left: 20px;margin-bottom: 15px;padding-left: 30px;" > {{ contact_info.address1 }}</c>
+                    <c style="color: #fff;margin-left: 20px;padding-left: 30px;" > {{ contact_info.address2 }}</c> {% endcomment %}
+
+                  </div>
+                  <div class="col-lg-3 col-sm-3 col-md-3 footer-content">
+                    <div class="row">
+                      <div class="col-lg-12 col-sm-12 col-md-12 ">
+
+                    <div class="download-buttons justify-content" >
+                      <div class="row">
+
+                      <div class="col-lg-12 col-sm-12 col-md-12 ">
+
+                      <li class="appbutton pb-3" style="margin-bottom: 10px;color: #fff;font-size: 28px;font-weight: bold;" >Download Our App</li>
+                    </div>
+                  </div>
+
+                    <div class="col-lg-12 col-sm-12 col-md-12 ">
+
+                      <a href="https://play.google.com/store/apps/details?id=your_app_id" target="_blank" >
+                          <img src="https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/https://d3njjcbhbojbot.cloudfront.net/web/images/icons/en_generic_rgb_wo_45.png?auto=format%2Ccompress&dpr=1&w=152&h=45&q=40" height="40px" width="150px"alt="Download on Play Store" />
+                      </a>
+                      <a href="https://apps.apple.com/us/app/your_app_id" target="_blank">
+                          <img src="https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/https://d3njjcbhbojbot.cloudfront.net/web/images/icons/download_on_the_app_store_badge_en.svg?auto=format%2Ccompress&dpr=1&w=152&h=45&q=40" height="40px" width="150px"alt="Download on App Store" />
+                      </a>
+                  </div>
+
+                </div>
+
+                </div>
+                
+                <div class="row" style="margin-top: 20px;margin-left: 20px;">
+                  <div class="col-lg-12 col-sm-12 col-md-12 ">
+
+                  {% for social_link in social %}
+                  {% if social_link.facebook_link %}
+                      <a href="{{ social_link.facebook_link }}" class="facebook pr-2" target="_blank"  ><img src="/media/images/fb.PNG" style="border-radius: 50%;width: 25px;height: 25px;"></a>
+                  {% endif %}
+                  {% if social_link.twitter_link %}
+                      <a href="{{ social_link.twitter_link }}"  class="twitter pr-2" target="_blank" ><img src="/media/images/twit.PNG" style="border-radius: 50%;width: 25px;height: 25px;"></a>
+                  {% endif %}
+                  {% if social_link.instagram_link %}
+                      <a href="{{ social_link.instagram_link }}"  class="instagram pr-2" target="_blank" ><img src="/media/images/inst.PNG" style="border-radius: 50%;width: 25px;height: 25px;"></a>
+                  {% endif %}
+                  {% if social_link.youtube_link %}
+                      <a href="{{ social_link.youtube_link }}"  class="youtube pr-2" target="_blank"  ><img src="/media/images/yt.PNG" style="border-radius: 50%;width: 25px;height: 25px;"></a>
+                  {% endif %}
+                  {% if social_link.linkdin_link %}
+                      <a href="{{ social_link.linkdin_link }}" class="linkedin pr-2" target="_blank" ><img src="/media/images/in.PNG" style="border-radius: 50%;width: 25px;height: 25px;"></a>
+                  {% endif %}
+                 {% endfor %}
+
+                </div>
+              </div>
+
+              </div>
+          </div>
+
+      </div>
+
+        <div  class="copyright" style="color: white;">
+          &copy; Copyright <strong><span>Buglegal</span></strong>. All Rights Reserved
+        </div>
+        <div class="credits" style="color: white;">
+          Designed by <a href="https://developtrees.com/">Developtrees DSR IT Solutions</a>
+        </div>
+
+  </div>
+</div>
+</div>
+  </div>
+
+</footer>
+
+
+  <!-- Scripts -->
+  <script src="{% static "js/jquery.min.js" %}"></script>
+  <script src="{% static "js/bootstrap.bundle.min.js" %}"></script>
+  <script src="{% static "js/owl-carousel.js" %}"></script>
+  <script src="{% static "js/animation.js" %}"></script>
+  <script src="{% static "js/imagesloaded.js" %}"></script>
+  <script src="{% static "js/popup.js" %}"></script>
+  <script src="{% static "js/custom.js" %}"></script>
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <!-- <script>
+        
+        function hoverCard(card) {
+        card.style.transform = 'scale(1.05)';
+        card.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.3)';
+    }
+
+    function unhoverCard(card) {
+        card.style.transform = 'scale(1)';
+        card.style.boxShadow = 'none';
+    }
+    function hoverCardMore(card) {
+        card.classList.add('mhcard-hovered-more');
+    }
+    
+    function unhoverCardMore(card) {
+        card.classList.remove('mhcard-hovered-more');
+    }
+    function hoverUseCaseCard(card) {
+        card.classList.add('use-case-card-hovered');
+    }
+
+    function unhoverUseCaseCard(card) {
+        card.classList.remove('use-case-card-hovered');
+    }
+
+    
+  </script> -->
+  
+</body>
+</html>
+
+
+ <!-- https://codepen.io/vipenl26/pen/VwzqMge -->
+
+
+
+ 

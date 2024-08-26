@@ -1,0 +1,173 @@
+{% extends 'employ-template/base_template.html' %}
+{% block main_content %}
+<title>Add Employee Performance Task</title>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Project Management</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        #task-description {
+            padding: 10px;
+            background-color: #e9ecef;
+            border-radius: 4px;
+        }
+        #task-description label {
+            display: block;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+<h3 class="{% if mem_role == 'HR' and mem_hroptions == 1 %}hed-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}hed-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}hed-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}hed-tm {% endif %}" style="color: #333;">Task Performance of The Employee</h3>
+
+<form method="POST" action="{% url 'employper1' %}" class="{% if mem_role == 'HR' and mem_hroptions == 1 %}form-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}form-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}form-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}form-tm {% endif %}">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="project-name">Projects List:</label>
+        <select id="project-dropdown" name="project_name">
+            <option value="">Select a project</option>
+            {% for project in projects %}
+                <option value="{{ project.p_name }}">{{ project.p_name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="team-lead">Team Lead:</label>
+        <select id="team-lead-dropdown" name="tl_name">
+            <option value="">Select a team lead</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="team-member">Team Members:</label>
+        <select id="team-member-dropdown" name="employ_name">
+            <option value="">Select a team member</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="team-member">Description:</label>
+        <select id="task-description" name="task_name1">
+            <option value="">Select a Description</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="performance">Performance:</label>
+        <input type="number" step="any" min="0" max="100" id="performance" name="performance" class="form-control" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<script>
+$(document).ready(function() {
+    $('#project-dropdown').change(function() {
+        var projectName = $(this).val();
+        if (projectName) {
+            $.ajax({
+                url: '/get_project_employees/' + projectName,
+                type: 'GET',
+                success: function(response) {
+                    var teamLeadDropdown = $('#team-lead-dropdown');
+                    teamLeadDropdown.empty();
+                    teamLeadDropdown.append('<option value="">Select a team lead</option>');
+                    $.each(response.team_lead, function(index, teamLead) {
+                        teamLeadDropdown.append('<option value="' + teamLead.id + '">' + teamLead.first_name + ' ' + teamLead.last_name + '</option>');
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error('AJAX Error:', status, error);
+                }
+            });
+        } else {
+            $('#team-lead-dropdown').empty().append('<option value="">Select a team lead</option>');
+            $('#team-member-dropdown').empty().append('<option value="">Select a team member</option>');
+            $('#task-description').html('<option value="">Description Not Available</option>');
+        }
+    });
+
+    $('#team-lead-dropdown').change(function() {
+        var projectName = $('#project-dropdown').val();
+        var teamLeadId = $(this).val();
+        if (projectName && teamLeadId) {
+            $.ajax({
+                url: '/get_project_employees1/' + projectName + '/' + teamLeadId,
+                type: 'GET',
+                success: function(response) {
+                    var teamMemberDropdown = $('#team-member-dropdown');
+                    teamMemberDropdown.empty();
+                    teamMemberDropdown.append('<option value="">Select a team member</option>');
+                    $.each(response.team_members, function(index, teamMember) {
+                        teamMemberDropdown.append('<option value="' + teamMember.id + '">' + teamMember.first_name + ' ' + teamMember.last_name + '</option>');
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error('AJAX Error:', status, error);
+                }
+            });
+        } else {
+            $('#team-member-dropdown').empty().append('<option value="">Select a team member</option>');
+            $('#task-description').html('<option value="">Description Not Available</option>');
+        }
+    });
+
+    $('#team-member-dropdown').change(function() {
+        var projectName = $('#project-dropdown').val();
+        var employeeId = $(this).val();
+        if (projectName && employeeId) {
+            $.ajax({
+                url: '/get_employee_tasks/' + projectName + '/' + employeeId,
+                type: 'GET',
+                success: function(response) {
+                    var taskDescriptionDropdown = $('#task-description');
+                    taskDescriptionDropdown.empty();
+                    taskDescriptionDropdown.append('<option value="">Select a Description</option>');
+                    $.each(response.tasks, function(index, task) {
+                        taskDescriptionDropdown.append('<option value="' + task.description + '">' + task.description + '</option>');
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error('AJAX Error:', status, error);
+                }
+            });
+        } else {
+            $('#task-description').html('<option value="">Description Not Available</option>');
+        }
+    });
+});
+</script>
+
+</body>
+</html>
+{% endblock main_content %}

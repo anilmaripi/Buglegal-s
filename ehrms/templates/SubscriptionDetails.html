@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://daneden.github.io/animate.css/animate.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+   
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #3498db;
+            text-align: center;
+        }
+        form {
+            display: grid;
+            gap: 15px;
+        }
+        label {
+            display: block;
+            font-size: 16px;
+            color: #333;
+        }
+        .phone-number-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        #sendOtp {
+            position: absolute;
+            right: 10px;
+            background-color: #3498db;
+            color: #fff;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            display: none; /* Initially hide the button */
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+    </head>
+
+<body>
+
+<h1>Data Page</h1>
+
+{% if plan_type and amount %}
+    <p>Selected Plan Type: {{ plan_type }}</p>
+    <p>Selected Amount: {{ amount }}</p>
+    <p>Selected Plan Name: {{ plan_name }}</p>
+{% else %}
+    <p>No plan type or amount selected.</p>
+{% endif %}
+
+<form method="post" id="registerForm">
+    {% csrf_token %}
+    
+    <label>Organization Name:</label>
+    <input type="text" name="organizationname" id="organizationname" value="{{post1.organizationname}}" placeholder="Enter The Organization Name" required>
+
+    <label>Registration Number:</label>
+    <input type="text" name="registration_number" id="registration_number" value="{{ post1.registration_number }}" placeholder="Auto-generated" readonly>
+
+
+    <label>Address:</label>
+    <textarea name="address" value="{{post1.address}}" id="address" placeholder="Enter The Address" required></textarea>
+
+    <label>Username</label>
+    <input type="text" name="contact_person" id="contact_person" value="{{post1.contact_person}}" placeholder="Enter The Username" required>
+
+    <label>Email:</label>
+    <input type="email" name="email" id="email" value="{{post1.email}}" placeholder="Enter The Email" required>
+
+    <label>Phone Number:</label>
+    <div class="phone-number-container">
+        <input type="text" name="phone_number" id="phone_number" value="{{post1.phone_number}}" placeholder="Enter The Phone Number" required>
+        <button type="button" id="sendOtp">Send OTP</button>
+    </div>
+
+    <input type="text" name="otp" id="indian" value="{{post1.otp}}" placeholder="Enter The OTP">
+    <span id="timer"></span>
+    <span id="otpResult"></span>
+
+    <label>Password:</label>
+    <input type="password" name="password" id="password" value="{{post1.password}}" placeholder="Enter The Password" required>
+
+    <label>Number of Employees</label>
+    <select name="Numberofemployees" id="Numberofemployees" value="{{post1.Numberofemployees}}" required>
+        <option value="" disabled selected>Number of Employees</option>
+        <option value="1-50">1-50</option>
+        <option value="50-100">50-100</option>
+        <option value="100-200">100-200</option>
+        <!-- Add more options as needed -->
+    </select>
+
+    <label>Your Title</label>
+    <select name="your_title" id="your_title" value="{{post1.your_title}}" required>
+        <option value="" disabled selected>Your Title</option>
+        <option value="CEO">CEO</option>
+        <option value="manager">Manager</option>
+        <option value="employee">Employee</option>
+        <!-- Add more options as needed -->
+    </select>
+
+    <button type="button" onclick="submitForm()">Submit</button>
+</form>
+
+<!-- Additional debug information -->
+<hr>
+<h2>Debug Information</h2>
+<p>Raw query parameters: {{ request.GET }}</p>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+    const submitForm = () => {
+    // Get form data
+    const formData = {
+        organizationname: document.getElementById('organizationname').value,
+        registration_number: document.getElementById('registration_number').value,
+        email: document.getElementById('email').value,
+        address: document.getElementById('address').value,  // Add a comma here
+        contact_person: document.getElementById('contact_person').value,
+        phone_number: document.getElementById('phone_number').value,
+        indian: document.getElementById('indian').value,
+        password: document.getElementById('password').value,
+        Numberofemployees: document.getElementById('Numberofemployees').value,
+        your_title: document.getElementById('your_title').value
+    };
+
+    // Assuming amount is available in your Django template context
+    const amount = {{ amount }};
+    const planType = "{{ plan_type }}";
+    const planName = "{{ plan_name }}";
+
+    // Call the razorpayPayment function with form data and amount
+    razorpayPayment(formData, amount, planType, planName);
+}
+
+    const razorpayPayment = (formData, amount,planType,planName) => {
+    $.ajax({
+        type: 'POST',
+        url: "/create/order/",
+        data: {
+            "csrfmiddlewaretoken": $("input[name=csrfmiddlewaretoken]").val(),
+            "amount": amount,
+            "currency": "INR"
+        },
+        success: function (resultData) {
+            const order_id = resultData.data.id
+            var options = {
+                "key": "{{RAZORPAY_KEY_ID}}",
+                "description": "Acme Corp",
+                "image": "https://s3.amazonaws.com/rzp-mobile/images/rzp.jpg",
+                "order_id": order_id,
+                "callback_url": `http://127.0.0.1:8000/verify/payment/?amount=${amount}`,
+                "handler": function (response) {
+                    // Handle successful payment
+                    // alert(response.razorpay_payment_id);
+
+                    // Save payment details
+                    savePaymentDetails(amount, formData, response.razorpay_payment_id,planType,planName);
+                },
+                "prefill": {
+                    "email": formData.email,
+                    "contact": formData.contact,
+                },
+            };
+            var rzp1 = new Razorpay(options);
+            rzp1.open();
+        }
+    });
+};
+
+const savePaymentDetails = (amount, formData, razorpayPaymentId,planType,planName) => {
+
+    if (!formData || typeof amount === 'undefined' || typeof planType === 'undefined') {
+        console.error('Failed to save payment details: Invalid parameters', formData, amount, planType,planName);
+        return;
+    }
+
+    $.ajax({
+        type: 'POST',
+        url: "/save_payment_details/",  // Adjust the URL to match your Django URL pattern
+        data: {
+            "name": formData.name,
+            "organization": formData.organization,
+            "email": formData.email,
+            "contact": formData.contact,
+            "amount": amount,
+            "razorpay_payment_id": razorpayPaymentId,
+            "plan_type": planType,
+            "plan_name":planName
+        },
+        success: function (resultData) {
+            if (resultData.success) {
+                console.log('Payment details saved successfully.');
+                // Redirect to success page
+                window.location.href = "/success/payment/";
+            } else {
+                console.error('Failed to save payment details:', resultData.message);
+                // Redirect to failure page
+                window.location.href = "/failed/payment/";
+            }
+        },
+        error: function () {
+            console.error('Failed to make the save_payment_details request.');
+        }
+    });
+};
+
+</script>
+<script>
+    $(document).ready(function () {
+        $('#indian, #timer').hide();
+
+        $('#phone_number').on('input', function () {
+            var phoneNumber = $('#phone_number').val();
+            var isValidPhoneNumber = /^\d{10}$/.test(phoneNumber);
+
+            if (isValidPhoneNumber) {
+                $('#sendOtp').show();
+            } else {
+                $('#sendOtp').hide();
+            }
+        });
+
+        var timer;
+        var timeRemaining = 60; // 60 seconds
+
+        $('#sendOtp').click(function () {
+            var phoneNumber = $('#phone_number').val();
+
+            $.ajax({
+                url: '/store_phone_number/',
+                type: 'POST',
+                data: {
+                    'phone_number': phoneNumber,
+                    'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+                },
+                success: function (data) {
+                    if (data.success) {
+                        $('#cole').text('OTP will be sent to ' + phoneNumber + '. Enter the OTP to verify.');
+                        sendOtpRequest();
+                        startTimer();
+                    } else {
+                        $('#cole').text('Failed to store phone number. Please try again.');
+                    }
+                },
+                error: function () {
+                    $('#cole').text('Error occurred during phone number storage.');
+                }
+            });
+
+            function sendOtpRequest() {
+                $.ajax({
+                    url: '/send_otp/',
+                    type: 'POST',
+                    data: {
+                        'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+                    },
+                    success: function (data) {
+                        if (data.success) {
+                            $('#cole').text('OTP has been sent to your phone. Enter the OTP to verify.');
+                            $('#indian, #timer').show(); // Show OTP input and timer
+                        } else {
+                            $('#cole').text('Failed to send OTP. Please try again.');
+                        }
+                    },
+                    error: function () {
+                        $('#cole').text('Error occurred during OTP generation.');
+                    }
+                });
+            }
+
+            function startTimer() {
+                timer = setInterval(function () {
+                    timeRemaining--;
+
+                    // Format the time in minutes and seconds
+                    var minutes = Math.floor(timeRemaining / 60);
+                    var seconds = timeRemaining % 60;
+
+                    // Display the time in the timer span
+                    $('#timer').text('Time remaining: ' + minutes + ':' + (seconds < 10 ? '0' : '') + seconds);
+
+                    if (timeRemaining <= 0) {
+                        // Stop the timer when the time is up
+                        clearInterval(timer);
+
+                        // Reset the timer and hide the OTP input
+                        timeRemaining = 60;
+                        $('#timer').text('Time remaining: 1:00');
+                        $('#indian').hide();
+                    }
+                }, 1000);
+            }
+        });
+
+        $('#indian').on('input', function () {
+            var userEnteredOTP = $('#indian').val();
+
+            $.ajax({
+                url: '/verify_otp/',
+                type: 'POST',
+                data: {
+                    'otp': userEnteredOTP,
+                    'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+                },
+                success: function (data) {
+                    $('#otpResult').text(data.message);
+
+                    if (data.message === 'OTP is valid.') {
+                        var formData = $('#registerForm').serialize();
+
+                        $.ajax({
+                            url: '/register_company/',  // Replace with the correct URL for your view
+                            type: 'POST',
+                            data: formData,
+                            success: function (response) {
+                                // Handle the response if needed
+                            },
+                            error: function () {
+                                // Handle the error if needed
+                            }
+                        });
+                    } else {
+                        $('#otpResult').text('Invalid OTP. Please try again.');
+                    }
+                },
+                error: function () {
+                    $('#otpResult').text('Error occurred during OTP verification.');
+                }
+            });
+        });
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+<!-- Additional content of your datas.html page -->
+
+</body>
+</html>

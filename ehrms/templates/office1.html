@@ -1,0 +1,392 @@
+{% extends 'navbar.html' %}
+{% block main_content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Office Work</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+    <style>
+                                                           .btnn{
+            background-color: #6b58fd;
+            border: none;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 18px;
+            text-decoration: none;
+            color:#fff ;
+            font-weight: 700;
+        }
+        .btnn:hover{
+            color:#fff;
+            background-color:  #4c35fd
+            ;
+        }
+        body {
+          margin: 0;
+          padding: 0;
+          background-color: #fff;
+      }
+
+      .mhcard {
+          border: 1px solid #ddd;
+          border-radius: 18px;
+          width: 100%;
+          padding: 20px;
+          margin: 20px;
+          font-family: Arial, sans-serif;
+          transition: transform 0.3s;
+          display: inline-block;
+      }
+
+      .mhcard-img {
+          width: 80%;
+          border-radius: 18px;
+          height: 200px;
+      }
+
+      .flexbox {
+          display: flex;
+          justify-content: center;
+      }
+      .mhcard-hovered {
+  transform: scale(1.05);  
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);  
+}
+
+.mhcard-hovered-more {
+  transform: scale(1.05);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+.use-case-card-hovered {
+  transform: scale(1.05);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+.flexbox {
+  display: flex;
+  justify-content: space-around; 
+}
+
+.use-case-card1 {
+  
+  border: 1px solid #ddd;
+  border-radius: 18px;
+  width: 600px; 
+  padding: 20px;
+  margin: 10px; 
+  font-family: Arial, sans-serif;
+  transition: transform 0.3s;
+}
+h2, h3, h4, h6, p {
+color: #000 !important;
+
+}
+ 
+        @media (max-width: 768px) {
+    body {
+        padding: 1rem;
+    }
+
+    .mhcard {
+        max-width: 100%;
+        margin: 10px 0;
+    }
+
+    .flexbox {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .tc,h2, h3, h4, h6, p {
+        text-align: center;
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    hr {
+        margin: 20px 0;
+    }
+    .navbar-nav .nav-item .nav-link {
+        color: #3058de !important;
+        transition: color 0.3s, transform 0.3s;
+    }
+
+    .navbar-nav .nav-item .nav-link:hover {
+        color: #1403b0 !important;
+        transform: scale(1.1);
+    }
+}
+.navbar-nav .nav-item .nav-link {
+            color: #3058de !important;
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        .navbar-nav .nav-item .nav-link:hover {
+            color: #1403b0 !important;
+            transform: scale(1.1);
+        }
+     
+.navbar-nav .nav-item .nav-link {
+            color: #3058de !important;
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        .navbar-nav .nav-item .nav-link:hover {
+            color: #1403b0 !important;
+            transform: scale(1.1);
+        }
+        .dropdown-menu .dropdown-item:hover {
+            background-color: #9830de; 
+            color: #fff; 
+             transform: scale(1.02);
+            transition: color 0.3s, transform 0.3s;
+        }
+        /* .dropdown-menu .dropdown-item:hover {
+            color: green; 
+            background-color: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transform: scale(1.0);
+            transition: color 0.3s, transform 0.3s;
+        } */
+
+
+        .flex-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+
+    .flex-item {
+        width: calc(33.33% - 10px); /* Adjust the width and margin as needed */
+        margin-bottom: 20px; /* Adjust the margin as needed */
+        text-align: center;
+    }
+
+    .mhcard {
+        /* Add your card styling here */
+    }
+    
+    /* Add ellipsis for description */
+
+
+/* Flexbox styles */
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px; /* Adjust the gap between cards */
+}
+
+.flex-item {
+    flex: 0 0 calc(33.333% - 20px); /* Adjust width and gap */
+    max-width: calc(33.333% - 20px);
+    /* Other styling properties for each card item */
+}
+.appbutton{
+            font-size: 20px;
+        }
+        .img-fluid {
+            width: 100%;
+        }
+
+        .md{
+            height: 280px;
+        }
+        .me{
+            height: 455px;
+        }
+    </style>
+</head>
+<body>
+{% load static %}
+  
+  
+<br><br>
+
+
+{% comment %} <div class="container-fluid w-100"> {% endcomment %}
+  {% comment %} <section>     
+<!-- <center><h2 class="mt-5"><b>{{i.title1}}</b></h2></center><br> -->
+    <center><img src="/media/{{i.image1}}" class="mhcard-img fadeInUp top-image wow w-100 h-50"data-wow-duration="1s"data-wow-delay="0.3s" alt="employee"class=img-fluide></center>
+    <br> <br> {% endcomment %}
+
+
+    <div class="container-fluid w-100" style="margin-top: 30px;">
+        {% for i in officework1_items %}
+
+        <div class="container " style="padding-top:30px;">
+            <div class="mhcard mhcard-usecases" onmouseover="hoverCardMore(this)" onmouseout="unhoverCardMore(this)">
+                <center class="img-fluid mhcard-img fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s" ><img src="/media/{{i.image1}}" alt="employee"  ></center>
+
+       </div> 
+       </div>
+
+    <div class="container">
+        <div class="mhcard mhcard-usecases" class="mhcard-img fadeInUp top-image wow w-100 h-50"data-wow-duration="1s"data-wow-delay="0.3s" onmouseover="hoverCardMore(this)" onmouseout="unhoverCardMore(this)"class="w-100">
+             <div class="row d-flex justify-content-center align-items-center">
+                <div class="col-md-6">
+                    <img src="/media/{{i.image2}}" class="mhcard-img fadeInUp top-image wow w-100 h-50"data-wow-duration="1s"data-wow-delay="0.3s" class="mhcard-img" alt="">
+                 </div>  
+                 <div class="col-md-6">
+                   <center> <h3 style="margin-top:-25px;"><b class="mhcard-img fadeInUp top-image wow w-100 h-50"data-wow-duration="1s"data-wow-delay="0.3s">{{i.title1}}</b></h3></center>
+                     <p class="d-flex align-items-center" style="text-align: justify;" ><b class="mhcard-img fadeInUp top-image wow w-100 h-50"data-wow-duration="1s"data-wow-delay="0.3s">{{i.discription1}}</b></p> 
+                     <!-- <P class="d-flex align-items-center" style="text-align: justify;" ><b class="mhcard-img fadeInUp top-image wow w-100 h-50"data-wow-duration="1s"data-wow-delay="0.3s">{{i.discription2}}</b></p>
+                     <p  class="d-flex align-items-center" style="text-align: justify;"><b class="mhcard-img fadeInUp top-image wow w-100 h-50"data-wow-duration="1s"data-wow-delay="0.3s">{{i.discription3}}</b></p>
+                     <p  class="d-flex align-items-center" style="text-align: justify;"><b class="mhcard-img fadeInUp top-image wow w-100 h-50"data-wow-duration="1s"data-wow-delay="0.3s">{{i.discription4}}</b></p> -->
+                 </div>
+                 
+             </div>
+             <div class="row">
+                <div class="col-md-6">
+                </div>
+                <div class="col-md-6 fadeInUp top-image wow"data-wow-duration="1.2s"data-wow-delay="0.5s">
+                    <a href="/subscription/" class="button btnn">Start Free trail</a>
+                    <div style="font-size: 13px;color: #74829a;padding-left:8px;padding-right: 0px;margin-top: 15px;">No credit card required</div>
+                </div>
+            </div>
+ </div>
+    </div>
+ {% endfor %}
+
+
+ {% for i in officework2_items %}       
+
+         <div class="container ">
+            <div class="mhcard mhcard-usecases" class="mhcard-img fadeInUp top-image wow w-100 h-50"data-wow-duration="1s"data-wow-delay="0.3s" onmouseover="hoverCardMore(this)" onmouseout="unhoverCardMore(this)"class="w-100">
+             <!-- <center><h3><b class="mhcard-img fadeInUp top-image wow w-100 h-50"data-wow-duration="1s"data-wow-delay="0.3s">{{i.title1}}</b></h3></center> -->
+             <div class="row d-flex justify-content-center align-items-center">
+                {% if forloop.counter|divisibleby:2 %}
+                <div class="col-md-6"> 
+                    <img src="/media/{{i.image}}" class="mhcard-img fadeInUp top-image wow w-100 h-50"data-wow-duration="1s"data-wow-delay="0.3s" class="mhcard-img" alt="">
+                </div>  
+                 <div class="col-md-6"> 
+                   <center>  <h3 style="margin-top:-30px;"><b class="mhcard-img fadeInUp top-image wow w-100 h-50"data-wow-duration="1s"data-wow-delay="0.3s" style="font-family: Arial, Helvetica, sans-serif;font-size: 20px;">{{i.title2}}</b></h3></center>
+                     <p class="d-flex align-items-center" style="text-align: justify;font-family: Arial, Helvetica, sans-serif;font-size: 15px;"><b class="mhcard-img fadeInUp top-image wow w-100 h-50"data-wow-duration="1s"data-wow-delay="0.3s">{{i.discription}}</b></p>
+                 </div>
+                 {% else %} 
+                 <div class="col-md-6"> 
+                    <center><h3 ><b class="mhcard-img fadeInUp top-image wow w-100 h-50"data-wow-duration="1s"data-wow-delay="0.3s" style="font-family: Arial, Helvetica, sans-serif; font-size: 20px; margin-top: -25px;">{{i.title2}}</b></h3></center>
+                    <p class="d-flex align-items-center" style="text-align: justify;font-family: Arial, Helvetica, sans-serif;font-size: 15px;"><b class="mhcard-img fadeInUp top-image wow w-100 h-50"data-wow-duration="1s"data-wow-delay="0.3s">{{i.discription}}</b></p>
+                </div>
+                <div class="col-md-6"> 
+                    <img src="/media/{{i.image}}" class="mhcard-img fadeInUp top-image wow w-100 h-50"data-wow-duration="1s"data-wow-delay="0.3s" class="mhcard-img" alt="">
+                </div>  
+                {% endif %}
+             </div>
+             <div class="row" >
+                {% if forloop.counter|divisibleby:2 %}
+                <div class="col-md-6">
+                </div>
+                <div class="col-md-6 fadeInUp top-image wow"data-wow-duration="1.2s"data-wow-delay="0.5s">
+                <a href="/subscription/" class="button btnn">Start Free trail</a>
+                <div style="font-size: 13px;color: #74829a;padding-left:8px;padding-right: 0px;margin-top: 15px;">No credit card required</div>
+                </div>
+                {% else %}
+                <div class="col-md-6 fadeInUp top-image wow "data-wow-duration="1.2s"data-wow-delay="0.5s" >
+                    <a href="/subscription/" class="button btnn">Start Free trail</a>
+                    <div style="font-size: 13px;color: #74829a;padding-left:8px;padding-right: 0px;margin-top: 15px;">No credit card required</div>
+                </div>
+                <div class="col-md-6">
+                </div>
+        
+                {% endif %}
+            </div>
+        
+            </div>
+             
+             
+                                
+         </div>
+               
+     
+
+{% endfor %}
+
+<br> <br> 
+   
+<div class="container">
+    {% for i in officework3_items %}  
+        <center><h3 style="font-family: Arial, Helvetica, sans-serif;"><b class="mhcard-img fadeInUp top-image wow w-100 h-50"data-wow-duration="1s"data-wow-delay="0.3s">{{i.title1}}</b></h3></center>
+    {% endfor %}
+
+    <div class="flexbox"> 
+        {% for i in officework3_items %}
+        <div class="mhcard mhcard-usecases md" class="mhcard-img fadeInUp top-image wow w-100 h-50"data-wow-duration="1s"data-wow-delay="0.3s" onmouseover="hoverCardMore(this)" onmouseout="unhoverCardMore(this)"class="w-100">
+            <div class="tc">
+                <img src="/media/{{i.image}}"class="mhcard-img" class="mhcard-img fadeInUp top-image wow w-100 h-50"data-wow-duration="1s"data-wow-delay="0.3s" alt="" style="width: 40px;height: 40px;" >
+                <b class="mhcard-img fadeInUp top-image wow w-100 h-50"data-wow-duration="1s"data-wow-delay="0.3s">{{i.title2}}</b>
+            </div>
+            <p  style="text-align:justify ;"><p1 class="mhcard-img fadeInUp top-image wow w-100 h-50"data-wow-duration="1s"data-wow-delay="0.3s">{{i.discription}}</p1></p>
+        </div>
+        {% if forloop.counter|divisibleby:4 and not forloop.last %}
+    </div> 
+
+    <div class="flexbox">
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        {% for i in officework4_items %} 
+            <center><h3 style="font-family: Arial, Helvetica, sans-serif;"><b class="mhcard-img fadeInUp top-image wow w-100 h-50"data-wow-duration="1s"data-wow-delay="0.3s">{{i.title1}}</b></h3></center>
+        {% endfor %}
+        <div class="flexbox">
+            {% for i in officework4_items %}  
+                <div class="mhcard mhcard-usecases me"  class="mhcard-img fadeInUp top-image wow w-100 h-50"data-wow-duration="1s"data-wow-delay="0.3s"onmouseover="hoverCardMore(this)" onmouseout="unhoverCardMore(this)"class="w-100">
+                    <center><i class="fa fa-recycle" aria-hidden="true" style="font-size: 20px;" class="mhcard-img fadeInUp top-image wow w-100 h-50"data-wow-duration="1s"data-wow-delay="0.3s">&nbsp;&nbsp;{{i.title2}}</i></center>
+                    <img src="/media/{{i.image}}" class="mhcard-img fadeInUp top-image w-100 wow "data-wow-duration="1s"data-wow-delay="0.3s" class="card-img" alt="" ><br><br>
+                    <p class="description" class="mhcard-img fadeInUp top-image wow "data-wow-duration="1s"data-wow-delay="0.3s" style="font-family: Arial, Helvetica, sans-serif;text-align: justify;">{{i.discription}}</p><br>
+                    <!-- <img src="/media/{{i.image}}" class="mhcard-img fadeInUp top-image w-100 wow "data-wow-duration="1s"data-wow-delay="0.3s" class="card-img" alt="" > -->
+                </div>
+            {% if foorlopp.counter|divisibleby:4 and not forloop.last %}
+        </div>
+        <div class="flexbox">
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+</section>
+
+
+
+     <script>
+  
+         function hoverCard(card) {
+             card.style.transform = 'scale(1.05)';
+             card.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.3)';
+         }
+     
+         function unhoverCard(card) {
+             card.style.transform = 'scale(1)';
+             card.style.boxShadow = 'none';
+         }
+         function hoverCardMore(card) {
+             card.classList.add('mhcard-hovered-more');
+         }
+     
+         function unhoverCardMore(card) {
+             card.classList.remove('mhcard-hovered-more');
+         }
+         function hoverUseCaseCard(card) {
+             card.classList.add('use-case-card-hovered');
+         }
+     
+         function unhoverUseCaseCard(card) {
+             card.classList.remove('use-case-card-hovered');
+         }
+     </script>
+     </div>
+     </div>
+ 
+</body>
+</html>
+{% endblock main_content %}
+

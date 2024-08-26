@@ -1,0 +1,165 @@
+{% extends 'admin-template/base_template.html' %}{% block main_content %}
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div id="message">
+        {% if messages %}
+        {% for message in messages %}
+        {% if message.tags == 'error' %}
+        <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+        {% endif %}
+        {% if message.tags == 'success' %}
+        <div class="alert alert-success" style="margin-top:20px;background-color:green;color: whitesmoke;">{{ message }}</div>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+        </div>
+        <script>
+            $("#message").show();
+            setTimeout(function() {
+                $("#message").hide();
+            }, 5000);
+        </script>
+        <div class="row d-flex justify-content-center align-items-center">
+            <div class="col-md-3"></div>
+            <div class="col-md-6"><br> <br>
+            <h4 class="d-flex justify-content-center text-dark">Company HR's List</h4><br>
+        <div class="card" style="background-color: rgb(239, 239, 247);box-shadow: 1px 1px 10px 1px black;">
+          <div class="card-body">
+            <table class="table text-white border">
+                <tr style="background-color: black;">
+                   <th><center>Name</center></th>
+                 <th><center>Manage Feature</center></th>
+                </t r>
+                {% for i in hr_list %}
+                {% if i.admin.is_active == 1 %}
+                <tr>
+                    <td class="text-dark"><center>{{i.first_name}}{{i.last_name}}</center> </tb> <br>
+                   <td><center><a href="/adminhr/{{i.id}}/" class="btn btn-primary">EDIT</a></center></td>
+                </tr>
+                {% else %}
+                {% endif %}
+                {% endfor %}
+            </table>
+        </div>
+        </div>
+        </div>
+        <div class="col-md-3"></div>
+        </div>
+        <!-- <ul>
+            {% for hr in hr_list %}
+            <li>{{ hr.name }}</li> 
+            {% endfor %}
+          </ul> -->
+          
+          <!-- Pagination links -->
+          <style>
+            /* Custom pagination styling */
+            .pagination {
+              margin-top: 20px;
+              padding-left: 330px;
+              text-align: center;
+            }
+          
+            .pagination a, .pagination .current-page {
+    display: inline-block;
+    padding: 8px 12px;
+    text-decoration: none;
+    margin: 0 4px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    text-align: center;
+    color:blue;
+}
+.act{
+  /* background-color: orange; */
+  color: white;
+  height:43px;
+  width:43px;
+  border-radius: 20px;
+
+}
+
+
+
+            /* .pagination a:hover {
+              background-color: orange;
+            }
+          
+            .pagination .current {
+              
+              color: #fff;
+              background-color: orange;
+        
+              border-color: #007bff;
+            } */
+          </style>
+          
+          <!-- Your HTML code -->
+          <!-- <ul>
+            {% for hr in hr_list %}
+            <li>{{ hr.name }}</li> 
+            {% endfor %}
+          </ul> -->
+          
+          <!-- Pagination links -->
+          <!-- <div class="pagination">
+            <span class="step-links">
+              {% if hr_list.has_previous %}
+                <a href="?page=1"><<</a>
+                <a href="?page={{ hr_list.previous_page_number }}"><</a>
+              {% endif %}
+            
+              {% for num in hr_list.paginator.page_range %}
+                {% if num == hr_list.number %}
+                  <span class="current">{{ num }}</span>
+                {% else %}
+                  <a href="?page={{ num }}">{{ num }}</a>
+                {% endif %}
+              {% endfor %}
+            
+              {% if hr_list.has_next %}
+                <a href="?page={{ hr_list.next_page_number }}">></a>
+                <a href="?page={{ hr_list.paginator.num_pages }}">>></a>
+              {% endif %}
+            </span>
+          </div> -->
+
+          <div class="pagination" style="color:white; margin:20px auto;">
+            <span class="step-links">
+                {% if hr_list.has_previous %}
+                    <a  href="?page=1">&laquo;<<</a>
+                    <a   href="?page={{ hr_list.previous_page_number }}" class="prev"> < </a>
+                {% endif %}
+        
+        
+                {% for i in hr_list.paginator.page_range %}
+                {% if hr_list.number == i %}
+                <button class="active act bg-info"><span>{{ i }} <span class="sr-only">(current)</span></span></button>
+                {% elif i > hr_list.number|add:'-3' and i < hr_list.number|add:'3' %}
+                    <a  href="?page={{ i }}">{{ i }}</a>
+                {% endif %}
+                {% endfor %}
+        
+               
+        
+                {% if hr_list.has_next %}
+                    {% if hr_list.number != hr_list.paginator.num_pages %}
+                    {% endif %}
+                    <a   href="?page={{ hr_list.next_page_number }}" class="prev">> </a>
+        
+                    <a  href="?page={{ hr_list.paginator.num_pages }}">>>&raquo; </a>
+                {% endif %}
+            </span>
+        </div> 
+
+            </div>
+        
+</body>
+{% endblock main_content %}

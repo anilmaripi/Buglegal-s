@@ -1,0 +1,848 @@
+{% load socialaccount %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+  <style>
+  
+
+    .form-container {
+      background-image: url('1.png');
+      background-size: cover;
+      padding-top: 12px;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      color: white;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.1); 
+    }
+    .form-container:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      filter: blur(70px);
+      -webkit-filter: blur(70px);
+      z-index: -1;
+      border-radius: 20px;
+    }
+
+    .form-control {
+      background-color: transparent !important;
+      color: white !important;
+      border-color: white !important;
+    }
+
+    .form-control::placeholder {
+      color: white;
+      opacity: 0.8;
+    }
+
+    .form-control:focus::placeholder {
+      opacity: 1;
+    }
+
+    @keyframes placeholderAnim {
+      0% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-5px);
+      }
+      100% {
+        transform: translateY(0);
+      }
+    }
+
+    .form-control::placeholder {
+      animation: placeholderAnim 2s infinite;
+    }
+  </style>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+body{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  /* background: #343F4F; */
+}
+.wrapper{
+  display: flex;
+}
+.wrapper .static-txt{
+  color: #fff;
+  font-size: 20px;
+  font-weight: 400;
+}
+.wrapper .dynamic-txts{
+  margin-left: 15px;
+  height: 90px;
+  line-height: 90px;
+  overflow: hidden;
+}
+.dynamic-txts li{
+  list-style: none;
+  color: #FC6D6D;
+  font-size: 30px;
+  font-weight: 500;
+  position: relative;
+  top: 0;
+  animation: slide 12s steps(4) infinite;
+}
+@keyframes slide {
+  100%{
+    top: -360px;
+  }
+}
+.dynamic-txts li span{
+  position: relative;
+  margin: 5px 0;
+  line-height:50px;
+}
+.dynamic-txts li span::after{
+  content: "";
+  position: absolute;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  /* background: #343F4F; */
+  /* border-left: 2px solid #FC6D6D; */
+  animation: typing 3s steps(10) infinite;
+}
+@keyframes typing {
+  40%, 60%{
+    left: calc(100% + 30px);
+  }
+  100%{
+    left: 0;
+  }
+}
+.phone-number-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+}
+#sendOtp {
+            position: absolute;
+            right: 10px;
+            background-color: #3498db;
+            color: #fff;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            display: none; /* Initially hide the button */
+        }
+
+.no-scroll{
+  overflow: hidden;
+}
+
+#togglePassword{
+  float: right;
+  margin-left: -15px;
+  margin-top: -20px;
+  position: relative;
+  z-index: 8;
+}
+
+.block-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  height: 100%;
+}
+
+.block-wrap > div {
+  width: 100%;
+  text-align: center;
+}
+
+.btn-google, .btn-fb {
+  display: inline-block;
+  border-radius: 1px;
+  text-decoration: none;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
+  transition: background-color 0.218s, border-color 0.218s, box-shadow 0.218s;
+  width: 100%;
+  max-width: 300px; /* Adjust maximum width as needed */
+}
+
+.btn-google .google-content,
+.btn-fb .fb-content {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 50px;
+}
+
+.btn-google .google-content .logo,
+.btn-fb .fb-content .logo {
+  padding: 10px; /* Adjust padding as needed */
+}
+
+.btn-google .google-content svg,
+.btn-fb .fb-content svg {
+  width: 18px;
+  height: 18px;
+  fill: #757575; /* Adjust fill color as needed */
+}
+
+.btn-google .google-content p,
+.btn-fb .fb-content p {
+  flex: 1;
+  margin: 0;
+  line-height: 1;
+  letter-spacing: 0.21px;
+  text-align: center;
+  font-weight: 500;
+  font-family: "Roboto", sans-serif;
+}
+
+.btn-google {
+  background: #fff;
+}
+
+.btn-google:hover {
+  box-shadow: 0 0 3px 3px rgba(66, 133, 244, 0.3);
+}
+
+.btn-google:active {
+  background-color: #eee;
+}
+
+.btn-fb {
+  padding-top: 1.5px;
+  background: #3b5998; /* Adjust background color as needed */
+}
+
+.btn-fb:hover {
+  box-shadow: 0 0 3px 3px rgba(59, 89, 152, 0.3);
+}
+
+.btn-fb .fb-content p {
+  color: #fff;
+}
+
+
+  </style>
+
+</head>
+<body>
+  
+
+  <div class="container-fluid" style="background-image:url('/media/images/copreg113.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;">
+
+    
+      <div class="row"  >
+        <!-- <div class="col-md-6" >
+        <div class="container1">
+          <center><img src="/media/images/BUGLEGAL  LOGO WITHOUT BG.png" style="height:150px;"></center>
+          <h1 style="color: white;text-align: center;font-weight: 600;">Welcome to BugLegal HRMS</h1>
+          <p style="color: white;text-align: center;">Empower your workforce with BugLegal HRMS.<br>Sign up today for a free trial!</p>
+
+           
+
+         <div class="container">
+            <div class="row">
+                <b style="color: white;padding-bottom: 65px;font-size: 20px;padding-left: 160px;">BUGLEGAL HANDLES</b>&nbsp;&nbsp;&nbsp;
+                <b><ul id="shuffledList" style="font-size: 20px;color:red;padding-bottom: 65px;">
+                    <li>Attendance</li>
+                    <li>Payslips</li>
+                    <li>Monitoring</li>
+                    <li>Reports</li>
+                </ul></b>
+            
+            </div>
+        </div> 
+
+        
+    </div>
+</div> -->
+<div class="col-md-6 col-lg-6 col-sm-6" >
+  <div class="container1" >
+    <center><img src="/media/images/BUGLEGAL  LOGO WITHOUT BG.png" style="height:150px;"></center>
+    <h1 style="color: white;text-align: center;font-weight: 600;">Welcome to BugLegal HRMS</h1>
+    <p style="color: white;text-align: center;">Empower your workforce with BugLegal HRMS.<br>Sign up today for a free trial!</p>
+
+      <div class="container"style="margin-top:-20px">
+      <div class="row">
+          <div style="display: flex; align-items: center;">
+            <b style="color: white; font-size: 20px; padding-left: 150px;">BugLegal Handles</b>
+            <ul id="shuffledList" style="display: flex; list-style-type: none; padding-left: 10px;font-family: 'Poppins', sans-serif;font-size: 20px;color: red;font-weight: bold;padding-top: 15px;">
+                <li >Attendance</li>
+                <li >Payslips</li>
+                <li >Monitoring</li>
+                <li >Reports</li>
+            </ul>
+        </div>
+      </div>
+  </div> 
+</center>  
+  
+</div>
+</div>
+
+
+
+
+      <div class="col-md-6 col-lg-6 col-sm-6" >
+        <div class="form-container">
+          <h2 class="mb-4">Company Registration Form</h2>
+          <form method="post" id="registerForm">{% csrf_token %}
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="your_title">FullName</label>
+                  <input type="text" class="form-control" id="your_title" name="your_title" required  value="{{post1.your_title}}">
+                  <div class="invalid-feedback">Please enter a valid password (at least 8 characters long, containing at least one letter, one number, and one special character).</div>
+                
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label>Registration Number:</label>
+                <input type="text" class="form-control" name="registration_number" value="{{ post1.registration_number }}" placeholder="Auto-generated" readonly>    
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="organizationName">Organization Name</label>
+                  <input type="text" class="form-control" id="organizationname" name="organizationname" value="{{post1.organizationname}}" required pattern="[A-Za-z\s]+" title="Only letters are allowed">
+                  <div class="invalid-feedback">Please enter a valid organization name (only letters allowed).</div>
+                </div>
+              </div>
+             
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="phone_number">Phone Number:</label>
+                  <div class="phone-number-container">
+                      <input type="text" class="form-control" name="phone_number" id="phone_number" value="{{post1.phone_number}}"  required>
+                      <button type="button" id="sendOtp">Send OTP</button>
+                      <div class="invalid-feedback">Please enter a valid 10-digit mobile number.</div>
+                  </div><br>
+          
+                  <input type="text" class="form-control" name="otp" id="indian" value="{{post1.otp}}" >
+                  <span id="timer"></span>
+                  <span id="otpResult"></span>
+                  <button type="button" id="resendotp" style="width: 21%;background-color: transparent;color: red;font-size: 14px;padding: 0%;">Resend OTP</button>
+                </div>
+              </div>
+
+            </div>
+                        
+          
+            <div class="row">
+              
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="fullName">Username</label>
+                  <input type="text" class="form-control" name="contact_person" value="{{post1.contact_person}}" id="id_username" required  >
+                </div>
+                
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="password">Password</label>
+                  <input type="password" class="form-control" id="password" name="password" minlength="8" required  value="{{post1.password}}">
+                  <i class="bi bi-eye-slash " id="togglePassword" style="transform:translateY(-58%);cursor: pointer;"></i>   
+                  <small id="passwordHelp" class="form-text text-danger"></small>                 
+                </div>
+              </div>             
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label for="email">Email ID</label>
+                  <input type="email" class="form-control" id="id_email" name="email" value="{{post1.email}}" required>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="address">Address</label>
+                    <input type="address" class="form-control" id="address" value="{{post1.address}}" name="address" required>
+                  </div>
+                </div>
+              </div>
+
+            <center><button type="hhhh" class="btn btn-primary">Register</button></center>
+          </form>
+          <div class="block-wrap">
+            <div class="m-4">
+              <div class="row">
+                <div class="col-md-6">
+                    <a class="btn-google" href="{% provider_login_url 'google' process='signup' next=request.path %}" style="text-decoration: none;">
+                        <div class="google-content">
+                            <div class="logo">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 48 48">
+                                <defs><path id="a" d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z"/></defs><clipPath id="b"><use xlink:href="#a" overflow="visible"/></clipPath><path clip-path="url(#b)" fill="#FBBC05" d="M0 37V11l17 13z"/><path clip-path="url(#b)" fill="#EA4335" d="M0 11l17 13 7-6.1L48 14V0H0z"/><path clip-path="url(#b)" fill="#34A853" d="M0 37l30-23 7.9 1L48 0v48H0z"/><path clip-path="url(#b)" fill="#4285F4" d="M48 48L17 24l-4-3 35-10z"/>
+                            </svg>
+                            </div>
+                            <p>Sign Up with Google</p>
+                        </div>
+                    </a>
+                </div>
+                <!-- <div class="col-md-6">
+                  <a class="btn-fb" href="{% provider_login_url 'facebook' process='signup' next=request.path %}" style="text-decoration: none;">
+                    <div class="fb-content">
+                      <div class="logo">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+                          <path fill="#FFFFFF" d="M32 30a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h28a2 2 0 0 1 2 2v28z"/>
+                          <path fill="#4267b2" d="M22 32V20h4l1-5h-5v-2c0-2 1.002-3 3-3h2V5h-4c-3.675 0-6 2.881-6 7v3h-4v5h4v12h5z"/>
+                        </svg>
+                      </div>
+                      <p>Sign Up with Facebook</p>
+                    </div>
+                  </a>
+                </div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><br>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <script>
+      document.getElementById('registerForm').addEventListener('submit', function(event) {
+          var isValid = true;
+          var inputs = this.querySelectorAll('input, textarea');
+          inputs.forEach(function(input) {
+              if (!input.checkValidity()) {
+                  isValid = false;
+                  input.classList.add('is-invalid');
+              } else {
+                  input.classList.remove('is-invalid');
+              }
+          });
+          if (!isValid) {
+              event.preventDefault();
+              event.stopPropagation();
+          }
+          this.classList.add('was-validated');
+      });
+  </script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+      const emailInput = document.querySelector('input[name="email"]');
+      
+      function validateEmail(email) {
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          return emailRegex.test(email);
+      }
+
+      function handleEmailValidation() {
+          const email = emailInput.value.trim();
+          const isValidEmail = validateEmail(email);
+
+          if (!isValidEmail) {
+              emailInput.setCustomValidity("Please enter a valid email address");
+              emailInput.reportValidity(); 
+          } else {
+              emailInput.setCustomValidity("");
+          }
+      }
+
+      emailInput.addEventListener("input", handleEmailValidation);
+
+      const form = document.querySelector("form");
+      form.addEventListener("submit", function (event) {
+          if (!validateEmail(emailInput.value.trim())) {
+              event.preventDefault(); 
+              emailInput.focus();
+              handleEmailValidation(); 
+          }
+      });
+  });
+</script>         
+
+
+  <script>
+    var list = document.getElementById('shuffledList');
+    var items = list.getElementsByTagName('li');
+    var currentIndex = 0;
+
+    function showItem(index) {
+        for (var i = 0; i < items.length; i++) {
+            if (i === index) {
+                items[i].style.display = 'block';
+            } else {
+                items[i].style.display = 'none';
+            }
+        }
+    }
+
+    function rotateItems() {
+        showItem(currentIndex);
+        currentIndex = (currentIndex + 1) % items.length;
+    }
+
+    showItem(0);
+
+    setInterval(rotateItems, 2000);
+</script>
+
+  <script>
+    document.getElementById('registerForm').addEventListener('submit', function(event) {
+      var form = event.target;
+      if (!form.checkValidity()) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+      form.classList.add('was-validated');
+    });
+  </script>
+       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+
+  <script>
+    const togglePassword = document.querySelector("#togglePassword");
+    const password = document.querySelector("#password");
+
+    togglePassword.addEventListener("click", function () {
+        
+        const type = password.getAttribute("type") === "password" ? "text" : "password";
+        password.setAttribute("type", type);
+        
+        
+        this.classList.toggle("bi-eye");
+    });
+
+    
+    const form = document.querySelector("form");
+    form.removeEventListener('submit', function (e) {
+    e.preventDefault();
+ });
+</script>
+<script>
+  // Function to validate password
+  function validatePassword() {
+    var password = document.getElementById("password").value;
+    var passwordHelp = document.getElementById("passwordHelp");
+
+    // Regular expressions for validation
+    var capitalLetterRegex = /[A-Z]/;
+    var specialCharacterRegex = /[!@#$%^&*(),.?":{}|<>]/;
+    var numberRegex = /[0-9]/;
+
+     if (password.length < 8 || !/[A-Z]/.test(password) || !/[^a-zA-Z0-9]/.test(password)) {
+        passwordHelp.textContent  = "Password must contain at least one capital letter, one special character, and be at least 8 characters long."
+         
+      }
+    
+  }
+
+  // Event listener for password input
+  document.getElementById("password").addEventListener("input", function() {
+    validatePassword();
+  });
+</script>
+  <script>
+    $(document).ready(function(){
+      $("#id_username").keyup(function(){
+              var username=$(this).val();
+  
+              if(username!=""){
+                  $.ajax({
+                      url:'/check_username_existadmin/',
+                      type:'POST',
+                      data:{username:username}
+                  })
+                  .done(function(response){
+                      console.log(response);
+                      if(response=="True"){
+                          $(".username_error").remove();
+                          $("<span class='username_error' style='padding: 5px;color: red;font-weight: bold;'>Username Not Available</span>").insertAfter("#id_username");
+                      }
+                      else{
+                          $(".username_error").remove();
+                          $("<span class='username_error' style='padding: 5px;color: green;font-weight: bold;'>Username Available</span>").insertAfter("#id_username");
+                      }
+                  })
+                  .fail(function(){
+                      console.log("failed");
+                  })
+              }
+              else{
+                  $(".username_error").remove();
+              }
+  
+          });
+  
+    })
+    $("#id_email").keyup(function(){
+              var email=$(this).val();
+  
+             if(email!=""){
+                  $.ajax({
+                      url:'/check_email_existadmin/',
+                      type:'POST',
+                      data:{email:email}
+                  })
+                  .done(function(response){
+                      console.log(response);
+                      if(response=="True"){
+                          $(".email_error").remove();
+                          $("<span class='email_error' style='padding: 5px;color: red;font-weight: bold;'>Email Not Available</span>").insertAfter("#id_email");
+                      }
+                      else{
+                          $(".email_error").remove();
+                          $("<span class='email_error' style='padding: 5px;color: green;font-weight: bold;'>Email Available</span>").insertAfter("#id_email");
+                      }
+                  })
+                  .fail(function(){
+                      console.log("failed");
+                  })
+              }
+              else{
+                $(".email_error").remove();
+              }
+  
+          });
+          
+  
+  </script>
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#indian, #timer, #resendotp').hide();
+
+        $('#phone_number').on('input', function () {
+            var phoneNumber = $('#phone_number').val();
+            var isValidPhoneNumber = /^\d{10}$/.test(phoneNumber);
+
+            if (isValidPhoneNumber) {
+                $('#sendOtp').show();
+            } else {
+                $('#sendOtp').hide();
+            }
+        });
+
+        var timer;
+        var timeRemaining = 60; 
+
+        $('#sendOtp').click(function () {
+            var phoneNumber = $('#phone_number').val();
+
+            $.ajax({
+                url: '/store_phone_number/',
+                type: 'POST',
+                data: {
+                    'phone_number': phoneNumber,
+                    'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+                },
+                success: function (data) {
+                    if (data.success) {
+                        $('#cole').text('OTP will be sent to ' + phoneNumber + '. Enter the OTP to verify.');
+                        sendOtpRequest();
+                        startTimer();
+                    } else {
+                        $('#cole').text('Failed to store phone number. Please try again.');
+                    }
+                },
+                error: function () {
+                    $('#cole').text('Error occurred during phone number storage.');
+                }
+            });
+
+            function sendOtpRequest() {
+                $.ajax({
+                    url: '/send_otp/',
+                    type: 'POST',
+                    data: {
+                        'phone_number': phoneNumber,
+                        'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+                    },
+                    success: function (data) {
+                        if (data.success) {
+                            $('#cole').text('OTP has been sent to your phone. Enter the OTP to verify.');
+                            $('#indian, #timer').show(); 
+                        } else {
+                            $('#cole').text('Failed to send OTP. Please try again.');
+                        }
+                    },
+                    error: function () {
+                        $('#cole').text('Error occurred during OTP generation.');
+                    }
+                });
+            }
+
+            function startTimer() {
+                timer = setInterval(function () {
+                    timeRemaining--;
+
+                    var minutes = Math.floor(timeRemaining / 60);
+                    var seconds = timeRemaining % 60;
+
+                    $('#timer').text('Resend OTP in: ' + minutes + ':' + (seconds < 10 ? '0' : '') + seconds);
+
+                    if (timeRemaining <= 0) {
+                        clearInterval(timer);
+
+                        timeRemaining = 60;
+                        $('#timer').text('Time remaining: 1:00');
+                        $('#timer').hide();
+                        $('#resendotp').show();
+                    }
+                }, 1000);
+            }
+        });
+
+        $('#resendotp').click(function () {
+            var phoneNumber = $('#phone_number').val();    
+            $.ajax({
+                url: '/resend_otp/',
+                type: 'POST',
+                data: {
+                    'phone_number': phoneNumber,
+                    'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+                },
+                success: function (data) {
+                    if (data.success) {
+                        $('#cole').text('OTP has been resent to your phone. Enter the OTP to verify.');
+                        $('#indian, #timer').show(); 
+                        startTimer(); 
+                    } else {
+                        $('#cole').text('Failed to resend OTP. Please try again.');
+                    }
+                },
+                error: function () {
+                    $('#cole').text('Error occurred during OTP resending.');
+                }  
+            });
+            function startTimer() { 
+                timer = setInterval(function () {
+                    timeRemaining--;
+
+                    var minutes = Math.floor(timeRemaining / 60);
+                    var seconds = timeRemaining % 60;
+
+                    $('#timer').text('Resend OTP in: ' + minutes + ':' + (seconds < 10 ? '0' : '') + seconds);
+
+                    if (timeRemaining <= 0) {
+                        clearInterval(timer);
+
+                        timeRemaining = 60;
+                        $('#timer').text('Time remaining: 1:00');
+                        $('#timer').hide();
+                        $('#resendotp').show();
+                    }
+                }, 1000);
+            }   
+        });
+
+        $('#indian').on('input', function () {
+            var userEnteredOTP = $('#indian').val();
+            $.ajax({
+                url: '/verify_otp/',
+                type: 'POST',
+                data: {
+                    'otp': userEnteredOTP,
+                    'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+                },
+                success: function (data) {
+                    $('#otpResult').text(data.message);
+
+                    if (data.message === 'OTP is valid.') {
+                        var formData = $('#registerForm').serialize();
+
+                        $.ajax({
+                            url: '/register_company/',  
+                            type: 'POST',
+                            data: formData,
+                            success: function (response) {
+                            },
+                            error: function () {
+                            }
+                        });
+                    } else {
+                        $('#otpResult').text('Invalid OTP. Please try again.');
+                    }
+                },
+                error: function () {
+                    $('#otpResult').text('Error occurred during OTP verification.');
+                }
+            });
+        });
+    });
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+      const togglePassword = document.querySelector('.toggle-password');
+      const passwordField = document.getElementById('password');
+
+      togglePassword.addEventListener('click', function () {
+          const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+          passwordField.setAttribute('type', type);
+          this.classList.toggle('fa-eye');
+          this.classList.toggle('fa-eye-slash');
+      });
+  });
+</script>
+
+
+<script>
+
+  document.getElementById("password").addEventListener("input", function() {
+      var password = this.value;
+      var passwordError = document.getElementById("passwordError");
+      var validPasswordRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+      if (password.length < 8 || !validPasswordRegex.test(password)) {
+          passwordError.style.visibility = "visible";
+          passwordError.style.display = "block";
+          document.body.classList.add("no-scroll");
+      } else {
+          passwordError.style.visibility = "hidden";
+          passwordError.style.display = "none";
+          document.body.classList.remove("no-scroll");
+      }
+  });
+</script>
+
+<script>
+  document.getElementById("phone_number").addEventListener("input", function(evt) {
+      let inputValue = evt.target.value;
+      let numbersOnly = inputValue.replace(/[^\d]/g, ""); // Remove non-digit characters
+      evt.target.value = numbersOnly.slice(0, 10); // Take only first 10 digits
+  });
+  </script>
+
+<script type="text/javascript">window.setTimeout("document.getElementById('successmessage').style.display='none';", 2000); </script>
+</body>
+</html>

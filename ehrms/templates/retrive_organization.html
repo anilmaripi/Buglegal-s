@@ -1,0 +1,713 @@
+{% extends 'admin-template/adminAdashboard.html' %}
+{% block main_content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Table Data</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        table th, table td {
+            border: 2px solid #ddd;
+            padding: 8px;
+            text-align: left;
+            width:
+        }
+
+        table th {
+            background-color: black;
+            color: white;
+        }
+
+        table td img {
+            max-width: 100px;
+            max-height: 100px;
+            display: block;
+            margin: auto;
+        }
+
+        .logo1 {
+            max-width: 100%;
+            height: auto;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+
+        .btn-edit, .btn-delete {
+            padding: 5px 10px;
+            margin-right: 5px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .btn-delete {
+            background-color: #f44336;
+        }
+    </style>
+</head>
+<body>
+    <!-- <h3 style="text-align: center; margin-top: 50px;">Organization & Monitoring Logs Card Questions</h3>
+    <div style="text-align: end;">
+        <a href="{% url 'insert_organization' %}" class="btn-edit" style="background-color: green; text-decoration: none; margin-right: 60px;">Insert New Data</a>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Question </th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Link</th>
+                <th>Actions</th>
+            </tr>
+        </thead><br>
+        <tbody>
+            {% for i in o3 %}
+            <tr>
+                <td>{{ i.qns }}</td>
+                <td>{{ i.title2 }}</td>
+                <td>{{ i.discription }}</td>
+                <td>{{ i.link }}</td>
+                <td>                
+                    <a href="{% url 'edit_organization' i.id %}" class="btn-edit" style="background-color: blue; text-decoration: none;">Update</a><br><br>
+                
+                    <a href="{% url 'delete_organization' i.id  %}" class="btn-edit" style="background-color: red; text-decoration: none;">Delete</a><br>
+                </td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table> -->
+    <br>
+    <h3 style="text-align: center;">Organization & Monitoring Logs Card Question 1</h3>
+    <div>
+        <a href="{% url 'insert_organizationqn1' %}" class="btn-edit" style="background-color: green; text-decoration: none;">Add New Data</a>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Question</th>
+                <th>Start of Content</th>
+                <th>Instruction</th>
+                <th>Description line1</th>
+                <th>Description line2</th>
+                <th>Description line3</th>
+                <th>Description line4</th>
+                <th>Description line5</th>
+                <th>Description line6</th>
+                <th>Description line7</th>
+                <th>Description line8</th>
+                <th>Description line9</th>
+                <th>Description line10</th>
+                <th>Image</th>
+
+                <th rowspan="3">Actions</th>
+            </tr>
+        </thead><br>
+        <tbody>
+            {% for i in org1 %}
+            <tr>
+                <td>{{ i.question }}</td>
+                <td>{{ i.start }}</td>
+                <td>{{ i.intro }}</td>
+                <td>{{ i.line1 }}</td>
+                <td>{{ i.line2 }}</td>
+                <td>{{ i.line3 }}</td>
+                <td>{{ i.line4 }}</td>
+                <td>{{ i.line5 }}</td>
+                <td>{{ i.line6 }}</td>
+                <td>{{ i.line7 }}</td>
+                <td>{{ i.line8 }}</td>
+                <td>{{ i.line9 }}</td>
+                <td>{{ i.line10 }}</td>
+                {% if i.image %}        
+                <td><img src="{{i.image.url}}" alt="image"></td>
+                {% else %}
+                {% endif %}                
+
+
+                <td>
+                    <!-- <a href="{% url 'insert_organizationqn1' %}" class="btn-edit" style="background-color: green; text-decoration: none;">Insert</a><br><br><br> -->
+                
+                    <a href="{% url 'edit_organizationqn1' i.id %}" class="btn-edit" style="background-color: blue; text-decoration: none;">Update</a><br><br><br>
+                
+                    <a href="{% url 'delete_organizationqn1' i.id  %}" class="btn-edit" style="background-color: red; text-decoration: none;">Delete</a>
+                </td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <br>
+    <h3 style="text-align: center;">Organization & Monitoring Logs Card Question 2</h3>
+    <div>
+        <a href="{% url 'insert_organizationqn2' %}" class="btn-edit" style="background-color: green; text-decoration: none;">Add New Data</a>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Question</th>
+                <th>Start of Content</th>
+                <th>Instruction</th>
+                <th>Description line1</th>
+                <th>Description line2</th>
+                <th>Description line3</th>
+                <th>Description line4</th>
+                <th>Description line5</th>
+                <th>Description line6</th>
+                <th>Description line7</th>
+                <th>Description line8</th>
+                <th>Description line9</th>
+                <th>Description line10</th>
+                <th>Description line11</th>
+                <th>Description line12</th>
+                <th>Image</th>
+
+                <th rowspan="3">Actions</th>
+            </tr>
+        </thead><br>
+        <tbody>
+            {% for i in org2 %}
+            <tr>
+                <td>{{ i.question }}</td>
+                <td>{{ i.start }}</td>
+                <td>{{ i.intro }}</td>
+                <td>{{ i.line1 }}</td>
+                <td>{{ i.line2 }}</td>
+                <td>{{ i.line3 }}</td>
+                <td>{{ i.line4 }}</td>
+                <td>{{ i.line5 }}</td>
+                <td>{{ i.line6 }}</td>
+                <td>{{ i.line7 }}</td>
+                <td>{{ i.line8 }}</td>
+                <td>{{ i.line9 }}</td>
+                <td>{{ i.line10 }}</td>
+                <td>{{ i.line11 }}</td>
+                <td>{{ i.line12 }}</td>
+                {% if i.image %}        
+                <td><img src="{{i.image.url}}" alt="image"></td>
+                {% else %}
+                {% endif %}                
+
+
+                <td>
+                    <!-- <a href="{% url 'insert_organizationqn2' %}" class="btn-edit" style="background-color: green; text-decoration: none;">Insert</a><br><br><br> -->
+                
+                    <a href="{% url 'edit_organizationqn2' i.id %}" class="btn-edit" style="background-color: blue; text-decoration: none;">Update</a><br><br><br>
+                
+                    <a href="{% url 'delete_organizationqn2' i.id  %}" class="btn-edit" style="background-color: red; text-decoration: none;">Delete</a>
+                </td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <br>
+    <h3 style="text-align: center;">Organization & Monitoring Logs Card Question 3</h3>
+    <div>
+        <a href="{% url 'insert_organizationqn3' %}" class="btn-edit" style="background-color: green; text-decoration: none;">Add New Data</a>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Question</th>
+                <th>Start of Content</th>
+                <th>Instruction</th>
+                <th>Description line1</th>
+                <th>Description line2</th>
+                <th>Description line3</th>
+                <th>Description line4</th>
+                <th>Description line5</th>
+                <th>Description line6</th>
+                <th>Description line7</th>
+                <th>Description line8</th>
+                <th>Description line9</th>
+                <th>Description line10</th>
+                <th>Description line11</th>
+                <th>Description line12</th>
+                <th>Image</th>
+
+                <th rowspan="3">Actions</th>
+            </tr>
+        </thead><br>
+        <tbody>
+            {% for i in org3 %}
+            <tr>
+                <td>{{ i.question }}</td>
+                <td>{{ i.start }}</td>
+                <td>{{ i.intro }}</td>
+                <td>{{ i.line1 }}</td>
+                <td>{{ i.line2 }}</td>
+                <td>{{ i.line3 }}</td>
+                <td>{{ i.line4 }}</td>
+                <td>{{ i.line5 }}</td>
+                <td>{{ i.line6 }}</td>
+                <td>{{ i.line7 }}</td>
+                <td>{{ i.line8 }}</td>
+                <td>{{ i.line9 }}</td>
+                <td>{{ i.line10 }}</td>
+                <td>{{ i.line11 }}</td>
+                <td>{{ i.line12 }}</td>
+                {% if i.image %}        
+                <td><img src="{{i.image.url}}" alt="image"></td>
+                {% else %}
+                {% endif %}                
+
+
+                <td>
+                    <!-- <a href="{% url 'insert_organizationqn3' %}" class="btn-edit" style="background-color: green; text-decoration: none;">Insert</a><br><br><br> -->
+                
+                    <a href="{% url 'edit_organizationqn3' i.id %}" class="btn-edit" style="background-color: blue; text-decoration: none;">Update</a><br><br><br>
+                
+                    <a href="{% url 'delete_organizationqn3' i.id  %}" class="btn-edit" style="background-color: red; text-decoration: none;">Delete</a>
+                </td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <br>
+    <h3 style="text-align: center;">Organization & Monitoring Logs Card Question 4</h3>
+    <div>
+        <a href="{% url 'insert_organizationqn4' %}" class="btn-edit" style="background-color: green; text-decoration: none;">Add New Data</a>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Question</th>
+                <th>Start of Content</th>
+                <th>Instruction</th>
+                <th>Description line1</th>
+                <th>Description line2</th>
+                <th>Description line3</th>
+                <th>Description line4</th>
+                <th>Description line5</th>
+                <th>Description line6</th>
+                <th>Description line7</th>
+                <th>Description line8</th>
+                <th>Description line9</th>
+                <th>Description line10</th>
+                <th>Description line11</th>
+                <th>Description line12</th>
+                <th>Image</th>
+
+                <th rowspan="3">Actions</th>
+            </tr>
+        </thead><br>
+        <tbody>
+            {% for i in org4 %}
+            <tr>
+                <td>{{ i.question }}</td>
+                <td>{{ i.start }}</td>
+                <td>{{ i.intro }}</td>
+                <td>{{ i.line1 }}</td>
+                <td>{{ i.line2 }}</td>
+                <td>{{ i.line3 }}</td>
+                <td>{{ i.line4 }}</td>
+                <td>{{ i.line5 }}</td>
+                <td>{{ i.line6 }}</td>
+                <td>{{ i.line7 }}</td>
+                <td>{{ i.line8 }}</td>
+                <td>{{ i.line9 }}</td>
+                <td>{{ i.line10 }}</td>
+                <td>{{ i.line11 }}</td>
+                <td>{{ i.line12 }}</td>
+                {% if i.image %}        
+                <td><img src="{{i.image.url}}" alt="image"></td>
+                {% else %}
+                {% endif %}                
+
+
+                <td>
+                    <!-- <a href="{% url 'insert_organizationqn4' %}" class="btn-edit" style="background-color: green; text-decoration: none;">Insert</a><br><br><br> -->
+                
+                    <a href="{% url 'edit_organizationqn4' i.id %}" class="btn-edit" style="background-color: blue; text-decoration: none;">Update</a><br><br><br>
+                
+                    <a href="{% url 'delete_organizationqn4' i.id  %}" class="btn-edit" style="background-color: red; text-decoration: none;">Delete</a>
+                </td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <br>
+    <h3 style="text-align: center;">Organization & Monitoring Logs Card Question 5</h3>
+    <div>
+        <a href="{% url 'insert_organizationqn5' %}" class="btn-edit" style="background-color: green; text-decoration: none;">Add New Data</a>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Question</th>
+                <th>Start of Content</th>
+                <th>Instruction</th>
+                <th>Description line1</th>
+                <th>Description line2</th>
+                <th>Description line3</th>
+                <th>Description line4</th>
+                <th>Description line5</th>
+                <th>Description line6</th>
+                <th>Description line7</th>
+                <th>Description line8</th>
+                <th>Description line9</th>
+                <th>Description line10</th>
+                <th>Description line11</th>
+                <th>Description line12</th>
+                <th>Image</th>
+
+                <th rowspan="3">Actions</th>
+            </tr>
+        </thead><br>
+        <tbody>
+            {% for i in org5 %}
+            <tr>
+                <td>{{ i.question }}</td>
+                <td>{{ i.start }}</td>
+                <td>{{ i.intro }}</td>
+                <td>{{ i.line1 }}</td>
+                <td>{{ i.line2 }}</td>
+                <td>{{ i.line3 }}</td>
+                <td>{{ i.line4 }}</td>
+                <td>{{ i.line5 }}</td>
+                <td>{{ i.line6 }}</td>
+                <td>{{ i.line7 }}</td>
+                <td>{{ i.line8 }}</td>
+                <td>{{ i.line9 }}</td>
+                <td>{{ i.line10 }}</td>
+                <td>{{ i.line11 }}</td>
+                <td>{{ i.line12 }}</td>
+                {% if i.image %}        
+                <td><img src="{{i.image.url}}" alt="image"></td>
+                {% else %}
+                {% endif %}                
+
+
+                <td>
+                    <!-- <a href="{% url 'insert_organizationqn5' %}" class="btn-edit" style="background-color: green; text-decoration: none;">Insert</a><br><br><br> -->
+                
+                    <a href="{% url 'edit_organizationqn5' i.id %}" class="btn-edit" style="background-color: blue; text-decoration: none;">Update</a><br><br><br>
+                
+                    <a href="{% url 'delete_organizationqn5' i.id  %}" class="btn-edit" style="background-color: red; text-decoration: none;">Delete</a>
+                </td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <br>
+    <h3 style="text-align: center;">Organization & Monitoring Logs Card Question 6</h3>
+    <div>
+        <a href="{% url 'insert_organizationqn6' %}" class="btn-edit" style="background-color: green; text-decoration: none;">Add New Data</a>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Question</th>
+                <th>Start of Content</th>
+                <th>Instruction</th>
+                <th>Description line1</th>
+                <th>Description line2</th>
+                <th>Description line3</th>
+                <th>Description line4</th>
+                <th>Description line5</th>
+                <th>Description line6</th>
+                <th>Description line7</th>
+                <th>Description line8</th>
+                <th>Description line9</th>
+                <th>Description line10</th>
+                <th>Image</th>
+
+                <th rowspan="3">Actions</th>
+            </tr>
+        </thead><br>
+        <tbody>
+            {% for i in org6 %}
+            <tr>
+                <td>{{ i.question }}</td>
+                <td>{{ i.start }}</td>
+                <td>{{ i.intro }}</td>
+                <td>{{ i.line1 }}</td>
+                <td>{{ i.line2 }}</td>
+                <td>{{ i.line3 }}</td>
+                <td>{{ i.line4 }}</td>
+                <td>{{ i.line5 }}</td>
+                <td>{{ i.line6 }}</td>
+                <td>{{ i.line7 }}</td>
+                <td>{{ i.line8 }}</td>
+                <td>{{ i.line9 }}</td>
+                <td>{{ i.line10 }}</td>
+                {% if i.image %}        
+                <td><img src="{{i.image.url}}" alt="image"></td>
+                {% else %}
+                {% endif %}                
+
+
+                <td>
+                    <!-- <a href="{% url 'insert_organizationqn6' %}" class="btn-edit" style="background-color: green; text-decoration: none;">Insert</a><br><br><br> -->
+                
+                    <a href="{% url 'edit_organizationqn6' i.id %}" class="btn-edit" style="background-color: blue; text-decoration: none;">Update</a><br><br><br>
+                
+                    <a href="{% url 'delete_organizationqn6' i.id  %}" class="btn-edit" style="background-color: red; text-decoration: none;">Delete</a>
+                </td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <br>
+    <h3 style="text-align: center;">Organization & Monitoring Logs Card Question 7</h3>
+    <div>
+        <a href="{% url 'insert_organizationqn7' %}" class="btn-edit" style="background-color: green; text-decoration: none;">Add New Data</a>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Question</th>
+                <th>Start of Content</th>
+                <th>Instruction</th>
+                <th>Description line1</th>
+                <th>Description line2</th>
+                <th>Description line3</th>
+                <th>Description line4</th>
+                <th>Description line5</th>
+                <th>Description line6</th>
+                <th>Description line7</th>
+                <th>Description line8</th>
+                <th>Description line9</th>
+                <th>Description line10</th>
+                <th>Image</th>
+
+                <th rowspan="3">Actions</th>
+            </tr>
+        </thead><br>
+        <tbody>
+            {% for i in org7 %}
+            <tr>
+                <td>{{ i.question }}</td>
+                <td>{{ i.start }}</td>
+                <td>{{ i.intro }}</td>
+                <td>{{ i.line1 }}</td>
+                <td>{{ i.line2 }}</td>
+                <td>{{ i.line3 }}</td>
+                <td>{{ i.line4 }}</td>
+                <td>{{ i.line5 }}</td>
+                <td>{{ i.line6 }}</td>
+                <td>{{ i.line7 }}</td>
+                <td>{{ i.line8 }}</td>
+                <td>{{ i.line9 }}</td>
+                <td>{{ i.line10 }}</td>
+                {% if i.image %}        
+                <td><img src="{{i.image.url}}" alt="image"></td>
+                {% else %}
+                {% endif %}                
+
+
+                <td>
+                    <!-- <a href="{% url 'insert_organizationqn7' %}" class="btn-edit" style="background-color: green; text-decoration: none;">Insert</a><br><br><br> -->
+                
+                    <a href="{% url 'edit_organizationqn7' i.id %}" class="btn-edit" style="background-color: blue; text-decoration: none;">Update</a><br><br><br>
+                
+                    <a href="{% url 'delete_organizationqn7' i.id  %}" class="btn-edit" style="background-color: red; text-decoration: none;">Delete</a>
+                </td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <br>
+    <h3 style="text-align: center;">Organization & Monitoring Logs Card Question 8</h3>
+    <div>
+        <a href="{% url 'insert_organizationqn8' %}" class="btn-edit" style="background-color: green; text-decoration: none;">Add New Data</a>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Question</th>
+                <th>Start of Content</th>
+                <th>Instruction</th>
+                <th>Description line1</th>
+                <th>Description line2</th>
+                <th>Description line3</th>
+                <th>Description line4</th>
+                <th>Description line5</th>
+                <th>Description line6</th>
+                <th>Description line7</th>
+                <th>Description line8</th>
+                <th>Description line9</th>
+                <th>Description line10</th>
+                <th>Image</th>
+
+                <th rowspan="3">Actions</th>
+            </tr>
+        </thead><br>
+        <tbody>
+            {% for i in org8 %}
+            <tr>
+                <td>{{ i.question }}</td>
+                <td>{{ i.start }}</td>
+                <td>{{ i.intro }}</td>
+                <td>{{ i.line1 }}</td>
+                <td>{{ i.line2 }}</td>
+                <td>{{ i.line3 }}</td>
+                <td>{{ i.line4 }}</td>
+                <td>{{ i.line5 }}</td>
+                <td>{{ i.line6 }}</td>
+                <td>{{ i.line7 }}</td>
+                <td>{{ i.line8 }}</td>
+                <td>{{ i.line9 }}</td>
+                <td>{{ i.line10 }}</td>
+                {% if i.image %}        
+                <td><img src="{{i.image.url}}" alt="image"></td>
+                {% else %}
+                {% endif %}                
+
+
+                <td>
+                    <!-- <a href="{% url 'insert_organizationqn8' %}" class="btn-edit" style="background-color: green; text-decoration: none;">Insert</a><br><br><br> -->
+                
+                    <a href="{% url 'edit_organizationqn8' i.id %}" class="btn-edit" style="background-color: blue; text-decoration: none;">Update</a><br><br><br>
+                
+                    <a href="{% url 'delete_organizationqn8' i.id  %}" class="btn-edit" style="background-color: red; text-decoration: none;">Delete</a>
+                </td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <br>
+    <h3 style="text-align: center;">Organization & Monitoring Logs Card Question 9</h3>
+    <div>
+        <a href="{% url 'insert_organizationqn9' %}" class="btn-edit" style="background-color: green; text-decoration: none;">Add New Data</a>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Question</th>
+                <th>Start of Content</th>
+                <th>Instruction</th>
+                <th>Description line1</th>
+                <th>Description line2</th>
+                <th>Description line3</th>
+                <th>Description line4</th>
+                <th>Description line5</th>
+                <th>Description line6</th>
+                <th>Description line7</th>
+                <th>Description line8</th>
+                <th>Description line9</th>
+                <th>Description line10</th>
+                <th>Image</th>
+
+                <th rowspan="3">Actions</th>
+            </tr>
+        </thead><br>
+        <tbody>
+            {% for i in org9 %}
+            <tr>
+                <td>{{ i.question }}</td>
+                <td>{{ i.start }}</td>
+                <td>{{ i.intro }}</td>
+                <td>{{ i.line1 }}</td>
+                <td>{{ i.line2 }}</td>
+                <td>{{ i.line3 }}</td>
+                <td>{{ i.line4 }}</td>
+                <td>{{ i.line5 }}</td>
+                <td>{{ i.line6 }}</td>
+                <td>{{ i.line7 }}</td>
+                <td>{{ i.line8 }}</td>
+                <td>{{ i.line9 }}</td>
+                <td>{{ i.line10 }}</td>
+                {% if i.image %}        
+                <td><img src="{{i.image.url}}" alt="image"></td>
+                {% else %}
+                {% endif %}                
+
+
+                <td>
+                    <!-- <a href="{% url 'insert_organizationqn9' %}" class="btn-edit" style="background-color: green; text-decoration: none;">Insert</a><br><br><br> -->
+                
+                    <a href="{% url 'edit_organizationqn9' i.id %}" class="btn-edit" style="background-color: blue; text-decoration: none;">Update</a><br><br><br>
+                
+                    <a href="{% url 'delete_organizationqn9' i.id  %}" class="btn-edit" style="background-color: red; text-decoration: none;">Delete</a>
+                </td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <br>
+    <h3 style="text-align: center;">Organization & Monitoring Logs Card Question 10</h3>
+    <div>
+        <a href="{% url 'insert_organizationqn10' %}" class="btn-edit" style="background-color: green; text-decoration: none;">Add New Data</a>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Question</th>
+                <th>Start of Content</th>
+                <th>Instruction</th>
+                <th>Description line1</th>
+                <th>Description line2</th>
+                <th>Description line3</th>
+                <th>Description line4</th>
+                <th>Description line5</th>
+                <th>Description line6</th>
+                <th>Description line7</th>
+                <th>Description line8</th>
+                <th>Description line9</th>
+                <th>Description line10</th>
+                <th>Image</th>
+
+                <th rowspan="3">Actions</th>
+            </tr>
+        </thead><br>
+        <tbody>
+            {% for i in org10 %}
+            <tr>
+                <td>{{ i.question }}</td>
+                <td>{{ i.start }}</td>
+                <td>{{ i.intro }}</td>
+                <td>{{ i.line1 }}</td>
+                <td>{{ i.line2 }}</td>
+                <td>{{ i.line3 }}</td>
+                <td>{{ i.line4 }}</td>
+                <td>{{ i.line5 }}</td>
+                <td>{{ i.line6 }}</td>
+                <td>{{ i.line7 }}</td>
+                <td>{{ i.line8 }}</td>
+                <td>{{ i.line9 }}</td>
+                <td>{{ i.line10 }}</td>
+                {% if i.image %}        
+                <td><img src="{{i.image.url}}" alt="image"></td>
+                {% else %}
+                {% endif %}
+
+
+                <td>
+                    <!-- <a href="{% url 'insert_organizationqn10' %}" class="btn-edit" style="background-color: green; text-decoration: none;">Insert</a><br><br><br> -->
+                
+                    <a href="{% url 'edit_organizationqn10' i.id %}" class="btn-edit" style="background-color: blue; text-decoration: none;">Update</a><br><br><br>
+                
+                    <a href="{% url 'delete_organizationqn10' i.id  %}" class="btn-edit" style="background-color: red; text-decoration: none;">Delete</a>
+                </td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
+{% endblock main_content %}
+       

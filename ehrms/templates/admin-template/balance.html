@@ -1,0 +1,169 @@
+{% extends 'admin-template/base_template.html' %}
+{% block main_content %}
+   <style>
+    .pagination {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.pagination a, .pagination .current-page {
+    display: inline-block;
+    padding: 8px 12px;
+    text-decoration: none;
+    margin: 0 4px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+body{
+    margin-top: 50px;
+    color: black;
+}
+.pagination .step-links a.active {
+    background-color: orange;
+}
+   </style> 
+   <h3>Leave Balance History</h3>
+<form id="filterForm" method="GET" action="">
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label>Type:</label><br>
+                <select name="ss" id="options" class="form-control">
+                    <option>--select--</option>
+                    <option value="table">Summary</option>
+                    <option value="table1">Day-Wise Attendance History</option>
+                    <option value="table2">Leave Balance History</option>
+                    <option value="table3">Open Request for Leave</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="table" style="width:100%; height:40%;">
+   
+   <div class="table-responsive">
+    
+        <table id="myTable" class="hold" style="width:100%;height:100%;border-color: rgb(8, 8, 77)">
+            <thead>
+                <tr style="background-color: black; color: white;">
+                    <th>Employee ID</th>
+                    <th>First Name</th>
+                    <th>Half Leave</th>
+                <th>Unpaid Leave</th>
+                <th>On Leave</th>
+                <th>Open Request</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                {% for result in results %}
+                <tr>
+                    <td>{{ result.empid }}</td>
+                    <td>{{ result.first_name }}</td>
+                    <td>{{ result.half_leave }}</td> <!-- Display Half Leave -->
+                    <td>{{ result.unpaid_leave }}</td> <!-- Display Unpaid Leave -->
+                    <td>{{ result.leave }}</td> <!-- Display On Leave -->
+                    <td>{{ result.open_request }}</td>
+                   
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    
+    <!-- </div> -->
+    <br>
+    <div class="pagination ">
+        <span class="step-links">
+            {% if results.has_previous %}
+                <a href="?page=1" style="border-radius: 20px;"><<</a>
+                <a href="?page={{ results.previous_page_number }}" class="prev" style="border-radius: 20px;">&#8249;</a>
+            {% endif %}
+    
+            {% for page in results.paginator.page_range %}
+                <a href="?page={{ page }}" style="border-radius:20px ;" {% if page == results.number %}class="active bg-info"{% endif %}>{{ page }}</a>
+            {% endfor %}
+    
+            {% if results.has_next %}
+                {% if results.number != results.paginator.num_pages %}
+                    <a href="?page={{ results.next_page_number }}" style="border-radius: 20px;" class="next"> &#8250;</a>
+                {% endif %}
+                <a href="?page={{ results.paginator.num_pages }}" style="border-radius: 20px;">&raquo; </a>
+            {% endif %}
+        </span>
+    </div>
+</div>
+
+
+
+<script>
+    $(document).ready(function () {
+        $("#name-search, #date-search").on("keyup change", function () {
+            var nameValue = $("#name-search").val().toLowerCase();
+            var dateValue = $("#date-search").val();
+
+            $("#myTable tbody tr").filter(function () {
+                var nameMatch = $(this).text().toLowerCase().indexOf(nameValue) > -1;
+                var dateCell = $(this).find("td:eq(4)").text(); // Index 4 corresponds to the Date column
+                var dateMatch = dateValue === "" || dateCell === dateValue;
+
+                $(this).toggle(nameMatch && dateMatch);
+            });
+        });
+    });
+</script>
+<script>
+    document.getElementById("filterForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // Prevent the default form submission
+    
+        var selectedOption = document.getElementById("options").value;
+    
+        // Redirect to the appropriate URL based on the selected option
+        switch (selectedOption) {
+            case "table":
+                window.location.href = "{% url 'paid' %}";
+                break;
+            case "table1":
+                window.location.href = "{% url 'paid2' %}";
+                break;
+            case "table2":
+                window.location.href = "{% url 'balance' %}";
+                break;
+            case "table3":
+                window.location.href = "{% url 'opeanrequest' %}";
+                break;
+            default:
+                // Handle other cases or provide an error message
+                break;
+        }
+    });
+    </script>
+
+
+    <script>
+        // Add an onchange event handler to the <select> element
+        document.getElementById("options").addEventListener("change", function() {
+            var selectedOption = this.value;
+    
+            // Redirect to the appropriate URL based on the selected option
+            switch (selectedOption) {
+                case "table1":
+                    window.location.href = "{% url 'paid2' %}";
+                    break;
+                case "table":
+                    window.location.href = "{% url 'paid' %}";
+                    break;
+                case "table2":
+                    window.location.href = "{% url 'balance' %}";
+                    break;
+                case "table3":
+                    window.location.href = "{% url 'opeanrequest' %}";
+                    break;
+                default:
+                    // Handle other cases or provide an error message
+                    break;
+            }
+        });
+    </script>
+   
+{% endblock main_content %}

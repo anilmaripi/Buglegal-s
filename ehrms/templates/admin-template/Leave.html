@@ -1,0 +1,340 @@
+{% extends 'admin-template/base_template.html'%}
+{% block main_content %}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Leave Configuration</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr@4.6.9/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.9/dist/flatpickr.min.js"></script>
+    <style>
+        body {
+            background-color: #1e2442;
+            color: white;
+            font-size: 16px;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Additional styles for mobile view */
+        @media screen and (max-width: 768px) {
+            /* Mobile styles here */
+        }
+
+        /* Add more of your custom CSS here */
+    </style>
+</head>
+<body>
+    <form method="POST">
+        {% csrf_token %}
+
+        <label style="font-size: 30px;">WE😍DEVELOPTREES</label><br><br>
+
+        <div class="form-group">
+            <label style="font-size: 25px;">Attendance Enabled?</label><br>
+            <select name="attendanceenabled" style="background-color:#393f5c; width: 40%; color: white; border: none; padding: 1%; font-size: 20px;">
+                <option>yes</option>
+                <option>no</option>
+            </select>
+        </div><br><br>
+        <div class="form-group">
+            <label>holidays</label>
+            <input type="text" name="holidays">
+        </div>    
+
+        <div>
+            <input type="checkbox" name="EnabledAttendance" value="yes" >&nbsp&nbsp&nbsp
+            <label style="font-size:25px;">Enable attendance for contractors</label>
+          </div> <br><br> 
+
+        <table style=" width:50%; color:white; border:none; padding:10px; font-size:30px;height:10%; ">
+          <label style="font-size:25px;">Weekend</label>
+          <thead  style="text-align:center; background-color:#323a5f; font-size:20px; height:40%;">
+              <tr>
+                  <th>sun</th> 
+                  <th>sat1</th>
+                  <th>sat2</th>  
+                  <th>sat3</th>  
+                  <th>sat4</th> 
+              </tr>
+          </thead>
+          
+          <tbody style="text-align:center; background-color:#242b4d; font-size:80%;">
+              <tr>
+                  <td><input type="checkbox" name="weekend" value="sun"></td>
+                  <td><input type="checkbox" name="weekend" value="sat1" ></td>
+                  <td><input type="checkbox" name="weekend" value="sat2"></td>
+                  <td><input type="checkbox" name="weekend" value="sat3"></td>
+                  <td><input type="checkbox" name="weekend" value="sat4"></td>
+              </tr>
+          </tbody> 
+      </table><br><br>
+
+
+      <label style="font-size:25px;">Types of leaves(please read <a href="/home/">our FAQ</a> before setting this up)</label><br>
+      <table style=" width:60%; color:white; border:none; padding:10px; width:auto;">
+          <thead>
+              <tr style="text-align:left; background-color:#323a5f; font-size:30px;">
+                  <th>type</th>
+                  <th>Default leave</th>
+                  <th>Monthly Increment</th>
+                  <th>Max Leave</th>
+                  <th>carry forward</th>
+              </tr>
+          </thead>
+
+        <tbody  style="text-align:left; background-color:#393f5c; font-size:25px;">
+              <tr>
+                  <td><input type="text" placeholder="eg.Casual Leave" name="type" style="background-color: #2d3354; border:none; color:white;"></td> 
+                  <td><input type="text" name="defaultleave" style="background-color: #2d3354; border:none; color:white;"></td>
+                  <td><input type="text"  name="monthlyincrement" style="background-color: #2d3354; border:none; color:white;"></td>
+                  <td><input type="text" name="maxleave" style="background-color: #2d3354; border:none; color:white;"></td>
+                  <td><input type="text" name="carryforward" style="background-color: #2d3354; border:none; color:white;"></td>
+              </tr>
+
+
+          </tbody>
+      </table><br>
+
+
+
+      <div>
+        <input type="checkbox" name="AllowEmployees" value="yes">&nbsp&nbsp&nbsp
+        <label style="font-size:25px;">Allow Employees to have negitive leave balence</label>
+      </div> <br><br> 
+
+      <div>
+        <input type="checkbox" name="AllowHalfdayleave" value="yes">&nbsp&nbsp&nbsp
+        <label style="font-size:25px;"> Allow Half-day leave request</label>
+      </div> <br><br> 
+      
+
+      <div>
+        <input type="checkbox" name="Employeemustenter" value="yes">&nbsp&nbsp&nbsp
+        <label style="font-size:25px;"> Employee must enter a remark when applying for leave/half day</label>
+      </div> <br><br> 
+
+      <div>
+        <input type="checkbox" name="Showattendence" value="yes">&nbsp&nbsp&nbsp
+        <label style="font-size:25px;">Show attendence on payslip</label>
+      </div> <br><br>
+
+      <div>
+        <input type="checkbox" name="automaticallyadd" value="yes">&nbsp&nbsp&nbsp
+        <label style="font-size:25px;">automatically add loss-of-pay for unpaid leaves</label>
+      </div> <br><br>
+
+      <div>
+        <input type="checkbox" name="lossofpay" value="yes">&nbsp&nbsp&nbsp
+        <label style="font-size:25px;">caluclate loss-of-pay on working days instend of total days in a month</label>
+      </div> <br><br>
+
+      <div>
+        <label style="font-size:20px;">leaves calanders</label><br>
+        <input type="checkbox" name="usefinancal" value="yes" >&nbsp&nbsp&nbsp
+        <label style="font-size:25px;">use financal year instead of calander year</label>
+      </div> <br><br>
+
+      <div>
+        <label style="font-size:20px;">shifts</label><br>
+        <input type="checkbox" name="track" value="yes">&nbsp&nbsp&nbsp
+        <label style="font-size:25px;">track shift timings</label>
+      </div> <br><br> 
+      
+      <div>
+        <label style="font-size:25px;">Default shift timing(in 24hours format, eg. 6pm is 18:00)</label><br>
+        <table>
+
+          <tbody>
+
+              <tr>
+                <input type="text" name="Defaultshift" required style="height:5%; font-size:large; width:20%; background-color:#393f5c;color:white;">
+                <input type="text" name="Defaultshift" required style="height:5%; font-size:large; width:20%; background-color:#393f5c;color:white;">
+              </tr>
+
+          </tbody>   
+        </table>
+
+      </div><br>
+      
+      
+      <div class="form-group">
+          <label style="font-size:25px;">Grace period in check in</label><br>
+          <input type="text" name="graceperiod" required style="height:5%; font-size:large; width:20%; background-color:#3c3c5c; color:white;">
+        </div><br>
+
+      <div class="form-group">
+          <label style="font-size:25px;">minimum shift duration(full day)</label><br>
+          <input type="text" name="fulltime" required style="height:5%; font-size:large; width:20%; background-color:#3c3c5c;color:white;">
+        </div><br>
+
+      <div class="form-group">
+          <label style="font-size:25px;">minimum shift duration(half day)</label><br>
+          <input type="text" name="halftime" required style="height:5%; font-size:large; width:20%; background-color:#3c3c5c;color:white;">
+        </div><br><br>
+      
+      <label style="font-size:25px;">organisation holidays</label>
+     
+        <table >
+          <thead >
+              <tr style="text-align:center; background-color:#323a5f; height:20%;">
+                  <th style="text-align: center; background-color: #323a5f; font-size: 25px; padding: 3px;">All</th>
+                  <th style="text-align: center; background-color: #323a5f; font-size: 25px; padding: 3px;">andhrapradesh</th>
+                  <th style="text-align: center; background-color: #323a5f; font-size: 25px; padding: 3px;">Telangana</th>
+                  <th style="text-align: center; background-color: #323a5f; font-size: 25px; padding: 3px;">Date2</th>
+                  <th style="text-align: center; background-color: #323a5f; font-size: 25px; padding: 3px;">Day</th>
+                  <th style="text-align: center; background-color: #323a5f; font-size: 25px; padding: 3px;">Description2</th>
+              </tr>
+          </thead>
+
+          <tbody  style="text-align:center; background-color:#242b4d; font-size:20px;">
+               <tr>
+                  <td><input type="checkbox" class="select-all-checkbox" ></td>
+                  <td><input type="checkbox" class="row-checkbox"></td>
+                  <td><input type="checkbox" class="row-checkbox"></td>
+                  <td><input type="text" name="date2" style="background-color:#2d3354; border:none;"></td>
+                  <td><input type="text" name="day" style="background-color:#2d3354; border:none;"></td>
+
+                  <td><input type="text" name="description2" style="background-color:#2d3354; border:none;"></td>
+
+          </tbody>
+      </table><br><br>
+
+
+         <script>
+          document.addEventListener('DOMContentLoaded', function() {
+            const selectAllCheckboxes = document.querySelectorAll('.select-all-checkbox');
+            
+            selectAllCheckboxes.forEach(function(selectAllCheckbox) {
+              selectAllCheckbox.addEventListener('change', function() {
+                const row = this.closest('tr');
+                const rowCheckboxes = row.querySelectorAll('.row-checkbox');
+                
+                rowCheckboxes.forEach(function(rowCheckbox) {
+                  rowCheckbox.checked = selectAllCheckbox.checked;
+                });
+              });
+            });
+          });
+        </script> 
+        
+
+       <label style="font-size:25px;">Add custom holidays</label>
+      <div style="background-color: #2d3354; width:43%; padding:30px; font-size:25px;">
+          after adding custom holidays,please come back to this page to select it for your locations
+      </div> <br>
+
+      
+
+
+ <table style="width: 30%; color: white; border: 5px;">
+    <thead>
+
+        <tr>
+            <th style="text-align: center; background-color: #323a5f; font-size: 25px; padding: 3px;">Date</th>
+            <th style="text-align: center; background-color: #323a5f; font-size: 25px; padding: 3px;">Description</th>
+        </tr>
+
+
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <div class="calendar-container">
+                    <input type="date" class="calendar-input" name="date" style="background-color: #393f5c; color: white; font-size: 30px;">
+                </div>
+            </td>
+            <td><input type="text" class="calendar-input" name="description" style="background-color:#393f5c; color:white; font-size:30px;">
+            </td>
+        </tr> 
+    </tbody>
+</table>
+
+
+
+        <br><br>
+        <div style="background-color: #2d3354; width:20%; padding:30px; font-size:20px;">*indicates required fields
+
+        </div>
+
+    </table>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const calendarContainers = document.querySelectorAll('.calendar-container');
+    
+            calendarContainers.forEach(function(container) {
+                const dateInput = container.querySelector('.calendar-input');
+                const calendar = flatpickr(dateInput, {
+                    dateFormat: "Y-m-d",
+                });
+    
+                container.addEventListener('click', function() {
+                    calendar.open();
+                });
+    
+                // Update the input value before form submission
+                const form = container.closest('form');
+                if (form) {
+                    form.addEventListener('submit', function() {
+                        const selectedDate = calendar.selectedDates[0];
+                        if (selectedDate) {
+                            const formattedDate = selectedDate.toISOString().split('T')[0];
+                            dateInput.value = formattedDate;
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+
+    <script>
+        const attendanceCheckbox = document.getElementById('attendanceCheckbox');
+        const attendanceEnabledInput = document.getElementById('attendanceEnabled');
+
+        attendanceCheckbox.addEventListener('change', function() {
+            if (attendanceCheckbox.checked) {
+                attendanceEnabledInput.value = 'yes';
+            } else {
+                attendanceEnabledInput.value = 'no';
+            }
+        });
+    </script>
+
+    
+    
+    <br><br>
+
+        <button type="submit" style="background-color: #5a99e8; color: white; font-size: 20px;">CONTINUE</button>
+    </form>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // JavaScript code for select-all-checkbox functionality, date pickers, and other interactions
+        });
+    </script>
+    <script>
+        $(document).ready(function()
+        {
+            $('ch').click(function()
+            {
+                var txt="";
+                $('.ch:checked').each(function()
+                {
+                    txt+=$(this).val()+","
+                });
+                txt=txt.substring(0,txt.length-1);
+                $("#chl").val(txt);
+            });
+        });
+    </script>
+    <br><br><br>
+</body>
+</html>
+
+
+{% endblock main_content %}

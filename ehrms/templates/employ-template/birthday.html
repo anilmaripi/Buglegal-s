@@ -1,0 +1,28 @@
+
+{% extends 'employ-template/base_template.html' %}
+        
+        
+        
+        
+{% block main_content %}
+
+
+
+
+                {% block main_content %}
+                <h1>BIRTHDAYS</h1><br>
+                <hr>
+                {% for employees in employees2 %}
+
+                <p>{{ employees.firstname }} {{ employees.lastname }} </p>
+                {{employees.dob|date:'F j' }}
+
+                <hr>
+
+                {% empty %}
+                <p>No upcoming birthdays within one week.</p>
+                {% endfor %}
+
+
+  {% endblock main_content %}
+  

@@ -1,0 +1,56 @@
+{% extends 'employhelp/basehelp.html' %}
+{% block main_content %}
+    <style>
+        h3{
+            font-size: 25px;
+        }
+        .col-12{
+            cursor: pointer;
+        }
+        
+    </style>
+
+   <div class="row" >
+    <div class="col-1"></div>
+    <div class="col-10">
+<form>
+    
+<img src="/media/book1.jpg" style="width: 40px;height: 45px;">
+<h3 id="r">People</h3>
+<h6 id="p">Your greatest asset, manage them well</h6>
+
+<div style="width: 100%;height: auto;border: solid black 1px;border-radius: 10px;padding-left: 20px;padding-right: 20px;" >
+    <div class="row">
+        <div class="col-12">
+        <a href="/people1"style="text-decoration: none;color: black;"><p id="p1">Can we convert an employee to a contractor (or vice versa)?<i class="fas fa-angle-right" style="float: right;"></i></p></a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+        <a href="/people2"style="text-decoration: none;color: black;"><p id="p2">What is the difference between an employee and a contractor?<i class="fas fa-angle-right" style="float: right;"></i></p></a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+        <a href="/people3"style="text-decoration: none;color: black;"><p id="pi">A new employee/contractor has not received the welcome email.<i class="fas fa-angle-right" style="float: right;"></i></p></a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+        <a href="/people4"style="text-decoration: none;color: black;"><p id="po">How can we give special access (like an administrator) to somebody else?<i class="fas fa-angle-right" style="float: right;"></i></p></a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+        <a href="/people5"style="text-decoration: none;color: black;"><p id="pp">How do I stop salary for an employee?<i class="fas fa-angle-right" style="float: right;"></i></p></a>
+        </div>
+    </div>
+</div>
+</form>
+</div>
+
+<div class="col-1"></div>
+
+</div>
+{% endblock main_content %}

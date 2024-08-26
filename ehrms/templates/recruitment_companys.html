@@ -1,0 +1,549 @@
+{% extends 'navbar.html' %}
+{% block main_content %}
+
+<br><br><br><br><br>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Recruitment Companys</title>
+    <style>
+        .data-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 100px;
+            padding: 30px;
+            background-color: white;
+            color: black;
+            height: auto;
+        }
+        .data-item {
+            border: 3px solid #ccc;
+            padding: 10px;
+            width: calc(40% - 20px); 
+        }
+        .data-item img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+
+<style>
+    .mds {
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        background-color: #f9f9f9;
+        overflow: hidden; 
+        width: 100%;
+    }
+    .mds1:hover{
+        transform: scale(1.02);
+        transition: color 0.3s, transform 0.3s;
+        border-radius: 8px;
+
+    }
+
+    .mhcard {
+        display: flex; 
+        padding: 30px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        transition: box-shadow 0.3s ease;
+    }
+
+    .mhcard:hover {
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .mhcard-img {
+        max-width: 100%; 
+        height: auto;
+        border-radius: 8px;
+    }
+
+    .content-wrapper {
+        flex: 1; 
+        padding-left: 20px;
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .mhcard {
+            flex-direction: column;
+        }
+        .content-wrapper {
+            padding-left: 0; 
+            padding-top: 20px; 
+            color: black;
+        }
+    }
+    button{
+        background-color:#cec7f1;
+        color:black;
+            
+    }
+</style>
+
+<style>
+
+body {
+    background-color: #f0f2f5;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 16px;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.job {
+    display: flex;
+    flex-direction: column;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+}
+
+.wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 20px;
+    overflow: auto;
+}
+
+.searched-jobs {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    height: auto;
+}
+
+.job-cards {
+    flex: 1 1 calc(33.333% - 20px); 
+    display: flex;
+    flex-direction: column;
+}
+
+.job-card {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    font-size: 14px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+    height: auto; 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.job-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.job-card-header {
+  
+    align-items: center;
+    text-align: center;
+    margin-left: 25%;
+    height: auto;
+}
+
+
+
+.job-card svg {
+    width: 30px;
+    height: 30px;
+    margin-right: 8px;
+    border-radius: 50%;
+    background-color: #5a67d8;
+    padding: 5px;
+    fill: #ffffff;
+}
+
+.job-card-company {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+.job-card-created-at {
+    font-size: 12px;
+    color: #888;
+}
+
+.job-card-title {
+    font-size: 16px;
+    font-weight:500;
+    color: #2d3748;
+    margin-bottom: 8px;
+}
+
+.job-card-subtitle {
+    font-size: 14px;
+    color: #4a5568;
+    margin-bottom: 10px;
+}
+
+.job-card-location {
+    font-size: 13px;
+    color: #4a5568;
+    margin-bottom: 15px;
+}
+
+.job-detail-buttons {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.search-buttons {
+    font-size: 12px;
+    font-weight: 400;
+    padding: 8px 12px;
+    border-radius: 6px;
+    background-color: #edf2f7;
+    color: #2d3748;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.search-buttons:hover {
+    background-color: #e2e8f0;
+}
+
+.detail-button {
+    background-color: #48bb78;
+    color: #ffffff;
+}
+
+.card-buttons {
+    background-color: #4299e1;
+    color: #ffffff;
+}
+
+.card-buttons-msg {
+    background-color: #ed8936;
+    color: #ffffff;
+}
+
+.job-card-buttons {
+    display: flex;
+    gap: 8px;
+}
+.data-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    height: auto;
+}
+
+.carousel-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    height: auto;
+}
+
+.job-cards-wrapper {
+    display: flex;
+    transition: transform 0.5s ease;
+    height: auto;
+}
+
+.job-card {
+    width: 300px; 
+    margin-right: 20px; 
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    font-size: 14px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+    height: auto;
+}
+
+.job-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    height: auto;
+}
+
+
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1000; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%;
+    overflow: auto; 
+    background-color: rgba(0, 0, 0, 0.5); 
+}
+
+.modal-content {
+    background-color: #45caff;
+    margin: 15% auto; 
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; 
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+</style>
+        
+</head>
+
+<body>
+
+    <div class="container-fluid mds">
+        <br>
+         {% for recruitment_data in k %}
+ 
+        <div class="mhcard mhcard-usecases mds1" onmouseover="hoverCardMore(this)" onmouseout="unhoverCardMore(this)">
+            <div class="row d-flex justify-content-center align-items-center">
+
+                <div class="content-wrapper col-md-6">
+                    <p class="fadeInUp wow" data-wow-duration="1s"data-wow-delay="0.3s" style="text-align: justify; padding: 3px;color: black;"><b style="color: black;font-size: xx-large;">{{ recruitment_data.heading }}</b></p>
+                    <p class="fadeInUp wow" data-wow-duration="1s"data-wow-delay="0.3s" style="text-align: justify; padding: 3px;color: black;"><b style="color: black;">{{ recruitment_data.description1 }}</b></p>
+                    <p class="fadeInUp wow" data-wow-duration="1s"data-wow-delay="0.3s" style="text-align: justify; padding: 3px;"><b style="color: black;">{{ recruitment_data.description2 }}</b></p>
+                </div>
+
+                <div class="col-md-6">
+                    <img src="{{ recruitment_data.image.url }}" class="mhcard-img fadeInUp wow" data-wow-duration="1s"data-wow-delay="0.3s" alt="">
+                </div>
+
+            </div>
+        </div>
+    {% endfor %}<br><br><br>
+
+    {% for i in k1 %}
+
+    <div class="mhcard mhcard-usecases mds1" onmouseover="hoverCardMore(this)" onmouseout="unhoverCardMore(this)">
+        <div class="row d-flex justify-content-center align-items-center">
+            <div class="content-wrapper col-md-6">
+                <p class="d-flex align-items-center fadeInUp top-image wow" data-wow-duration="1s"data-wow-delay="0.3s" style="text-align: justify; padding: 3px;color: black;"><b style="color: black;font-size: xx-large;">{{ i.title }}</b></p>
+                <p class="d-flex align-items-center fadeInUp top-image wow" data-wow-duration="1s"data-wow-delay="0.3s" style="text-align: justify; padding: 3px;color: black;"><b style="color: black;">{{ i.description }}</b></p>
+            </div>
+            <div class="col-md-6">
+                <img src="{{ i.image.url }}"  class="mhcard-img fadeInUp top-image wow" data-wow-duration="1s"data-wow-delay="0.3s" class="mhcard-img" alt="" >
+            </div>
+            <a href="/subscription/">Click on Here</a></b></p>
+
+        </div>
+    </div>
+
+
+    {% endfor %}<br><br><br>
+    <br><br>
+
+
+    {% for i in k1 %}
+
+    <div class="mhcard mhcard-usecases mds1" onmouseover="hoverCardMore(this)" onmouseout="unhoverCardMore(this)">
+        <div class="row d-flex justify-content-center align-items-center">
+            <div class="content-wrapper col-md-6">
+                <p class="d-flex align-items-center fadeInUp top-image wow" data-wow-duration="1s"data-wow-delay="0.3s" style="text-align: justify; padding: 3px;color: black;"><b style="color: black;font-size: xx-large;">{{ i.title1 }}</b></p>
+                <p class="d-flex align-items-center fadeInUp top-image wow" data-wow-duration="1s"data-wow-delay="0.3s" style="text-align: justify; padding: 3px;color: black;"><b style="color: black;">{{ i.description1 }}</b></p>
+            </div>
+            <div class="col-md-6">
+                <img src="{{ i.image1.url }}"  class="mhcard-img fadeInUp top-image wow" data-wow-duration="1s"data-wow-delay="0.3s" class="mhcard-img" alt="" >
+            </div>
+            <a href="/subscription/">Click on Here</a></b></p>
+
+        </div>
+    </div>
+
+
+    {% endfor %}<br><br><br>
+    <br><br>
+
+    {% for i in k1 %}
+
+    <div class="mhcard mhcard-usecases mds1" onmouseover="hoverCardMore(this)" onmouseout="unhoverCardMore(this)">
+        <div class="row d-flex justify-content-center align-items-center">
+            <div class="content-wrapper col-md-6">
+                <p class="d-flex align-items-center fadeInUp top-image wow" data-wow-duration="1s"data-wow-delay="0.3s" style="text-align: justify; padding: 3px;color: black;"><b style="color: black;font-size: xx-large;">{{ i.title2 }}</b></p>
+                <p class="d-flex align-items-center fadeInUp top-image wow" data-wow-duration="1s"data-wow-delay="0.3s" style="text-align: justify; padding: 3px;color: black;"><b style="color: black;">{{ i.description2 }}</b></p>
+            </div>
+            <div class="col-md-6">
+                <img src="{{ i.image2.url }}"  class="mhcard-img fadeInUp top-image wow" data-wow-duration="1s"data-wow-delay="0.3s" class="mhcard-img" alt="" >
+            </div>
+            <a href="/subscription/">Click on Here</a></b></p>
+
+        </div>
+    </div>
+
+
+    {% endfor %}<br><br><br>
+    <br><br>
+    
+    <center><h1>Hiring Companies</h1></center>
+    <div class="data-container">
+        <div class="carousel-container">
+            <div class="searched-jobs">
+                <div class="searched-bar">
+                </div>
+                <div class="job-cards-wrapper">
+                    {% for data in form_data %}
+                    <div class="job-card">
+                        <div class="job-card-header">
+                            <div class="job-card-header-content">  
+                                <img src="{{ data.image1.url }}" style="width: 40px;height: 40px;">
+                                <div class="job-card-company">{{ data.companyid.organizationname }}</div>
+                                <div class="job-card-created-at">{{ data.created_at }}</div>
+                            </div>
+
+                        </div>
+                        <div class="job-card-title">Job Title : {{ data.job_title }}</div>
+                        <div class="job-card-subtitle">Department : {{ data.department }}</div> 
+                        <div class="job-card-subtitle">Openings : {{ data.openings }} </div> 
+                        <div class="job-card-location">location : {{ data.location }}</div>
+                        <!-- <div class="job-card-location">skills : {{ data.skills }}</div>
+                        <div class="job-card-location">work_experience : {{ data.work_experience }}</div>
+                        <div class="job-card-location">education : {{ data.education }}</div> -->
+
+                       
+                        <div class="job-card-buttons">
+                            <a href="{% url 'job_application' companyid=data.companyid.pk %}"><button class="search-buttons card-buttons">Apply Now</button></a>
+                            <button class="search-buttons card-buttons-msg" onclick="openJobDescription('{{ data.count }}', '{{ data.skills }}', '{{ data.work_experience }}', '{{ data.education }}')">Job Description</button>
+                        </div>
+
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    <div id="jobDescriptionModal" class="modal">
+        <div class="modal-content ft" style="background-color: #007bff;color: white;width: 60%;">
+            <span class="close" onclick="closeJobDescriptionModal()">&times;</span>
+            <h2 style="color: white;">Job Description</h2>
+            <p id="jobDescriptionText" style="color: white;"></p>
+        </div>
+    </div>
+    <br>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+ $(document).ready(function() {
+    var carousel = $(".job-cards-wrapper");
+    var cardWidth = $(".job-card").outerWidth();
+    var scrollAmount = cardWidth + 20;
+    
+    function startCarousel() {
+        setInterval(function() {
+            carousel.animate({marginLeft: -scrollAmount}, 7000, function() {
+                $(this).find(".job-card:first").appendTo($(this));
+                $(this).css({marginLeft: 0});
+            });
+        }, 6000); 
+    }
+    
+    startCarousel();
+});
+
+</script>
+
+<script>
+    function openJobDescription(count, skills, work_experience, education) {
+        var modal = document.getElementById('jobDescriptionModal');
+        var descriptionText = document.getElementById('jobDescriptionText');
+    
+        var text = `
+            <p style="color:white"><strong>Discription:</strong> ${count}</p>
+            <p style="color:white"><strong>Skills:</strong> ${skills}</p>
+            <p style="color:white"><strong>Work Experience:</strong> ${work_experience}</p>
+            <p style="color:white"><strong>Education:</strong> ${education}</p>
+        `;
+    
+        descriptionText.innerHTML = text;
+        
+        modal.style.display = 'block';
+    }
+    
+    function closeJobDescriptionModal() {
+        var modal = document.getElementById('jobDescriptionModal');
+        modal.style.display = 'none';
+    }
+    </script>
+
+<script>
+         
+    function hoverCard(card) {
+        card.style.transform = 'scale(1.05)';
+        card.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.3)';
+    }
+
+    function unhoverCard(card) {
+        card.style.transform = 'scale(1)';
+        card.style.boxShadow = 'none';
+    }
+
+    function hoverCardMore(card) {
+        card.classList.add('mhcard-hovered-more');
+    }
+
+    function unhoverCardMore(card) {
+        card.classList.remove('mhcard-hovered-more');
+    }
+
+    function hoverUseCaseCard(card) {
+        card.classList.add('use-case-card-hovered');
+    }
+
+    function unhoverUseCaseCard(card) {
+        card.classList.remove('use-case-card-hovered');
+    }
+
+</script>
+    
+</body>
+
+</html>
+
+{% endblock main_content %}
+
+
+
+

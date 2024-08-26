@@ -1,0 +1,482 @@
+{% extends 'admin-template/base_template.html' %}
+
+{% block main_content %}
+<html>
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <!-- Add other necessary styles and scripts here -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+   
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+
+   <style>
+        /* Add your custom CSS styles here */
+        body {
+            /* color: white; */
+            background-color: rgb(239, 239, 247);
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: rgb(239, 239, 247); /* Even row color */
+        }
+
+        tbody tr:nth-child(odd) {
+            background-color: rgb(238,242,244); /* Odd row color */
+        }
+
+
+        .pagination {
+            margin: 20px 0;
+            text-align: center;
+          }
+          
+          /* .pagination a, .pagination .current-page {
+            display: inline-block;
+            padding: 8px 12px;
+            text-decoration: none;
+            margin: 0 4px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+          }
+           */
+
+
+           .pagination a, .pagination .current-page {
+    display: inline-block;
+    padding: 8px 12px;
+    text-decoration: none;
+    margin: 0 4px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    transition: background-color 0.3s;
+    text-align: center;
+}
+.act{
+  /* background-color: orange; */
+  color: white;
+  height:43px;
+  width:43px;
+  border-radius: 20px;
+
+}
+
+
+    </style>
+</head>
+<body>
+    <h3><a  href="/reports/">Reports</a><b style="color: black;">| Missing Information</b></h3>
+    <div id="message">
+        {% if messages %}
+    {% for message in messages %}
+    {% if message.tags == 'error' %}
+    <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+    {% endif %}
+    {% if message.tags == 'success' %}
+    <div class="alert alert-success" style="margin-top:20px;background-color:green;color: whitesmoke;">{{ message }}</div>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+    </div>
+    <script>
+        $("#message").show()
+        setTimeout(function() {
+            $("#message").hide()
+        },5000)
+    </script>
+<form method="post">
+    {% csrf_token %}
+    <div class="table-responsive">
+    <table id="myTable" border="2" style=" width: 80%; border: none; color: white;">
+        <thead style="background-color: black; height: 80px;">
+        <tr>
+            <th style="padding: 10px; padding-left: 30px; font-size: larger;">
+                <input type="checkbox" id="selectAll" style="width: 15px; height: 15px; margin-right: 30px;">Select Employee Name
+            </th>
+            <th style="padding: 10px; font-size: larger;">Missing Information</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for employee_info in employee_data %}
+        {% with employs_missing_info=employee_info.employs.missing_info %}
+        {% with empdocs_missing_info=employee_info.empdocs_info.0.missing_info %}
+        {% with employ_add_form_missing_info=employee_info.employ_add_form_info.missing_info %}
+        {% if employs_missing_info or empdocs_missing_info or employ_add_form_missing_info %}
+        <tr>
+            <td style="padding: 10px; padding-left: 30px; font-size: 20px;color: black;">
+                <input type="checkbox" name="selected_employees" value="{{ employee_info.employs.id }}" style="width: 15px; height: 15px; margin-right: 30px;">
+                {{ employee_info.employs.first_name }}.{{ employee_info.employs.last_name }}
+            </td>
+            <td style="padding: 10px; font-size: 20px;color: black;">
+                
+
+                {% if employee_info.employs.email  %}
+               
+                {% else %}
+                Email,
+                {% endif %}
+                {% if employee_info.employs.web_mail %}
+               
+                {% else %}
+                WebMail,
+                {% endif %}
+
+                {% if employee_info.employs.username %}
+               
+                {% else %}
+                username,
+                {% endif %}
+
+               
+                {% if employee_info.employs.gender %}
+               
+                {% else %}
+                Gender,
+                {% endif %}
+
+                {% if employee_info.employs.profile_pic %}
+               
+                {% else %}
+                Profile pic,
+                {% endif %}
+
+                {% if employee_info.employs.address %}
+               
+                {% else %}
+                Address,
+                {% endif %}
+
+
+                {% if employee_info.employs.empid %}
+               
+                {% else %}
+                EmpId,
+                {% endif %}
+
+
+                {% if employee_info.employs.dateofjoining %}
+               
+                {% else %}
+                DateofJoining,
+                {% endif %}
+
+
+                {% if employee_info.employs.designation %}
+               
+                {% else %}
+                Designation,
+                {% endif %}
+
+                {% if employee_info.employs.location %}
+               
+                {% else %}
+                Location,
+                {% endif %}
+
+
+                {% if employee_info.employs.package %}
+               
+                {% else %}
+                Package,
+                {% endif %}
+
+                {% if employee_info.employs.pincode %}
+               
+                {% else %}
+                Pincode,
+                {% endif %}
+
+                {% if employee_info.employs.contactno %}
+               
+                {% else %}
+                ContactNumber,
+                {% endif %}
+
+
+                {% if employee_info.employs.bloodgroup %}
+               
+                {% else %}
+                BloodGroup,
+                {% endif %}
+
+                {% if employee_info.employs.role %}
+               
+                {% else %}
+                Role,
+                {% endif %}
+
+                {% if employee_info.employs.dateofbirth %}
+               
+                {% else %}
+                DateOfBirth
+                {% endif %}
+
+
+
+            </td>
+        </tr>
+        {% endif %}
+        {% endwith %}
+        {% endwith %}
+        {% endwith %}
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+    <br>
+
+    <button style="font-size: 15px; padding: 10px;" type="submit" class="btn btn-primary">SEND EMAILS</button>
+
+  </form>
+ {% comment %} <div style="display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; background-color: #1e2442; padding: 10px;">
+    <button id="prevPage" style="background-color: #393f5c; color: white; border: none; padding: 8px 16px; border-radius: 4px;">Previous</button>
+    <span id="currentPage" class="btns" style="color: white; font-weight: bold;">Page 1</span>
+    <button id="nextPage" style="background-color: #393f5c; color: white; border: none; padding: 8px 16px; border-radius: 4px;">Next</button>
+  </div>  {% endcomment %}
+
+
+
+  <!-- <div class="pagination d-flex justify-content-center" style="color:white ;padding-left: 24px;" >
+    <span class="step-links">
+        {% if  employees_data.has_previous %}
+            <a href="?page=1">&laquo; First</a>
+            <a href="?page={{ employees_data.previous_page_number }}" class="prev">&#8249; << </a>
+        {% endif %}
+
+        {% for page in  employees_data.paginator.page_range %}
+            <a href="?page={{ page }}" {% if page ==  employees_data.number %}class="active"{% endif %}>{{ page }}</a>
+        {% endfor %}
+
+        {% if  employee_data.has_next %}
+            {% if pemployees_data.number != employees_data.paginator.num_pages %}
+   
+            {% endif %}
+            <a href="?page={{  employees_data.paginator.num_pages }}">&raquo; >> </a>
+        {% endif %}
+    </span>
+</div> -->
+
+<!-- <div class="text-center" style="color: white;">
+    {% if employees_data.number|add:'-5' > 1 %}
+          <a class="btn btn-info bi bi-arrow-left "  style="border-radius: 20px;" href="?page={{ employees_data.number|add:'-5' }}"></a>
+          {% endif %}
+
+          {% for i in employees_data.paginator.page_range %}
+          {% if employees_data.number == i %}
+          <button class="active btn btn-info"  style="border-radius: 20px;"><span>{{ i }} <span class="sr-only">(current)</span></span></button>
+          {% elif i > employees_data.number|add:'-3' and i < employees_data.number|add:'3' %}
+              <a class="btn btn-info"  style="border-radius: 20px;" href="?page={{ i }}">{{ i }}</a>
+          {% endif %}
+          {% endfor %}
+
+          {% if employees_data.paginator.num_pages > employees_data.number|add:'1' %}
+          <a class="btn btn-info bi bi-arrow-right" style="border-radius: 20px;" href="?page={{ employees_data.number|add:'5' }}"></i></a>
+          {% endif %}
+          
+</div> -->
+
+<div class="pagination" style="color:white; margin:20px auto;">
+    <span class="step-links">
+        {% if employee_data.has_previous %}
+            <a  href="?page=1">&laquo;<<</a>
+            <a   href="?page={{ employees_data.previous_page_number }}" class="prev"> < </a>
+        {% endif %}
+
+
+        {% for i in employee_data.paginator.page_range %}
+        {% if employee_data.number == i %}
+        <button class="active act bg-info"><span>{{ i }} <span class="sr-only">(current)</span></span></button>
+        {% elif i > employee_data.number|add:'-3' and i < employee_data.number|add:'3' %}
+            <a  href="?page={{ i }}">{{ i }}</a>
+        {% endif %}
+        {% endfor %}
+
+       
+
+        {% if employees_data.has_next %}
+            {% if employee_data.number != employee_data.paginator.num_pages %}
+            {% endif %}
+            <a   href="?page={{ employee_data.next_page_number }}" class="prev">> </a>
+
+            <a  href="?page={{ employee_data.paginator.num_pages }}">>>&raquo; </a>
+        {% endif %}
+    </span>
+</div>   
+
+<script>
+    $(document).ready(function () {
+        $("#name-search, #date-search").on("keyup change", function () {
+            var nameValue = $("#name-search").val().toLowerCase();
+            var dateValue = $("#date-search").val();
+
+            $("#myTable tbody tr").filter(function () {
+                var nameMatch = $(this).text().toLowerCase().indexOf(nameValue) > -1;
+                var dateCell = $(this).find("td:eq(4)").text(); // Index 4 corresponds to the Date column
+                var dateMatch = dateValue === "" || dateCell === dateValue;
+
+                $(this).toggle(nameMatch && dateMatch);
+            });
+        });
+    });
+</script>  
+
+  <script>
+    var currentPage = 1; // Initialize the current page
+    var currentFilter = "all"; // Initialize the current filter (all/employees/dismissed)
+  
+    // Functions for filtering data
+    function showAllRows() {
+        currentFilter = "all";
+        showPage(1);
+    }
+  
+    function showActiveEmployees() {
+        currentFilter = "employees";
+        showPage(1);
+    }
+  
+    function showDismissedEmployees() {
+        currentFilter = "dismissed";
+        showPage(1);
+    }
+  
+    function showPage(pageNumber) {
+        var rowsPerPage = 10; // Number of rows to display per page
+        var table = document.getElementById("myTable");
+        var rows = table.rows;
+        
+        for (var i = 1; i < rows.length; i++) {
+            var is_active = rows[i].getAttribute("data-is-active");
+            if ((currentFilter === "all") ||
+                (currentFilter === "employees" && is_active === "True") ||
+                (currentFilter === "dismissed" && is_active === "False")) {
+                if (i >= (pageNumber - 1) * rowsPerPage + 1 && i <= pageNumber * rowsPerPage) {
+                    rows[i].style.display = ""; // Display rows within the current page range
+                } else {
+                    rows[i].style.display = "none"; // Hide rows outside the current page range
+                }
+            } else {
+                rows[i].style.display = "none"; // Hide rows that don't match the current filter
+            }
+        }
+        
+        // Update the current page indicator
+        document.getElementById("currentPage").textContent = "Page " + pageNumber;
+        currentPage = pageNumber;
+    }
+  
+    function nextPage() {
+        if (currentPage < totalPageCount()) {
+            showPage(currentPage + 1);
+        }
+    }
+  
+    function prevPage() {
+        if (currentPage > 1) {
+            showPage(currentPage - 1);
+        }
+    }
+  
+    function totalPageCount() {
+        var rowsPerPage = 10; // Number of rows to display per page
+        var table = document.getElementById("myTable");
+        var totalRows = table.rows.length - 1; // Exclude the header row
+        return Math.ceil(totalRows / rowsPerPage);
+    }
+  
+    // Initialize pagination on page load
+    showPage(1);
+  
+    // Attach event listeners to the Previous and Next buttons
+    document.getElementById("prevPage").addEventListener("click", prevPage);
+    document.getElementById("nextPage").addEventListener("click", nextPage);
+  </script>
+
+
+
+
+<script>
+  $(document).ready(function () {
+      // When the "Select Employee Name" checkbox is clicked
+      $("#selectAll").click(function () {
+          // Get whether it is checked or not
+          var isChecked = $(this).prop("checked");
+
+          // Set all checkboxes in the table body to the same state as the header checkbox
+          $("tbody input[type='checkbox']").prop("checked", isChecked);
+      });
+  });
+</script>
+</body>
+</html>
+{% endblock main_content %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+<script>
+
+  function validateForm() {
+    var checkboxes = document.getElementsByName("selected_employees");
+    var checkedCount = 0;
+    for (var i = 0; i < checkboxes.length; i++) {
+        if (checkboxes[i].checked) {
+            checkedCount++;
+        }
+    }
+
+    var modal = document.getElementById("sendEmailModal");
+    var modalMessage = document.getElementById("modal-message");
+
+    if (checkedCount == 0) {
+        No checkboxes selected, show the error message
+        modalMessage.textContent = "Please select at least one employee.";
+        modal.querySelector("#send-button").disabled = true;
+        $('#sendEmailModal').modal('show'); // Show the modal
+    } else {
+        At least one checkbox selected, proceed with form submission
+        modalMessage.textContent = "Are you sure you want to send the email to selected employees ?";
+        modal.querySelector("#send-button").disabled = false;
+        $('#sendEmailModal').modal('show'); // Show the modal
+    }
+}
+
+</script>
+
+Modal
+<div class="modal fade" id="sendEmailModal" tabindex="-1" role="dialog" aria-labelledby="sendEmailModalLabel" aria-hidden="true"class="btn btn-primary" onclick="validateForm()">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="background-color: #2e3a5f;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="sendEmailModalLabel">Send Email</h5>
+        <button type="button" style="color: rgb(241, 100, 100); font-size: 30px;" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+      </button>
+            </div>
+      <div class="modal-body">
+        <p id="modal-message" style="color: white;font-size: larger;"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" style="width: 100px;" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="submit" style="width: 100px;color: white;" class="btn " id="send-button" disabled>Send</button>
+      </div>
+    </div>
+  </div>
+</div> -->

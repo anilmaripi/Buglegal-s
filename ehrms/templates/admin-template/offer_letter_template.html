@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Offer Letter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            color: black;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        .header, .footer {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            margin-bottom: 10px;
+        }
+        .header p {
+            margin: 5px 0;
+        }
+        .content {
+            margin-top: 20px;
+        }
+        .content p {
+            margin-bottom: 15px;
+        }
+        .content .signature {
+            margin-top: 40px;
+        }
+
+        .footer p {
+            font-size: 0.8em;
+            color: #555;
+        }
+        .section-title {
+            font-weight: bold;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="offer-letter">
+        <div class="header">
+            <h1>{{ company_name }}</h1>
+            <p>Address Line 1, City, State, Zip</p>
+            <p>Contact Information: (123) 456-7890 | info@company.com</p>
+            <p style="margin-left: 490px;"><strong>Release Date:</strong> {{ offer_letter_release_date }}</p>
+        </div>
+        <div class="content">
+            <p>{{ current_date }}</p>
+            <p>Dear {{ name }},</p>
+            
+            <p>
+                We thank you for deciding to be a part of the {{ company_name }} family.
+            </p>
+            <p>
+                Congratulations and welcome onboard a dynamic and winning team!
+            </p>
+            <p>
+                Further to your acceptance of the offer letter dated {{ offer_date }}, we are pleased to confirm your appointment as {{ designation }} for our {{ department_name }} at {{ location }} in {{ company_name }}.
+            </p>
+            <p>
+                <strong>Position:</strong> {{ position  }}<br>
+                <strong>Salary:</strong> {{ salary }} per annum<br>
+                <strong>Joining Date:</strong> {{ joining_date }}<br>
+                <strong>Acceptance Date:</strong> {{ acceptance_date }}
+            </p>
+            <p class="section-title">Commencement of employment:</p>
+            <p>
+                You have joined our services on {{ joining_date }} and the said date has been recorded as your Date of Joining and will be considered as such for all future purposes pertaining to your employment/association with us.
+            </p>
+            <p class="section-title">Compensation & Benefits:</p>
+            <p>
+                Please refer to Annexure I, for details of your remuneration and benefits as applicable to you. The aforesaid CTC is subject to applicable taxes and statutory deductions that may prevail from time to time.
+            </p>
+            
+            <p class="section-title">Retirement:</p>
+            <p>
+                Your retirement from the services of the company will be on attainment of the age of 60 years.
+            </p>
+            <p class="section-title">Governing Terms & Conditions:</p>
+            <p>
+                You will be governed by the clauses mentioned in your Service Agreement, TCOC (Tata Code of Conduct), company HR policies and POSH (Prevention of Sexual Harassment) at all points of time during your tenure of employment with the company. Please note that the appointment is subject to the background/document verification. Please note that failure to adhere to these norms, may lead to immediate termination from the services of the company.
+            </p>
+            
+            <p class="section-title">Declarations:</p>
+
+            <p>
+                This appointment is made on the basis of information provided by you. Should it prove untrue/incorrect at any time, the Company reserves the rights to take appropriate action including forthwith termination of service. We shall be entitled to initiate necessary enquiries with the source of reference provided by you. In case of unfavorable report, we shall be entitled to take appropriate steps including forthwith terminating this agreement.
+            </p>
+
+            <p>
+                Wish you a successful professional stint with us. We look forward to a mutually beneficial and enriching experience having you on board. All the best!
+            </p>
+
+            {% if additional_details %}
+                <p class="section-title">Additional Details</p>
+                {% for title, description in additional_details %}
+                    <p>
+                        <strong>{{ title }}:</strong> {{ description }}
+                    </p>
+                {% endfor %}
+            {% endif %}
+            <p>Warm Regards,</p>
+            <p>{{ company_name }}</p>
+            <div class="signature">
+                <p>_____________________</p>
+                <p>{{ name }}</p>
+                <p>Employee Code: {{ employee_code }}</p>
+                <p>Encl: 1) Service Agreement</p>
+            </div>
+        </div>
+        <div class="footer">
+            <p>Company Address | Contact Information</p>
+        </div>
+    </div>
+</body>
+</html>

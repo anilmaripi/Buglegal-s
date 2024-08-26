@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TimeAttendance4</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tbody tr:hover {
+            background-color: #f9f9f9;
+        }
+
+        img {
+            max-width: 100px;
+            max-height: 100px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        td:last-child a {
+            text-decoration: none;
+            margin-right: 5px;
+            color: #007bff;
+        }
+
+        td:last-child a:hover {
+            color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<h2>TimeAttendance4</h2>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>Title1</th>
+            <th>Image</th>
+            <th>Title2</th>
+            <th>Description</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Your Django template loop -->
+        <!-- Assuming 'projects3' is your Django context variable -->
+        {% for project in projects3 %}
+        <tr>
+            <td>{{ project.title1 }}</td>
+            <td><img src="{{ project.image.url }}" alt="#" style="width: 100%;"></td>
+            <td>{{ project.title2 }}</td>
+            <td>{{ project.discription }}</td>
+            <td>
+                <a href="{% url 'timeattendance4_update' pk=project.pk %}">Edit</a> |
+                <a href="{% url 'timeattendance4_delete' pk=project.pk %}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+</body>
+</html>

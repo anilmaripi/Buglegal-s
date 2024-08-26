@@ -1,0 +1,340 @@
+{% extends 'employ-template/base_template.html' %}
+
+{% block main_content %}
+
+<style>
+#selected-employees-list li {
+    display: inline-block;
+    margin-right: 10px;
+    flex: 1;
+    row-gap: 50px;
+    padding-left: 30px;
+}
+
+#selected-employees-list .grid-item:nth-child(odd) {
+    padding-left: 50px;
+}
+
+#employee-select {
+  width: 100%;
+  max-width: 1200px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f8f8f8;
+  font-size: 16px;
+  color: #333;
+}
+
+#employee-select option {
+  padding: 5px;
+  background-color: #fff;
+  color: #333;
+}
+
+#employee-select option:checked {
+  background-color: #3498db;
+  color: #fff;
+}
+
+#employee-select option:hover {
+  background-color: #f0f0f0;
+  cursor: pointer;
+}
+
+#employee-select::-ms-expand {
+  display: none;
+}
+
+#employee-select::after {
+  content: '\25BC';
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.selected-option {
+    background-color: yellow !important;
+}
+</style>
+
+<div class="row align-items-center d-flex justify-content-center">
+    <div class="col-12 mb-4">
+        <div style="background-color: #242b4d;" class="card border-light shadow-sm components-section align-items-center d-flex justify-content-center">
+            <div class="card-body align-items-center d-flex justify-content-center">
+                <div class="row mb-4">
+                    <div class="col-lg-12 col-sm-16">
+                        <div class="col-lg-12 col-sm-16">
+                            <h3 class="h3 text-center">Add Project</h3>
+                        </div>
+                    </div>
+                    <center>
+                        <lottie-player src="https://assets8.lottiefiles.com/packages/lf20_cwA7Cn.json"
+                            background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay>
+                        </lottie-player>
+                    </center>
+                    <div class="card-body">
+                        <form id="addProjectForm" action="/create-proj1/" method="POST">
+                            {% csrf_token %}
+                            <div class="mb-4">
+                                <div class="form-group">
+                                    <label class="h6" for="exampleFormControlTextarea1">Project Name:</label>
+                                    <select name="p_name" class="form-control" required>
+                                        <option disabled selected>Select Project</option>
+                                        {% for i in pname %}
+                                        <option value="{{ i.project_name }}">{{ i.project_name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <br>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="h6">Select the Role:</label><br>
+                                    {% for department in departments %}
+                                        <div class="form-check">
+                                            <input class="form-check-input team-lead-checkbox" type="checkbox" name="team_lead[]" id="department_{{ department.designation_employ__designation_name }}" value="{{ department.designation_employ__designation_name }}">
+                                            <label class="form-check-label" for="department_{{ department.designation_employ__designation_name }}">
+                                                {{ department.designation_employ__designation_name }}
+                                            </label>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="h6" for="exampleFormControlTextarea1">Project Description:</label>
+                                    <textarea name="p_desc" class="form-control" placeholder="Project Description"
+                                        rows="6" required></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label class="h6" for="team_lead_select1">Project Team Lead:</label>
+                                    <select name="team_lead" id="team_lead_select1" class="form-control" required>
+                                        <option value="0" selected>Select</option>
+                                    </select>
+                                </div>
+
+                                <h2>Select Team Members</h2>
+                                <select id="employee-select" name="employee_select" class="custom-select" multiple>
+                                </select>
+                                <div id="hidden-input-container"></div>
+
+                                <h2>Selected Team Members</h2>
+                                <div class="card alert-purple" style="height: 200px; overflow-y: scroll;">
+                                    <ul id="selected-employees-list" style="list-style-type: none; padding: 0; color: black;">
+                                        <!-- Selected employees will be listed here as list items -->
+                                    </ul>
+                                </div>
+
+                                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                                <script>
+                                    $(document).ready(function() {
+                                        var previouslySelectedEmployees = {};
+
+                                        function updateEmployeeOptions(department, appendOnly) {
+                                            $.ajax({
+                                                url: `/get_teamb/${department}/`,
+                                                method: 'GET',
+                                                dataType: 'json',
+                                                success: function(data) {
+                                                    data.team_members.forEach(function(member) {
+                                                        var optionExists = $('#employee-select option[value="' + member.id + '"]').length > 0;
+                                                        if (!optionExists || appendOnly) {
+                                                            var teamLeadOption = `<option value="${member.id}">${member.name}</option>`;
+                                                            var employeeOption = `<option value="${member.id}" ${previouslySelectedEmployees[member.id] ? 'style="background-color: lightgreen;"' : ''}>${member.name}</option>`;
+
+                                                            if (!optionExists) {
+                                                                $('#employee-select').append(employeeOption);
+                                                            } else if (previouslySelectedEmployees[member.id]) {
+                                                                $('#employee-select option[value="' + member.id + '"]').css('background-color', 'lightgreen');
+                                                            }
+
+                                                            $('#team_lead_select1').append(teamLeadOption);
+                                                        }
+                                                    });
+                                                },
+                                                error: function() {
+                                                    console.log('Error fetching team members');
+                                                }
+                                            });
+                                        }
+
+                                        $('.team-lead-checkbox').change(function() {
+                                            var selectedDepartments = $('.team-lead-checkbox:checked').map(function() {
+                                                return $(this).val();
+                                            }).get();
+
+                                            var teamLeadSelect = $('#team_lead_select1');
+                                            var employeeSelect = $('#employee-select');
+
+                                            teamLeadSelect.empty();
+                                            employeeSelect.empty();
+
+                                            teamLeadSelect.append('<option value="0" selected>Select</option>');
+
+                                            selectedDepartments.forEach(function(department) {
+                                                updateEmployeeOptions(department, false);
+                                            });
+                                        });
+
+                                        const employeeSelect = document.getElementById("employee-select");
+                                        const selectedEmployeesList = document.getElementById("selected-employees-list");
+                                        const hiddenInputContainer = document.getElementById("hidden-input-container");
+
+                                        employeeSelect.addEventListener("change", function() {
+                                            const selectedOptions = Array.from(this.selectedOptions);
+
+                                            selectedOptions.forEach(function(option) {
+                                                const employeeId = option.value;
+                                                const employeeName = option.textContent;
+
+                                                if (!document.querySelector(`li[data-employee-id="${employeeId}"]`)) {
+                                                    const listItem = document.createElement("li");
+                                                    listItem.dataset.employeeId = employeeId;
+                                                    listItem.innerHTML = `- ${employeeName} <button class="remove-item btn btn-danger">Remove</button>`;
+                                                    listItem.style.backgroundColor = "lightgreen";
+
+                                                    listItem.querySelector(".remove-item").addEventListener("click", function() {
+                                                        removeEmployee(employeeId);
+                                                        option.selected = false;
+                                                        option.style.backgroundColor = "";  // Reset background color
+                                                    });
+
+                                                    selectedEmployeesList.append(listItem);
+                                                    option.style.display = "none";
+
+                                                    var hiddenInput = `<input type="hidden" name="selected_employees[]" value="${employeeId}">`;
+                                                    hiddenInputContainer.innerHTML += hiddenInput;
+
+                                                    previouslySelectedEmployees[employeeId] = true;
+                                                }
+                                            });
+                                        });
+
+                                        function removeEmployee(employeeId) {
+                                            const listItem = document.querySelector(`li[data-employee-id="${employeeId}"]`);
+                                            if (listItem) {
+                                                listItem.remove();
+                                                delete previouslySelectedEmployees[employeeId];
+                                                document.querySelector(`input[name="selected_employees[]"][value="${employeeId}"]`).remove();
+                                            }
+                                        }
+
+                                        function moveEmployeeBack(employeeId) {
+                                            const option = document.querySelector(`#employee-select option[value="${employeeId}"]`);
+                                            if (option) {
+                                                option.style.display = "";
+                                                option.style.backgroundColor = "";  // Reset background color
+                                            }
+                                        }
+
+                                        selectedEmployeesList.addEventListener("click", function(event) {
+                                            if (event.target.classList.contains("remove-item")) {
+                                                const listItem = event.target.parentElement;
+                                                const employeeId = listItem.dataset.employeeId;
+                                                removeEmployee(employeeId);
+                                                moveEmployeeBack(employeeId);
+                                                listItem.remove();
+                                            }
+                                        });
+
+                                        $('#team_lead_select1').change(function() {
+                                            var selectedLeadId = $(this).val();
+                                            if (selectedLeadId != '0') {
+                                                $('#employee-select option').each(function() {
+                                                    if ($(this).val() == selectedLeadId) {
+                                                        $(this).hide();
+                                                    } else {
+                                                        $(this).show();
+                                                    }
+                                                });
+                                            }
+                                        });
+
+                                        function validateForm() {
+                                            var projectName = $('select[name="p_name"]').val();
+                                            var projectDescription = $('textarea[name="p_desc"]').val();
+                                            var teamLead = $('#team_lead_select1').val();
+                                            var selectedEmployees = $('#selected-employees-list li').length;
+
+                                            $('.error-message').remove();
+
+                                            var isValid = true;
+
+                                            if (projectName === '0') {
+                                                $('select[name="p_name"]').after('<div class="error-message" style="color: red;">Please select a project name.</div>');
+                                                isValid = false;
+                                            }
+
+                                            if (!projectDescription) {
+                                                $('textarea[name="p_desc"]').after('<div class="error-message" style="color: red;">Please enter a project description.</div>');
+                                                isValid = false;
+                                            }
+
+                                            if (teamLead === '0') {
+                                                $('#team_lead_select1').after('<div class="error-message" style="color: red;">Please select a team lead.</div>');
+                                                isValid = false;
+                                            }
+
+                                            if (selectedEmployees === 0) {
+                                                $('#selected-employees-list').after('<div class="error-message" style="color: red;">Please select at least one employee.</div>');
+                                                isValid = false;
+                                            }
+
+                                            return isValid;
+                                        }
+
+                                        $('#addProjectForm').submit(function(event) {
+                                            if (!validateForm()) {
+                                                event.preventDefault();
+                                            }
+                                        });
+
+                                        $('select[name="p_name"]').change(function() {
+                                            $('.error-message').remove();
+                                        });
+
+                                        $('textarea[name="p_desc"]').change(function() {
+                                            $('.error-message').remove();
+                                        });
+
+                                        $('#team_lead_select1').change(function() {
+                                            $('.error-message').remove();
+                                        });
+                                    });
+                                </script>
+
+                                <div class="form-group">
+                                    <label for="task-name">Project Deadline Date</label>
+                                    <input type="date" name="project_deadline_date" class="form-control" id="date" required>
+                                </div>
+                                <script>
+                                    var today = new Date().toISOString().split('T')[0];
+                                    document.getElementById("date").min = today;
+                                </script>
+
+                                <input type="submit" class="btn btn-primary" value="Add">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+<script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+<script type="text/javascript">
+    window.onload = function() {
+        Calendly.initBadgeWidget({
+            url: 'https://calendly.com/ssvdpavankumar16/30min',
+            text: 'Schedule time with me',
+            color: '#0069ff',
+            textColor: '#ffffff',
+            branding: true
+        });
+    }
+</script>
+
+{% endblock main_content %}
+

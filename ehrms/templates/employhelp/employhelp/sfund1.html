@@ -1,0 +1,35 @@
+
+{% extends 'employhelp/basehelp.html' %}
+{% block main_content %}
+<style>
+    h5{
+        font-size: medium;
+    }
+</style>
+<form>
+    <p id="ha1" style="font-size: xx-large;">How do we register our employees for PF?</p1>
+    
+    <p id="ta">XPayroll automatically handles your employee PF registration, assuming that you have XPayroll configured to handle your PF payments. This configuration can be seen under Settings > Payments & Compliance Setup.
+    </p><br>
+    
+    <p id="tb">If you want to register an employee for PF, please follow these steps -</p><br>
+    <p id="tc">1.If not already done, add the employee to XPayroll from the People page.<br> 
+
+        2.Go to the employee's profile, and edit the Provident Fund, Professional Tax & ESI section.<br> 
+        
+        3.Under PF Status, please select Opt In. Enter the UAN (if the employee already has<br> 
+        one) and press Continue.<br>
+        
+        4.Follow the rest of the instructions and provide the required data so that we can<br>
+         complete the employee registration.</p><br>
+    
+    <p id="td">After receiving your PF registration request, the PF status of the employee will change to "registration pending". Once we have registered the employee, the status will change to "enabled".</p><br>
+          <center><button style="width:50%;height: auto;font-size: x-large;border: 2px solid whitesmoke;">
+            <div id="a">
+                <p id="section10" style="text-align: center;">Did this answer your question?</p>
+                <p><a class="ex1" style="text-decoration: none;color: black;"><center>😄 😶 😔</center></a> </p>
+            </div>
+        </button></center><br><br><br>  
+        
+    </form>
+    {% endblock main_content %}

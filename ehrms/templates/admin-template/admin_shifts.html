@@ -1,0 +1,93 @@
+
+{% extends 'admin-template/base_template.html'%}
+{% block main_content %}
+
+<html>
+<head>
+    <title>shifts</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr@4.6.9/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.9/dist/flatpickr.min.js"></script>
+    <style>
+        body {
+            background-color: #1e2442;
+            color: white;
+            font-size: 16px;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Additional styles for mobile view */
+        @media screen and (max-width: 768px) {
+            /* Mobile styles here */
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #323a5f;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #393f5c;
+        }
+
+        /* Add more of your custom CSS here */
+    </style>
+</head>
+<body>
+<form method="POST">
+    {% csrf_token %}
+
+    <label style="font-size: 30px;">WE😍DEVELOPTREES</label><br><br>
+
+    <div class="form-group">
+        <label style="font-size:25px;">starting_time</label><br>
+        <input type="text" name="starting_time" required style="height:5%; font-size:large; width:20%; background-color:#3c3c5c; color:white;">
+      </div><br>
+
+    <div class="form-group">
+        <label style="font-size:25px;">ending_time</label><br>
+        <input type="text" name="ending_time" required style="height:5%; font-size:large; width:20%; background-color:#3c3c5c;color:white;">
+      </div><br>
+
+
+    <div class="form-group">
+        <label style="font-size:25px;">cutoff_time</label><br>
+        <input type="text" name="cutoff_time" required style="height:5%; font-size:large; width:20%; background-color:#3c3c5c; color:white;">
+      </div><br>
+
+    <div class="form-group">
+        <label style="font-size:25px;">shift_name</label><br>
+        <input type="text" name="shift_name" required style="height:5%; font-size:large; width:20%; background-color:#3c3c5c;color:white;">
+      </div><br>
+
+
+      <button type="submit" style="background-color: #5a99e8; color: white; font-size: 20px;">SUBMIT</button>
+
+
+
+</form>
+
+
+</body>    
+
+</html>
+
+
+
+
+{% endblock main_content %}

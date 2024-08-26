@@ -1,0 +1,156 @@
+{% extends 'admin-template/base_template.html' %}{% block main_content %}
+
+    <style>
+        .checkbox {
+  position: relative;
+  margin: 20px 0;
+}
+.checkbox { display: block; }
+
+.checkbox input {
+  position: absolute;
+  margin: 5px;
+  padding: 0;
+  /* for mobile accessibility (iOS Label Bug) */
+  visibility: hidden;
+}
+.checkbox .label-visible {
+  margin-left: 2em;
+  margin-bottom: 0;
+}
+
+.fake-checkbox{
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  border: 1px solid slategray;
+  background-color: white;
+}
+.fake-checkbox:after {
+  content: "";
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  background: navy;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+input[type="checkbox"]:checked + span .fake-checkbox:after { display: block; }
+
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            border: 1px solid #ddd;
+            padding: 10%;
+        }
+        
+        th, td {
+            padding: 6px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            font-size: 14px;
+        }
+
+        th {
+            background-color:#454c64;
+            color: white;
+        }
+        
+      
+        form{
+            width: 90%;
+            margin: auto;
+            padding: 5%;
+        }
+        button {
+            margin-right: 4px;
+        }
+    </style>
+
+    <form method="post" action="{% url 'reimbursement_update' %}" enctype="multipart/form-data">{% csrf_token %}
+        <h>Reimbursements Setup</h><br><br><br>
+        <div class="form-check">
+            <label class="form-check-label" style="color:white;">
+                <input type="checkbox" name="field_x_data" class="form-check-input">
+                Reimbursements Enabled
+            </label>
+        </div>
+        <br>
+        <div class="form-control" style="background-color: #282f51; color: white; width: auto; height: auto; border:none;">
+            <label>If you make attachments compulsory, then any reimbursement request<br>
+                will require an attachment</label>
+          </div>
+          <br>
+          <div class="form-check">
+            <label class="form-check-label" style="color:white;">
+                <input type="checkbox" name="field_y_data" class="form-check-input">
+                make Attachments compulsory
+            </label>
+        </div>
+        <br>
+        <div class="form-control" style="background-color: #282f51; color: white; width: auto; height: auto; border:none;">
+            <label>XPayroll can either automatically include reimbursements when payroll<br>
+                is executed, or you can choose to manually trigger reimbursements<br>
+                payout whenever you like.</label>
+          </div>
+          <br>
+          <div class="form-check">
+            <label class="form-check-label" style="color:white;">
+                <input type="checkbox" name="field_z_data" class="form-check-input">
+                include Reimbursement with payroll
+            </label>
+        </div>
+        <br>     
+        <table border="2" style="background-color:#2d3354; color:white; width:60%; height:50%;border-collapse: collapse; border:none;">
+            <thead>
+             <tr style="background-color:#323a5f;">
+               <th>document_type</th>
+               <th>Enabled</th>
+               <th>action</th>
+             </tr>
+         </thead>
+         {% for i in k3 %}
+            <tr>
+                <td ><input type="checkbox" name="document_type" value="{{ i.document_type }}">{{ i.document_type }}</td>
+                
+                <td><input type="checkbox" name="Enabled" {% if i.Enabled == 'Yes' %}checked{% endif %}></td>
+                <td><a href="/reimbursement_delete/{{i.id}}">delete</a></td>
+            </tr>         
+        {% endfor %}   
+            <tr>
+                <td><button type="button" onclick="addRow()">Add</button></td>
+            </tr>
+        </table>
+        <div>
+            *indicates required fields
+        <br>
+        <br>
+        
+        <button type="submit" style="padding-left: 10px; height: 50px; width: 180px; background-color: #0079bf;">
+            <a href="setting/"><b style="color: white;">CONTINUE</b>
+          </button>
+    </form>
+    <div>
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert  alert-success" style="margin-top:10px">{{message}}</div>
+        {% endfor %}
+        {% endif %}
+    </div>
+    <script>       
+        function addRow() {
+            var table = document.querySelector("table tbody");
+            var newRow = table.insertRow(table.rows.length);
+            var documentTypeCell = newRow.insertCell(0);
+            var enabledCell = newRow.insertCell(1);     
+            documentTypeCell.innerHTML = '<input type="checkboc" name="document_type">';
+            enabledCell.innerHTML = '<input type="checkbox" name="Enabled" >';
+        }
+    </script>
+{% endblock main_content %}

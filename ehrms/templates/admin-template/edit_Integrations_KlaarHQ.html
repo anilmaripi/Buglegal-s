@@ -1,0 +1,141 @@
+{% extends 'admin-template/base_template.html' %}{% block main_content %}
+<html>
+   <head>
+       <title>add employee</title>
+   </head>
+   <style>
+    
+       body{
+           background-color:#242B4D;;
+           color:white;
+           /* overflow: scroll; */
+
+           
+       }
+       p{
+           text-align:center;
+           height:30%;
+           width:600px;
+           padding:5%;
+           background-color:#242B4D;
+          
+
+                      
+       }
+       .v{
+           width:100%;
+          
+           background-color:#242B4D;
+           border: 3px solid white;
+           border-bottom: none;
+           border-top: none;
+           border-right: 3px solid white;
+           height:22%;
+         padding-left: 20px;
+       }
+       *, *:before, *:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+
+
+
+.new {
+  padding: 50px;
+}
+.form-group label {
+  position: relative;
+  cursor: pointer;
+}
+
+.form-group label:before {
+  content:'';
+  -webkit-appearance: none;
+  background-color: transparent;
+  border: 2px solid #0079bf;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(153, 137, 137, 0.05);
+  padding: 10px;
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+.form-group input:checked + label:after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 2px;
+  left: 9px;
+  width: 6px;
+  height: 14px;
+  border: solid #0079bf;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+.wid{
+    width: 700px;
+    height:30%;
+}
+@media only screen and (max-width:768px){
+    p{
+           text-align:center;
+           height:20%;
+           width:300px;
+           padding:5%;
+           background-color:#242B4D;
+          overflow-y: scroll;
+         
+
+                      
+       }
+      .wid{
+        width:300px
+      }
+
+
+
+
+}
+
+
+   </style>
+   <body>
+    <div class="new">
+        <form>
+          <!-- <div class="form-group">
+            <input type="checkbox" id="pay">
+            <label for="pay">Payroll Enabled</label>
+          </div> -->
+          
+         <h3>Integrate with KlaarHQ?</h3> 
+          <br>
+          
+          <p class="wid" style="text-align: left; padding-top: 25px; "><br>-  This will allow KlaarHQ to view or update any data related to your employees<br>
+            -  KlaarHQ will be able to even dississ/delete users.<br>
+            -  You would be able to watch actions performed by klaarHQ in your audit report.<br>
+            -  You can dissconnect anytime post connecting
+            <br>
+            <br>
+            <br>
+  
+            <br>
+            <br>
+
+                    <br>
+                  <button type="button" style="padding-left: 10px; height: 50PX; width: 180px;background-color: #0079bf;">
+                    <a href="/setting"><b style="color: white;">CONNECT</b></a>
+                  </button>
+                  </form>
+                  </div> 
+
+</body>
+
+</html> 
+
+  {% endblock main_content %}

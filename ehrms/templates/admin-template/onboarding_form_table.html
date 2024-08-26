@@ -1,0 +1,235 @@
+
+{% extends 'admin-template/base_template.html' %}
+{% block main_content %}
+
+
+<html>
+    <head>
+        <title>onboarding_data_table</title>
+    </head>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: #f8f9fa;
+            padding-top: 20px;
+        }
+        .container {
+            max-width: 1200px;
+        }
+        .page-title {
+            text-align: center;
+            font-weight: bold;
+            color: #495057;
+            margin-bottom: 30px;
+        }
+        .table-container {
+            background-color: #fff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .table-responsive {
+            overflow-x: auto;
+        }
+        .table {
+            width: 100%;
+            margin-bottom: 0;
+            color: #495057;
+        }
+        .table th, .table td {
+            border: none;
+            padding: 12px 15px;
+            text-align: center;
+            font-size: 14px;
+            color: black;
+        }
+        .table th {
+            background-color: #007bff;
+            color: #fff;
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+        .table td {
+            background-color: #fff;
+        }
+        
+        .btn {
+            font-size: 14px;
+            padding: 8px 16px;
+        }
+        .modal-content {
+            background-color: #fff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+        .modal-header {
+            background-color: #007bff;
+            color: #fff;
+            border-bottom: none;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        .modal-title {
+            font-weight: bold;
+        }
+        .modal-body {
+            padding: 20px;
+        }
+        .modal-footer {
+            border-top: none;
+            padding: 10px 20px;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+        .form-control {
+            font-size: 14px;
+            height: auto;
+        }
+        .readonly {
+            background-color: #f8f9fa;
+            color: #6c757d;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-primary:hover {
+            border-color: #0056b3;
+        }
+    </style>
+
+
+
+    <body>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <center><h1> Employee Onboarding Data </h1></center>
+
+<br>
+<div class="container">
+    <div class="table-container">
+        <div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Candidate Photo</th>
+                <th>Email</th>
+                <th>Offer Letter</th>
+                <th>Contact No</th>
+                <th>Adharno</th>
+                <th>Panno</th>
+                <th>IFSC</th>
+                <th>Experience</th>
+                <th>Designation</th>
+                <th>Language</th>
+                <th>Payslip</th>
+                <th>studycertificate</th>
+                <th>markssheet</th>
+                <th>Resignationletter</th>
+                <th>PFno</th>
+                <th>Accountnumber</th>
+                <th>dateofjoining</th>
+                <th>linkedin</th>
+                <th>twitter</th>
+                <th>title</th>
+                <th>year of Experience</th>
+                <th>job_description</th>
+                <th>Dateofbirth</th>
+                <th>Gender</th>
+                <th>Address</th>
+                <th>Bloodgroup</th>
+                <th>State</th>
+                <th>City</th>
+                <th>Pincode</th>
+                <th>Edit</th>
+                <th>Delete</th>
+                <th>Add Employ</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for onboarding in onboarding_data %}
+            <tr>
+                <td>{{ onboarding.first_name }}</td>
+                <td>{{ onboarding.last_name }}</td>
+
+                <td><img src="{{ onboarding.Candidatephoto.url }}" height="50"></td>
+                <td>{{ onboarding.email }}</td>
+                <td><a href="{{ onboarding.Offerletter.url }}">offerletter</a></td>
+                <td>{{ onboarding.contactno }}</td>
+                <td>{{ onboarding.Adharno }}</td>
+                <td>{{ onboarding.Panno }}</td>
+                <td>{{ onboarding.IFSC }}</td>
+                <td><a href="{{ onboarding.Experience.url }}">Experience</a></td>
+                <td>{{ onboarding.designation }}</td>
+                <td>{{ onboarding.Language }}</td>
+                <td><a href="{{ onboarding.Payslip.url }}">Payslip</a></td>
+
+                <td><a href="{{ onboarding.studycertificate.url }}">studycertificate</a></td>
+
+                <td><a href="{{ onboarding.markssheet.url }}">markssheet</a></td>
+
+                <td><a href="{{ onboarding.Resignationletter.url }}">Resignationletter</a></td>
+
+                <td>{{ onboarding.PFno }}</td>
+                <td>{{ onboarding.Accountnumber }}</td>
+                <td>{{ onboarding.dateofjoining }}</td>
+                <td>{{ onboarding.linkedin }}</td>
+                <td>{{ onboarding.twitter }}</td>
+                <td>{{ onboarding.title }}</td>
+                <td>{{ onboarding.yearsofexperience }}</td>
+                <td>{{ onboarding.job_description }}</td>
+                <td>{{ onboarding.dateofbirth }}</td>
+                <td>{{ onboarding.gender }}</td>
+                <td>{{ onboarding.address }}</td>
+                <td>{{ onboarding.bloodgroup }}</td>
+                <td>{{ onboarding.state }}</td>
+                <td>{{ onboarding.city }}</td>
+                <td>{{ onboarding.pincode }}</td>
+                <td><a href="/onboarding_form_edit/{{onboarding.id}}">edit</a></td>
+                <td><a href="/onboarding_form_delete/{{onboarding.id}}">delete</a></td>
+               
+                 <td>
+                    {% if onboarding.has_employs %}
+                        Employ Exists
+                    {% else %}
+                        <a href="{% url 'add_employee' %}">Add Employee</a>
+                    {% endif %}
+                 </td>
+
+<!-- <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('addEmployeeLink').addEventListener('click', function(event) {
+            event.preventDefault();
+            var result = confirm("Are you sure you want to add an employee?");
+
+            if (result) {
+                window.location.href = "{% url 'add_employee' %}";
+            }
+        });
+    });
+</script> -->
+
+                    
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table> 
+</div>
+</div>
+</div>
+</form>
+</body>
+</html>
+
+{% endblock main_content %}
+
+
+

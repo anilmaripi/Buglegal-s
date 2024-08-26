@@ -1,0 +1,311 @@
+{% extends 'employ-template/base_template.html' %}{% block main_content %}
+
+<html>
+    <head>
+      <title>Documents</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style>
+     body{
+                
+                background-color: #1E2442;
+            
+            }
+           
+            h1,h2,h3,h4,h5,h6{
+                color: black;
+                margin-top: 4px;
+            }
+            
+            tr:nth-child(even){
+                background-color:#e6e6e6;
+            }
+            tr:nth-child(odd){
+                background-color:#ccc;
+            }
+            table{
+                border-top: none;
+                color: white;
+                width: 100%;
+                
+
+            }
+            th{
+              color: white;
+            }
+            td{
+              color: black;
+            }
+           
+            th,td{
+                font-size: 20px;
+                padding:15px;
+                
+               
+            }
+           
+            /* .borderless-table {
+  border-collapse: collapse;
+}
+
+.borderless-table, .borderless-table td {
+  border: none;
+} */
+        </style>
+
+
+      <style>
+      
+
+body {
+  overflow-x: hidden;
+}
+.table {
+      width: 300px
+        border-top: 0px;
+        /* border-spacing: 0; */
+        width: 100%;
+      border:none;
+      overflow-y: scroll;
+      overflow-x: scroll;
+      
+
+    }.modal-title{
+text-align:center;
+}
+
+.wrapper-dropdown {
+  position: relative;
+  display: inline-block;
+  min-width: 231.5px;
+  width: 100%;
+  max-width: 403px;
+  min-height: 44px;
+  border-radius: 0px 0px 15px 15px;
+  background: #1c2028;
+  text-align: left;
+
+  cursor: pointer; 
+  margin-bottom: 20px;
+  font-family: Arial;
+}
+.button {
+  display: inline-block;
+  padding: 15px 25px;
+  font-size: 24px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+}
+
+.button:hover {background-color: #3e8e41}
+
+.button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+.pagination {
+              margin: 20px 0;
+              text-align: center;
+            }
+
+          /* .pagination a, .pagination .current-page {
+              display: inline-block;
+              padding: 8px 12px;
+              text-decoration: none;
+              margin: 0 4px;
+              border: 1px solid #ccc;
+              border-radius: 4px;
+              transition: background-color 0.3s;
+          }
+
+
+          .pagination .step-links a.active {
+    background-color: orange;
+} */
+
+.pagination a, .pagination .current-page {
+        display: inline-block;
+        padding: 8px 12px;
+        text-decoration: none;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+        border-radius: 20px;
+        text-align: center;
+        /* background-color: #3775e0;
+        color: white; */
+    }
+.act{
+  /* background-color: orange; */
+  color: white;
+  height:43px;
+  width:43px;
+  border-radius: 20px;
+
+}
+
+      </style>
+      
+    </head>
+     
+
+    <h3><a  href="/reports/">Reports</a><b style="color: black;">| Documents</b></h3>
+      
+      <!-- <div class="card-tools " style="width: 95%;">
+        <div class="input-group input-group-sm" style="margin-top: 20px; margin-right: 120px; width: 100%; margin-left: 20px;">
+          <input type="text" id="myInput" onkeyup="submitSearch()" class="form-control float-right" placeholder="Search Name......" style="background-color: #282f51;  border: none; color: white;">
+        </div>
+      </div> -->
+      <br>
+      <form method="post">
+        {% csrf_token %}
+        <div class="container">
+  
+        
+        <div class="row">
+            <div class="col-7">
+                <input type="text" name="se" class="form-control" placeholder="Enter Employee Id" >
+            </div>
+         
+      
+        <div class="col-1">
+            <button type="submit" class="btn btn-primary" >Search</button>
+        </div>
+        <div class="col-2">
+          <a href="/download_all_employee_data1/"><button class="btn"  style="background-color: #2d3354;color: whitesmoke;margin-left: 70%;"><i class="fa fa-download">Export</i></button></a>
+      </div>
+    </div>
+  </div>
+    </form>
+
+<br><br>
+  
+  <script>
+    function submitSearch() {
+      var input = document.getElementById("myInput");
+      var filter = input.value.toUpperCase();
+      var table = document.getElementById("myTable"); // Changed ID to match your table ID
+      var tr = table.getElementsByTagName("tr");
+  
+      for (var i = 1; i < tr.length; i++) { // Start loop from index 1 to skip the header row
+        var found = false;
+        var td = tr[i].getElementsByTagName("td");
+        
+        for (var j = 0; j < td.length; j++) {
+          var txtValue = td[j].textContent || td[j].innerText;
+          
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            found = true;
+            break;
+          }
+        }
+        var errorMessage = document.getElementById("noDataFound");
+
+        if (found) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      }
+    }
+  </script>
+  <div class="table-responsive">
+    <table id="myTable" style="font-size: x-large; width: 100%; height:auto;">
+    <tr style="background-color: black;">
+        <th>Employee ID</th>
+        <th>Employee Name</th>
+        <th>Date</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th colspan="2">Attachments</th>
+    </tr>
+    {% for i in employ %}
+    <tr style="font-size: larger;">
+        <td>{{i.employ_id.id}}</td>
+        <td>{{ i.employ_id.first_name }}</td>
+        <td>{{i.date | date:"M d- Y" }}</td>
+        <td>{{i.documenttype1}}</td>
+        <td>{{i.description}}</td>
+
+        <td>
+            <a href="/download_images_zip1/{{ i.employ_id.id }}" height="100px" width="150px" class="notification">
+                <span><i class="fa fa-paperclip" aria-hidden="true"></i></span>
+            </a>
+            
+        </td>
+        <td>
+          <a href="/delete_docreport/{{ i.id }}" height="100px" width="150px">
+              <span><i class="fa fa-trash" aria-hidden="true" style="color:red"></i></span>
+          </a>
+      </td>    
+ 
+    </tr>
+    {% endfor %}
+
+</table>
+</div>
+<br>
+<!-- <div class="pagination">
+  <span class="step-links">
+      {% if employ.has_previous %}
+          <a href="?page=1">&laquo; First</a>
+          <a href="?page={{ employ.previous_page_number }}" class="prev">&#8249; Previous</a>
+      {% endif %}
+
+      {% for page in employ.paginator.page_range %}
+          <a href="?page={{ page }}" {% if page == employ.number %}class="active"{% endif %}>{{ page }}</a>
+      {% endfor %}
+
+      {% if employ.has_next %}
+          {% if employ.number != employ.paginator.num_pages %}
+              <a href="?page={{ employ.next_page_number }}" class="next">Next &#8250;</a>
+          {% endif %}
+          <a href="?page={{ employ.paginator.num_pages }}">&raquo; Last</a>
+      {% endif %}
+  </span>
+</div> -->
+
+<div class="pagination" style="color:white; margin:20px auto;">
+  <span class="step-links">
+      {% if employ.has_previous %}
+          <a  href="?page=1">&laquo;<<</a>
+          <a   href="?page={{ employ.previous_page_number }}" class="prev"> < </a>
+      {% endif %}
+
+
+      {% for i in employ.paginator.page_range %}
+      {% if employ.number == i %}
+      <button class="active act bg-info"><span>{{ i }} <span class="sr-only">(current)</span></span></button>
+      {% elif i > employ.number|add:'-3' and i < employ.number|add:'3' %}
+          <a  href="?page={{ i }}">{{ i }}</a>
+      {% endif %}
+      {% endfor %}
+
+     
+
+      {% if employ.has_next %}
+          {% if employ.number != employ.paginator.num_pages %}
+          {% endif %}
+          <a   href="?page={{ employ.next_page_number }}" class="prev">> </a>
+
+          <a  href="?page={{ employ.paginator.num_pages }}">>>&raquo; </a>
+      {% endif %}
+  </span>
+</div>   
+                  </body>
+          </html>
+          {% endblock main_content %}
+

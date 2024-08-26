@@ -1,0 +1,146 @@
+{% extends 'admin-template/base_template.html' %}
+
+{% block main_content %}
+
+<html>
+    <head>
+        <title>Integrations</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+
+        #sa{
+            border-radius: 10%;
+            background-color: #282f51;
+            color: #caccd5;
+            padding: 5px;
+
+        }
+        #sh{
+            
+            background-color:  #282f51;
+            width: 350px;
+        }
+        #sp{
+            background-color: #393f5c;
+            
+        }
+        h1,h4{
+            color: #caccd5;
+
+        }
+       span{
+            color:#caccd5;
+        }
+        h1{
+            padding-left: 20px
+        }
+       /* #st{
+            margin-left:20px;
+            border-radius: 20%;
+            background-color: rgb(109, 148, 109);
+            height: 30px;
+            font-size: smaller;
+            color: white;
+
+       } */
+                                                                     
+    </style>
+    <style>
+        @media screen and(max-width:768px) {
+        body{
+              font-size: 18px;
+              display: flex;
+        }    
+        }
+    </style>
+    </head>
+
+    <body style="background-color: #1e2442;">
+    
+       
+    <h1>Integrations</h1><br>
+    <span style="margin-left: 20px;">
+        <button style="border-radius: 10%;"><a href="/home_int" style="text-decoration: none;"><b>All Integrations</b></a></button>
+        <button id="sa"><a href="/bank" style="text-decoration: none;"><b>Banking</b></a></button>
+        <button id="sa"><a href="/hrms" style="text-decoration: none;"><b>HRMS</b></a></button>
+        <button id="sa"><a href="/communication" style="text-decoration: none;"><b>Communication</b></a></button>
+        <button id="sa"><a href="/insurance" style="text-decoration: none;"><b>Insurance</b></a></button>
+        <button id="sa"><a href="/attendance" style="text-decoration: none;"><b>Attendance</b></a></button>
+        <button id="sa"><a href="/itr" style="text-decoration: none;"><b>ITR Filing</b></a></button>
+        <button id="sa"><a href="/performance" style="text-decoration: none;"><b>Performance</b></a></button>
+        <button id="sa"><a href="/bgv" style="text-decoration: none;"><b>Background Verfication</b></a></button><br><br><br>
+    </span>
+        
+ 
+        <div class="container">
+            
+        
+            <div class="row">
+                {% for i in int %}
+
+                <div class="col-md-4">
+                   
+                        <div id="sh" class="card"> 
+                          <div class="card-body">
+                        
+                            <img class="card-img-top" src="/media/{{i.img}}" style="width: 55px;height: 55px;"><br>
+                           
+                            <h4 class="card-title" style="padding-left: 5px;">{{i.name}}</h4><br><br>
+                            
+                            <span style="margin-right: 150px;font-size: small;">{{i.purpose}}</span><br><br>
+                            <span class="card-text">{{i.description}}</span><br><br>
+                            <a href="{{i.url}}" target="_blank" class="btn btn-primary">{{i.btn}}</a>
+                            </div>
+                            <div id="sp" class="card-footer" style="color:#caccd5"> 
+                                <i class="fa-solid fa-arrow-trend-up"></i>&nbsp;&nbsp;
+                                {{i.footer}}
+                                {% if i.footer == "Just launched" %}
+                                  <button style="  border-radius: 20%;background-color: rgb(109, 148, 109);height: 20px;font-size: x-small;">New</button>
+                                {% endif %}
+
+
+                              </div>
+                        </div><br>
+                 </div> 
+                 {% endfor %}
+
+                 
+
+     <div class="col-md-4">
+           
+        <div id="sh" class="card" > 
+          <div class="card-body">
+    
+            <h4 class="card-title">Suggest a tool you would like us to integrate with.</h4><br><br><br>
+            <span style="font-size:medium">Type your recomendation below</span><br><br><br>
+            <form method="post" enctype="multipart/form-data">{% csrf_token %}
+            <input type="text" name="response"  style="background-color: #393f5c;width: 250px;height: 40px;" required><br><br><br>
+            <input type="submit" style="border-radius: 10%;width: 110px;height: 32px;background-color: #0d6efd;color: white;" >
+            </form>
+            <!-- <script>
+            function updateSubmitButton(button) {
+              var input = document.getElementById("response-input");
+              button.innerHTML = "Submitted";
+            }
+            </script> -->
+            </div>
+            <div id="sp" class="card-footer" style="height: 35px; color: #caccd5;">
+                We will carefully store your response
+             </div>
+        </div>
+
+             </div>    
+    </div>
+    
+    </div>
+        </div>   
+        
+    </body>
+</html>
+
+{% endblock main_content %}

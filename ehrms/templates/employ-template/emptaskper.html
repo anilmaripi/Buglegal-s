@@ -1,0 +1,253 @@
+{% extends 'employ-template/base_template.html' %}
+{% block main_content %}
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<style>
+    /* Style table cells (td) */
+    table.table tbody td {
+        color: white; /* Text color for table cells */
+    }
+   table{
+    width: 100% !important;
+   }
+   .pagination {
+    margin: 20px 0;
+    text-align: center;
+}
+
+/* .pagination a, .pagination .current-page {
+    display: inline-block;
+    padding: 8px 12px;
+    text-decoration: none;
+    margin: 0 4px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+.pagination .step-links a.active {
+    background-color: orange;
+} */
+
+.pagination a, .pagination .current-page {
+        display: inline-block;
+        padding: 8px 12px;
+        text-decoration: none;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+        border-radius: 20px;
+        text-align: center;
+        /* background-color: #3775e0;
+        color: white; */
+    }
+      .act{
+  /* background-color: orange; */
+  color: white;
+  height:43px;
+  width:43px;
+  border-radius: 20px;
+
+}
+ 
+
+</style>
+<style>
+
+    #yourTableID {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+            }
+    
+            /* Apply styles to table cells */
+            #yourTableID td, #yourTableID th {
+            border-color: #f6f7f4;
+            text-align: left;
+            padding: 8px;
+            color: black;
+            }
+    
+            /* Apply alternating row colors */
+            #yourTableID tbody tr:nth-child(even) {
+            background-color: rgb(141, 183, 218);
+            }
+    
+            #yourTableID tbody tr:nth-child(odd) {
+            background-color: rgb(239, 239, 247);
+            }
+    
+    </style>
+    
+<body>
+<h1>Daily Employee Project Performance Report</h1>
+<div style="float: right; margin-right: 10px; padding: 5px;">
+    <input id="name-search" type="text" placeholder="Search for name ..." style="margin-left: 10px; margin-top: 10px; padding: 5px; border: 2px solid #ccc; border-radius: 5px;">
+    <input id="date-search" type="date" placeholder="Search for date ..." style="margin-left: 10px; margin-top: 10px; padding: 5px; border: 2px solid #ccc; border-radius: 5px;">
+
+</div>
+<div class="table-responsive">
+<table id="yourTableID" class="table" style="width: 1300px;margin-top: 15px;">
+    <thead style="color:white;">
+        <tr style="background: linear-gradient(#5785e9,rgb(236, 198, 216));color: black;">            <th>Employee Id</th>
+            <th>Employee Name</th>
+            <th>Project Name</th>
+            <th>Date</th>
+            <th>Performance</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for performance in performance_data %}
+            <tr style="width: 800px;">
+                <td>{{ performance.employ_name.empid }}</td>
+                <td>{{ performance.employ_name.first_name }}</td>
+                <td>{{ performance.project_name }}</td>
+                <td>{{ performance.date }}</td>
+                <td>{{performance.performance}}</td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="5">No tasks available.</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+<!-- <div class="pagination" style="color:white;" >
+    <span class="step-links">
+        {% if performance_data.has_previous %}
+            <a href="?page=1">&laquo; First</a>
+            <a href="?page={{ performance_data.previous_page_number }}" class="prev">&#8249; << </a>
+        {% endif %}
+
+        {% for page in performance_data.paginator.page_range %}
+            <a href="?page={{ page }}" {% if page == performance_data.number %}class="active"{% endif %}>{{ page }}</a>
+        {% endfor %}
+
+        {% if performance_data.has_next %}
+            {% if performance_data.number != performance_data.paginator.num_pages %}
+            {% endif %}
+            <a href="?page={{ performance_data.paginator.num_pages }}">&raquo; >> </a>
+        {% endif %}
+    </span>
+</div> -->
+
+
+<div class="pagination" style="color:white; margin:20px auto;">
+    <span class="step-links">
+        {% if performance_data.has_previous %}
+            <a  href="?page=1">&laquo;<<</a>
+            <a   href="?page={{ performance_data.previous_page_number }}" class="prev"> < </a>
+        {% endif %}
+
+
+        {% for i in performance_data.paginator.page_range %}
+        {% if performance_data.number == i %}
+        <button class="active act bg-info"><span>{{ i }} <span class="sr-only">(current)</span></span></button>
+        {% elif i > performance_data.number|add:'-3' and i < performance_data.number|add:'3' %}
+            <a  href="?page={{ i }}">{{ i }}</a>
+        {% endif %}
+        {% endfor %}
+
+       
+
+        {% if performance_data.has_next %}
+            {% if performance_data.number != performance_data.paginator.num_pages %}
+            {% endif %}
+            <a   href="?page={{ performance_data.next_page_number }}" class="prev">> </a>
+
+            <a  href="?page={{ performance_data.paginator.num_pages }}">>>&raquo; </a>
+        {% endif %}
+    </span>
+</div>   
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#name-search, #date-search").on("keyup change", function () {
+            // Show all rows before starting the filtering
+            $("#yourTableID tbody tr").show();
+    
+            var nameValue = $("#name-search").val().toLowerCase();
+            var dateValue = $("#date-search").val();
+    
+            console.log("Search Name:", nameValue);
+            console.log("Search Date:", dateValue);
+    
+            $("#yourTableID tbody tr").each(function () {
+                var nameMatch = $(this).text().toLowerCase().indexOf(nameValue) > -1;
+                var dateCellText = $(this).find("td:eq(3)").text().trim(); // Assuming the Date column is at index 3
+    
+                // Parse date strings using Moment.js
+                var dateCell = moment(dateCellText, "MMM. DD, YYYY", true); // Adjust the format according to your date format
+                var selectedDate = dateValue === "" ? null : moment(dateValue, "YYYY-MM-DD", true);
+    
+                // Check if the dateCell is valid and matches the selected date
+                var dateMatch = dateCell.isValid() && (selectedDate === null || dateCell.isSame(selectedDate, "day"));
+    
+                // Log statements for debugging
+                console.log("Row Name:", $(this).text().toLowerCase());
+                console.log("Name Match:", nameMatch);
+                console.log("Date Cell:", dateCellText);
+                console.log("Date Match:", dateMatch);
+    
+                $(this).toggle(nameMatch && dateMatch);
+            });
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $("#name-search, #date-search").on("keyup change", function () {
+            // Show all rows before starting the filtering
+            $("#yourTableID tbody tr").show();
+    
+            var nameValue = $("#name-search").val().toLowerCase();
+            var dateValue = $("#date-search").val();
+    
+            console.log("Search Name:", nameValue);
+            console.log("Search Date:", dateValue);
+    
+            // Flag to check if any matching rows are found
+            var matchingRows = false;
+    
+            $("#yourTableID tbody tr").each(function () {
+                var nameMatch = $(this).find("td:eq(1)").text().toLowerCase().includes(nameValue); // Index 1 for Employee Name column
+                var dateCellText = $(this).find("td:eq(3)").text().trim(); // Index 3 for Date column
+    
+                // Parse date strings using Moment.js
+                var dateCell = moment(dateCellText, "MMM. DD, YYYY", true); // Adjust the format according to your date format
+                var selectedDate = dateValue === "" ? null : moment(dateValue, "YYYY-MM-DD", true);
+    
+                // Check if the dateCell is valid and matches the selected date
+                var dateMatch = dateCell.isValid() && (selectedDate === null || dateCell.isSame(selectedDate, "day"));
+    
+                // Log statements for debugging
+                console.log("Row Name:", $(this).find("td:eq(1)").text().toLowerCase()); // Index 1 for Employee Name column
+                console.log("Name Match:", nameMatch);
+                console.log("Date Cell:", dateCellText);
+                console.log("Date Match:", dateMatch);
+    
+                if (nameMatch && dateMatch) {
+                    matchingRows = true;
+                }
+    
+                $(this).toggle(nameMatch && dateMatch);
+            });
+    
+            // Display a message row if no matching rows are found
+            if (!matchingRows) {
+                $("#yourTableID tbody").append("<tr><td colspan='5'>No matching data found.</td></tr>");
+            }
+        });
+    });
+    </script>
+
+    </body>
+{% endblock main_content %}

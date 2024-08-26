@@ -1,0 +1,44 @@
+{% extends 'admin-template/adminAdashboard.html' %}
+{% block main_content %}
+<html>
+    <head>
+        <style>
+            form {
+                max-width: 300px;
+                margin: 0 auto;
+                padding: 20px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                background-color: #fff;
+            }
+        
+            p {
+                margin-bottom: 20px;
+            }
+        
+            button {
+                background-color: #d9534f;
+                color: white;
+                padding: 10px 15px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+        
+            button:hover {
+                background-color: #c9302c;
+            }
+        </style>
+    </head>
+            <body>
+        
+        <form method="post">
+            {% csrf_token %}
+            <p>Are you sure you want to delete "{{ pint.pk }}"?</p>
+            <button type="submit">Delete</button>
+        </form>
+        
+    </body>
+</html>
+{% endblock main_content %}

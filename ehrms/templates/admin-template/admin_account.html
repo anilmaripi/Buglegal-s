@@ -1,0 +1,598 @@
+
+{% extends 'admin-template/admin-dashboard.html' %}
+        
+        
+{% block main_content %}
+
+<style>
+.table td{
+    width: 50%;
+    color: black;
+}
+h4{
+    color: rgb(255, 255, 255);
+}
+.model-open .model{
+    overflow-x:hidden;
+    overflow-y: auto;
+
+}
+.content p{
+    padding: 0%;
+
+}
+.main{
+    position: absolute;
+}
+.content{
+    background-color: white;
+}
+tr:nth-child(even) {background-color: rgb(239, 239, 247)}
+       tr:nth-child(odd) {background-color: rgb(238, 242, 244)}
+/* @media (max-width: 768px) {
+    .small-box{
+        position: absolute;
+    }
+    
+}
+.deg{
+    position: fixed;
+} */
+</style>
+<br><br>
+<script>
+$(document).ready(function() {
+// Show the popup when a specific element is clicked
+$('#show-popup-button').click(function() {
+$('#popup').fadeIn();
+});
+
+// Hide the popup when the close button is clicked
+$('#close-popup-button').click(function() {
+$('#popup').fadeOut();
+});
+});
+</script>
+
+<div class="row" >
+    <div class="col-lg-8">
+<!-- <div style="text-transform: capitalize;color: white;padding: 10px;"><a href="/adminform/">people</a> | {{admin.first_name}}.{{admin.last_name}}</div> -->
+<section class="content"  >
+    <div class="container-fluid">
+        <div class="row">
+            <div id="message">
+                {% if messages %}
+                {% for message in messages %}
+                {% if message.tags == 'error' %}
+                <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+                {% endif %}
+                {% if message.tags == 'success' %}
+                <div class="alert alert-success" style="margin-top:20px;background-color:green;color: whitesmoke;">{{ message }}</div>
+                {% endif %}
+                {% endfor %}
+                {% endif %}
+                </div>
+                <script>
+                    $("#message").show();
+                    setTimeout(function() {
+                        $("#message").hide();
+                    }, 5000);
+                </script>
+            <div class="col-lg-12 col-12 ">
+                <!-- <div class="small-box " style="padding: 10px;width: 100%;"> -->
+                    <h4 style="color: black;">Basic Information<p type="button"  data-bs-toggle="modal" data-bs-target="#myModal" style="float: right;color: black;">  
+                   <button class="btn btn-info btn-lg "><i class="fa fa-edit" aria-hidden="true" style="color: black;">&nbsp;Edit</i></button>
+                        
+                     </p></h4>
+
+                     
+
+      
+      <div class="modal" id="myModal" style="color: rgb(240, 242, 245);">
+        <div class="modal-dialog bg-white">
+          <div class="modal-content">
+      
+            
+            <div class="modal-body" style="background-color: rgb(41,215,231);color: white;" >
+                <button type="button"   class="btn-close" data-bs-dismiss="modal"  style="background-color:lightgray;"></button>
+                <br>
+                <br>
+                
+                    <h3 class="text-center">Edit Basic Information </h3>
+                    <br>
+                    
+               
+                  <form role="form" id="button1" action="{% url 'admin_profile_save' %}"  method="post">
+                      {% csrf_token %}
+                    <div class="card-body">
+                      <div class="form-group">
+                          <label>Type</label>
+                          <input type="text" class="form-control" name="username" value=" Admin " disabled="disabled">
+                        </div>
+                      <div class="form-group">
+                        <label>Username</label>
+                        <input type="text" class="form-control" name="username" value="{{ user.username }}" readonly>
+                      </div>
+                      <div class="form-group">
+                        <label>Email</label>
+                        <input type="text" class="form-control" name="email" value="{{ user.email }}" readonly>
+                      </div>
+                       <div class="form-group">
+                        <label>Date of  Company Registration</label>
+                        <input type="text" class="form-control" name="first_name" value="{{ user.date_joined }}" readonly>
+                      </div>
+                      <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" class="form-control" name="your_title" value="{{data.your_title}}" >
+                      </div>
+                      
+                       <div class="form-group">
+                        <label>Type Of Plan</label>
+                        <input type="text" class="form-control" name="plan"  value="{{planname}}" readonly>
+                      </div>
+                    
+                      <div class="form-group">
+                        <label>Location</label>
+                        <input type="text" class="form-control" name="address" value="{{data.address}}">
+                      </div>
+                      <div class="form-group">
+                          <label>Last Login</label>
+                          <input type="text" class="form-control" name="location" value="{{user.last_login}}" readonly>
+                        </div>
+  
+                    
+                  </div>
+                    <!-- /.card-body -->
+    
+                    <div class="card-footer">
+                      <button type="submit" class="btn btn-success btn-block">Save Profile</button>
+                    </div>
+                  </form><br><br>
+
+                
+                <script>
+                    const togglePassword = document.querySelector('#toggle-password');
+                    const passwordInput = document.querySelector('#chpass');
+                
+                    togglePassword.addEventListener('click', function (e) {
+                        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                        passwordInput.setAttribute('type', type);
+                        this.querySelector('i').classList.toggle('fa-eye-slash');
+                    });
+                </script> 
+
+
+            </div></div></div></div>
+
+                    
+           
+    <!-- <div class="card1"> -->
+        <div class="inner">
+        <!-- <div class="card-body1" style="padding: 0px;"> -->
+            
+          
+            
+            <!-- <table class="table">
+              
+                <tbody >
+                  
+                  
+                  <td><a href="/edit_basic_info/{{ employ.id }}"><i class="fa fa-pencil-square">update</i></a></td>
+
+                
+                                  
+                    <tr >
+                        <td >Type</td>
+                       
+                        <td>Admin</td>
+                    </tr>
+                    <tr >
+                        <td>Admin Name</td>
+                       
+                        <td>{{user.first_name}}{{user.last_name}}</td>
+                    </tr>
+                    <tr >
+                        <td>Email</td>
+                       
+                        <td>{{user.email}}</td>
+                    </tr>
+                    <tr >
+                        <td>Date of Hiring</td>
+                        
+                        <td>{{admin.dateofjoining}}</td>
+                    </tr>
+                    <tr >
+                        <td>Title</td>
+                        
+                        <td>{{admin.role}}</td>
+                    </tr>
+                    <tr >
+                        <td>Employee ID</td>
+                        
+                        <td>{{admin.empid}}</td>
+                    </tr>
+                    <tr >
+                        <td>Department</td>
+                        
+                        <td>{{admin.role}}</td>
+                    </tr>
+                    <tr >
+                      <td>Manager</td>
+                      
+                      <td>Daggubati Sravan Chowdary</td>
+                  </tr>
+                  
+                    <tr >
+                        <td>Location</td>
+                        
+                        <td>{{admin.location}}</td>
+                    </tr>
+                    <tr >
+                      <td>Last Login</td>
+                      
+                      <td>{{user.last_login}}</td>
+                  </tr>
+                </tbody>
+            </table> -->
+            <table class="table">
+              
+                <tbody >
+                  
+                  
+                  <!-- <td><a href="/edit_basic_info/{{ employ.id }}"><i class="fa fa-pencil-square">update</i></a></td> -->
+
+                
+                                  
+                    <tr >
+                        <td >Type</td>
+                       
+                        <td>Admin</td>
+                    </tr>
+                    <!-- <tr>
+                        <td>Full Name</td>
+                        <td>{{user.first_name}} {{user.last_name}}</td>
+                    </tr> -->
+                    <tr >
+                        <td>Username</td>
+                        <td>{{user.username}}</td>
+
+                        <!-- <td>{{user.username}}{{user.last_name}}</td> -->
+                    </tr>
+                    <tr >
+                        <td>Email</td>
+                       
+                        <td>{{user.email}}</td>
+                    </tr>
+                    <tr >
+                        <td>Date of Company Registration</td>
+                        
+                        <td>{{user.date_joined}}</td>
+                    </tr>
+                    <tr >
+                        <!-- <td>Title</td> -->
+                        <td>Full Name</td>
+                        <td>{{data.your_title}}</td>
+                    </tr>
+                    <!-- <tr >
+                        <td>Employee ID</td>
+                        
+                        <td>{{admin.empid}}</td>
+                    </tr> -->
+                    <!-- <tr >
+                        <td>Department</td>
+                        
+                        <td>{{admin.role}}</td>
+                    </tr> -->
+                    <tr>
+                        <td>Type of Plan</td>
+                        {% if data.plantype == '1' %}
+                        <td>Basic</td>
+                        {% endif %}
+                        {% if data.plantype == '2' %}
+                        <td>Gold</td>
+                        {% endif %}
+                        {% if data.plantype == '3' %}
+                        <td>Platinum</td>
+                        {% endif %}
+                        {% if data.plantype == '4' %}
+                        <td>Diamond</td>
+                        {% endif %}
+                        
+                    </tr>
+                    <!-- <tr >
+                      <td>Manager</td>
+                      
+                      <td>Daggubati Sravan Chowdary</td>
+                  </tr> -->
+                  
+                    <tr >
+                        <td>Location</td>
+                        
+                        <td>{{data.address}}</td>
+                    </tr>
+                    <tr >
+                      <td>Last Login</td>
+                      
+                      <td>{{user.last_login}}</td>
+                  </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+    
+    
+    <br>
+    <div class="row">
+        <div class="col-lg-12 col-12 ">
+
+    <h4 style="color: black;">Compensation & Perquisites<p style="float: right;color: rgb(255, 255, 255);"><a href=""></a></p></h4>
+   
+   
+    <!-- <div class="card1">
+        <div class="card-body1" style="padding: 0px;">
+             -->
+            
+                    <!-- <div class="small-box " style="padding: 10px;width: 100%;">  -->
+            <table class="table">
+                <tbody >
+                    <tr >
+                        <td >Annual Salary</td>  
+                       
+                        <td>₹&nbsp;&nbsp;{{admin.package}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <br>
+    <div class="row">
+        <div class="col-lg-12 col-12 ">
+   
+    <h4 style="color: black;">Leaves & Attendance<p style="float: right;color: rgb(255, 255, 255);"><a href=""></a></p></h4>
+
+   
+    <!-- <div class="card1">
+        <div class="card-body1"> -->
+          
+            
+            <table class="table">
+                <tbody >
+                    <tr >
+                        <td >Shift Timing</td>
+                       
+                        <td>08:30 - 18:30</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-lg-12 col-12 ">
+
+        <h4 style="color: black;">Salary Structure<p style="float: right;color: rgb(255, 255, 255);"><a href=""></a></p></h4>
+   
+    <!-- <div class="card1">
+        <div class="card-body1"> -->
+        
+            
+            <table class="table">
+                <tbody >
+                    {% for i in saltur%}
+                    <tr >
+                        <td >{{i.salarycomponent}}</td>
+                       
+                        <td>{{i.percentageofCTC}}%</td>
+                    </tr>
+                    {% endfor %}
+                    {% for i in salduct %}
+                    <tr >
+                        <td >{{i.deductcomponent}}</td>
+                         {% if i.percentageordfixed == "Percentage" %}
+                        <td>-{{i.percentageofdctc}}%</td>
+                        {% else %}
+                        <td>-{{i.percentageofdctc}}</td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                    <!-- <tr >
+                        <td >Professional Tax</td>
+                       
+                        <td>Company Disabled</td>
+                    </tr>
+                    <tr >
+                        <td >ESIC Status</td>
+                       
+                        <td>Registration Not Initiated</td>
+                    </tr>
+                    <tr >
+                        <td >ESIC IP Number</td>
+                       
+                        <td>-NA-</td>
+                    </tr> -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+   
+
+    <br>
+    <div class="row">
+        <div class="col-lg-12 col-12 ">{% for data in datas %}
+    
+            <h4 style="color: black;">Payment Information<p style="float: right;color: rgb(255, 255, 255);"><a href="/payment_data"><i class="far fa-edit">&nbsp;EDIT</i></a>
+            </p></h4>
+
+    
+<div class="inner">
+    <!-- <div class="card1">
+        <div class="card-body1" style="padding: 0%;"> -->
+         
+            
+            <table class="table" >
+                <tbody >
+                    <tr >
+                        <td >PAN</td>
+                       
+                        <td>{{data.pan}}</td>
+                    </tr>
+                    <tr >
+                        <td>IFSC Code</td>
+                       
+                        <td>{{data.ifsecode}}</td>
+                    </tr>
+                    <tr >
+                        <td>Account Number</td>
+                       
+                        <td>{{data.acno}}</td>
+                    </tr>
+                    <tr >
+                        <td>Beneficiary Name</td>
+                        
+                        <td>{{data.beneficiaryname}}</td>
+                    </tr>
+                   
+                </tbody>
+            </table>
+        </div>
+    </div></div>
+    
+    <br>
+    <!-- <div style="display: flex; flex-direction: row; height: 50px;margin-bottom: 10px;width: 800px;"> -->
+        <div class="row">
+            <div class="col-lg-12 col-12 ">
+                <h4 style="color: black;">Other Information<p style="float: right;color: rgb(255, 255, 255);"><a href="/otherinfo"><i class="far fa-edit">&nbsp;EDIT</i></a>
+                </p></h4>
+    
+               
+   
+   <div class="inner">
+    <!-- <div class="card1">
+        <div class="card-body1" style="padding: 0px;" > 
+           -->
+            
+            <table class="table">
+                <tbody >
+                    <tr >
+                        <td >Phone Number</td>
+                       
+                        <td>{{data.phno}}</td>
+                    </tr>
+                    <tr >
+                        <td>Gender</td>
+                       
+                        <td>{{data.gender1}}</td>
+                    </tr>
+                    <tr >
+                        <td>Date of Birth</td>
+                       
+                        <td>{{data.dob}}</td>
+                    </tr>
+                    <tr >
+                        <td>Permanent Adderess</td>
+                        
+                        <td>{{data.address1}}</td>
+                    </tr>
+                    <tr >
+                        <td>Highest Educational Qualification</td>
+                        
+                        <td>{{data.heq}}</td>
+                    </tr>
+                    <tr >
+                        <td>Aadhaar Number</td>
+                        
+                        <td>{{data.aadharno}}</td>
+                    </tr>
+                    <tr  >
+                        <td>Blood Group</td>
+                        
+                        <td>{{data.bloodgroup}}</td>
+                    </tr>
+                   
+                </tbody>{% endfor %}
+            </table>
+           
+        </div>
+    </div></div>
+   
+    <br>
+    <div class="row">
+        <div class="col-lg-12 col-12 ">
+    
+        <h4 style="color: black;">User Roles & Permissions<p style="float: right;color: rgb(255, 255, 255);"><a href="/edit_other_info/{{ i.id }}"></a>
+        </p></h4>
+   
+   <div class="inner">
+              <!-- <div class="card1">
+        <div class="card-body1"> -->
+       
+            
+            <table class="table">
+                <tbody >
+                    <tr >
+                        <td >Role</td>
+                       
+                        <td>Employee / Contractor</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-lg-4 " style="background-color: rgb(239, 239, 247); justify-content: center; padding: 20px;margin-top: -13px; " >
+            <div class="small-box deg" style="text-align: center; padding: 15px;  max-width: 300px; width: 300px;position: fixed;">
+                <!-- <div class="inner" > -->
+            <!-- <div class="sidenav1"> -->
+                {% if admin.adminprofilepic %}
+            <a class="img_size" href="#about"><img src="/media/{{ admin.adminprofilepic }}" alt="upload photo" style="width: 100%; height: fit-content;">
+            </a>
+            {% endif %}
+            <div class="row" style="justify-content: center; padding: 10px;">
+            <a href="{% url 'admin_upload_photo' %}"><button class="btn btn-primary btn-block">Update Photo</button></a>
+            
+            </div>
+    </div></div>
+
+
+    
+
+ 
+
+<script>
+function showDiv(buttonId) {
+    var div = document.getElementById(buttonId);
+    if (div.style.display === "none") {
+        div.style.display = "block";
+    } else {
+        div.style.display = "none";
+    }
+}
+
+function hideDiv(buttonId) {
+    var div = document.getElementById(buttonId);
+    div.style.display = "none";
+}
+
+</script></div></section></div>
+
+<div class="col-lg-4 " style="background-color: rgb(238, 242, 244); justify-content: center; padding: 20px;margin-top: -13px; " >
+<div class="small-box deg" style="text-align: center; padding: 15px;  max-width: 300px; width: 300px;position: fixed;">
+    <!-- <div class="inner" > -->
+<!-- <div class="sidenav1"> -->
+    {% if admin.adminprofilepic %}
+<a class="img_size" href="#about"><img src="/media/{{ admin.adminprofilepic }}" alt="upload photo" style="width: 100%; height: fit-content;">
+</a>
+{% endif %}
+<div class="row" style="justify-content: center; padding: 10px;">
+<a href="{% url 'admin_upload_photo' %}"><button class="btn btn-primary btn-block">Update Photo</button></a>
+
+</div>
+
+</div></div>   
+</div>
+
+ {% endblock main_content %}
+
+

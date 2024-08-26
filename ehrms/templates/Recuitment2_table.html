@@ -1,0 +1,73 @@
+<html>
+    <head>
+        <title>Hiring Table</title>
+    </head>
+
+    <style>
+        table,th,td{
+            border:2px solid black;
+        }
+        th{
+            text-align: center;
+            background: linear-gradient(#5785e9,rgb(236, 198, 216));
+            color:black;
+
+        }
+        td{
+            text-align: center;
+            color:black;
+        }
+
+        tr:nth-child(even) {background-color: #96b4f3}
+        tr:nth-child(odd) {background-color:rgb(236, 198, 216) }
+
+        
+    </style>
+
+    
+
+
+    <body>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>description</th>
+                            <th>image</th>
+                            <th>Title1</th>
+                            <th>description1</th>
+                            <th>image1</th>
+                            <th>Title2</th>
+                            <th>description2</th>
+                            <th>image2</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in k %}
+                        <tr>
+                            <td>{{i.title}}</td>
+                            <td>{{i.description}}</td>
+                            <td><img src="{{i.image.url}}" height="50"></td>
+                            <td>{{i.title1}}</td>
+                            <td>{{i.description1}}</td>
+                            <td><img src="{{i.image1.url}}" height="50"></td>
+                            <td>{{i.title2}}</td>
+                            <td>{{i.description2}}</td>
+                            <td><img src="{{i.image2.url}}" height="50"></td>
+                            <td><a href="/recruitment2_update/{{i.pk}}">edit</a></td>
+                            <td><a href="/recruitment2_delete/{{i.pk}}">Delete</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+        </form>
+    </body>
+</html>
+
+
+

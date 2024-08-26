@@ -1,0 +1,112 @@
+{% extends 'admin-template/base_template.html' %}
+{% block main_content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Update Form</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+    <style>
+        .form-container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+        }
+        .form-container h2 {
+            text-align: center;
+        }
+        .form-container label {
+            display: block;
+            margin-bottom: 8px;
+            color:white;
+        }
+        .form-container input[type="text"],
+        .form-container input[type="email"],
+        .form-container input[type="number"],
+        .form-container input[type="file"],
+        .form-container textarea,
+        .form-container select {
+            width: calc(100% - 16px);
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        .form-container input[type="submit"] {
+            background-color: #5785e9;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .form-container input[type="submit"]:hover {
+            background-color: #4169e1;
+        }
+        .form-container img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin-bottom: 15px;
+        }
+    </style>
+ </head> 
+ <body>
+    <div class="form-container">
+        <form method="post" action="{% url 'special_form_update' k.id %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="hidden" name="companyid" value="{{ companyid }}">
+
+            {% if k.image1 %}
+                <img src="{{ k.image1.url }}" alt="Current Image">
+            {% endif %}
+            <label for="image1">image1</label>
+            <input type="file" name="image1" class="form-control">
+
+            <label for="count">Discription</label>
+            <input type="text" name="count" class="form-control" value="{{ k.count }}">
+
+            <label for="created_at">created_at</label>
+            <input type="date" name="created_at" class="form-control" value="{{ k.created_at|date:'Y-m-d' }}">
+
+            <label for="job_title">job_title</label>
+            <input type="text" name="job_title" class="form-control" value="{{ k.job_title }}">
+
+            <label for="department">department</label>
+            <input type="text" name="department" class="form-control" value="{{ k.department }}">
+
+            <label for="location">location</label>
+            <input type="text" name="location" class="form-control" value="{{ k.location }}">
+
+            <label for="openings">openings</label>
+            <input type="text" name="openings" class="form-control" value="{{ k.openings }}">
+
+            <label for="branch">branch</label>
+            <input type="text" name="branch" class="form-control" value="{{ k.branch }}">
+
+            <label for="skills">skills</label>
+            <input type="text" name="skills" class="form-control" value="{{ k.skills }}">
+
+            <label for="work_experience">work_experience</label>
+            <input type="text" name="work_experience" class="form-control" value="{{ k.work_experience }}">
+
+            <label for="education">education</label>
+            <input type="text" name="education" class="form-control" value="{{ k.education }}">
+
+            <input type="submit" class="btn btn-block btn-successfull">
+        </form>
+    </div>
+</body>
+</html>
+{% endblock main_content %}

@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Job-Application-form</title>
+  <style>
+  * {
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+  }
+  
+  body {
+    background:#ccc;
+  }
+  
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  
+  .apply-box {
+    max-width:600px;
+    padding:20px;
+    background-color:#fff;
+    margin:0 auto;
+    margin-top: 50px;
+    border-radius:50px;
+    box-shadow: 4px 3px 5px rgba(1,1,1,0.1);
+  }
+  
+  .title_small {
+    font-size: 20px;
+    color:orangered;
+  }
+  
+  .form_container {
+    margin-top:20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+    gap:20px;
+  }
+  
+  .form_control {
+    display:flex;
+    flex-direction:column;
+  }
+  
+  .textarea_control {
+    grid-column: 1 / span 2;
+  }
+  
+  .textarea_control textarea {
+    width: 100%;
+  }
+  
+  label {
+    font-size: 15px;
+    margin-bottom: 5px;
+  }
+  
+  input,select,textarea{
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 15px;
+  }
+  
+  input:focus, textarea:focus,select:focus {
+    outline-color:red;
+  }
+  
+  .button_container {
+    display:flex;
+    justify-content:flex-end;
+    margin-top:20px;
+  }
+  
+  .button_container button {
+    background:orangered;
+    border:transparent solid 2px;
+    padding: 5px 10px;
+    color:#fff;
+    border-radius: 10px;
+    transition: 0.3s ease-in;
+    cursor: pointer;
+  }
+  
+  @media screen and (max-width: 550px) {
+    .textarea_control {
+      grid-column: 1 / span 1;
+    }
+  }
+</style>
+</head>
+<body>
+    <div class="container">
+      <div class="apply-box">
+         <h1>
+          Candidate Details
+            <span class="title_small">
+    
+            </span>
+         </h1>
+        <form method="POST" enctype="multipart/form-data">{% csrf_token %}
+          <input type="hidden" name="companyid" value="{{ companyid }}">
+
+          <div class="form_container">
+              <div class="form_control">
+                <label for="first_name">First Name</label>
+                <input type="text" name="first_name" id="first_name" placeholder="Enter first name" required>
+              </div>
+
+              <div class="form_control">
+                <label for="Last_name">Last Name</label>
+                <input type="text" name="Last_name" id="Last_name" placeholder="Enter last name" required>
+              </div>
+
+              <div class="form_control">
+                  <label for="email">Email</label>
+                <input type="email" name="email" id="email" placeholder="Enter email id" required>
+              </div>
+
+              <div class="form_control">
+                <label for="Official_mail">Official-Email</label>
+              <input type="email" name="Official_mail" id="Official_mail" placeholder="Enter email id" required>
+            </div>
+
+          
+            <div class="form_control">
+                <label for="contactno">Contact Number</label>
+              <input type="number" name="contactno"  placeholder="contact-number" required>
+            </div>
+
+
+            <div class="form_control">
+                <label for="job_role">Job Role</label>
+              <select name="job_role" id="job role">
+                  <option value="null">Choose Job Role</option>
+                  <option value="frontend">FrontEnd</option>
+                  <option value="backend">BackEnd</option>
+                  <option value="ui">UI-Development</option>
+                  <option value="mobile">Mobile App Development</option>
+              </select>
+            </div>
+
+
+            <div class="textarea_control">
+                <label for="address">Address</label>
+              <textarea name="address" id="address"  required></textarea>
+            </div>
+
+            <div class="form_control">
+                <label for="image">image</label>
+                <input type="file" name="image" id="image" required>
+            </div><br>
+
+            <h1>
+                Address Details
+                  <span class="title_small">
+                    </span>
+                    </h1><br>
+
+                    <div class="form_control">
+                        <label for="street">Street Address</label>
+                      <textarea name="street" id="street"  required></textarea>
+                    </div>
+                                        
+                    <div class="form_control">
+                        <label for="state">state</label>
+                        <textarea name="state" id="state" required></textarea>
+                    </div>
+
+                      <div class="form_control">
+                        <label for="city">city</label>
+                        <textarea name="city" id="city" required></textarea>
+                      </div>
+
+                    <div class="form_control">
+                        <label for="Pincode">zip/pin code</label>
+                        <input type="number" name="Pincode"  placeholder="Pincode-number" pattern="[0-9]{6}" required>
+                    </div>
+
+                    <div class="form_control">
+                      <label for="country">country</label>
+                      <textarea name="country" id="country"  required></textarea>
+                    </div> 
+                    <br>
+
+
+                    <h1>
+                        Professional Details
+                          <span class="title_small"></span>
+                    </h1><br>
+
+                            <div class="form_control">
+                                <label for="Experience">Experience</label>
+                              <input type="file" name="Experience" id="Experience" accept=".pdf,.docx" required>
+
+                            </div>
+
+
+                            <div class="form_control">
+                                <label for="current_salary">current salary</label>
+                              <input type="number" name="current_salary"  placeholder="current_salary" required>
+                            </div>
+
+                            <div class="form_control">
+                                <label for="source_of_hire">source of hire</label>
+                                <select name="source_of_hire" id="source_of_hire">
+                                  <option>1</option>
+                                  <option>2</option>
+                                  <option>3</option>
+                                  <option>4</option>
+                                  <option>5</option>
+                                </select>
+                            </div>
+
+                            <div class="form_control">
+                                <label for="offer_letter">offer letter</label>
+                                <input type="file" name="offer_letter" id="offer_letter" accept=".pdf,.docx" required>
+                            </div>
+
+                            <div class="form_control">
+                              <label for="skills">Skills</label>
+                              <input type="text" name="skills" id="skills" placeholder="Enter skills" required>
+                            </div>
+
+
+                  <div class="form_control">
+                    <label for="designation">Designation</label>
+                  <input type="text" name="designation" id="designation" placeholder="Enter designation" required>
+                  </div>
+
+                  <div class="form_control">
+                    <label for="Payslip">Payslip</label>
+                    <input type="file" name="Payslip" id="Payslip" accept=".pdf,.docx" required>
+                  </div>
+
+                  <div class="form_control">
+                    <label for="Relivingletter">Relivingletter</label>
+                    <input type="file" name="Relivingletter" id="Relivingletter" accept=".pdf,.docx" required>
+                  </div>
+
+                  <div class="form_control">
+                    <label for="PFno">PFno</label>
+                  <input type="number" name="PFno" id="PFno" placeholder="Enter PFno" required>
+                  </div><br>
+
+                  <h1>
+                    Personal Information Details
+                      <span class="title_small"></span>
+                </h1><br>
+
+                <div class="form_control">
+                  <label for="Nationality">Nationality</label>
+                <input type="text" name="Nationality" id="Nationality" placeholder="Enter Nationality" required>
+              </div>
+
+              <div class="form_control">
+                <label for="AadharNo">AadharNo</label>
+              <input type="number" name="AadharNo"  placeholder="AadharNo" required>
+
+            </div>
+
+
+            <div class="form_control">
+              <label for="PanNo">PanNo</label>
+            <input type="text" name="PanNo" id="PanNo" placeholder="Enter PanNo" required>
+
+          </div>
+
+          <div class="form_control">
+            <label for="dob">dob</label>
+          <input type="date" name="dob" id="dob" placeholder="Enter dob" required>
+        </div>
+
+        <div class="form_control">
+          <label for="gender">gender</label>
+        <input type="text" name="gender" id="gender" placeholder="Enter gender" required>
+        </div>
+
+        <div class="form_control">
+          <label for="Aadharimage">Aadharimage</label>
+          <input type="file" name="Aadharimage" id="Aadharimage" accept=".pdf,.docx" required>
+        </div>
+
+      <div class="form_control">
+        <label for="Panimage">Panimage</label>
+        <input type="file" name="Panimage" id="Panimage" accept=".pdf,.docx" required>
+      </div>
+
+
+          </div>
+          <div class="button_container">
+          <button type="submit">Apply Now</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+</body>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var firstNameInput = document.getElementById('first_name');
+    var LastnameInput = document.getElementById('Last_name');
+    
+    firstNameInput.addEventListener('input', function() {
+      var valid = /^[A-Za-z]+$/.test(firstNameInput.value);
+      if (!valid) {
+        firstNameInput.setCustomValidity('Please enter only alphabetic characters');
+      } else {
+        firstNameInput.setCustomValidity('');
+      }
+    });
+
+
+    LastnameInput.addEventListener('input', function() {
+      var valid = /^[A-Za-z]+$/.test(LastnameInput.value);
+      if (!valid) {
+        LastnameInput.setCustomValidity('Please enter only alphabetic characters');
+      } else {
+        LastnameInput.setCustomValidity('');
+      }
+    });
+  });
+  </script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+
+    var stateInput = document.getElementById('state');
+    var cityInput = document.getElementById('city');
+    var countryInput = document.getElementById('country');
+
+   
+    stateInput.addEventListener('input', function() {
+      var valid = /^[A-Za-z]+$/.test(stateInput.value);
+      if (!valid) {
+        stateInput.setCustomValidity('Please enter only alphabetic characters');
+      } else {
+        stateInput.setCustomValidity('');
+      }
+    });
+
+    cityInput.addEventListener('input', function() {
+      var valid = /^[A-Za-z]+$/.test(cityInput.value);
+      if (!valid) {
+        cityInput.setCustomValidity('Please enter only alphabetic characters');
+      } else {
+        cityInput.setCustomValidity('');
+      }
+    });
+
+    
+    countryInput.addEventListener('input', function() {
+      var valid = /^[A-Za-z]+$/.test(countryInput.value);
+      if (!valid) {
+        countryInput.setCustomValidity('Please enter only alphabetic characters');
+      } else {
+        countryInput.setCustomValidity('');
+      }
+    });
+
+  });
+  </script>
+
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+
+    var skillsInput = document.getElementById('skills');
+    var NationalityInput = document.getElementById('Nationality');
+    var genderInput = document.getElementById('gender');
+
+    skillsInput.addEventListener('input', function() {
+      var valid = /^[A-Za-z, ]*$/.test(skillsInput.value);
+      if (!valid) {
+        skillsInput.setCustomValidity('Please enter only alphabetic characters and commas');
+      } else {
+        skillsInput.setCustomValidity('');
+      }
+    });
+
+
+    NationalityInput.addEventListener('input', function() {
+      var valid = /^[A-Za-z]+$/.test(NationalityInput.value);
+      if (!valid) {
+        NationalityInput.setCustomValidity('Please enter only alphabetic characters');
+      } else {
+        NationalityInput.setCustomValidity('');
+      }
+    });
+
+    
+    genderInput.addEventListener('input', function() {
+      var valid = /^[A-Za-z]+$/.test(genderInput.value);
+      if (!valid) {
+        genderInput.setCustomValidity('Please enter only alphabetic characters');
+      } else {
+        genderInput.setCustomValidity('');
+      }
+    });
+
+  });
+  </script>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+      var emailInput = document.getElementById('email');
+      var Official_mailInput = document.getElementById('Official_mail');
+      
+      emailInput.addEventListener('input', function() {
+          var valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value);
+          if (!valid) {
+            emailInput.setCustomValidity('Please enter a valid email address');
+          } else {
+            emailInput.setCustomValidity('');
+          }
+      });
+  
+      Official_mailInput.addEventListener('input', function() {
+          var valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(Official_mailInput.value);
+          if (!valid) {
+            Official_mailInput.setCustomValidity('Please enter a valid official email address');
+          } else {
+            Official_mailInput.setCustomValidity('');
+          }
+      });
+  });
+  </script>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+      const contactnoInput = document.querySelector('input[name="contactno"]');
+      
+      contactnoInput.addEventListener("input", function () {
+          const inputValue = contactnoInput.value.trim();
+          
+          const numericValue = inputValue.replace(/[^0-9]/g, "");
+
+          const maxLength = 10;
+          const truncatedValue = numericValue.slice(0, maxLength);
+
+          contactnoInput.value = truncatedValue;
+      });     
+     
+  });
+</script>
+
+ 
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+      const AadharNoInput = document.querySelector('input[name="AadharNo"]');
+      
+      AadharNoInput.addEventListener("input", function () {
+          const inputValue = AadharNoInput.value.trim();
+          
+          const numericValue = inputValue.replace(/[^0-9]/g, "");
+
+          const maxLength = 12;
+          const truncatedValue = numericValue.slice(0, maxLength);
+
+          AadharNoInput.value = truncatedValue;
+      });     
+     
+  });
+</script>
+
+
+
+<script>
+ document.addEventListener("DOMContentLoaded", function () {
+    const PanNoInput = document.getElementById('PanNo');
+
+    PanNoInput.addEventListener("input", function () {
+        let inputValue = PanNoInput.value.trim().toUpperCase();
+        
+        inputValue = inputValue.replace(/[^A-Z0-9]/g, "");
+
+        const maxLength = 10;
+        const truncatedValue = inputValue.slice(0, maxLength);
+
+        PanNoInput.value = truncatedValue;
+    });
+
+    PanNoInput.addEventListener("invalid", function () {
+        if (PanNoInput.validity.patternMismatch) {
+            PanNoInput.setCustomValidity("Please enter a valid PAN number in the format ABCDE1234F.");
+        } else {
+            PanNoInput.setCustomValidity("");
+        }
+    });
+});
+
+</script>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+      const current_salaryInput = document.querySelector('input[name="current_salary"]');
+      
+      current_salaryInput.addEventListener("input", function () {
+          const inputValue = current_salaryInput.value.trim();
+          
+          const numericValue = inputValue.replace(/[^0-9]/g, "");
+
+          current_salaryInput.value = truncatedValue;
+      });     
+     
+  });
+</script>
+
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const PincodeInput = document.querySelector('input[name="Pincode"]');
+    
+    PincodeInput.addEventListener("input", function () {
+        let inputValue = PincodeInput.value.trim();
+        
+        inputValue = inputValue.replace(/\D/g, "");
+
+        const maxLength = 6;
+        const truncatedValue = inputValue.slice(0, maxLength);
+
+        PincodeInput.value = truncatedValue;
+    });     
+
+    PincodeInput.addEventListener("invalid", function () {
+        if (PincodeInput.validity.patternMismatch) {
+            PincodeInput.setCustomValidity("Please enter exactly 6 numeric digits.");
+        } else {
+            PincodeInput.setCustomValidity("");
+        }
+    });
+});
+
+</script>
+</html>

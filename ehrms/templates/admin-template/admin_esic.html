@@ -1,0 +1,277 @@
+{% extends 'admin-template/base_template.html' %}
+{% block main_content %}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<style>
+   @media (max-width: 768px) {
+      /* Apply styles for mobile view */
+     
+      /* Center buttons */
+      .button-container {
+          text-align: center;
+      }
+      /* Button styles */
+      .mobile-button {
+          display: block;
+          margin: 10px auto;
+          width: 80%;
+          background-color: #2d3354;
+          color: white;
+          font-size: large;
+          padding: 10px;
+      }
+      /* Center form elements */
+      .form-container {
+          text-align: center;
+          margin-top: 20px;
+      }
+      /* Select input style */
+      select {
+          background-color: #2d3354;
+          color: white;
+          width: 80%;
+      }
+      /* Center save button */
+      .save-button {
+          width: 80%;
+          padding: 10px;
+          background-color: rgb(64, 125, 238);
+          color: white;
+          font-size: large;
+      }
+    
+  }
+  #check{
+width: 18px;
+height: 18px;
+}
+.form-check-label{
+  font-size: larger;
+}
+
+  
+/* .checkbox {
+  position: relative;
+  margin: 20px 0;
+}
+.checkbox { display: block; }
+
+.checkbox input {
+  position: absolute;
+  margin: 5px;
+  padding: 0;
+  for mobile accessibility (iOS Label Bug)
+  visibility: hidden;
+}
+.checkbox .label-visible {
+  margin-left: 2em;
+  margin-bottom: 0;
+}
+
+.fake-checkbox{
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  border: 1px solid slategray;
+  background-color: white;
+}
+.fake-checkbox:after {
+  content: "";
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  background: rgb(247, 12, 12);
+  transform: translateX(-50%) translateY(-50%);
+}
+
+
+input[type="checkbox"]:checked + span .fake-checkbox:after { display: block; } */
+</style>
+
+
+
+<div class="container" style="width: auto;height: auto;">
+  <div class="row justify-content-center" style="margin-top: 100px;">
+      <div class="col-lg-12 " >
+
+
+        <div class="col-lg-12" style="margin-left: 20%;">
+        <a href="/tds/">
+            <button style="background-color:#2d3354;color: white;width: 12%;border:none;font-size:x-large;">TDS</button>
+            </a>
+    
+        <a href="/pr_tax/">
+            <button style="background-color:#2d3354;color: white;;border:none;font-size: x-large;">PROFESSIONAL TAX</button>
+            </a>
+    
+        <a href="/pf/">
+            <button style="background-color:#2d3354;color: white;width: 12%;border:none;font-size: x-large;">PF</button>
+            </a>
+    
+        <a href="/esic/">
+          <button style="background-color:white;color: black;width: 14%;border:none;font-size: x-large;">ESIC</button>
+        </a>
+        </div><br>
+        
+        <div class="col-lg-12">
+    <form method="post" id="button4">{% csrf_token %}
+        <div style="background-color: #2d3354;padding:2%;color: white;text-align: justify;font-size: 18px;">
+         ESI is mandatory if the oraganization size is more than 10 employees. ESI should be deducted for employees whose salary is less than Rs.21,000.
+        </div>
+        <br>
+        <div class="form-group">
+        <h2 style="color: white;">ESI Status</h2>
+        {% for i in a1 %}
+
+          <select  name="esi_status" style="background-color: #2d3354;color: white;width: 300px;border: none;font-size: 18px;padding: 1%;">
+            <option value="Enabled" {% if i.esi_status == "Enabled" %} selected {% endif %}>Enabled</option> 
+            <option value="Disabled"{% if i.esi_status == "Disabled" %} selected {% endif %}>Disabled</option>
+          </select>
+
+        </div>
+       <br>
+       <div class="form-group"  id="esi">
+
+       <h2 style="color: white;">ESI payments</h2>
+       <h6 style="background-color: #2d3354;padding:2%;color: white;text-align: justify;font-size: larger;font-size: 20px;">
+        Please note that disabling the payment of ESI does not disable the deduction of the same in your employees' payslips.
+        
+       </h6>
+       <br>
+
+
+       <div class="form-check">
+        <label class="form-check-label" style="color:white">
+            <input type="checkbox" id="esi_payment_check" name="esi_payment" {% if i.esi_payment == 'Yes' %}checked{% endif %}>
+            ESI payments and filling (if applicable)</label>
+      </div>
+
+       
+       <br>
+       <br>
+       <div id="esi_check">
+       <h3 style="color: white;">ESI</h3>
+ 
+      <h6 style="background-color: #2d3354;padding:20px;color: white;font-size: 20px;">
+        Your company's <a href="https://esic.in/ESICInsurance1/Employee/RegisteredEmployees.aspx?userPk=OxqzUqUZVi13WuoXb5TVBILM2Y/5HsXp"  style="color: blue;">ESIC</a>  login is required to pay ESIC dues and file 
+        returns.
+        
+       </h6>
+       
+
+       <br>
+       <br>
+       <table border="2" style="border-collapse: collapse;border: none;"class="input-box">
+        <tr style="background-color:#2d3354">
+            <th style="padding: 10px;color: white;">Username</th>
+            <th style="padding: 10px;color: white;">Password</th>
+        </tr>
+        <tr>
+          <td><input type="text" style="padding: 10px;border:none;background-color:#3a446f;color: white;" name="username2" value="{{i.username2}}" class="input-box"></td>
+          <td><input type="password" id="password" style="padding: 10px;border:none;background-color:#3a446f;color: white;" name="password3" value="{{i.password3}}" class="input-box"></td>
+      </tr>
+    
+      </table>
+      <br>      <br>
+
+      <button type="button" class="btn "onclick="togglePassword() " style="padding: 5px;background-color: rgb(107, 107, 150);color: white;font-size: larger;">Click here to Show Password</button>
+      <br>    </div>  <br>
+
+      <h2 style="color: white;">ESI Settings</h2>
+
+      <div class="form-check">
+        <label class="form-check-label" style="color:white">
+            <input type="checkbox" name="esi_settings" {% if i.esi_settings == 'Yes' %}checked{% endif %}>
+            Include payroll additions and one-time payments to ESI wages
+          </div><br>
+      <div class="form-check">
+        <label class="form-check-label" style="color:white">
+            <input type="checkbox" name="esi_settings1" {% if i.esi_settings1 == 'Yes' %}checked{% endif %}>
+            Include employer contribution to ESI in employee CTC
+          </label>
+      </div>
+      {% endfor %}
+
+       <br>
+      </div>
+      <input type="submit" style="width:auto;padding: 10px;border:none;background-color: rgb(18, 96, 252);color: rgb(247, 244, 244);font-size: larger;"  value="submit">
+
+      </form>
+
+      <script>
+        // Get the esi_payment checkbox and the esi_check div
+        const esiPaymentCheckbox = document.getElementById('esi_payment_check');
+        const esiCheckDiv = document.getElementById('esi_check');
+      
+        // Function to show or hide the esi_check div based on the checkbox state
+        function toggleESICheckVisibility() {
+          if (esiPaymentCheckbox.checked) {
+            esiCheckDiv.style.display = 'block';
+          } else {
+            esiCheckDiv.style.display = 'none';
+          }
+        }
+      
+        // Add an event listener to the esi_payment checkbox to call the toggleESICheckVisibility function
+        esiPaymentCheckbox.addEventListener('change', toggleESICheckVisibility);
+      
+        // Call the function initially to set the initial visibility based on the checkbox state
+        toggleESICheckVisibility();
+      </script>
+    
+
+<script>
+  // Get the dropdown menu and the ESI form-group element
+const esiStatusDropdown = document.querySelector('select[name="esi_status"]');
+const esiFormGroup = document.querySelector('#esi');
+
+// Add an event listener to the dropdown menu
+esiStatusDropdown.addEventListener('change', function() {
+// Get the selected option
+const selectedOption = this.options[this.selectedIndex];
+
+// Toggle the visibility of the ESI form-group element based on the selected option
+if (selectedOption.value === 'Enabled') {
+  esiFormGroup.style.display = 'block';
+} else if (selectedOption.value === 'Disabled') {
+  esiFormGroup.style.display = 'none';
+}
+
+});
+// Hide the ESI form-group element by default
+esiFormGroup.style.display = 'none';
+// Check if the selected option is "Disabled" and hide the ESI form-group element if it is
+
+if (esiStatusDropdown.value === 'Disabled') {
+esiFormGroup.style.display = 'none';
+}else 
+{
+esiFormGroup.style.display = 'block';
+}
+ </script>
+
+
+
+
+    <script>
+        function togglePassword() {
+          var passwordInput = document.getElementById("password");
+          if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+          } else {
+            passwordInput.type = "password";
+          }
+        }
+        </script>
+  </div></div>  </div></div>
+
+  {% endblock main_content %}
+
+    
+                                                                                                                                                                                                                                                                                                                                                                                                                                       

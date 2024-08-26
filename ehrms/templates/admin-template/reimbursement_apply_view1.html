@@ -1,0 +1,154 @@
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+{% extends 'employ-template/base_template.html' %}
+
+
+{% block main_content %}
+ <style>
+       
+label{
+    color:white;
+    font-size: 25px;
+}
+/* .vamsi:hover{
+  border: 5px solid rgb(79, 30, 119);
+} */
+
+    .vamsi{
+      background-color: rgb(145, 114, 253);
+      color:aliceblue;
+      float:right;
+      margin-right: 130px;
+    }
+    @media(max-width=500){
+      .vamsi{
+      background-color: rgb(145, 114, 253);
+      color:aliceblue;
+      float:left;
+      
+      
+      
+
+
+
+    }
+  }
+  @media (max-width: 768px) {
+        .vamsi {
+            width: ; /* Adjust width for smaller screens */
+            margin: 0 auto; /* Center the button */
+            
+            
+        }
+    }
+
+      </style>
+    </head>
+    
+    <div class="row">
+      <div class="col-md-6">
+        <center>
+          <h1 style="color: rgb(255, 253, 253);">Claim for Reimbursement:</h1>
+        </center>
+    
+        <form action="{% url 'reimbursement_apply_view_save' %}" method="post" style="float: left;">
+          {% csrf_token %}
+    
+          <div class="form-group">
+            <label>Type Of Rembursement *</label>
+            <select class="form-control custom-select" required name="typea">
+             {% for i in k3 %}
+             {% if i.reimbursement_type != "" and i.reimbursement_type != NULL  %}
+             {% if i.select_reimbursement == "Yes" %}
+    
+               <option value="{{i.reimbursement_type}}">{{i.reimbursement_type}}</option>
+               {% endif %}
+    
+               {% endif %}
+    
+               {% endfor %}
+             
+            </select> 
+            
+                
+                
+        </div>
+          <div class="form-group">
+            <label>Expense Date *</label>
+            <input type="date" name="date" class="form-control" required>
+          </div>
+    
+          <div class="form-group">
+            <label>Any Detail </label>
+            <input type="text" class="form-control" name="detail" required>
+          </div>
+    
+          <div class="form-group">
+            <label>Amount *</label>
+            <input type="number" class="form-control" name="amount" required>
+          </div>
+<!--     
+          <div class="form-group">
+            <label>Supporting Images Or Documents*</label>
+            <input type="file" class="form-control" name="image" accept=".jpg, .jpeg, .png, .gif, .doc, .docx, .pdf, .xls, .xlsx" style="background-color: #2d3354;border:none;color:#ffff"  required><br>
+            
+
+          </div> -->
+          <div class="form-group">
+            <label>Supporting Images Or Documents*</label>
+            <input type="file" class="form-control" name="image" accept=".jpg, .jpeg, .png, .gif, .doc, .docx, .pdf, .xls, .xlsx" style="background-color: #2d3354; border: none; color: #ffff" required><br>
+            <span id="file-size-error" style="color: red;"></span>
+        </div>
+        
+        <script>
+            // Get the file input element
+            const fileInput = document.querySelector('input[type="file"]');
+        
+            // Add an event listener to check the file size when a file is selected
+            fileInput.addEventListener('change', function () {
+                const maxFileSize = 5 * 1024 * 1024; // 5MB in bytes
+                const fileSize = this.files[0].size; // Size of the selected file
+        
+                if (fileSize > maxFileSize) {
+                    // Display an error message if the file size is too large
+                    document.getElementById('file-size-error').textContent = 'The file is too large. Allowed maximum size is 5MB';
+                    this.value = ''; // Clear the file input
+                } else {
+                    document.getElementById('file-size-error').textContent = ''; // Clear any previous error message
+                }
+            });
+        </script>
+    
+          <div class="form-group">
+            {% if messages %}
+              {% for message in messages %}
+              {% if message.tags == 'error' %}
+              <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+              {% endif %}
+              {% if message.tags == 'success' %}
+              <div class="alert alert-success" style="margin-top:10px">{{ message }}</div>
+              {% endif %}
+              {% endfor %}
+            {% endif %}
+          </div>
+         
+    
+          <center>
+            <button type="submit" class="btn btn-primary btn-block" id="fetch_student">Request Reimbursement</button>
+          </center>
+        </form>
+      </div>
+    
+      <div class="col-md-6" style="display: flex; justify-content: center; align-items: center; padding-bottom: 30% ;">
+        <a href="{% url 'reg' %}">
+          <button class="vamsi" style="padding: 10px; background-color: #242b4d; border-radius: 10px;">
+            <h4>View Past Requests</h4>
+            See the status of all your past Reimbursement requests..
+          </button>
+        </a>
+      </div>
+    </div>
+    {% endblock main_content %}
+    

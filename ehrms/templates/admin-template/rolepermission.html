@@ -1,0 +1,35 @@
+{% extends 'admin-template/admin-dashboard.html' %}
+        
+        
+{% block main_content %}
+
+
+
+<form method="post" >
+   
+    {% csrf_token %}
+<div class="form-group">
+    <label>Role*</label><br>
+    <select name="role"  style="background-color:#2D3354;  color:white; border:none;" class="form-control">
+        {% if plantype == "1" %}
+        <option value="Employee">Employee</option>
+        <option value="HR">HR</option>
+        {% else %}
+        {% for i in li %}
+        {% if i.name == 'Receptionist' %}
+        {% else %}
+          <option value="{{i.name}}">{{i.name}}</option>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+
+    </select>     
+</div><br> 
+
+<input type="submit" class="btn btn-lg btn-info w-50" value="continue">
+
+</form>
+{% endblock main_content %}
+
+
+

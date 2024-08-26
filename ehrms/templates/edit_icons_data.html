@@ -1,0 +1,26 @@
+<!-- edit_icons_data.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Icons Data</title>
+</head>
+<body>
+    <h1>Edit Icons Data</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="title">Title:</label>
+        <input type="text" name="title" value="{{ data.title }}" required><br>
+
+        <label for="icon1">Icon1:</label>
+        <input type="text" name="icon1" value="{{ data.icon1 }}" required><br>
+
+        <label for="icon">Icon:</label>
+        <input type="text" name="icon" value="{{ data.icon }}" required><br>
+
+        <label for="url">URL:</label>
+        <input type="text" name="url" value="{{ data.url }}" required><br>
+
+        <input type="submit" value="Save Changes">
+    </form>
+</body>
+</html>

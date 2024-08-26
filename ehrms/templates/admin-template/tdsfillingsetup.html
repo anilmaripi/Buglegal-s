@@ -1,0 +1,149 @@
+{% extends "admin-template/base_template.html" %}
+{% block main_content %}
+
+<html>
+
+<style>
+    .checkbox {
+  position: relative;
+  margin: 20px 0;
+}
+.checkbox { display: block; }
+
+.checkbox input {
+  position: absolute;
+  margin: 5px;
+  padding: 0;
+  /* for mobile accessibility (iOS Label Bug) */
+  visibility: hidden;
+}
+.checkbox .label-visible {
+  margin-left: 2em;
+  margin-bottom: 0;
+}
+
+.fake-checkbox{
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  border: 1px solid slategray;
+  background-color: white;
+}
+.fake-checkbox:after {
+  content: "";
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  background: navy;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+
+input[type="checkbox"]:checked + span .fake-checkbox:after { display: block; }
+
+</style>
+
+    <body style="background-color: #121521;">
+
+   
+<form method="post" style="color: white;width: 50%;margin: auto;font-size: large;" action="{% url 'tdsfillingsetupupdate' %}">{% csrf_token %}
+  <div style="background-color:#e83d4e; color:white; width:100%; height:auto; border:none;">
+    
+  </div><br>
+
+  <h>TDS Filing Setup</h>
+    <div class="form-control" style="background-color:#282f51; color:white; width:100%; height:auto; border:none;">
+      <label>XPayroll can automatically file your TDS returns at the end of every<br>
+        quarter. If your payroll is being run by us for an entire quarter, you<br>
+        should definitely let us file your 24Q returns. If there have been salary<br>
+        TDS deductions in this quarter from outside of XPayroll, we<br>
+        recommend that you file your returns manually, and let us file from the<br>
+        next quarter.<br><br>
+        For 26Q, have XPayroll file your returns if you are making all your non<br>
+        salary payments (to contractors, vendors etc.)<br><br>
+        XPayroll will not be able to generate Form 16s for your employees<br>
+        unless the TDS returns are being filed by us.</label>
+    </div><br>
+    
+    <div class="form-check">
+      <label class="form-check-label" style="color:white;">
+          <input type="checkbox" name="field_x_data" class="form-check-input" >
+          Automatically file 24Q
+      </label>
+  </div>
+  <br>
+   
+      
+      <h>Start 24Q filing from</h><br>
+    <select name="banktransfer" class="form-control" style="width: 100%;height: 5%;background-color: #2d3354;color: white;border: none;">
+        <option>Immediately</option>
+        <option>Disabled</option>
+    </select><br>
+
+    <div class="form-check">
+      <label class="form-check-label" style="color:white;">
+          <input type="checkbox" name="field_y_data" class="form-check-input" >
+          Automatically file 26Q
+      </label>
+  </div>
+  <br>
+  
+      <h>TDS Deductor Details</h>
+      <div class="form-control" style="background-color:#282f51; color:white; width:100%; height:auto; border:none;">
+        <label>  With every TDS filing, XPayroll needs to report certain details of the<br>
+          person who is responsible for paying salary at your company. The<br>
+          information entered here will also be visible on your employees' Form
+     </label>
+      </div><br>
+      
+   
+    <h>Employer Email Address</h><br>
+    <label style="background-color: #2d3354;color: white;">
+        <input type="text">
+    </label><br>
+    <h>Name of person responsible for paying salary</h><br>
+    <label>
+        <input type="text">
+    </label><br>
+    <h>Designation of person responsible for paying salary</h><br>
+    <label>
+        <input type="text">
+    </label><br>
+    <h>Address of person responsible for paying salary</h><br>
+    <label>
+        <input type="text">
+    </label><br>
+    <h>State of person responsible for paying salary</h><br>
+    <select name="banktransfer" class="form-control" style="width: 100%;height: 5%;background-color: #2d3354;color: white;border: none;">
+        <option>select state</option>
+        <option>Disabled</option>
+    </select><br>
+    <h>PIN code of person responsible for paying salary</h><br>
+    <label>
+        <input type="text">
+    </label><br>
+    <h>Email address of person responsible for paying salary</h><br>
+    <label>
+        <input type="text">
+    </label><br>
+    <h>Phone number of person responsible for paying salary</h><br>
+    <label>
+        <input type="text">
+    </label><br>
+    <h>PAN of person responsible for paying salary</h><br>
+    <label>
+        <input type="text">
+    </label><br>
+    <button type="submit" style="padding-left: 10px; height: 50px; width: 180px; background-color: #0079bf;">
+      <a href="setting/"><b style="color: white;">CONTINUE</b>
+    </button>
+</form>
+</body>
+</html>
+{% endblock main_content %}

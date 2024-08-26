@@ -1,0 +1,128 @@
+
+
+{% extends 'admin-template/base_template.html' %}
+{% block main_content %}
+
+
+<html>
+    <head>
+        <title>Recruitment Form Table</title>
+    </head>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: #f8f9fa;
+            padding-top: 20px;
+        }
+        .container {
+            max-width: 1200px;
+        }
+        
+        .table-container {
+            background-color: #fff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .table-responsive {
+            overflow-x: auto;
+        }
+        .table {
+            width: 100%;
+            margin-bottom: 0;
+            color: #495057;
+        }
+        .table th, .table td {
+            border: none;
+            padding: 12px 15px;
+            vertical-align: middle;
+            text-align: center;
+            font-size: 14px;
+        }
+        .table th {
+            background-color: #007bff;
+            color: #fff;
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+        .table td {
+            background-color: #fff;
+        }
+        .table-striped tbody tr:nth-of-type(odd) {
+            background-color: #f8f9fa;
+        }
+        
+       
+       
+        .modal-body {
+            padding: 20px;
+        }
+       
+        .form-control {
+            font-size: 14px;
+            height: auto;
+        }
+        
+    </style>
+
+
+    <body>
+        <h1 style="text-align: center;">Recruitment Form Data</h1>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="container">
+            <div class="table-container">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>image1</th>
+                        <th>count</th>
+                        <th>created_at</th>
+                        <th>job_title</th>
+                        <th>department</th>
+                        <th>location</th>
+                        <th>openings</th>
+                        <th>branch</th>
+                        <th>skills</th>
+                        <th>work_experience</th>
+                        <th>education</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in additional_form_data %}
+                    <tr>
+                        <td><img src="{{i.image1.url}}" height="50"></td>
+                        <td>{{ i.count }}</td>
+                        <td>{{ i.created_at }}</td>
+                        <td>{{ i.job_title }}</td>
+                        <td>{{ i.department }}</td>
+                        <td>{{ i.location }}</td>
+                        <td>{{ i.openings }}</td>
+                        <td>{{ i.branch }}</td>
+                        <td>{{ i.skills }}</td>
+                        <td>{{ i.work_experience }}</td>
+                        <td>{{ i.education }}</td>
+                        <td><a href="/special_form_edit/{{i.id}}">edit</a></td>
+                        <td><a href="/special_form_delete/{{i.id}}">delete</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+
+                </table>
+            </div>
+            </div>
+            </div>
+        </form>
+    </body>
+</html>
+
+{% endblock main_content %}
+
+

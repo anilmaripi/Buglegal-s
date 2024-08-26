@@ -1,0 +1,21 @@
+{% extends 'adminhelp/basehelp.html' %}
+{% block main_content %}
+
+<form>
+    <p id="ha1" style="font-size: xx-large;">Can we provide a cash advance against future reimbursements (imprest)?</p>
+    <p id="g1">Can we provide a cash advance against <b>future reimbursements (imprest)?</b></p>
+    <p id="g2">Imprest is the concept of giving cash to an employee before an expense has been made. This helps in situations where there is going to be a predictable reimbursement (eg. an employee is going on a work trip to a remote location) in the future, and you do not want the employee to pay out of their own pocket and claim  reimbursement later.</p>
+    <p id="g3">Hrms supports imprest as a special type of reimbursement. To request an imprest, an employee has to follow the normal flow of requesting a reimbursement, with the condition that the type of reimbursement should be <b>"imprest".</b> The approval flow is also the same as any other reimbursement. If an imprest request is approved, the amount is paid out immediately to the employee, irrespective of your reimbursement settings.</p>
+    <h5 is="g4">Settlement of imprest</h5>
+    <p id="g5">Imprest is settled automatically by Hrms. After an employee is paid imprest, the expectation is that they will later file the actual reimbursements for which this imprest was requested. After these reimbursements are approved, Hrms will settle them against the imprest amount. </p>
+    <p id="g6">eg. Employee requests Rs 10,000 as imprest and then files reimbursements for Rs 12,000. In this case, Hrms will first pay Rs 10,000 to the employee (after the interest is approved), and then Rs 2,000 (after the reimbursements are approved).</p>
+    <p id="g7">eg. Employee requests Rs 10,000 as imprest and then files reimbursements for Rs 7,000. In this case, Hrms will first pay Rs 10,000 to the employee (after the interest is approved), and then deduct Rs 3,000 from the employee's net pay in the next Hrms execution (assuming your reimbursement settings are configured to settle reimbursements with Hrms).</p><br>
+    <center><button style="width:50%;height: auto;font-size: x-large;border: 2px solid whitesmoke;">
+        <div id="a">
+            <p id="section10" style="text-align: center;">Did this answer your question?</p>
+            <p><a class="ex1" style="text-decoration: none;color: black;"><center>😄 😶 😔</center></a> </p>
+        </div>
+    </button></center><br><br><br>  
+    
+</form>
+{% endblock main_content %}

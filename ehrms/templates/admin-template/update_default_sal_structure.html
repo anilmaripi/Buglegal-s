@@ -1,0 +1,193 @@
+{% extends 'admin-template/base_template.html' %}{% block main_content %}
+
+<style>
+    .checkbox {
+position: relative;
+margin: 20px 0;
+}
+    .custom-checkbox {
+        position: relative;
+        margin: 5px;
+    }
+
+    .custom-checkbox input {
+        position: absolute;
+        visibility: hidden;
+    }
+
+    .custom-checkbox .fake-checkbox {
+        width: 20px;
+        height: 20px;
+        border: 1px solid slategray;
+        background-color: white;
+    }
+
+    .custom-checkbox input:checked + .fake-checkbox:after {
+        display: block;
+    }
+
+    .custom-checkbox .fake-checkbox:after {
+        content: "";
+        display: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 16px;
+        height: 16px;
+        background: navy;
+        transform: translateX(-50%) translateY(-50%);
+    }
+
+.fake-checkbox{
+position: absolute;
+display: block;
+top: 0;
+left: 3px;
+width: 20px;
+height: 20px;
+border: 1px solid slategray;
+background-color: white;
+}
+.fake-checkbox:after {
+content: "";
+display: none;
+position: absolute;
+top: 50%;
+left: 50%;
+width: 16px;
+height: 16px;
+background: navy;
+transform: translateX(-50%) translateY(-50%);
+}
+
+input[type="checkbox"]:checked + span .fake-checkbox:after { display: block; }
+
+    table {
+        border-collapse: collapse;
+        width:100%;
+        border: none;
+        padding: 30%;
+    }
+tbody tr:nth-child(even) {
+background-color: #2e3a5f; /* Even row color */
+}
+
+tbody tr:nth-child(odd) {
+background-color: #212b4d; /* Odd row color */
+}
+
+    
+    th, td {
+        padding: 20px;
+        text-align: left;
+        font-size: medium;
+        color: white;
+    }
+
+    th {
+        background-color:#454c64;
+        color: white;
+    }
+    
+  
+    form{
+        width: 90%;
+        margin: auto;
+        padding: 5%;
+    }
+    button {
+        margin-right: 4px;
+    }
+</style>
+
+      <form method="post" action="{% url 'update_default_sal_structure' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h2>Set Salary Structure type</h2>
+        <input type="hidden" name="total_rows" id="total_rows" value="0">
+        <div class="form-check">
+            <label class="form-check-label" style="color:white;">
+                <input type="checkbox" name="select_salarycomponent" class="form-check-input" {% if select_salarycomponent_value == 'on' %} checked {% endif %}>
+                include  with payroll
+            </label>
+        </div>
+        <br>
+        <table>
+            <thead>
+                <tr>
+                    <th>Salary Structure type</th>
+                    <th>Enabled</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for r in k2 %}
+                    {% if r.salarycomponent %}
+                        <tr>
+                            <td>{{ r.salarycomponent }}</td>
+                            <td>
+                                <input type="checkbox" name="select_salarycomponent_{{ r.id }}" {% if r.select_salarycomponent == 'Yes' %}checked{% endif %}>
+                            </td>
+                            <td>
+                                <a href="{% url 'delete_default_sal_structure' r.id %}">
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+                <tr>
+                    <td><button type="button" class="btn btn-info" onclick="addRow()">Add</button></td>
+                </tr>
+            </tbody>
+        </table>
+        <br><br>
+        <button type="submit" style="padding-left: 10px; height: 50px; width: 180px; background-color: #0079bf;">
+            <a href="setting/"><b style="color: white;">CONTINUE</b></a>
+        </button>
+    </form>
+
+<!-- <script>
+document.addEventListener("DOMContentLoaded", function () {
+document.getElementById('addRowBtn').addEventListener('click', function (event) {
+    event.preventDefault(); // Prevent the form from submitting
+    addRow();
+});
+
+// Add an event listener to handle the "include Reimbursement with payroll" checkbox
+var includeReimbursementCheckbox = document.querySelector('input[name="select_salarycomponent"]');
+includeReimbursementCheckbox.addEventListener('change', function () {
+    var checkboxes = document.querySelectorAll('input[name^="select_salarycomponent_"]');
+    checkboxes.forEach(function (checkbox) {
+        checkbox.checked = includeReimbursementCheckbox.checked;
+    });
+});
+
+// Initialize the state based on the initial state of "include Reimbursement with payroll"
+var checkboxes = document.querySelectorAll('input[name^="select_salarycomponent_"]');
+checkboxes.forEach(function (checkbox) {
+    checkbox.checked = includeReimbursementCheckbox.checked;
+});
+}); -->
+<script>
+function addRow() {
+var table = document.querySelector("table tbody");
+var rowIndex = table.rows.length;
+var totalRowsInput = document.getElementById('total_rows');
+
+var newRow = table.insertRow(rowIndex);
+
+// Create cells for the new row
+var reimbursement_typeCell = newRow.insertCell(0);
+var select_reimbursementCell = newRow.insertCell(1);
+
+// Create input elements for the cells
+reimbursement_typeCell.innerHTML = '<input type="text" name="salarycomponent_' + rowIndex + '" value="">';
+select_reimbursementCell.innerHTML = '<input type="checkbox" name="select_salarycomponent_' + rowIndex + '">';
+
+totalRowsInput.value = rowIndex + 1;  // Update the total_rows value
+}
+</script>
+            
+{% endblock main_content %}
+
+

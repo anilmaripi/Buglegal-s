@@ -1,0 +1,42 @@
+{% extends 'admin-template/base_template.html' %}
+
+{% block main_content %}
+<html>
+<head>
+    <!-- You can include any additional head content here if needed -->
+</head>
+<body>
+    <table class="table" style="background-color:#282f51; color:white">
+        <tr>
+            <th>EmployID</th>
+            <th>Employname</th>
+            <th>Date</th>
+            <th>Detail</th>
+            <th>Type</th>
+            <!-- <th>Status</th> -->
+            <th>Amount</th>
+            <th>Image</th>
+        </tr>
+        {% for reimbursement in r %}
+        <tr>
+            
+            <td>{{ reimbursement.employ_id.empid }}</td>
+            <td>{{ reimbursement.employ_id.first_name }}{{ reimbursement.employ.last_name }}</td>
+            <td>{{ reimbursement.date }}</td>
+            <td>{{ reimbursement.detail }}</td>
+            <td>{{ reimbursement.typea }}</td>
+            <!-- <td>{{ reimbursement.reimbursement_status }}</td> -->
+            <td>{{ reimbursement.amount }}</td>
+            <td>
+            {% if reimbursement.image %}
+            <a href="{{ reimbursement.image.url }}" target="_blank"><i class="fa fa-file-image-o" aria-hidden="true" style="color: rgb(56, 229, 134);"></i></a>
+            {% else %}
+            no image
+            {% endif %}
+        </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
+{% endblock main_content %}

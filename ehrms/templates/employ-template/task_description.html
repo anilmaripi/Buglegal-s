@@ -1,0 +1,78 @@
+{% extends 'employ-template/base_template.html' %}
+
+{% block main_content %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Task Descriptions</title>
+    <style>
+        /* Add your custom styles here */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .um {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            color: black;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            height: 100%;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        p {
+            margin: 10px 0;
+            padding: 0;
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="message">
+        {% if messages %}
+        {% for message in messages %}
+        {% if message.tags == 'error' %}
+        <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+        {% endif %}
+        {% if message.tags == 'success' %}
+        <div class="alert alert-success" style="margin-top:20px;background-color:green;color: whitesmoke;">{{ message }}</div>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+    </div>
+    <script>
+        $("#message").show()
+        setTimeout(function() {
+            $("#message").hide()
+        },5000)
+    </script>
+    <div class="um">
+        <h1>Task Descriptions</h1>
+        <form action="" method="POST">
+            {% csrf_token %}
+            {% for description in task_descriptions %}
+                <p style="color:black">{{ description }}</p>
+            {% endfor %}
+            
+            <button type="submit" name="mark_started" class="btn btn-primary">Mark as Started</button>
+        </form>
+    </div>
+</body>
+</html>
+
+
+
+{% endblock main_content %}
+
+
+

@@ -1,0 +1,357 @@
+{% extends 'employ-template/base_template.html' %}
+
+<html>
+  {% block main_content %}
+<head>
+  <title>Variance Report</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+    integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+    integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+    crossorigin="anonymous"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    @import url(//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
+    @import url(https://fonts.googleapis.com/css?family=Titillium+Web:300);
+
+   
+
+    #styl {
+      margin-right: 30px;
+      padding-right: 40px;
+    }
+
+    table {
+
+      width: 100%;
+    }
+
+    tr:nth-child(even) {
+      background-color: #e6e6e6;
+    }
+    tr:nth-child(odd) {
+      background-color: #ccc;
+    }
+    th{
+      color: white;
+    }
+    td{
+      color: black;
+    }
+    
+  h2{
+    margin-bottom: 20px;
+    margin-left: 8%;
+  }
+  .pagination {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.pagination a, .pagination .current-page {
+    display: inline-block;
+    padding: 8px 12px;
+    text-decoration: none;
+    margin: 0 4px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: background-color 0.3s;}
+
+  </style>
+
+</head>
+
+<body style="background-color: #1e2442; color: white;margin-top: 20px;">
+  <h3><a  href="/reports/">Reports</a><b style="color: black;">| Variance Report</b></h3>
+
+
+  <div class="container">
+    <form method="get" action="{% url 'search1' %}" style="width: auto;" class="form-inline">
+        <div class="form-group" id="styl">
+            <label for="department" style="color: black;">Department:</label><br>
+            <select class="form-control" id="department" name="department">
+                <option value="">All Departments</option>
+                {% for department in departments %}
+                <option value="{{ department.designation }}">{{ department.designation }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group" id="styl">
+            <label for="dateofjoining" style="color: black;">Date Of Joining:</label><br>
+            <select class="form-control" id="dateofjoining" name="dateofjoining" style="padding-right: 50px;">
+                <option value="">Date Of Joining </option>
+                <option value="3" {% if request.GET.dateofjoining == '3' %}selected{% endif %}>Last 3 months</option>
+                <option value="6" {% if request.GET.dateofjoining == '6' %}selected{% endif %}>Last 6 months </option>
+                <option value="9" {% if request.GET.dateofjoining == '9' %}selected{% endif %}>Last 9 months</option>
+                <option value="12" {% if request.GET.dateofjoining == '12' %}selected{% endif %}>Last 1 Year</option>
+                <option value="24" {% if request.GET.dateofjoining == '24' %}selected{% endif %}>Last 2 Years</option>
+                <option value="36" {% if request.GET.dateofjoining == '36' %}selected{% endif %}>Last 3 Years</option>
+                <option value="48" {% if request.GET.dateofjoining == '48' %}selected{% endif %}>Last 4 Years</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="margin-top: 25px;padding-right: 20px;padding-left: 20px;padding-top: 10px;">
+            Search
+        </button>
+    </form>
+    <hr>
+
+    <h3>Results</h3>
+    <table id="myTable">
+        <thead>
+            <tr style="color: black;">
+                <th>Name</th>
+                <th>Salary</th>
+                <th>Role</th>
+                <th>Financial Year</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for designation, employees in employees.items %}
+            {% for employee in employees %}
+            <tr>
+                <td>{{ employee.first_name }}</td>
+                <td>₹{{ employee.package | floatformat:2 }}</td>
+                <td>{{employee.designation}}</td>
+                <td>{{ employee.dateofjoining | date:"Y-m-d" }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+              <td col span="4" class="text-center">No results found </td>
+            </tr>
+            {% endfor %}
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- <h3>Graph</h3>
+    <div class="gra" style="height: 30%;width: 100%;">
+        <canvas id="department-chart"></canvas>
+        <script>
+            var ctx = document.getElementById('department-chart').getContext('2d');
+            var chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: [{% for employee in employees %}'{{ employee.first_name }}',{% endfor %}],
+                    datasets: [{
+                        label: 'Salaries',
+                        data: [{% for employee in employees %}{{ employee.package }},{% endfor %}],
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        xAxes: [{
+                            ticks: {
+                                autoSkip: false,
+                                maxRotation: 45,
+                                minRotation: 0
+                            }
+                        }],
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+        </script>
+    </div> -->
+
+    <div>
+        <h4 style="color: black;">Total No Of Employees :</h4>
+        <p style="color: black;">{{ total_count }}</p>
+        <hr>
+
+        <h4 style="color: black;">Total salary:</h4>
+        <p class="fa-solid fa-indian-rupee-sign" style="color: black;" >{{ total_package | floatformat:2 }}</p>
+        <hr>
+    </div>
+</div>
+
+<div class="pagination">
+  <span class="step-links">
+      {% if employees.has_previous %}
+          <a href="?page=1">&laquo; First</a>
+          <a href="?page={{ employees.previous_page_number }}" class="prev">&#8249; Previous</a>
+      {% endif %}
+
+      {% for page in employees.paginator.page_range %}
+          <a href="?page={{ page }}" {% if page == employees.number %}class="active"{% endif %}>{{ page }}</a>
+      {% endfor %}
+
+      {% if employees.has_next %}
+          {% if employees.number != employees.paginator.num_pages %}
+              <a href="?page={{ employees.next_page_number }}" class="next">Next &#8250;</a>
+          {% endif %}
+          <a href="?page={{ employees.paginator.num_pages }}">&raquo; Last</a>
+      {% endif %}
+  </span>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  var currentPage = 1; // Initialize the current page
+  var currentFilter = "all"; // Initialize the current filter (all/employees/dismissed)
+
+  // Functions for filtering data
+  function showAllRows() {
+      currentFilter = "all";
+      showPage(1);
+  }
+
+  function showActiveEmployees() {
+      currentFilter = "employees";
+      showPage(1);
+  }
+
+  function showDismissedEmployees() {
+      currentFilter = "dismissed";
+      showPage(1);
+  }
+
+  function showPage(pageNumber) {
+      var rowsPerPage = 10; // Number of rows to display per page
+      var table = document.getElementById("myTable");
+      var rows = table.rows;
+      
+      for (var i = 1; i < rows.length; i++) {
+          var is_active = rows[i].getAttribute("data-is-active");
+          if ((currentFilter === "all") ||
+              (currentFilter === "employees" && is_active === "True") ||
+              (currentFilter === "dismissed" && is_active === "False")) {
+              if (i >= (pageNumber - 1) * rowsPerPage + 1 && i <= pageNumber * rowsPerPage) {
+                  rows[i].style.display = ""; // Display rows within the current page range
+              } else {
+                  rows[i].style.display = "none"; // Hide rows outside the current page range
+              }
+          } else {
+              rows[i].style.display = "none"; // Hide rows that don't match the current filter
+          }
+      }
+      
+      // Update the current page indicator
+      document.getElementById("currentPage").textContent = "Page " + pageNumber;
+      currentPage = pageNumber;
+  }
+
+  function nextPage() {
+      if (currentPage < totalPageCount()) {
+          showPage(currentPage + 1);
+      }
+  }
+
+  function prevPage() {
+      if (currentPage > 1) {
+          showPage(currentPage - 1);
+      }
+  }
+
+  function totalPageCount() {
+      var rowsPerPage = 10; // Number of rows to display per page
+      var table = document.getElementById("myTable");
+      var totalRows = table.rows.length - 1; // Exclude the header row
+      return Math.ceil(totalRows / rowsPerPage);
+  }
+
+  // Initialize pagination on page load
+  showPage(1);
+
+  // Attach event listeners to the Previous and Next buttons
+  document.getElementById("prevPage").addEventListener("click", prevPage);
+  document.getElementById("nextPage").addEventListener("click", nextPage);
+</script>
+    <script>
+      $(document).ready(function () {
+        $('#department').change(function () {
+          var selectedDepartment = $(this).val();
+          var $designationDropdown = $('#designation');
+
+          // Clear existing options
+          $designationDropdown.empty();
+
+          if (selectedDepartment) {
+            // You need to implement getRolesForDepartment based on your data source
+            var designations = distinct_department_designations(selectedDepartment);
+
+            $.each(designations, function (index, designation) {
+              $designationDropdown.append($('<option>', {
+                value: designation,
+                text: designation
+              }));
+            });
+          } else {
+            $designationDropdown.append($('<option>', {
+              value: "",
+              text: "Select Role"
+            }));
+          }
+        });
+      });
+    </script>
+    <script>
+      $(document).ready(function () {
+        var selectedRole = "{{ designation }}";
+        var $designationDropdown = $('#department');
+    
+        // Populate the 'Department' dropdown with the new options
+        $.each(departments, function (index, department) {
+          var option = $('<option>', {
+            value: department.designation,
+            text: department.designation
+          });
+          if (department.designation === selectedRole) {
+            option.attr('selected', 'selected');
+          }
+          $designationDropdown.append(option);
+        });
+    
+        $('#department').change(function () {
+          var selectedDepartment = $(this).val();
+    
+          // Clear existing options
+          $designationDropdown.empty();
+    
+          if (selectedDepartment) {
+            // Populate the 'Role' dropdown with all designations
+            $.each(departments, function (index, department) {
+              $designationDropdown.append($('<option>', {
+                value: department.designation,
+                text: department.designation
+              }));
+            });
+    
+            // Select the correct designation
+            $designationDropdown.val(selectedRole);
+    
+            // Submit the form to display employee data based on the selected designation
+            $(this).closest('form').submit();
+          }
+        });
+      });
+    </script>
+    
+  </body>
+  </html>
+{% endblock main_content %}

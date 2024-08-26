@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Project Management List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            color:#007bff;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        a {
+            text-decoration: none;
+            padding: 4px 8px;
+            margin-right: 5px;
+            color: #007bff;
+            border: 1px solid #007bff;
+            border-radius: 4px;
+        }
+
+        a:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Project Management List</h2>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>title1</th>
+            <th>title2</th>
+            <th>discription</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in officework3_items %}
+            <tr>
+                <td>{{ item.title1 }}</td>
+                <td>{{ item.title2 }}</td>
+                <td>{{ item.discription }}</td>
+                <td>
+                    <a href="{% url 'officework3_update' pk=item.pk %}">Edit</a>
+                    <a href="{% url 'officework3_delete' pk=item.pk %}">Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+</body>
+</html>

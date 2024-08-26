@@ -1,0 +1,138 @@
+{% extends 'admin-template/base_template.html' %}
+{% block main_content %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Check-In Requests</title>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            
+        }
+        th {
+            background-color: #f2f2f2;
+            color: #333;
+        }
+        
+        tr:hover {
+            background-color: #f9f9f9;
+        }
+        .status-pending {
+            color: #f39c12;
+        }
+        .status-approved {
+            color: #27ae60;
+        }
+        .status-disapproved {
+            color: #c0392b;
+        }
+        .actions-form {
+            display: inline-block;
+        }
+        .actions-form button {
+            padding: 5px 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .actions-form button[type="submit"] {
+            background-color: #3498db;
+            color: #fff;
+        }
+        td{
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <h1>Check-In Requests</h1>
+    <div class="container">
+    <table border="1">
+        
+        <thead>
+            <tr>
+                <th> Employ ID</th>
+                <th>Employ Name</th>
+                <th>Shift</th>
+                <th>Employee Permission Time</th>
+                <th>Created At</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+            {% for i in k %}
+            <tr>
+                <td>{{ i.employ_id.empid }}</td>
+                <td>{{ i.employ_id.first_name }}</td> 
+                <td>{{ i.employ_id.working12 }}</td>
+                <td>{{ i.cutoff_time }}</td>
+                <td>{{ i.created_at }}</td>
+                <td>
+                    {% if i.status == 0 %}
+                        Pending
+                    {% elif i.status == 1 %}
+                        Approved
+                    {% else %}
+                        Disapproved
+                    {% endif %}
+                </td>
+
+                <td>
+                    {% if i.status == 0 %}
+                        <form action="{% url 'approve_checkin_request' i.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit">Approve</button>
+                        </form>
+                        <form action="{% url 'disapprove_checkin_request' i.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit">Disapprove</button>
+                        </form>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+</body>
+</html>
+{% endblock main_content %}

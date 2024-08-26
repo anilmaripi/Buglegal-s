@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+  font-family: sans-serif;
+  margin: 40px;
+  text-align: center; /* Center content for emphasis */
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #333; /* Use a darker color for seriousness */
+}
+
+p {
+  font-size: 1.1rem;
+  margin-bottom: 30px;
+}
+
+form {
+  display: inline-block; /* Keep form elements together */
+}
+
+button[type="submit"] {
+  background-color: #dc3545; /* Use a cautionary red color */
+  color: #fff;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  background-color: #c82333;
+}
+
+    </style>
+</head>
+<body>
+    <h1>Delete Contact Information</h1>
+<p>Are you sure you want to delete this contact information?</p>
+<form method="POST">
+    {% csrf_token %}
+    <button type="submit">Delete</button>
+</form>
+
+</body>
+</html>

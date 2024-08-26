@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        
+        <title>Image Gallery</title>
+        <style>
+            a.ex1:hover, a.ex1:active {
+                font-size: 150%;}
+
+            #a{
+                background-color:white;
+                /* text-align: center; */
+            }
+            body{
+                background-color:white;
+            }
+            h2{
+                color: black;
+                text-align: center;
+            }
+            h3,h4,h5,h6{
+                color:black;
+                font-size: larger;
+                text-align: justify;
+            }
+            form{
+                width: 50%;
+                margin: auto;
+            }
+            p{
+                text-align: justify;
+            }
+            
+        </style>
+        <style>
+            /* Style for the search bar container */
+            #btn{
+    
+                font-size: medium;
+            }
+    .search-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: rgba(255, 255, 255, 0); /* Semi-transparent white background */
+        padding: 10px;
+        box-sizing: border-box;
+    }
+    
+    /* Style for the search input field */
+    .search-input {
+        width: 60%;
+        height: 40px;
+        max-width: 100%;
+        padding: 10px;
+        border: 2px solid #f5f2f2;
+        border-radius: 5px;
+        font-size: 16px;
+        background-color: rgb(70, 70, 126);
+    
+    }
+    
+    /* Style for the search button */
+    .search-button {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+    #hrms{
+        font-size: 40px;
+        padding-left: 80px;
+    }
+    #btn{
+        float: right;
+    margin-top: 30px;
+    margin-right: 100px;
+    color: white;
+    }
+    #btn i {
+        margin-left: 30px; /* Adjust this value as needed */
+    }
+    
+        </style>
+        <style>
+        .search-input-container {
+                width: 60%;
+                max-width: 100%;
+                display: flex;
+                align-items: center;
+                border: 2px solid #f3f2f2;
+                border-radius: 5px;
+            }
+    
+            .search-input {
+                height: 60px;
+
+                color: white;
+                flex: 1;
+                width: 100%;
+                padding: 10px;
+                font-size: 16px;
+                background-image: linear-gradient(to top right,rgb(16, 15, 69),rgb(11, 159, 218));
+                border: none;
+            }
+    
+            .filter-button {
+                background-color: #4CAF50;
+    
+                height: auto;
+                color: white;
+                padding: 20px;
+                font-size: 16px;
+                cursor: pointer;
+            }
+    
+        </style>                       
+            <style>
+                /* Style for the search results box */
+                .search-results-box {
+                    background-color: white;
+                    border: 2px solid #ccc;
+                    border-radius: 5px;
+                    padding: 20px;
+                    width: 50%;
+                    margin: 0 auto;
+                    
+                }
+                .result-box {
+                background-color: #f5f5f5;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                padding: 10px;
+                margin: 10px;
+                text-align: left;
+            }
+            #searchResultsContainer {
+        width: 60%; /* Adjust the width as needed */
+        margin: 0 auto; /* Center the container horizontally */
+        padding: 10px; /* Add padding for spacing */
+    }
+    
+    
+    /* Add this new CSS */
+    .drop-search-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 90%;
+        max-width: 100%;
+        margin: 0 auto;
+    }
+    
+    
+    .search-input-container {
+        flex: 1;
+        margin-left: 10px;
+    }
+    
+            </style>
+            
+        
+    </head>
+    
+
+    <body>
+        <div id="filterForm">
+        {% load static %}
+        <div class="container">
+            <img id="background-image" src="{% static 'assets/images/help1.png' %}" alt="" width="100%" height="180px">
+        
+            <div class="search-container">
+                <span style="color: white;" id="hrms">HRMS</span>
+                <span style="color: white;" id="btn"><i class="fas fa-globe"></i> <b>English</b></span>
+                <a href="/" id="btn">Go to HRMS</a>
+        
+                <br><br><br>
+                <div class="drop-search-container">
+                    <div class="drop">
+                        <span style="color: rgb(235, 230, 230); font-size: 25px; padding: 10px;"><b>Category :</b>
+                        <select id="options" style="padding: 10px; width: 200PX;">
+                            <option value="" selected disabled hidden>  Select Category  </option>
+                            <option value="h1">Employee-Get Started</option>
+                            <option value="h2">How do I apply for a Leave?</option>
+                            <option value="h3">How to apply for Reimbursements?</option>
+                            <option value="h4">I am an employee and I have received an email that Hrms has changed/removed by tax declaration why is that?</option>
+                            <option value="h5">How do I contact support?</option>
+                            <option value="h6">Hrms Account Setup guidance</option>
+                            <option value="h7">Checklist before you execute your next payroll</option>                                
+                            <option value="h8">Employee Training guidance</option>
+                            <option value="h9">Executing a Hrms</option>
+                            <option value="h10">Contractor Payments</option>
+                            <option value="h11">Hrms-User Roles and permissions</option>
+                            <option value="h12">Registering employees for PF</option>
+                            <option value="h13">Access to CA and Hrms partners</option>
+                            <option value="h14">Advance Salary recover</option>
+                            <option value="h15">How-to Reimbursements</option>
+                            <option value="h16">Time, Attendance & Leave</option>
+                            <option value="h17">Can we convert an employee to a contractor (or vice versa)?</option>
+                            <option value="h18">What is the difference between an employee and a contractor?</option>
+                            <option value="h19">A new employee/contractor has not received the welcome email?</option>
+                            <option value="h20">How to give special access to administrator or somebody?</option>
+                            <option value="h21">How do I stop salary for an employee?</option>
+                            <option value="h22">Hrms keep my data safe?</option>
+                            <option value="h23">Why custom salary structure being removed?</option>
+                            <option value="h24">Employees Module</option>
+                            <option value="h25">How to download documents in bulk-file? </option>
+                            <option value="h26">Modify the employee salary?</option>
+                            <option value="h27">How to employees get their Form 16?</option>
+                            <option value="h28">Can Hrms handle our PF/ESI/PT/TRACES registration?</option>
+                            <option value="h29">When will Hrms pay my TDS/PF/ESI/PT dues?</option>
+                            <option value="h30">How do we register our employees for PF?</option>
+                            <option value="h31">Is PF compulsory?</option>
+                            <option value="h32">Is there a deadline to register my employees for ESI?</option>
+                            <option value="h33">How is ESI calculated?</option>
+                            <option value="h34">How does ESI work?</option>
+                            <option value="h35">As an employer, how do I verify my employee's tax deductions?</option>
+                            <option value="h36">Can my organization postpone its tax deductions verification?                                </option>
+                            <option value="h37">PT Setup for your Company</option>
+                            <option value="h38">Does Hrms automatically deduct professional tax?</option>
+                            <option value="h39">How do we transfer funds to Hrms?</option>
+                            <option value="h40">Can Hrms process payroll and transfers on (bank) holidays/weekends?</option>
+                            <option value="h41">A payment from Hrms failed. How do we process it now?</option>
+                            <option value="h42">A payment was made through Hrms but is not reflecting in the beneficiary's account?</option>
+                            <option value="h43">Can we change the payment narration on the bank account statement?</option>
+                            <option value="h44">Contractor Payments FAQs</option>
+                            <option value="h45">What are the compliance services offered by Hrms?</option>
+                            <option value="h46">Free vs Pro Plans</option>
+                            <option value="h47">Why was my account deactivated?</option>
+                            <option value="h48">I have been charged, where is the invoice?</option>
+                            <option value="h49">Can we put our own logo in Hrms and/or payslips?</option>
+                            <option value="h50">I have been getting invoices for so long, why is it failing now?</option>
+                            <option value="h51">Is GSTIN mandatory for invoices?</option>
+                            <option value="h52">Do I need to sign a contract?</option>
+                            <option value="h53">Insurance - Post Purchase Guide</option>
+                            <option value="h54">Do I get a GST invoice for the insurance payment?</option>
+                            <option value="h55">Is there a room rent capping?</option>
+                            <option value="h56">Is there any No Claim bonus?</option>
+                            <option value="h57">How does my team get their health card?</option>
+                            <option value="h58">Does this policy cover treatments outside India?</option>
+                            <option value="h59">Is there a limit on the number of claims during a year?</option>
+                            <option value="h60">When can employees use health insurance?</option>
+                            <option value="h61">Is there any age limit for insurance?</option>
+                            <option value="h62">Can we cover Contractors under the Insurance plan?</option>
+                            <option value="h63">Do you have a list of all the cashless hospitals that are present?</option>
+                            <option value="h64">What is the timeline for the refund to come?</option>
+                            <option value="h65">What if an employee leaves the organization after I’ve purchased Insurance?</option>
+                            <option value="h66">Can I add new employees after the initial purchase of Insurance?</option>
+                            <option value="h67">Can I take the policy for specific family members?</option>
+                            <option value="h68">Can we opt to cover family members?</option>
+                            <option value="h69">What are the different insurance plans available?</option>
+                            <option value="h70">What are the prerequisites for an organization to use Insurance?</option>
+                            <option value="h71">Slack App for HRMS - A Guide</option>
+                            <option value="h72">What are the steps to be followed for this integration?</option>
+                            <option valus="h73">Do I need to add any manual entries to QuickBooks for HRMS and Compliances?</option>
+                            <option value="h74">When are the entries synced with QuickBooks?</option>
+                            <option value="h75">If I disconnect the integration, will that delete the past entries created by HRMS</option>
+                            <option value="h76">Where can I see the entries made by HRMS in my QuickBooks account?</option>
+                            <option value="h77">What type of entries does HRMS make into QuickBooks?</option>
+                            <option value="h78">How do I disconnect the integration with QuickBooks?</option>
+                            <option value="h79">I have done the integration. When do I see the entries being made into QuickBooks?</option>
+                            <option value="h80">How do i configure the leave set up for my organisation</option>
+                            <option value="h81">I have a biometric device already. Can it be integrated with HRMS?</option>
+                            <option value="h82">CAMS biometric device troubleshooting guide</option>
+                            <option value="h83">We have purchased a biometric device from CAMS. How do we integrate it with HRMS?</option>
+                            <option value="h84">How does loss of pay for unpaid/excessive leave work?</option>
+                            <option value="h85">How does biometric integration for attendance work?</option>
+                            <option value="h86">What are my options for maintaining leave and attendance?</option>
+                            <option value="h87">How do we bulk update the leave balance for our employees?</option>
+                            <option value="h88">Can we give provide cash advance against future reimbursements (imprest)?</option>
+                            <option value="h89">How do I pay Reimbursement to an Employee?</option>
+                            <option value="h90">How can I delete a document uploaded by an employee?</option>
+                            <option value="h91">How can I make a document visible for my entire organization?</option>
+                            <option value="h92">Can I take the policy for specific employees?</option>
+                            <option value="h93">When will Hrms file my TDS return?</option>
+                            <option value="h94">As an employer, how does verification of proof of tax deductions work?</option>
+                            <option value="h95">How are PF contributions calculated?</option>
+                            <option value="h96">Search more details</option>
+                            <option value="h97">Get started</option>
+                            <option value="h98">People</option>
+                            <option value="h99">Hrms</option>
+                            <option value="h100">Statutory compliance (TDS,PF,ESI,PT)</option>
+                            <option value="h101">Payments& Accounts</option>
+                            <option value="h102">Insurance</option>
+                            <option value="h103">Integrations</option>
+                            <option value="h104">Other Modules</option>
+
+                    </select></span>
+                    </div>
+                    <div class="search-input-container">
+                        <input type="text" class="search-input" id="searchInput" placeholder="Enter your search text" style="height:20px;" oninput="filterResults()">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    <!-- <div  id="searchResults"> -->
+    <div id="searchResultsContainer">
+    
+        <!-- Search results will be displayed here -->
+    </div>
+    <script>
+        // Function to simulate filtering results
+        function filterResults() {
+            const searchInput = document.getElementById('searchInput').value;
+            // You can implement your own filtering logic here, e.g., by making an AJAX request to a server or filtering an array of data
+            // For this example, we'll just display a message with the search query
+            document.getElementById('searchResults').innerHTML = `Search': ${searchInput}`;
+        }
+    </script>
+    <div id="formContainer">
+
+
+
+
+
+    {% block main_content %}
+    {% endblock main_content %}
+
+</div>
+</div>
+
+<script>
+    function filterResults() {
+        const searchInput = document.getElementById('searchInput').value.toLowerCase().trim();
+        const content = document.body.innerHTML.toLowerCase();
+        const results = new Set(); // Use a Set to store unique results
+        const searchResultsContainer = document.getElementById('searchResultsContainer');
+
+        if (searchInput === '') {
+            // Clear the search results container if the search input is empty
+            searchResultsContainer.innerHTML = '';
+            return;
+        }
+
+        const paragraphs = content.match(/<p[^>]*>.*?<\/p>/g) || [];
+        const headers = content.match(/<h\d[^>]*>.*?<\/h\d>/g) || [];
+
+        for (const paragraph of paragraphs) {
+            const text = paragraph.replace(/<[^>]*>/g, '').toLowerCase();
+            if (text.includes(searchInput)) {
+                results.add(paragraph);
+            }
+        }
+
+        for (const header of headers) {
+            const text = header.replace(/<[^>]*>/g, '').toLowerCase();
+            if (text.includes(searchInput)) {
+                results.add(header);
+            }
+        }
+
+        searchResultsContainer.innerHTML = '';
+
+        if (results.size > 0) {
+            const searchResultMessage = document.createElement('div');
+            searchResultMessage.innerHTML = `Search results for: <strong>${searchInput}</strong>`;
+            searchResultsContainer.appendChild(searchResultMessage);
+
+            results.forEach(result => {
+                const resultBox = document.createElement('div');
+                resultBox.className = 'result-box';
+                resultBox.innerHTML = result;
+
+                // Add a click event listener to each result to scroll to the corresponding section
+                resultBox.addEventListener('click', () => {
+                    const idMatch = result.match(/id="([^"]+)"/);
+                    if (idMatch) {
+                        const sectionId = idMatch[1];
+                        const section = document.getElementById(sectionId);
+                        if (section) {
+                            section.scrollIntoView({ behavior: 'smooth' });
+                        }
+                    }
+                });
+
+                searchResultsContainer.appendChild(resultBox);
+            });
+        } else {
+            searchResultsContainer.innerHTML = 'There is no matching search result!';
+        }
+    }
+</script>
+
+<script>
+    // Add an onchange event handler to the <select> element
+    document.getElementById("options").addEventListener("change", function() {
+        var selectedOption = this.value;
+
+        // Redirect to the appropriate URL based on the selected option
+        switch (selectedOption) {
+            case "h1":
+                window.location.href = "{% url 'home' %}";
+                break;
+            case "h2":
+                window.location.href = "{% url 'home1' %}";
+                break;
+            case "h3":
+                window.location.href = "{% url 'home3' %}";
+                break;
+            case "h4":
+                window.location.href = "{% url 'home2' %}";
+                break;
+            case "h5":
+                window.location.href = "{% url 'info1' %}";
+                break;
+            case "h6":
+                window.location.href = "{% url 'info2' %}";
+                break;
+            case "h7":
+                window.location.href = "{% url 'info3' %}";
+                break;
+            case "h8":
+                window.location.href = "{% url 'info4' %}";
+                break;
+            case "h9":
+                window.location.href = "{% url 'demo1' %}";
+                break;
+            case "h10":
+                window.location.href = "{% url 'demo2' %}";
+                break;
+            case "h11":
+                window.location.href = "{% url 'demo3' %}";
+                break;
+            case "h12":
+                window.location.href = "{% url 'demo4' %}";
+                break;
+            case "h13":
+                window.location.href = "{% url 'demo5' %}";
+                break;
+            case "h14":
+                window.location.href = "{% url 'demo6' %}";
+                break;
+            case "h15":
+                window.location.href = "{% url 'demo7' %}";
+                break;
+            case "h16":
+                window.location.href = "{% url 'demo8' %}";
+                break;
+            case "h17":
+                window.location.href = "{% url 'people1' %}";
+                break;
+            case "h18":
+                window.location.href = "{% url 'people2' %}";
+                break;
+            case "h19":
+                window.location.href = "{% url 'people3' %}";
+                break;
+            case "h20":
+                window.location.href = "{% url 'people4' %}";
+                break;
+            case "h21":
+                window.location.href = "{% url 'people5' %}";
+                break;
+            case "h22":
+                window.location.href = "{% url 'payroll1' %}";
+                break;
+            case "h23":
+                window.location.href = "{% url 'payroll2' %}";
+                break;
+            case "h24":
+                window.location.href = "{% url 'payroll3' %}";
+                break;
+            case "h25":
+                window.location.href = "{% url 'payroll4' %}";
+                break;
+            case "h26":
+                window.location.href = "{% url 'payroll5' %}";
+                break;
+            case "h27":
+                window.location.href = "{% url 'payroll6' %}";
+                break;
+            case "h28":
+                window.location.href = "{% url 'statutory1' %}";
+                break;
+            case "h29":
+                window.location.href = "{% url 'statutory3' %}";
+                break;
+            case "h30":
+                window.location.href = "{% url 'sfund1' %}";
+                break;
+            case "h31":
+                window.location.href = "{% url 'sfund3' %}";
+                break;
+            case "h32":
+                window.location.href = "{% url 'esi1' %}";
+                break;
+            case "h33":
+                window.location.href = "{% url 'esi2' %}";
+                break;
+            case "h34":
+                window.location.href = "{% url 'esi3' %}";
+                break;
+            case "h35":
+                window.location.href = "{% url 'tds1' %}";
+                break;
+            case "h36":
+                window.location.href = "{% url 'tds4' %}";
+                break;
+            case "h37":
+                window.location.href = "{% url 'tax1' %}";
+                break;
+            case "h38":
+                window.location.href = "{% url 'tax2' %}";
+                break;
+            case "h39":
+                window.location.href = "{% url 'payment1' %}";
+                break;
+            case "h40":
+                window.location.href = "{% url 'payment2' %}";
+                break;
+            case "h41":
+                window.location.href = "{% url 'payment3' %}";
+                break;
+            case "h42":
+                window.location.href = "{% url 'payment4' %}";
+                break;
+            case "h43":
+                window.location.href = "{% url 'payment5' %}";
+                break;
+            case "h44":
+                window.location.href = "{% url 'billing1' %}";
+                break;
+            case "h45":
+                window.location.href = "{% url 'billing2' %}";
+                break;
+            case "h46":
+                window.location.href = "{% url 'billing3' %}";
+                break;
+            case "h47":
+                window.location.href = "{% url 'billing4' %}";
+                break;
+            case "h48":
+                window.location.href = "{% url 'billing5' %}";
+                break;
+            case "h49":
+                window.location.href = "{% url 'billing6' %}";
+                break;
+            case "h50":
+                window.location.href = "{% url 'billing7' %}";
+                break;
+            case "h51":
+                window.location.href = "{% url 'billing8' %}";
+                break;
+            case "h52":
+                window.location.href = "{% url 'billing9' %}";
+                break;
+            case "h53":
+                window.location.href = "{% url 'insurance1' %}";
+                break;
+            case "h54":
+                window.location.href = "{% url 'insurance2' %}";
+                break;
+            case "h55":
+                window.location.href = "{% url 'insurance3' %}";
+                break;
+            case "h56":
+                window.location.href = "{% url 'insurance4' %}";
+                break;
+            case "h57":
+                window.location.href = "{% url 'insurance5' %}";
+                break;
+            case "h58":
+                window.location.href = "{% url 'insurance6' %}";
+                break;
+            case "h59":
+                window.location.href = "{% url 'insurance7' %}";
+                break;
+            case "h60":
+                window.location.href = "{% url 'insurance8' %}";
+                break;
+            case "h61":
+                window.location.href = "{% url 'insurance9' %}";
+                break;
+            case "h62":
+                window.location.href = "{% url 'insurance10' %}";
+                break;
+            case "h63":
+                window.location.href = "{% url 'insurance11' %}";
+                break;
+            case "h64":
+                window.location.href = "{% url 'insurance12' %}";
+                break;
+            case "h65":
+                window.location.href = "{% url 'insurance13' %}";
+                break;
+            case "h66":
+                window.location.href = "{% url 'insurance14' %}";
+                break;
+            case "h67":
+                window.location.href = "{% url 'insurance15' %}";
+                break;
+            case "h68":
+                window.location.href = "{% url 'insurance17' %}";
+                break;
+            case "h69":
+                window.location.href = "{% url 'insurance18' %}";
+                break;
+            case "h70":
+                window.location.href = "{% url 'insurance19' %}";
+                break;
+            case "h71":
+                window.location.href = "{% url 'slack' %}";
+                break;
+            case "h72":
+                window.location.href = "{% url 'books1' %}";
+                break;
+            case "h73":
+                window.location.href = "{% url 'books2' %}";
+                break;
+            case "h74":
+                window.location.href = "{% url 'books3' %}";
+                break;
+            case "h75":
+                window.location.href = "{% url 'books4' %}";
+                break;
+            case "h76":
+                window.location.href = "{% url 'books5' %}";
+                break;
+            case "h77":
+                window.location.href = "{% url 'books6' %}";
+                break;
+            case "h78":
+                window.location.href = "{% url 'books7' %}";
+                break;
+            case "h79":
+                window.location.href = "{% url 'books8' %}";
+                break;
+            case "h80":
+                window.location.href = "{% url 'attendence1' %}";
+                break;
+            case "h81":
+                window.location.href = "{% url 'attendence2' %}";
+                break;
+            case "h82":
+                window.location.href = "{% url 'attendence3' %}";
+                break;
+            case "h83":
+                window.location.href = "{% url 'attendence4' %}";
+                break;
+            case "h84":
+                window.location.href = "{% url 'attendence5' %}";
+                break;
+            case "h85":
+                window.location.href = "{% url 'attendence6' %}";
+                break;
+            case "h86":
+                window.location.href = "{% url 'attendence7' %}";
+                break;
+            case "h87":
+                window.location.href = "{% url 'attendence8' %}";
+                break;
+            case "h88":
+                window.location.href = "{% url 'reimbus1' %}";
+                break;
+            case "h89":
+                window.location.href = "{% url 'reimbus2' %}";
+                break;
+            case "h90":
+                window.location.href = "{% url 'dletter1' %}";
+                break;
+            case "h91":
+                window.location.href = "{% url 'dletter2' %}";
+                break;
+            case "h92":
+                window.location.href = "{% url 'insurance16' %}";
+                break;
+            case "h93":
+                window.location.href = "{% url 'tds2' %}";
+                break;
+            case "h94":
+                window.location.href = "{% url 'tds3' %}";
+                break;
+            case "h95":
+                window.location.href = "{% url 'sfund2' %}";
+                break;
+            case "h96":
+                window.location.href = "{% url 'home6' %}";
+                break;
+            case "h97":
+                window.location.href = "{% url 'home7' %}";
+                break;
+            case "h98":
+                window.location.href = "{% url 'home8' %}";
+                break;
+            case "h99":
+                window.location.href = "{% url 'home9' %}";
+                break;
+            case "h100":
+                window.location.href = "{% url 'home10' %}";
+                break;
+            case "h101":
+                window.location.href = "{% url 'home11' %}";
+                break;
+            case "h102":
+                window.location.href = "{% url 'home13' %}";
+                break;
+            case "h103":
+                window.location.href = "{% url 'home15' %}";
+                break;
+            case "h104":
+                window.location.href = "{% url 'home16' %}";
+                break;
+
+            default:
+                // Handle other cases or provide an error message
+                break;
+        }
+    });
+</script>
+<script>
+    document.getElementById("filterForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // Prevent the default form submission
+    
+        var selectedOption = document.getElementById("options").value;
+    
+        // Redirect to the appropriate URL based on the selected option
+        switch (selectedOption) {
+            case "h1":
+                window.location.href = "{% url 'home' %}";
+                break;
+            case "h2":
+                window.location.href = "{% url 'home1' %}";
+                break;
+            case "h3":
+                window.location.href = "{% url 'home3' %}";
+                break;
+            case "h4":
+                window.location.href = "{% url 'home2' %}";
+                break;
+            case "h5":
+                window.location.href = "{% url 'info1' %}";
+                break;
+            case "h6":
+                window.location.href = "{% url 'info2' %}";
+                break;
+            case "h7":
+                window.location.href = "{% url 'info3' %}";
+                break;
+            case "h8":
+                window.location.href = "{% url 'info4' %}";
+                break;
+            case "h9":
+                window.location.href = "{% url 'demo1' %}";
+                break;
+            case "h10":
+                window.location.href = "{% url 'demo2' %}";
+                break;
+            case "h11":
+                window.location.href = "{% url 'demo3' %}";
+                break;
+            case "h12":
+                window.location.href = "{% url 'demo4' %}";
+                break;
+            case "h13":
+                window.location.href = "{% url 'demo5' %}";
+                break;
+            case "h14":
+                window.location.href = "{% url 'demo6' %}";
+                break;
+            case "h15":
+                window.location.href = "{% url 'demo7' %}";
+                break;
+            case "h16":
+                window.location.href = "{% url 'demo8' %}";
+                break;
+            case "h17":
+                window.location.href = "{% url 'people1' %}";
+                break;
+            case "h18":
+                window.location.href = "{% url 'people2' %}";
+                break;
+            case "h19":
+                window.location.href = "{% url 'people3' %}";
+                break;
+            case "h20":
+                window.location.href = "{% url 'people4' %}";
+                break;
+            case "h21":
+                window.location.href = "{% url 'people5' %}";
+                break;
+            case "h22":
+                window.location.href = "{% url 'payroll1' %}";
+                break;
+            case "h23":
+                window.location.href = "{% url 'payroll2' %}";
+                break;
+            case "h24":
+                window.location.href = "{% url 'payroll3' %}";
+                break;
+            case "h25":
+                window.location.href = "{% url 'payroll4' %}";
+                break;
+            case "h26":
+                window.location.href = "{% url 'payroll5' %}";
+                break;
+            case "h27":
+                window.location.href = "{% url 'payroll6' %}";
+                break;
+            case "h28":
+                window.location.href = "{% url 'statutory1' %}";
+                break;
+            case "h29":
+                window.location.href = "{% url 'statutory3' %}";
+                break;
+            case "h30":
+                window.location.href = "{% url 'sfund1' %}";
+                break;
+            case "h31":
+                window.location.href = "{% url 'sfund3' %}";
+                break;
+            case "h32":
+                window.location.href = "{% url 'esi1' %}";
+                break;
+            case "h33":
+                window.location.href = "{% url 'esi2' %}";
+                break;
+            case "h34":
+                window.location.href = "{% url 'esi3' %}";
+                break;
+            case "h35":
+                window.location.href = "{% url 'tds1' %}";
+                break;
+            case "h36":
+                window.location.href = "{% url 'tds4' %}";
+                break;
+            case "h37":
+                window.location.href = "{% url 'tax1' %}";
+                break;
+            case "h38":
+                window.location.href = "{% url 'tax2' %}";
+                break;
+            case "h39":
+                window.location.href = "{% url 'payment1' %}";
+                break;
+            case "h40":
+                window.location.href = "{% url 'payment2' %}";
+                break;
+            case "h41":
+                window.location.href = "{% url 'payment3' %}";
+                break;
+            case "h42":
+                window.location.href = "{% url 'payment4' %}";
+                break;
+            case "h43":
+                window.location.href = "{% url 'payment5' %}";
+                break;
+            case "h44":
+                window.location.href = "{% url 'billing1' %}";
+                break;
+            case "h45":
+                window.location.href = "{% url 'billing2' %}";
+                break;
+            case "h46":
+                window.location.href = "{% url 'billing3' %}";
+                break;
+            case "h47":
+                window.location.href = "{% url 'billing4' %}";
+                break;
+            case "h48":
+                window.location.href = "{% url 'billing5' %}";
+                break;
+            case "h49":
+                window.location.href = "{% url 'billing6' %}";
+                break;
+            case "h50":
+                window.location.href = "{% url 'billing7' %}";
+                break;
+            case "h51":
+                window.location.href = "{% url 'billing8' %}";
+                break;
+            case "h52":
+                window.location.href = "{% url 'billing9' %}";
+                break;
+            case "h53":
+                window.location.href = "{% url 'insurance1' %}";
+                break;
+            case "h54":
+                window.location.href = "{% url 'insurance2' %}";
+                break;
+            case "h55":
+                window.location.href = "{% url 'insurance3' %}";
+                break;
+            case "h56":
+                window.location.href = "{% url 'insurance4' %}";
+                break;
+            case "h57":
+                window.location.href = "{% url 'insurance5' %}";
+                break;
+            case "h58":
+                window.location.href = "{% url 'insurance6' %}";
+                break;
+            case "h59":
+                window.location.href = "{% url 'insurance7' %}";
+                break;
+            case "h60":
+                window.location.href = "{% url 'insurance8' %}";
+                break;
+            case "h61":
+                window.location.href = "{% url 'insurance9' %}";
+                break;
+            case "h62":
+                window.location.href = "{% url 'insurance10' %}";
+                break;
+            case "h63":
+                window.location.href = "{% url 'insurance11' %}";
+                break;
+            case "h64":
+                window.location.href = "{% url 'insurance12' %}";
+                break;
+            case "h65":
+                window.location.href = "{% url 'insurance13' %}";
+                break;
+            case "h66":
+                window.location.href = "{% url 'insurance14' %}";
+                break;
+            case "h67":
+                window.location.href = "{% url 'insurance15' %}";
+                break;
+            case "h68":
+                window.location.href = "{% url 'insurance17' %}";
+                break;
+            case "h69":
+                window.location.href = "{% url 'insurance18' %}";
+                break;
+            case "h70":
+                window.location.href = "{% url 'insurance19' %}";
+                break;
+            case "h71":
+                window.location.href = "{% url 'slack' %}";
+                break;
+            case "h72":
+                window.location.href = "{% url 'books1' %}";
+                break;
+            case "h73":
+                window.location.href = "{% url 'books2' %}";
+                break;
+            case "h74":
+                window.location.href = "{% url 'books3' %}";
+                break;
+            case "h75":
+                window.location.href = "{% url 'books4' %}";
+                break;
+            case "h76":
+                window.location.href = "{% url 'books5' %}";
+                break;
+            case "h77":
+                window.location.href = "{% url 'books6' %}";
+                break;
+            case "h78":
+                window.location.href = "{% url 'books7' %}";
+                break;
+            case "h79":
+                window.location.href = "{% url 'books8' %}";
+                break;
+            case "h80":
+                window.location.href = "{% url 'attendence1' %}";
+                break;
+            case "h81":
+                window.location.href = "{% url 'attendence2' %}";
+                break;
+            case "h82":
+                window.location.href = "{% url 'attendence3' %}";
+                break;
+            case "h83":
+                window.location.href = "{% url 'attendence4' %}";
+                break;
+            case "h84":
+                window.location.href = "{% url 'attendence5' %}";
+                break;
+            case "h85":
+                window.location.href = "{% url 'attendence6' %}";
+                break;
+            case "h86":
+                window.location.href = "{% url 'attendence7' %}";
+                break;
+            case "h87":
+                window.location.href = "{% url 'attendence8' %}";
+                break;
+            case "h88":
+                window.location.href = "{% url 'reimbus1' %}";
+                break;
+            case "h89":
+                window.location.href = "{% url 'reimbus2' %}";
+                break;
+            case "h90":
+                window.location.href = "{% url 'dletter1' %}";
+                break;
+            case "h91":
+                window.location.href = "{% url 'dletter2' %}";
+                break;
+            case "h92":
+                window.location.href = "{% url 'insurance16' %}";
+                break;
+            case "h93":
+                window.location.href = "{% url 'tds2' %}";
+                break;
+            case "h94":
+                window.location.href = "{% url 'tds3' %}";
+                break;
+            case "h95":
+                window.location.href = "{% url 'sfund2' %}";
+                break;
+            case "h96":
+                window.location.href = "{% url 'home6' %}";
+                break;
+            case "h97":
+                window.location.href = "{% url 'home7' %}";
+                break;
+            case "h98":
+                window.location.href = "{% url 'home8' %}";
+                break;
+            case "h99":
+                window.location.href = "{% url 'home9' %}";
+                break;
+            case "h100":
+                window.location.href = "{% url 'home10' %}";
+                break;
+            case "h101":
+                window.location.href = "{% url 'home11' %}";
+                break;
+            case "h102":
+                window.location.href = "{% url 'home13' %}";
+                break;
+            case "h103":
+                window.location.href = "{% url 'home15' %}";
+                break;
+            case "h104":
+                window.location.href = "{% url 'home16' %}";
+                break;
+
+            default:
+                // Handle other cases or provide an error message
+                break;
+        }
+    });
+    </script>
+
+</body>
+</html>

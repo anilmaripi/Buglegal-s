@@ -1,0 +1,606 @@
+{% extends 'admin-template/base_template.html' %}{% block main_content %}
+{% load static %}
+{%load mathfilters%}{%load humanize%}{%load static%}
+
+<html>
+    <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="style.css">
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" rel="stylesheet"/> 
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css">
+		<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+        <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+		<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+		<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+   <script src=" https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+   <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+       <!-- Tell the browser to be responsive to screen width -->
+      
+  
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap.no-icons.min.css" rel="stylesheet">
+
+  
+  <style>
+     body{
+                
+                background-color: #1E2442;
+            
+            }
+           
+            h1,h2,h3,h4,h5,h6{
+                color:white;
+                margin-top: 4px;
+            }
+            
+            tr:nth-child(even){
+                background-color:#282f51;
+            }
+            tr:nth-child(odd){
+                background-color:#1e2442;
+            }
+            table{
+                border-top: none;
+                color: white;
+                width: 100%;
+                
+
+            }
+           
+            th,td{
+                font-size: 20px;
+                padding:15px;
+                
+               
+            }
+           
+/*  */
+
+  /* Show the dropdown menu when the menu icon is clicked */
+
+.wrapper-dropdown {
+  position: relative;
+  display: inline-block;
+  min-width: 231.5px;
+  width: 100%;
+  max-width: 403px;
+  min-height: 44px;
+  border-radius: 0px 0px 15px 15px;
+  background: #1c2028;
+  text-align: left;
+
+  cursor: pointer; 
+  margin-bottom: 20px;
+  font-family: Arial;
+}
+/* .button {
+  display: inline-block;
+  padding: 15px 25px;
+  font-size: 24px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+}
+
+.button:hover {background-color: #3e8e41}
+
+.button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+} */
+.button{
+  width: 150px;
+  height: 13%;
+  background-color: blue;
+  color: white;
+  display: flex;
+  align-items: center;
+}
+
+.material-icons{
+  margin-right: 5px;
+}
+
+.pagination {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.pagination a, .pagination .current-page {
+    display: inline-block;
+    padding: 8px 12px;
+    text-decoration: none;
+    margin: 0 4px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+
+
+      </style>
+      
+    </head>
+      
+  
+    
+  
+   
+
+
+
+      
+          <p  style="padding: none; margin-top: 50px;">Reports|<b>Salary Register</b></p>
+        
+        <div style="margin-left:left;">
+          <div class="container mt-3" style="margin-left: 200px;">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+             Pay Slips Download
+           </button>
+         </div>
+          
+          <!-- The Modal -->
+          <div class="modal" id="myModal" >
+            <div class="modal-dialog"  >
+              <div class="modal-content"  >
+          
+                <!-- Modal Header -->
+                <div  style="background-color:rgb(13, 13, 56); ">
+                  <h2 class="modal-title" >Download Employ Payslips</h2>
+                  
+                  <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+          
+                <!-- Modal body -->
+                <div class="modal-body" style="height: 660px;  background-color:rgb(13, 13, 56);">
+                <p><b style="color:beige; padding-right:auto;">Date Range</b></p>
+                
+               
+
+                  
+                    <form>
+                    <select id="dropDownYear1" class="wrapper-dropdown" name="status" style="background-color:rgb(13, 13, 56); color: white; ">
+                      <option value="-1">-Year-</option>
+                  </select>
+                  <select id="dropDownYearMonth" class="wrapper-dropdown" name="status" style="background-color:rgb(13, 13, 56); color: white; ">
+                      <option value="-1">-Month-</option>
+                  </select>
+                  <p><b style="color:beige; padding-right:auto;">Select Status</b></p>
+                  <select id="statusDropdown" class="wrapper-dropdown" name="status" style="background-color:rgb(13, 13, 56); color: white; ">
+                    <option value="-1">Select Status</option>
+                    <option value="active">Active Employees</option>
+                    <option value="inactive">Inactive Employees</option>
+                </select>
+              <!-- This script is used for dropdown for years and months and status autometically -->
+                  <script>
+                      var currentYear = new Date().getFullYear();
+                      var currentMonth = new Date().getMonth();
+                      var cascadedDropDownMonthId = "#dropDownYearMonth";
+              
+                      // Adding Last 10 Years to Year Drop Down
+                      for (var i = currentYear; i > currentYear - 10; i--) {
+                          $("#dropDownYear1").append('<option value="' + i.toString() + '">' + i.toString() + '</option>');
+                      }
+              
+                      // Disabling Month Dropdown in case of invalid Selections.
+                      $(cascadedDropDownMonthId).prop("disabled", true);
+              
+                      $("#dropDownYear1").change(function () {
+                          var currentSelectedValue = $(this).val();
+              
+                          if (currentSelectedValue == "-1") {
+                              $(cascadedDropDownMonthId).prop("disabled", true);
+                          } else {
+                              $(cascadedDropDownMonthId).prop("disabled", false);
+                              var currentSelectedYear = parseInt($(this).val());
+                              var totalMonths = 11;
+                              if (currentSelectedYear == currentYear) {
+                                  totalMonths = currentMonth;
+                              }
+                              var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                              $(cascadedDropDownMonthId).empty();
+                              $(cascadedDropDownMonthId).append('<option value="-1">-Month-</option>');
+                              for (var month = 0; month <= totalMonths; month++) {
+                                  $(cascadedDropDownMonthId).append('<option value="' + (month + 1) + '">' + monthNames[month] + '</option>');
+                              }
+                          }
+                      });
+                  </script>
+                <p style="border-radius:2%;   border-left: 6px solid red; background-color: black; padding: 15px;">File Download can take upto 20 Minutes. We Will Email the files to you at sravan.d@developtrees.com.</p>
+                
+             <center> <button id="emailButton" style="width:150px; height: 13%; background-color: blue; border-radius: 5px;color: white; display: flex; justify-content: center; align-items: center;" type="button" class="button">
+                  <i class="material-icons">email</i>Email
+              </button></center>          
+            </form>
+                     <!--This script is used for when we select option based on option it will works on button -->
+                     <script>
+                      const statusDropdown = document.getElementById("statusDropdown");
+                      const emailButton = document.getElementById("emailButton");
+                  
+                      statusDropdown.addEventListener("change", function() {
+                          const selectedValue = statusDropdown.value;
+                          let link = "";
+                          
+                          if (selectedValue === "active") {
+                              link = "allemp_email";
+                          } else if (selectedValue === "inactive") {
+                              link = "inactiveemp_email";
+                          }
+                  
+                          emailButton.innerHTML = `<a href="${link}"><i class="material-icons">email</i>Email</a>`;
+                      });
+                  </script>
+                  
+                
+                </div>
+              </div>
+            </div>
+          </div>
+                    </div>
+           
+
+
+
+
+
+                    
+        <div class="form-group">
+          <b><label style="color:#fff ;">Payroll Month</label></b>
+          <form>
+            <select id="finish" class="wrapper-dropdown"  name="status" style="background-color:#282f51; color: white;width: 50px; ">
+              <option   disabled="True"  selected >Select the month and year</option>
+             
+              {% for i in rst %} 
+         
+              <option value="{{i.package}}" >{{i.package}}</option>
+         
+         
+             {% endfor %}
+             
+            </select>
+            <button  class="btn btn-primary" style="margin-left: 30px; margin-bottom: 20px;" type="submit">Filter</button>
+          </form>
+          <!-- script for the dropdown repeacted fields were stoped-->
+      <script>
+        $(document).ready(function(){
+        var finishItems = {};
+        $("select > option").each(function () {
+          if(finishItems[this.text]) {
+             $(this).remove();
+         } else {
+             finishItems[this.text] = this.value;
+             
+             
+         }});
+        })
+        
+        
+        </script>
+<!-- script for the dropdown filter -->
+<script>
+  document.querySelector('button[type="submit"]').addEventListener('click', function(event) {
+    event.preventDefault(); // Prevent form submission
+
+    var selectedValue = document.getElementById('finish').value;
+    var table = document.getElementById('myTable');
+    var rows = table.getElementsByTagName('tr');
+
+    for (var i = 1; i < rows.length; i++) { // Start from 1 to skip the header row
+      var dateCell = rows[i].getElementsByTagName('td')[5];
+      var date = dateCell.textContent || dateCell.innerText;
+
+      if (selectedValue === '' || date === selectedValue) {
+        rows[i].style.display = '';
+      } else {
+        rows[i].style.display = 'none';
+      }
+    }
+  });
+</script>
+
+
+        
+      <div style="width: auto; margin: 4%;">
+            
+        <canvas id="myChart" style="width: 300px;"></canvas>
+      </div>
+      <script>
+        // Define the data for the line chart
+        var data = {
+            labels: [{% for i in rst %} "{{ i.first_name }}", {% endfor %}],
+            datasets: [{
+                label: "My Employees",
+                data: [{% for i in rst %} {{ i.package }}, {% endfor %}], // Use numerical values
+                borderColor: "blue", // Set the border color
+                fill: false // Do not fill the area under the line
+            }]
+        };
+    
+        // Get the context of the canvas element
+        var ctx = document.getElementById("myChart").getContext("2d");
+    
+        // Create the line chart
+        var myChart = new Chart(ctx, {
+            type: "line",
+            data: data,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+    </script>
+    
+    
+      
+      </div>
+      <div>
+        <h3 style="border-radius:2%;  border-left: 6px solid red; background-color: black; padding: 15px;">Employee Names with a * have not been paid</h3>
+      </div>
+      <div>
+        
+      </div>
+      
+      
+      
+      
+      
+      
+      <div class="table" style= "width:100%;height:40%; "> 
+      
+        
+      
+        
+        <table  id="myTable" class="hold" style="border-color: rgb(8, 8, 77);">
+          
+          <tr >
+            <th>Employe Id</th>
+            
+            <th>Employ Name</th>
+           
+            <th>Employ Package</th>
+           
+            <th>No of WorkingDays</th>
+            
+            <th>Gross CTC</th>
+            
+            <th >Date of join</th>
+           
+            <th>Basic Salary</th>
+            
+            <th>DA</th>
+           
+            <th>HRA</th>
+            
+            <th>SA</th>
+           
+            <th>LTA</th>
+            
+            <th>TDS</th>
+            
+            
+           
+            <th>Reimb</th>
+            
+            <th>Imprest</th>
+            
+            <th>Advance Salary</th>
+           
+            <th>Net Pay</th>
+          </tr>
+          {% for i in rst %}  
+         
+          <tr>
+      
+            <td>{{i.empid}}</td>
+            
+            <td>{{i.first_name}}</td>
+          
+            <td>{{i.package}}</td>
+          
+            <td><samp class="ukCount"></samp></td>
+           
+            <td>{{i.package| div:12 | mul:100 | div:100 | floatformat:0}}</td>
+            
+            <td >{{i.dateofjoining}}</td>
+            
+            <td>{{i.package | div:12 | mul:50 | div:100 | floatformat:0}}</td>
+            
+            <td>{{i.package | div:12 | mul:10 | div:100 | floatformat:0}}</td>
+           
+            <td>{{i.package | div:12 | mul:25 | div:100 | floatformat:0}}</td>                    
+            
+            <td>{{i.package | div:12 | mul:15 | div:100 | floatformat:0}}</td>
+            
+            <td>{{i.package | div:12 | mul:10 | div:100 | floatformat:0}}</td>
+            
+            <td>{{i.package | mul:83.33333 | div:100 | floatformat:0}}</td>
+           
+           
+            <td>{{i.status}}</td>
+            
+            <td>{{b.amount}}</td>
+            
+            <td>{{a.amount}}</td>
+          
+            <td>{{i.package | div:12 | floatformat:0}}</td>
+          </tr>
+          {% endfor %}
+      
+        </table>
+        <!-- <div style="display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; background-color: #1e2442; padding: 10px;">
+          <button id="prevPage" style="background-color: #393f5c; color: white; border: none; padding: 8px 16px; border-radius: 4px;">Previous</button>
+          <span id="currentPage" class="btns" style="color: white; font-weight: bold;">Page 1</span>
+          <button id="nextPage" style="background-color: #393f5c; color: white; border: none; padding: 8px 16px; border-radius: 4px;">Next</button>
+        </div> -->
+  
+        <div class="pagination">
+          <span class="step-links">
+              {% if rst.has_previous %}
+                  <a href="?page=1">&laquo; first</a>
+                  <a href="?page={{ rst.previous_page_number }}">previous</a>
+              {% endif %}
+      
+              <span class="current">
+                  Page {{ rst.number }} of {{ rst.paginator.num_pages }}.
+              </span>
+      
+              {% if rst.has_next %}
+                  <a href="?page={{ rst.next_page_number }}">next</a>
+                  <a href="?page={{ rst.paginator.num_pages }}">last &raquo;</a>
+              {% endif %}
+          </span>
+        </div>
+        </div>
+        </div>
+        </div>
+      </div>
+    </div>
+    
+
+       <!--  count script for no of working days  -->
+        <script>
+          var table = document.getElementById("myTable");
+          var employeeCounts = {};
+        
+          for (var i = 1; i < table.rows.length; i++) {
+            var employeeId = table.rows[i].cells[0].innerHTML;
+        
+            if (employeeCounts.hasOwnProperty(employeeId)) {
+              employeeCounts[employeeId]++;
+            } else {
+              employeeCounts[employeeId] = 1;
+            }
+          }
+        
+          var ukCountElements = document.getElementsByClassName("ukCount");
+          for (var j = 0; j < ukCountElements.length; j++) {
+            var employeeId = ukCountElements[j].parentNode.parentNode.cells[0].innerHTML;
+            ukCountElements[j].innerHTML = employeeCounts[employeeId];
+          }
+   </script>
+   
+  <!-- script for repearting data has been hold in no of working days    -->
+<script>
+  var table = document.getElementsByClassName("hold")[0];
+  var uniqueRows = [];
+  var uniqueEmployeeIds = [];
+
+  for (var i = 1; i < table.rows.length; i++) {
+    var employeeId = table.rows[i].cells[0].innerHTML;
+
+    if (!uniqueEmployeeIds.includes(employeeId)) {
+      uniqueRows.push(table.rows[i].cloneNode(true));
+      uniqueEmployeeIds.push(employeeId);
+    }
+  }
+
+  // Clear the table
+  while (table.rows.length > 1) {
+    table.deleteRow(1);
+  }
+
+  // Append the unique rows back to the table
+  for (var j = 0; j < uniqueRows.length; j++) {
+    table.appendChild(uniqueRows[j]);
+  }
+</script>
+<script>
+  var currentPage = 1; // Initialize the current page
+  var currentFilter = "all"; // Initialize the current filter (all/employees/dismissed)
+
+  // Functions for filtering data
+  function showAllRows() {
+      currentFilter = "all";
+      showPage(1);
+  }
+
+  function showActiveEmployees() {
+      currentFilter = "employees";
+      showPage(1);
+  }
+
+  function showDismissedEmployees() {
+      currentFilter = "dismissed";
+      showPage(1);
+  }
+
+  function showPage(pageNumber) {
+      var rowsPerPage = 10; // Number of rows to display per page
+      var table = document.getElementById("myTable");
+      var rows = table.rows;
+      
+      for (var i = 1; i < rows.length; i++) {
+          var is_active = rows[i].getAttribute("data-is-active");
+          if ((currentFilter === "all") ||
+              (currentFilter === "employees" && is_active === "True") ||
+              (currentFilter === "dismissed" && is_active === "False")) {
+              if (i >= (pageNumber - 1) * rowsPerPage + 1 && i <= pageNumber * rowsPerPage) {
+                  rows[i].style.display = ""; // Display rows within the current page range
+              } else {
+                  rows[i].style.display = "none"; // Hide rows outside the current page range
+              }
+          } else {
+              rows[i].style.display = "none"; // Hide rows that don't match the current filter
+          }
+      }
+      
+      // Update the current page indicator
+      document.getElementById("currentPage").textContent = "Page " + pageNumber;
+      currentPage = pageNumber;
+  }
+
+  function nextPage() {
+      if (currentPage < totalPageCount()) {
+          showPage(currentPage + 1);
+      }
+  }
+
+  function prevPage() {
+      if (currentPage > 1) {
+          showPage(currentPage - 1);
+      }
+  }
+
+  function totalPageCount() {
+      var rowsPerPage = 10; // Number of rows to display per page
+      var table = document.getElementById("myTable");
+      var totalRows = table.rows.length - 1; // Exclude the header row
+      return Math.ceil(totalRows / rowsPerPage);
+  }
+
+  // Initialize pagination on page load
+  showPage(1);
+
+  // Attach event listeners to the Previous and Next buttons
+  document.getElementById("prevPage").addEventListener("click", prevPage);
+  document.getElementById("nextPage").addEventListener("click", nextPage);
+</script>
+        </body>
+          </html>
+          {% endblock main_content %}
+          {% block custom_css %}{% endblock custom_css %}
+          
+
+
+
+
+

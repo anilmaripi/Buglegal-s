@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Bootstrap dropdown</title>
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href=
+"https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href=
+"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script src=
+"https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+	</script>
+	<script src=
+"https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js">
+	</script>
+	<script src=
+"https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"> 
+	</script>
+	<style>
+		.container{
+			margin:20px;
+		}
+		h2{
+			color:green;
+		}
+		.dropdown-toggle::after {
+			display: none !important;
+		}
+		.fa {
+			margin:2px;
+			color:white;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h2>GeeksforGeeks</h2>
+		<p>A Computer Science Portal for Geeks</p>
+		<div class="dropdown">
+			
+			<!-- Dropdown button -->
+			<button type="button"
+					class="btn btn-success dropdown-toggle"
+					
+					data-toggle="dropdown">
+				Dropdown
+				<a href="javascript:void(0);"
+				class="icon"
+				onclick="geeksforgeeks()">
+					
+					<!-- Changing the default icon with toggle-->
+					<i onclick="myFunction(this)"
+					class="fa fa-chevron-circle-up"></i>
+				</a>
+			</button>
+			
+			<!-- Dropdown options -->
+			<div class="dropdown-menu">
+				<a class="dropdown-item" href="#">Option A</a>
+				<a class="dropdown-item" href="#">Option B</a>
+				<a class="dropdown-item" href="#">Option C</a>
+				<a class="dropdown-item" href="#">Option D</a>
+			</div>
+		</div>
+	</div>
+	<script>
+		
+		// Function to toggle the plus menu into minus
+		function myFunction(x) {
+			x.classList.toggle("fa fa-chevron-circle-down");
+		}
+	</script>
+</body>
+
+</html>

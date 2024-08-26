@@ -1,0 +1,224 @@
+{% extends 'employ-template/base_template.html' %}
+
+{% block main_content %}
+
+{%load mathfilters%}{%load humanize%}
+
+      <title>payroll details</title>
+      <style>
+        table{
+          border:collapse;
+          width:100%;
+          background-color: rgb(5, 5, 58);
+          color:white;
+        }
+        td,th{
+          color:white;
+        }
+        body{
+          background-color: rgb(5, 5, 58);
+          color:white;
+        }
+      </style>
+    </head>
+    <body>
+      <h3><b><center>Payroll Details for {{user_obj.first_name}}.{{user_obj.last_name}}.{{user_obj.role}}{{today}}</center></b></h3>
+        <table class="table table-border">
+          
+            <tr>
+              
+              <td></td>
+              <td></td>
+              <th >April{{current_year}}</th>
+              <th scope="col">May{{current_year | add:1}}</th>
+              <th scope="col">June{{i.current_year}}</th>
+              <th scope="col">July{{i.current_year}}</th>
+              <th scope="col">August{{i.current_year}}</th>
+              <th scope="col">September{{i.current_year}}</th>
+              <th scope="col">October{{i.current_year}}</th>
+              <th scope="col">November{{i.current_year}}</th>
+              <th scope="col">December{{i.current_year}}</th>
+              <th scope="col">January{{i.current_year | add:1}}</th>
+              <th scope="col">February{{i.current_year | add:1}}</th>
+              <th scope="col">March{{i.current_year | add:1}}</th>
+              
+            </tr>
+      
+              
+              
+            <tr>
+                <td >Earnings</td><th scope="row">BasicSalary</th>
+                <td>0</td>
+                <td>0</td>
+<td>{{user_obj.package | div:12 | mul:50 | div:100 | floatformat:0}}</td>
+<td>{{user_obj.package | div:12 | mul:50 | div:100 | floatformat:0}}*</td>
+<td>{{user_obj.package | div:12 | mul:50 | div:100 | floatformat:0}}*</td>
+<td>{{user_obj.package | div:12 | mul:50 | div:100 | floatformat:0}}*</td>
+<td>{{user_obj.package | div:12 | mul:50 | div:100 | floatformat:0}}*</td>
+<td>{{user_obj.package | div:12 | mul:50 | div:100 | floatformat:0}}*</td>
+<td>{{user_obj.package | div:12 | mul:50 | div:100 | floatformat:0}}*</td>
+<td>{{user_obj.package | div:12 | mul:50 | div:100 | floatformat:0}}*</td>
+<td>{{user_obj.package | div:12 | mul:50 | div:100 | floatformat:0}}*</td>
+<td>{{user_obj.package | div:12 | mul:50 | div:100 | floatformat:0}}*</td>
+
+                
+              </tr>
+            <tr>
+              <td></td><th scope="row">DA</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0*</td>
+              <td>0*</td>
+              <td>0*</td>
+              <td>0*</td>
+              <td>0*</td>
+              <td>0*</td>
+              <td>0*</td>
+              <td>0*</td>
+              <td>0*</td>
+              
+            </tr>
+            <tr>
+              <td></td><th scope="row">HRA</th>
+              <td>0</td>
+              <td>0</td>
+              <td>{{user_obj.package | div:12 | mul:25 | div:100 | floatformat:0}}</td>
+              <td>{{user_obj.package | div:12 | mul:25 | div:100 | floatformat:0}}*</td>
+              <td>{{user_obj.package | div:12 | mul:25 | div:100 | floatformat:0}}*</td>
+              <td>{{user_obj.package | div:12 | mul:25 | div:100 | floatformat:0}}*</td>
+              <td>{{user_obj.package | div:12 | mul:25 | div:100 | floatformat:0}}*</td>
+              <td>{{user_obj.package | div:12 | mul:25 | div:100 | floatformat:0}}*</td>
+              <td>{{user_obj.package | div:12 | mul:25 | div:100 | floatformat:0}}*</td>
+              <td>{{user_obj.package | div:12 | mul:25 | div:100 | floatformat:0}}*</td>
+              <td>{{user_obj.package | div:12 | mul:25 | div:100 | floatformat:0}}*</td>
+              <td>{{user_obj.package | div:12 | mul:25 | div:100 | floatformat:0}}*</td>
+            </tr>
+            <tr>
+              <td></td> <th scope="row">Special allowance</th>
+                <td>0</td>
+                <td>0</td>
+                <td>{{user_obj.package | div:12 | mul:15 | div:100 | floatformat:0}}</td>
+                <td>{{user_obj.package | div:12 | mul:15 | div:100 | floatformat:0}}*</td>
+                <td>{{user_obj.package | div:12 | mul:15 | div:100 | floatformat:0}}*</td>
+                <td>{{user_obj.package | div:12 | mul:15 | div:100 | floatformat:0}}*</td>
+                <td>{{user_obj.package | div:12 | mul:15 | div:100 | floatformat:0}}*</td>
+                <td>{{user_obj.package | div:12 | mul:15 | div:100 | floatformat:0}}*</td>
+                <td>{{user_obj.package | div:12 | mul:15 | div:100 | floatformat:0}}*</td>
+                <td>{{user_obj.package | div:12 | mul:15 | div:100 | floatformat:0}}*</td>
+                <td>{{user_obj.package | div:12 | mul:15 | div:100 | floatformat:0}}*</td>
+                <td>{{user_obj.package | div:12 | mul:15 | div:100 | floatformat:0}}*</td>
+                
+              </tr>
+              <tr>
+                <td></td><th scope="row">LTA</th>
+                <td>0</td>
+                <td>0</td>
+                <td>{{user_obj.package | div:12 | mul:10 | div:100 | floatformat:0}}</td>
+                <td>{{user_obj.package | div:12 | mul:10 | div:100 | floatformat:0}}*</td>
+                <td>{{user_obj.package | div:12 | mul:10 | div:100 | floatformat:0}}*</td>
+                <td>{{user_obj.package | div:12 | mul:10 | div:100 | floatformat:0}}*</td>
+                <td>{{user_obj.package | div:12 | mul:10 | div:100 | floatformat:0}}*</td>
+                <td>{{user_obj.package | div:12 | mul:10 | div:100 | floatformat:0}}*</td>
+                <td>{{user_obj.package | div:12 | mul:10 | div:100 | floatformat:0}}*</td>
+                <td>{{user_obj.package | div:12 | mul:10 | div:100 | floatformat:0}}*</td>
+                <td>{{user_obj.package | div:12 | mul:10 | div:100 | floatformat:0}}*</td>
+                <td>{{user_obj.package | div:12 | mul:10 | div:100 | floatformat:0}}*</td>
+                
+              </tr>
+              <tr>
+                <td></td><th scope="row">[Year to Date] **	</th>
+                <td>0</td>
+                <td>0</td>
+                <td>{{user_obj.package | div:12 | mul:1 | floatformat:0}}</td>
+                <td>{{user_obj.package | div:12 | mul:2 | floatformat:0}}*</td>
+                <td>{{user_obj.package | div:12 | mul:3 | floatformat:0}}*</td>
+                <td>{{user_obj.package | div:12 | mul:4 | floatformat:0}}*</td>
+                <td>{{user_obj.package | div:12 | mul:5 | floatformat:0}}*</td>
+                <td>{{user_obj.package | div:12 | mul:6 | floatformat:0}}*</td>
+                <td>{{user_obj.package | div:12 | mul:7 | floatformat:0}}*</td>
+                <td>{{user_obj.package | div:12 | mul:8 | floatformat:0}}*</td>
+                <td>{{user_obj.package | div:12 | mul:9 | floatformat:0}}*</td>
+                <td>{{user_obj.package | div:12 | mul:10 | floatformat:0}}*</td>
+                
+              </tr>
+            </tr>
+              <tr>
+              
+                <tr>
+                  <td >Exemptions</td><th scope="row">HRA</th>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0*</td>
+                  <td>0*</td>
+                  <td>0*</td>
+                  <td>0*</td>
+                  <td>0*</td>
+                  <td>0*</td>
+                  <td>0*</td>
+                  <td>0*</td>
+                  <td>0*</td>
+                  
+                </tr>
+                <tr>
+                  <td></td><th scope="row">[Year to Date] **</th>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0*</td>
+                  <td>0*</td>
+                  <td>0*</td>
+                  <td>0*</td>
+                  <td>0*</td>
+                  <td>0*</td>
+                  <td>0*</td>
+                  <td>0*</td>
+                  <td>0*</td>
+                  
+                </tr>
+              </tr>
+              
+                
+                <tr>
+                  <td >Deductions</td><th scope="row">TDS</th>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0*</td>
+                  <td>0*</td>
+                  <td>0*</td>
+                  <td>0*</td>
+                  <td>0*</td>
+                  <td>0*</td>
+                  <td>0*</td>
+                  <td>0*</td>
+                  <td>0*</td>
+                  
+                </tr>
+                <tr>
+                  <td></td> <th scope="row">[Year to Date] **</th>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0*</td>
+                  <td>0*</td>
+                  <td>0*</td>
+                  <td>0*</td>
+                  <td>0*</td>
+                  <td>0*</td>
+                  <td>0*</td>
+                  <td>0*</td>
+                  <td>0*</td>
+                  
+                </tr>
+              
+       
+          </table>
+          <span>* Projected (actual value may be different).</span><br>
+          <span>** Includes any past payroll amounts as well.</span><br>
+          <span>*** Exemptions table does not include exempt flexible benefits.</span><br>
+          <span>**** Max amount allowed by organization for Zaggle card loading.</span><br>
+          <span>***** Amount to be credited to Zaggle card.</span>
+          {% endblock main_content %}
+

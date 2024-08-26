@@ -1,0 +1,84 @@
+{% extends 'admin-template/base_template.html' %}{% block main_content %}
+<html>
+    <head>
+    </head>
+    <body>
+        <form method="post" enctype="multipart/form-data" action="/update_admin_home_rent/{{k.id}}" style=" width: 100%; height: auto; margin: auto; padding: 10px; border-radius: 15px; ">{% csrf_token %}
+            <h3 style="color: white;">Paying house rent?</h3><br>
+            <section class="content" style="background-color: #282f51;color: white;" >
+                <h5 style="color: #cecfd2;">To be eligible for HRA exemh4tion.you must meet following criteria:</h5><br>
+                <h6 style="color: #cecfd2;">
+                    <div style="padding-bottom: 10px;">- You must be living in a rented accommodation</div>
+                    <div style="padding-bottom: 10px;">- You must be paying rent to the landlord</div>
+                    <div style="padding-bottom: 10px;">- You must be able to provide the rent receipts and/or rent agreement as proof</div>
+                    <div style="padding-bottom: 10px;">- If your rent is above Rs 1 lakh per annum, you have to submit your landlord's PAN</div>
+                    <div style="padding-bottom: 10px;">You can generate rent receipts <a href="#">here</a>, and submit them as proof. However, they must be signed by your landlord.</div><br>
+                    <div style="padding-bottom: 10px;">For your current rented accommodation, leave the "to month" blank. To enter multiple rents,enter the first, press Continue and come back to this page.</div><br>
+                    <div style="padding-bottom: 10px;">A metro city implies Chennai, Kolkata, Mumbai or Delhi. All other cities in India including Gurgaon, Hyderabad and Bengaluru are non-metros</div>
+                </h6>
+            </section>
+            <br><br>
+            <section class="content" style="background-color: #282f51;" >
+                <table style="background-color: #242b4d;color: white;width: 100%;height: 20%;">
+                    <thead style="margin-left: 2%;">
+                        <tr>
+                            <th style="padding-top: 2%;padding-left: 2%;">
+                                <label for="Current_Monthly_Rent">Current Monthly Rent</label>
+                            </th>
+                            <th style="padding-top: 2%;padding-left: 2%;">
+                                <label for="from_month">From Date</label>
+                            </th>
+                            <th style="padding-top: 2%;padding-left: 2%;">
+                                <label for="to_month">To Date</label>
+                            </th>
+
+                            <th style="padding-top: 2%;">
+                                <label for="Name_of_landlord">Name of landlord</label>
+                            </th>
+                            <th style="padding-top: 2%;">
+                                <label for="PAN_of_landlord">PAN of landlord</label>
+                            </th>
+                            <th style="padding-top: 2%;">
+                                <label for="Address_of_landlord">Address of landlord</label>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="padding-left: 2%;">
+                                <input type="number" id="Current_Monthly_Rent" name="Current_Monthly_Rent" class="form-control" value="{{k.Current_Monthly_Rent}}" style="background-color: #393f5c;color: white;border: none;width: 90%;">
+                            </td>
+                            <td style="padding-left: 2%;">
+                                <input type="date" id="from_month" name="from_month" class="form-control" value="{{k.from_month}}" style="background-color: #393f5c;color: white;border: none;width: 90%;">
+                            </td>
+                            <td style="padding-left: 2%;">
+                                <input type="date" id="to_month" name="to_month" class="form-control" value="{{k.to_month}}" style="background-color: #393f5c;color: white;border: none;width: 90%;">
+                            </td>
+
+                            <td>
+                                <input type="text" id="Name_of_landlord" name="Name_of_landlord" class="form-control" value="{{k.Name_of_landlord}}" style="background-color: #393f5c;color: white;border: none;width: 90%;">
+                            </td>
+                            <td>
+                                <input type="text" id="PAN_of_landlord" name="PAN_of_landlord" class="form-control" value="{{k.PAN_of_landlord}}" style="background-color: #393f5c;color: white;border: none;width: 90%;">
+                            </td>
+                            <td>
+                                <input type="text" id="Address_of_landlord" name="Address_of_landlord" class="form-control" value="{{k.Address_of_landlord}}" style="background-color: #393f5c;color: white;border: none;width: 90%;">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div style="color:rgb(46, 237, 247);width:20%;text-align: center;padding-top:1% ;font-size: 20px;">
+                    <input type="file" id="imageInput" style="display: none;" name="home_rent_proof" value="{{k.home_rent_proof}}">
+                    <label for="imageInput" style="cursor: pointer;">
+                        <i class="fas fa-upload"></i> Upload images
+                    </label>
+                </div>
+                <br>
+            </section>
+            <br><br>
+            <center><input type="submit" class="btn btn-lg" style="background-color: rgb(90, 90, 143);color: white;"></center><br>
+        </form>
+    </body>
+</html>
+    {% endblock main_content %}

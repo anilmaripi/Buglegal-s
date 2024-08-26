@@ -1,0 +1,68 @@
+{% extends 'admin-template/base_template.html' %}{% block main_content %}
+<html>
+    <head>
+    </head>
+    <body>
+
+        <form method="post" enctype="multipart/form-data" action="/update_admin_travel_allowance/{{k.id}}" style=" width: 100%; height: auto; margin: auto; padding: 10px; border-radius: 15px; ">{% csrf_token %}
+
+        <h3 style="color: white;">Leave Travel Allowance Tax Exemption</h3><br><br>
+            <h6 style="color: #cecfd2; background-color:  #242b4d;padding: 20px;">Rules regarding LTA:<br><br>
+               <div style="padding-bottom: 10px;"> - You can claim LTA exemption for a maximum of 2 trips in one block of 4 calendar years.</div>
+               <div style="padding-bottom: 10px;"> - Current block started from 01 Jan 2022 and is upto 31 Dec 2025.</div>
+               <div style="padding-bottom: 10px;"> - You can claim LTA exemption for only one trip in one year.</div>
+               <div style="padding-bottom: 10px;"> - In case you are unable to claim the LTA exemption twice in one block.You can carry forward one journey to the next block.</div>
+               <div style="padding-bottom: 10px;"> - However,the carried forward LTA eligibility has to be utilised in the first year of the next block (not applicable now since 2022 is over).</div>
+               <div style="padding-bottom: 10px;"> - The day of journey should not be a holiday in your organization.</div>
+                <a href="#"><b style="font-size: 20px;">More information</b></a>
+            </h6>
+            <br><br>
+            <!-- <div style="color: #cecfd2;">Except from the exemptions you claim here in this page, how many LTA exemption have you claimed already in 2022-2025?</div>
+        <input type="number" name="" required style="background-color:  #585d7a;width: 600px;height: 50px;color:white;font-size: 20px;padding-left:10px;">
+        <br><br> -->
+        <!-- <section class="content" style="background-color: #282f51;" > -->
+            <div style="color: #cecfd2;">LTA claims in 2022-2025:</div>
+
+        <table style="background-color: #242b4d;color: white;width: 100%;height: 20%;">
+            <thead style="margin-left: 2%;">
+            <tr>
+                <th style="padding-top: 2%;padding-left: 2%;">
+                    <label for="Amount">Amount</label>
+                </th>
+                <th style="padding-top: 2%;">
+                    <label for="Travel Start Date">Travel Start Date</label>
+                </th>
+                <th style="padding-top: 2%;">
+                    <label for="Origin">Origin</label>
+                </th>
+                <th style="padding-top: 2%;">
+                    <label for="Destination">Destination</label>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="padding-left: 2%;">
+                    <input type="number" id="Amount" name="Amount" class="form-control" value="{{k.Amount}}" style="background-color: #585d7a;color: white;border: none;width: 90%;">
+                </td>
+                <td>
+                    <input type="date" id="Travel Start Date" name="TravelStartDate" class="form-control"  value="{{k.TravelStartDate}}" style="background-color: #585d7a;color: white;border: none;width: 90%;">
+                </td>
+                <td>
+                    <input type="text" id="Origin" name="Origin" class="form-control" value="{{k.Origin}}" style="background-color: #585d7a;color: white;border: none;width: 90%;">
+                </td>
+                <td>
+                    <input type="text" id="Destination" name="Destination" class="form-control" value="{{k.Destination}}" style="background-color: #585d7a;color: white;border: none;width: 90%;">
+                </td>
+            </tr>
+        </tbody>
+        </table>
+        <br><br>
+        <center><input type="submit" class="btn btn-lg" style="background-color: rgb(90, 90, 143);color: white;"></center><br>
+
+        </form>
+
+    </body>
+</html>
+
+{% endblock main_content %}

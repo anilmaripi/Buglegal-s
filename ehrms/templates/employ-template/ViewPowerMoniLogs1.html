@@ -1,0 +1,140 @@
+{% extends 'employ-template/base_template.html' %}
+{% block main_content %}
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    table, th, td {
+        border: 2px solid #ddd;
+        padding: 10px;
+        text-align: center;
+    }
+    
+    th {
+        background-color: #4CAF50;
+        color: white;
+        font-weight: bold;
+        font-size: 25px;
+    }
+    
+    tr:hover {
+        background-color:black;
+    }
+    .pagination a, .pagination .current-page {
+            display: inline-block;
+            padding: 8px 12px;
+            text-decoration: none;
+            margin: 0 4px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            transition: background-color 0.3s;
+            text-align: center;
+            color:blue;
+        }
+        .act{
+          /* background-color: orange; */
+          color: white;
+          height:43px;
+          width:43px;
+          border-radius: 20px;
+        
+        }
+    </style>
+    
+         
+<form action="/power-monitoring_1/{{emp_eyed.id}}/" method="POST">
+   {% csrf_token %}
+   <div class="mb-4">
+       <div class="form-group">
+          
+           <div class="form-group">
+               <label class="h6" for="exampleFormControlTextarea1" style="color: black;">Search by Date:</label>
+                  <input type="date" min="1000-01-01" max="9999-12-31" name="date_log" class="form-control" value="{{date_log}}" required>
+           </div>
+       </div>
+       <input type="submit" class="btn btn-primary" value="View">
+       </div>
+</form>
+
+
+<br>
+<br>
+
+                    {% if msg is not none and msg %}
+                    
+                        <h3>View Employee Power Monitoring Logs</h3>
+                
+
+                <div class="table-responsive">
+                    <table class="table table-flush" id="exampleMoni">
+                        <thead >
+                                <tr>
+                                     <th scope="col">Sr. No.</th>
+                                     <th scope="col">Status Type</th>
+                                    <th scope="col">Power State</th>
+                                    <th scope="col">Time Stamp</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for result in msg %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                   
+                                   <td>{{result.status_type}}</td>
+
+                                 <td>{{result.status_message}}</td>
+
+                                    <td>{{result.timestamp}}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="pagination" style="color:white; margin:20px auto;">
+                        <span class="step-links">
+                            {% if msg.has_previous %}
+                                <a href="?page=1&date_log={{ date_log }}">&laquo;<<</a>
+                                <a href="?page={{ msg.previous_page_number }}&date_log={{ date_log }}" class="prev"> < </a>
+                            {% endif %}
+
+                            {% for i in msg.paginator.page_range %}
+                            {% if msg.number == i %}
+                                <button class="active act bg-info"><span>{{ i }} <span class="sr-only">(current)</span></span></button>
+                            {% elif i > msg.number|add:'-3' and i < msg.number|add:'3' %}
+                                <a href="?page={{ i }}&date_log={{ date_log }}">{{ i }}</a>
+                            {% endif %}
+                            {% endfor %}
+
+                            {% if msg.has_next %}
+                                {% if msg.number != msg.paginator.num_pages %}
+                                {% endif %}
+                                <a href="?page={{ msg.next_page_number }}&date_log={{ date_log }}" class="prev">> </a>
+
+                                <a href="?page={{ msg.paginator.num_pages }}&date_log={{ date_log }}">>>&raquo; </a>
+                            {% endif %}
+                        </span>
+                    </div>                    
+                    {% else %}
+
+                        <center>
+                            <lottie-player src="https://assets7.lottiefiles.com/datafiles/vhvOcuUkH41HdrL/data.json"
+                                background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay>
+                            </lottie-player>
+                        </center>
+                        <h3 class="h3 text-center">
+                            No Records Found!
+                        </h3>
+                    {% endif %}
+                
+<script>
+    $(document).ready(function () {
+        $('#exampleMoni').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ]
+        });
+    });
+</script>
+{% endblock main_content %}

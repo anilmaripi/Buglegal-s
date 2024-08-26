@@ -1,0 +1,269 @@
+{% extends 'admin-template/base_template.html' %}
+{% load mathfilters %}
+{% load humanize %}
+
+{% block page_title %}
+    <!-- Your page title here -->
+{% endblock page_title %}
+
+{% block main_content %}
+<title>Projects List</title>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+
+<style>
+    .pagination {
+        margin: 20px 0;
+        text-align: center;
+    }
+    
+    /* .pagination a, .pagination .current-page {
+        display: inline-block;
+        padding: 8px 12px;
+        text-decoration: none;
+        margin: 0 4px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+    }
+    .pagination .step-links a.active {
+    background-color: orange;
+} */
+
+.pagination a, .pagination .current-page {
+    display: inline-block;
+    padding: 8px 12px;
+    text-decoration: none;
+    margin: 0 4px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    text-align: center;
+}
+.act{
+  /* background-color: orange; */
+  color: white;
+  height:43px;
+  width:43px;
+  border-radius: 20px;
+
+}
+
+    
+</style>
+
+<style>
+
+    #yourTableID {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+            }
+    
+            /* Apply styles to table cells */
+            #yourTableID th {
+            border-color: #f6f7f4;
+            text-align: left;
+            padding: 8px;
+            color: white;
+            }
+            #yourTableID td{
+                color: black;
+            }
+            /* Apply alternating row colors */
+            #yourTableID tbody tr:nth-child(even) {
+            background-color: rgb(238, 243, 244);
+            }
+    
+            #yourTableID tbody tr:nth-child(odd) {
+            background-color: rgb(239, 239, 247);
+            }
+    
+    </style>
+    <form method="post">
+        {% csrf_token %}
+        <div class="container">
+            <div class="row">
+                <div class="col-3">
+                    <h3 style="color:black; font-weight: bold;">Project List</h3>
+                </div>
+                <div class="col-7">
+                    <input type="text" name="se" class="form-control" placeholder="Enter Project Name">
+                </div>
+                <div class="col-2">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </div>
+        </div>
+    </form>
+<div class="row pt-4">
+    <div class="col-lg-12">
+
+        <table class="table"id="yourTableID">
+            <thead>
+                <tr style="background-color: black; color: white;">
+                    <th style="border: 1px solid white; padding: 8px;">Project Name</th>
+                    <th style="border: 1px solid white; padding: 8px;">Project Manager</th>
+                    <th style="border: 1px solid white; padding: 8px;">Status</th>
+                </tr> 
+            </thead>
+            <tbody>
+                {% for project in projects %}
+                <tr style="border: 1px solid white;">
+                    <td style="border: 1px solid white; padding: 8px;">{{ project.project_name }}</td>
+                    <td style="border: 1px solid white; padding: 8px;">{{ project.admin_id.first_name }} {{ project.admin_id.last_name }}</td>
+                    {% if project.status == "Incomplete" %}
+                    <td style="border: 1px solid white; padding: 8px;color: red;">{{ project.status }}</td>
+                    {% elif project.status == "Ongoing" %}
+                    <td style="border: 1px solid white; padding: 8px;color:orange">{{ project.status }}</td>
+                    {% elif project.status == "Complete" %}
+                    <td style="border: 1px solid white; padding: 8px;color: rgb(12, 143, 31);">{{ project.status }}</td>
+                    {% elif project.status == "New..." %}
+                    <td style="border: 1px solid white; padding: 8px;color: blue;">{{ project.status }}</td>
+                    {% else %}
+                    <td style="border: 1px solid white; padding: 8px;color: blue;">New...</td>
+                    {% endif %}
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3" style="border: 1px solid white; padding: 8px;">No projects created yet.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
+    <script>
+        // Add event listener for input field
+        document.getElementById("searchInput").addEventListener("input", function() {
+            var filter, table, tr, td, i, txtValue;
+            filter = this.value.toUpperCase();
+            table = document.getElementById("yourTableID");
+            tr = table.getElementsByTagName("tr");
+            var dataFound = false;
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0]; // Change index to the column you want to search
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                        dataFound = true;
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+            if (!dataFound) {
+                // Create a row for displaying the message
+                var noDataRow = document.createElement("tr");
+                var noDataCell = document.createElement("td");
+                noDataCell.setAttribute("colspan", "3"); // Set colspan according to the number of columns in your table
+                noDataCell.style.color = "black"; // Set text color to white
+                noDataCell.textContent = "Data not found";
+                noDataRow.appendChild(noDataCell);
+                // Remove previous "no data" row if exists
+                var oldNoDataRow = document.getElementById("noDataRow");
+                if (oldNoDataRow) {
+                    oldNoDataRow.parentNode.removeChild(oldNoDataRow);
+                }
+                // Append the "no data" row to the table body
+                table.querySelector("tbody").appendChild(noDataRow);
+                noDataRow.id = "noDataRow";
+            } else {
+                // Remove the "no data" row if data is found
+                var oldNoDataRow = document.getElementById("noDataRow");
+                if (oldNoDataRow) {
+                    oldNoDataRow.parentNode.removeChild(oldNoDataRow);
+                }
+            }
+        });
+    </script>
+    {% comment %} <span class="step-links">
+        {% if   projects.has_previous %}
+            <a href="?page=1">&laquo; First</a>
+            <a href="?page={{   projects.previous_page_number }}" class="prev">&#8249; Previous</a>
+        {% endif %}
+  
+        {% for page in   projects.paginator.page_range %}
+            <a href="?page={{ page }}" {% if page ==  projects.number %}class="active"{% endif %}>{{ page }}</a>
+        {% endfor %}
+  
+        {% if  projects.has_next %}
+            {% if leave_data.number !=   projects.paginator.num_pages %}
+                <a href="?page={{   projects.next_page_number }}" class="next">Next &#8250;</a>
+            {% endif %}
+            <a href="?page={{   projects.paginator.num_pages }}">&raquo; Last</a>
+        {% endif %}
+    </span>
+</div> {% endcomment %}
+
+
+
+<!-- <div class="pagination d-flex justify-content-center" style="color:white ;padding-left: 24px;" >
+    <span class="step-links">
+        {% if projects.has_previous %}
+            <a href="?page=1">&laquo; First</a>
+            <a href="?page={{ projects.previous_page_number }}" class="prev">&#8249; << </a>
+        {% endif %}
+  
+        {% for page in projects.paginator.page_range %}
+            <a href="?page={{ page }}" {% if page == projects.number %}class="active"{% endif %}>{{ page }}</a>
+        {% endfor %}
+  
+        {% if rs.has_next %}
+            {% if projects.number != projects.paginator.num_pages %}
+            {% endif %}
+            <a href="?page={{ projects.paginator.num_pages }}">&raquo; >> </a>
+        {% endif %}
+    </span>
+  </div>
+   -->
+
+
+   <div class="pagination" style="color:white; margin:20px auto;">
+    <span class="step-links">
+        {% if projects.has_previous %}
+            <a  href="?page=1" style="border-radius: 20px;">&laquo;<<</a>
+            <a   href="?page={{ projects.previous_page_number }}" style="border-radius: 20px;" class="prev"> < </a>
+        {% endif %}
+
+
+        {% for i in projects.paginator.page_range %}
+        {% if projects.number == i %}
+        <button class="active act bg-info"><span>{{ i }} <span class="sr-only">(current)</span></span></button>
+        {% elif i > projects.number|add:'-3' and i < projects.number|add:'3' %}
+            <a  href="?page={{ i }}" style="border-radius: 20px;">{{ i }}</a>
+        {% endif %}
+        {% endfor %}
+
+       
+
+        {% if projects.has_next %}
+            {% if projects.number != projects.paginator.num_pages %}
+            {% endif %}
+            <a   href="?page={{ projects.next_page_number }}" style="border-radius: 20px;" class="prev">> </a>
+
+            <a  href="?page={{ projects.paginator.num_pages }}" style="border-radius: 20px;">>>&raquo; </a>
+        {% endif %}
+    </span>
+</div>   
+
+<script>
+    $(document).ready(function () {
+        $("#name-search, #date-search").on("keyup change", function () {
+            var nameValue = $("#name-search").val().toLowerCase();
+            var dateValue = $("#date-search").val();
+
+            $("#myTable tbody tr").filter(function () {
+                var nameMatch = $(this).text().toLowerCase().indexOf(nameValue) > -1;
+                var dateCell = $(this).find("td:eq(4)").text(); // Index 4 corresponds to the Date column
+                var dateMatch = dateValue === "" || dateCell === dateValue;
+
+                $(this).toggle(nameMatch && dateMatch);
+            });
+        });
+    });
+</script>
+</div>
+{% endblock main_content %}
+

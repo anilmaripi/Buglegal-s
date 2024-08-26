@@ -1,0 +1,93 @@
+<!-- display_monitoring4_data.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display Monitoring4 Data</title>
+    <!-- Include any additional styling if needed -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        h2 {
+            color: #007bff;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        img {
+            max-width: 50px;
+            max-height: 50px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #0066cc;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Add your custom styles here */
+        /* For example: */
+        /* td, th {
+            font-size: 14px;
+        } */
+
+        /* Customize the table appearance */
+        /* table {
+            border: 2px solid #ddd;
+        } */
+    </style>
+
+</head>
+<body>
+    <h2>Monitoring4 Data</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Subtitle</th>
+                <th>Discriprion</th>
+                <th>Image1</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in monitoring4_data %}
+                <tr>
+                    <td>{{ item.title }}</td>
+                    <td>{{ item.subtitle }}</td>
+                    <td>{{ item.discriprion }}</td>
+                    <td><img src="{{ item.image1.url }}" alt="Image1"></td>
+                    <td>
+                        <a href="{% url 'edit_monitoring4_data' pk=item.pk %}">Edit</a>
+                        <a href="{% url 'delete_monitoring4_data' pk=item.pk %}">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

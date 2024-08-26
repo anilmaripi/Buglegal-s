@@ -1,0 +1,136 @@
+{% extends 'employ-template/base_template.html' %}
+{% block main_content %}
+<title></title>
+<link rel="stylesheet" href="https\://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<style>
+ 
+         .table tbody tr:nth-child(even){
+            background-color: #e6e6e6;
+            color:#000;
+        }
+        .table tbody tr:nth-child(odd){
+            background-color: #ccc;
+            color:#000;
+    
+        }
+        .table thead tr  {
+            background-color: #000;
+            color: #fff;
+        }
+
+
+</style>
+<div id="message">
+    {% if messages %}
+    {% for message in messages %}
+    {% if message.tags == 'error' %}
+    <div class="alert alert-danger" style="margin-top:20px;">{{message}}</div>
+    {% endif %}
+    {% if message.tags == 'success' %}
+    <div class="alert alert-success" style="margin-top:20px;background-color:green;color: whitesmoke;">{{message}}</div>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+</div>
+<script>
+        $('#message').show()
+        setTimeout(function(){
+            $('#message').hide()
+        },3000)
+</script>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 col-sm-12 col-md-12"> 
+            <h3 style="text-align: center;color: #000;">View GatePass Requests
+            </h3>   
+            <form method="post">
+                {% csrf_token %}
+                <div class="container">
+            
+                
+                <div class="row">
+                    <div class="col-10">
+                        <input type="text" name="se" class="form-control" placeholder="Enter Employee Id" >
+                    </div>
+                    
+              
+                <div class="col-2">
+                    <button type="submit" class="btn btn-primary" >Search</button>
+                </div>  
+                <br><br>
+            </div>
+            </div>
+            </form>
+            
+            <table class="table "  >
+                <thead>
+                    <tr>
+                        <th>employeeID</th>
+                        <th>employeeName</th>
+                        <th>Apply Date & Duration</th>
+                        <th>Reasion</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in k %}
+                    <tr>
+                        <td>{{i.emp_id.empid}}</td>
+                        <td>{{i.emp_id.first_name}}.{{i.emp_id.last_name}}</td>
+                        <td>{{i.date1}} {{i.starttime}} To  {{i.endtime}}</td>
+                        <td>{{i.reason}}</td>
+                        <td>
+                            {% if i.status == "0" %}
+                            <a class="btn btn-success" style="padding-left: 25px;padding-right: 25px;" href="{% url 'employee_registration_and_email' id=i.id %}" >Approve</a>
+                            <a class="btn btn-danger" href="{% url 'gatepass_disapprove' gate_id=i.id %}" >Disapprove</a>
+                            {% elif i.status == "1"  %}
+                            <button class="btn btn-warning" style="padding-left: 25px;padding-right: 25px;" disabled="disabled" data-toggle="modal" data-target="#reply_modal">Approved</button>
+                            {% else %}
+                            <button class="btn btn-danger" disabled="disabled" data-toggle="modal" data-target="#reply_modal">Disapproved</button>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" style="color: red;">There is no gatepass requests.....</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="pagination" style="color:white; margin:20px auto;">
+                <span class="step-links">
+                    {% if k.has_previous %}
+                        <a  href="?page=1" class="btn btn-info" style="border-radius: 20px;">&laquo;<<</a>
+                        <a   href="?page={{ k.previous_page_number }}" class="prev btn btn-info" style="border-radius: 20px;"> < </a>
+                    {% endif %}
+            
+            
+                    {% for i in k.paginator.page_range %}
+                    {% if k.number == i %}
+                    <button class="active act bg-info btn btn-info" style="border-radius: 20px;"><span>{{ i }} <span class="sr-only btn btn-info" style="border-radius: 20px;">(current)</span></span></button>
+                    {% elif i > k.number|add:'-3' and i < k.number|add:'3' %}
+                        <a  href="?page={{ i }}" class="btn btn-info" style="border-radius: 20px;">{{ i }}</a>
+                    {% endif %}
+                    {% endfor %}
+            
+                   
+            
+                    {% if k.has_next %}
+                        {% if k.number != k.paginator.num_pages %}
+                        {% endif %}
+                        <a   href="?page={{ k.next_page_number }}" class="prev btn btn-info" style="border-radius: 20px;">> </a>
+            
+                        <a  href="?page={{ k.paginator.num_pages }}" class="btn btn-info" style="border-radius: 20px;">>>&raquo; </a>
+                    {% endif %}
+                </span>
+            </div>   
+            
+        </div>
+        
+    </div>
+</div>
+
+{% endblock main_content %}
+
+

@@ -1,0 +1,172 @@
+
+{% extends 'admin-template/base_template.html' %}
+{%load mathfilters%} {%load humanize%}
+
+{% block page_title %}
+{% endblock page_title %}
+{% block main_content %}
+<style>
+
+  .tbl-content{
+    align-items: center;
+  }
+
+
+  @media(max-width=500){
+    .col{
+      /* padding-left: 10px; */
+      margin: 10px;
+    }
+   
+  }
+</style>
+
+  <br>
+    <form class="form-inline" method="post">{% csrf_token %}
+      <div class="row">
+
+        <div class="col">
+          <div class="form-group">
+
+            <label>Selectstatus:</label>
+      <select name="ss" class="form-control">
+        <option>--Select--</option>
+       
+        <option value="1" >Approved</option>
+        <option value="2">Rejected</option>
+        <option name="gg" value="0">Pending</option>
+      </select>
+          </div>
+
+        </div>
+
+        <div class="col">
+         <div class="form-group">
+
+          <label>Select type:</label>
+          <select name="vk" class="form-control">
+            <option>--Select--</option>
+          {% for i in k %}
+            <option value="{{i.name}}">{{i.name}}</option>
+            {% endfor %}
+          </select>
+         </div>
+
+        </div>
+
+        <div class="col">
+
+         <div class="form-group">
+
+          <label>From Date:</label>
+          <input type="date" name="d1" class="form-control" >
+         </div>
+        </div>
+
+        <div class="col">
+          <div class="form-group">
+
+            <label>To Date:</label>
+            <input type="date" name="d2"class="form-control"  >
+          </div>
+
+     
+        </div>
+
+       <div class="col">
+
+        <center>
+          <input type="submit" value="Apply Filter" style="margin-left:20px;margin-top: 20px;background-color:black;color:whitesmoke;height: 50px;width: 180px;font-size: 30px;">
+        </center>
+
+       </div>
+      </div>
+
+
+
+
+      
+      </form>
+        <br>
+    <br>
+      
+            <h3 style="color:rgb(245, 242, 242)" class="card-title"><b>Reimbursement Apply History :</b></h3><br>
+            <section>
+              <!--for demo wrap-->
+              <div class="tbl-header">
+                <table class="table table-bordered table-info text-dark ">
+                  <thead >
+                    <tr>
+                      <th>ID</th>
+                         <th>Date</th>
+                         
+                         <th>Type</th>
+                         <th>Reason</th>
+                         <th>Amount</th>
+                         <th>Files</th>
+                         <th> Status</th>
+                         <th>Edit</th>
+                         <th>Delete</th>
+                    </tr>
+                  </thead>
+           
+              </div>
+              <div class="tbl-content">
+             
+                  <tbody>
+                    {% for i in leave_data %}
+                          <tr>
+                              <td>{{ i.id }}</td>
+                              
+                              <td>{{i.date}}</td>
+                              
+                              
+                              <td>{{i.typea}}</td>
+                              <td>{{i.detail}}</td>
+                              <td>{{i.amount}}</td>
+                              <td>
+                              <a href="/media/{{i.image}}" height="100px" width="150px" class="notification">
+                              <span><i class="fa fa-paperclip" aria-hidden="true"></i></span>
+                              
+                              </a>
+                             </td>
+                               <td>
+                                
+                                  {% if i.reimbursement_status == 1 %}
+                                      <span class="alert alert-success" style="background-color:lightgreen;">Approved</span>
+                                  {% elif i.reimbursement_status == 2 %}
+                                      <span class="alert alert-danger" style="background-color: rgb(205, 98, 98);">Rejected</span>
+                                  {% elif  i.reimbursement_status == 0 %}
+                                      <span class="btn btn-info">Pending </span>
+                                  {% else %}
+                                      <span class="btn btn-info">Pending </span>
+                                  {% endif %}
+                              </td>
+                              
+                              <td>
+                                <a href="/reim_edit/{{i.id}}">
+                                <button style="padding: 0px;"   data-bs-toggle="modal" data-bs-target="#myModal">
+
+                                  
+                                  <i class="fa fa-pencil-square" aria-hidden="true" style="color: rgb(3, 4, 66); font-size:30px;"></i>
+                                
+                                </button>
+                                </a>
+                        
+                              
+                                </td> 
+
+
+                              <td><a href="/reim_delete/{{i.id}}"><i class="fa fa-solid fa-trash" style="color: red; font-size:30px;"></i></a></td>
+                          </tr>
+                          
+                     {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </section>
+            
+            
+   </div>
+   {% endblock main_content %}
+    

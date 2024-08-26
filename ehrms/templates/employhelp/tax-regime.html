@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sign In</title>
+</head>
+<style>
+    body{
+        text-align: center;
+        padding-top: 10%;
+    }
+</style>
+<center><body>
+    <h2>welcome</h2>
+    
+    <!-- Sign in with Google button -->
+    <button  style="background-color: blue; color: white;width: 30%;height: 20%;" onclick="signInWithGoogle()">Sign In with Google</button><br><br>
+    
+    <!-- Or sign in with email -->
+    <form id="emailSignInForm">
+        <label for="email" style="padding-right:26%;">Work email</label><br>
+        <input type="email" id="email" name="email" style="width: 30%;"required>
+        <br><br>
+        <label for="password" style="padding-right: 27%;">Password</label><br>
+        <input type="password" id="password" name="password" style="width: 30%;" required>
+        <br><br>
+        <input type="checkbox" id="keepSignedIn" name="keepSignedIn" >
+        <label for="keepSignedIn"style="padding-right:12%;">Keep me signed in:</label><a href="/forgot-password">Forgot your password?</a>
+        
+        <br><br>
+        
+        <input type="submit" value="Sign In" style="width: 30%;height: 10%;">
+    </form>
+    
+    <!-- Forgot password link -->
+    
+    
+    <script>
+        // Replace this function with your actual Google sign-in implementation
+        function signInWithGoogle() {
+            alert('Sign in with Google not implemented yet.');
+        }
+        
+        // Replace this with your actual form submission logic
+        document.getElementById('emailSignInForm').onsubmit = function(e) {
+            e.preventDefault();
+            alert('Sign in with email not implemented yet.');
+        };
+    </script>
+</body></center>
+</html>

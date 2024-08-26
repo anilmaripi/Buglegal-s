@@ -1,0 +1,110 @@
+{% extends 'admin-template/base_template.html' %}
+{% block page_title %}
+
+{% endblock page_title %}
+{% block main_content %}
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+
+
+           <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Employe Details</h3>
+
+                <div class="card-tools">
+                  <div class="input-group input-group-sm" style="width: 150px;">
+                    <input type="text" id="myInput" onkeyup="myFunction()" name="table_search" class="form-control float-right" placeholder="Search">
+
+                    <!-- <div class="input-group-append">
+                      <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                    </div> -->
+                  </div>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body table-responsive p-0">
+                <table id="myTable" class="table table-hover text-nowrap" >
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Active Status</th>
+                      <th>First Name</th>
+                      <th>Last Name</th>
+                      <th>User Name</th>
+                    
+                      <th>Email</th>
+                      
+                      <th>Employe id</th>
+                      <th>Role</th>
+                      <th>Location</th>
+                      <th>Package</th>
+                      <th>Gender</th>
+                      
+                      <th>Address</th>
+                      <th>Pincode</th>
+                      <th>Contact No</th>
+                      <th>Profile Pic</th>
+                      <th>Last Login</th>
+                      <th>Date Joined</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody  >
+                  {% for employ in employs %}
+                    <tr>
+                      <td>{{ employ.admin.id }}</td>
+                      <td>{{ user.is_active }}</td>
+                      
+                      <td>{{ employ.admin.first_name }}</td>
+                      <td>{{ employ.admin.last_name }}</td>
+                      <td>{{ employ.admin.username }}</td>
+                      <td>{{ employ.admin.email }}</td>
+                      
+                      <td>{{ employ.empid }}</td>
+                      
+                      <td>{{ employ.role }}</td>
+                      <td>{{ employ.location }}</td>
+                      <td>{{ employ.package }}</td>
+                      
+                      <td>{{ employ.gender }}</td>
+                      <td>{{ employ.address }}</td>
+                      <td>{{ employ.pincode }}</td>
+                      <td>{{ employ.contactno }}</td>
+                      <td><img src="{{ employ.profile_pic }}" style="width:100px"/></td>
+                      <td>{{ employ.admin.last_login }}</td>
+                      <td>{{ employ.admin.date_joined }}</td>
+                      <td><a href="{% url 'edit_employ' student_id=employ.admin.id %}" class="btn btn-success">Edit</a></td>
+                    </tr>
+                  {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- /.content -->
+
+    <script type="text/javascript">
+      $(document).ready(function () {
+
+         //Filter table
+          $("#myInput").on("keyup", function () {
+              var value = $(this).val().toLowerCase();
+              $("#myTable tr").filter(function () {
+                  $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+              });
+          });
+});
+</script>
+    
+   
+{% endblock main_content %}
+
+

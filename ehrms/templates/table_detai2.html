@@ -1,0 +1,312 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Table Detail</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        table th, table td {
+            border: 2px solid #ddd;
+            padding: 8px;
+            text-align: left;
+            
+        }
+
+        table th {
+            background-color: black;
+            color:white;
+        }
+
+        table td img {
+            max-width: 100px;
+            max-height: 100px;
+            display: block;
+            margin: auto;
+        }
+
+        .logo1 {
+            max-width: 100%;
+            height: auto;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+
+        .btn-edit, .btn-delete {
+            padding: 5px 10px;
+            margin-right: 5px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .btn-delete {
+            background-color: #f44336;
+        }
+    </style>
+</head>
+<body>
+    <h3 style="text-align: center;">1.About time tracking poices</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th> Subhead</th>
+                <th> point1</th>
+                <th>point2</th>
+                <th>suhead2</th>
+                <th>point3</th>
+                <th>Point4</th>
+                <th>Point5</th>
+
+
+                
+                <th>Actions</th>
+            </tr>
+        </thead><br>
+        <tbody>
+            {% for i1 in qns %}
+            <tr>
+                <td>{{ i1.main_title }}</td>
+                <td>{{ i1.des1 }}</td>
+                <td>{{ i1.subhead }}</td>
+
+                <td>{{ i1.point1 }}</td>
+                <td>{{ i1.point2 }}</td>
+                <td>{{ i1.subhead2 }}</td>
+                <td>{{ i1.point3 }}</td>
+                <td>{{ i1.point4 }}</td>
+                <td>{{ i1.point5 }}</td>
+
+
+                <td>
+                    <a href="{% url 'aboutedit_qns1' i1.id %}" class="btn-edit">Edit</a><br>
+                    
+                    <a href="{% url 'aboutdelete_dataans1' i1.id %}" class="btn-edit">Delete</a>
+
+                </td>
+
+                           </tr>
+            {% endfor %}
+            
+        </tbody>
+
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>subhead3</th>
+                    <th>point6</th>
+                    <th>point7</th>
+                    <th>subhead4</th>
+                    <th>des2</th>
+                    <th>point8</th>
+                    <th>point9</th>
+                    <th>Point10</th>
+                    <th>Point11</th>
+    
+    
+                    
+                    <th>Actions</th>
+                </tr>
+            </thead><br>
+            <tbody>
+                {% for i2 in qns1 %}
+                <tr>
+                    <td>{{i2.subhead3}}</td>
+                    <td>{{i2.point6}}</td>
+                    <td>{{i2.point7 }}</td>
+    
+                    <td>{{ i2.subhead4 }}</td>
+                    <td>{{ i2.des2 }}</td>
+                    <td>{{ i2.point8 }}</td>
+                    <td>{{ i2.point9 }}</td>
+                    <td>{{ i2.point10 }}</td>
+                    <td>{{ i2.point11 }}</td>
+                    <td>
+                    <a href="" class="btn-edit">Edit</a><br>
+
+
+                       <a href="{% url 'aboutdelete_dataans2' i2.id %}" class="btn-edit">Delete</a>
+                  </td>
+                   
+                               </tr><br>
+                {% endfor %}
+            </tbody>
+
+           </table>
+          
+
+
+
+
+            <table class="table">
+                <center><h3>2.How To Clock In/Out On Desktop</h3></center>
+
+                <thead>
+                    <tr>
+                        <th>title</th>
+                        <th>steps</th>
+                        <th>des1</th>
+                        <th>des2</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead><br>
+                <tbody>
+                    {% for i3 in instructions %}
+                    <tr>
+                        <td>{{i3.title}}</td>
+                        <td>{{i3.steps}}</td>
+                        <td>{{i3.des1 }}</td>
+                        <td>{{ i3.des2 }}</td>
+                        <td>
+                        <a href="" class="btn-edit">Edit</a>
+    
+                        <!-- edit_clock'  -->
+                           <a href="{% url 'delete_clock' i3.id %}" class="btn-edit">Delete</a>
+                      </td>
+                       
+                                   </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            
+    
+    
+    
+
+            <table class="table">
+                <center><h3>3.How To Create And Assign Work Schedules</h3></center>
+
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Description 1</th>
+                        <th>Description 2</th>
+                        <th>Steps</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead><br>
+                <tbody>
+                    <tr>
+                        {% for assignqns3 in assignqns3_list %}
+                        <tr>
+                            <td>{{ assignqns3.title }}</td>
+                            <td>{{ assignqns3.des1 }}</td>
+                            <td>{{ assignqns3.des2 }}</td>
+                            <td>{{ assignqns3.steps }}</td>
+                                <td>
+                        <a href="{% url 'edit_assignqns3' assignqns3.id %}" class="btn-edit">Edit</a><br>
+    
+                        <!-- edit_clock'  -->
+                           <a href="{% url 'delete_assign3' assignqns3.id %}" class="btn-edit">Delete</a>
+                      </td>
+                       
+                                   </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            
+
+
+
+              
+
+
+            <div><center><h3>4.Abouts breaks</h3></center></div>
+
+
+            <table class="table">
+
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Description 1</th>
+                        <th>Description 2</th>
+                        <th>Steps</th>
+                        <th>Actions</th>
+
+        
+        
+                        
+                    </tr>
+                </thead><br>
+                <tbody>
+                    {% for break in qns4 %}
+                    <tr>
+                        <td>{{ break.title }}</td>
+                        <td>{{ break.des1 }}</td>
+                        <td>{{ break.des2 }}</td>
+                        <td>
+                            <ol type="a">
+                                {% for step in break.steps %}
+                                <li>{{ step }}</li>
+                                {% endfor %}
+                            </ol>
+                        </td>
+                                <td>
+                        <a href="{% url 'edit_abreaksqns4' break.id %}" class="btn-edit">Edit</a>
+    
+    
+                           <a href="{% url 'delete_breaksqns4' break.id %}" class="btn-edit">Delete</a>
+                      </td>
+                       
+                                   </tr>
+                    {% endfor %}
+                </tbody>
+    
+               </table>
+              
+              
+
+
+
+
+                   <center><h3>5.Frequently Asked quations</h3></center>
+
+               <table class="table">
+
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>description</th>
+                        <th>Question</th>
+                        <th>Answer</th>
+                        <th>Action</th>
+                        
+                    </tr>
+                </thead><br>
+                <tbody>
+                    {% for q in faqs %}
+                    <tr>
+                        <td>{{ q.title }}</td>
+                        <td>{{ q.des }}</td>
+
+                        <td>{{ q.question }}</td>
+                        <td>{{ q.answer }}</td>
+                        <td>
+                            <a href="{% url 'edit_faq5' q.id %}"  class="btn-edit">Edit</a><br> 
+                            <a href="{% url 'delete_faq5' q.id %}" class="btn-edit">Delete</a> 
+                        </td>
+    
+
+                       
+                                   </tr>
+                    {% endfor %}
+                </tbody>
+    
+            </table>
+    

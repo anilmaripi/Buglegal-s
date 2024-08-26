@@ -1,0 +1,821 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-...." crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+   
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+        <style>
+            :root {
+    --font-family-sans-serif: "Open Sans", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+*, *::before, *::after {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+html {
+    font-family: sans-serif;
+    line-height: 1.15;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+nav {
+    display: block;
+}
+
+body {
+    margin: 0;
+    font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #515151;
+    text-align: left;
+    background-color: #e9edf4;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+a {
+    color: #3f84fc;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+a:hover {
+    color: #0458eb;
+    text-decoration: underline;
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: "Nunito", sans-serif;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    line-height: 1.2;
+}
+
+h1, .h1 {
+    font-size: 2.5rem;
+    font-weight: normal;
+}
+
+.card {
+    position: relative;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0;
+}
+
+.card-body {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1 1 auto;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 1.25rem;
+}
+
+.card-header {
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 0;
+    background-color: rgba(0, 0, 0, 0.03);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+    text-align: center;
+}
+
+.dashboard {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    min-height: 100vh;
+}
+
+.dashboard-app {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-flex: 2;
+    -webkit-flex-grow: 2;
+    -ms-flex-positive: 2;
+    flex-grow: 2;
+    margin-top: 84px;
+}
+
+.dashboard-content {
+    /* -webkit-box-flex: 2;
+    -webkit-flex-grow: 2;
+    -ms-flex-positive: 2;
+    flex-grow: 2; */
+    padding: 25px;
+}
+
+.dashboard-nav {
+    min-width: 238px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    overflow: auto;
+    background-color: #373193;
+}
+
+.dashboard-compact .dashboard-nav {
+    display: none;
+}
+
+.dashboard-nav header {
+    min-height: 84px;
+    padding: 8px 27px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.dashboard-nav header .menu-toggle {
+    display: none;
+    margin-right: auto;
+}
+
+.dashboard-nav a {
+    color: #515151;
+}
+
+.dashboard-nav a:hover {
+    text-decoration: none;
+}
+
+.dashboard-nav {
+    background-color: black;
+}
+
+.dashboard-nav a {
+    color: #fff;
+}
+
+.brand-logo {
+    font-family: "Nunito", sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    color: #515151;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.brand-logo:focus, .brand-logo:active, .brand-logo:hover {
+    color: #dbdbdb;
+    text-decoration: none;
+}
+
+.brand-logo i {
+    color: #d2d1d1;
+    font-size: 27px;
+    margin-right: 10px;
+}
+
+.dashboard-nav-list {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+
+.dashboard-nav-item {
+    min-height: 56px;
+    padding: 8px 20px 8px 70px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    letter-spacing: 0.02em;
+    transition: ease-out 0.5s;
+}
+
+.dashboard-nav-item i {
+    width: 36px;
+    font-size: 19px;
+    margin-left: -40px;
+}
+
+.dashboard-nav-item:hover {
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.active {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-nav-dropdown {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+
+.dashboard-nav-dropdown.show {
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.dashboard-nav-dropdown.show > .dashboard-nav-dropdown-toggle {
+    font-weight: bold;
+}
+
+.dashboard-nav-dropdown.show > .dashboard-nav-dropdown-toggle:after {
+    -webkit-transform: none;
+    -o-transform: none;
+    transform: none;
+}
+
+.dashboard-nav-dropdown.show > .dashboard-nav-dropdown-menu {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.dashboard-nav-dropdown-toggle:after {
+    content: "";
+    margin-left: auto;
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid rgba(81, 81, 81, 0.8);
+    -webkit-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+.dashboard-nav .dashboard-nav-dropdown-toggle:after {
+    border-top-color: rgba(255, 255, 255, 0.72);
+}
+
+.dashboard-nav-dropdown-menu {
+    display: none;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+
+.dashboard-nav-dropdown-item {
+    min-height: 40px;
+    padding: 8px 20px 8px 70px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    transition: ease-out 0.5s;
+}
+
+.dashboard-nav-dropdown-item:hover {
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.menu-toggle {
+    position: relative;
+    width: 42px;
+    height: 42px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    color: #443ea2;
+}
+
+.menu-toggle:hover, .menu-toggle:active, .menu-toggle:focus {
+    text-decoration: none;
+    color: #875de5;
+}
+
+.menu-toggle i {
+    font-size: 20px;
+}
+
+.dashboard-toolbar {
+    min-height: 70px;
+    background-color: #dfdfdf;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: 8px 27px;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.nav-item-divider {
+    height: 1px;
+    margin: 1rem 0;
+    overflow: hidden;
+    background-color: rgba(236, 238, 239, 0.3);
+}
+
+@media (min-width: 992px) {
+    .dashboard-app {
+        margin-left: 238px;
+    }
+
+    .dashboard-compact .dashboard-app {
+        margin-left: 0;
+    }
+}
+
+
+@media (max-width: 768px) {
+    .dashboard-content {
+        padding: 15px 0px;
+    }
+}
+
+@media (max-width: 992px) {
+    .dashboard-nav {
+        display: none;
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        z-index: 1070;
+    }
+
+    .dashboard-nav.mobile-show {
+        display: block;
+    }
+}
+
+@media (max-width: 992px) {
+    .dashboard-nav header .menu-toggle {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+    }
+}
+
+@media (min-width: 992px) {
+    .dashboard-toolbar {
+        left: 238px;
+    }
+
+    .dashboard-compact .dashboard-toolbar {
+        left: 0;
+    }
+}
+
+
+.card {
+        width: 100%;
+        max-width: 230px;
+        min-width: 100px;
+        height: 250px;
+        background-image: linear-gradient(rgb(110, 100, 244),white);
+        margin: 10px;
+        border-radius: 10px;
+        box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.24);
+        font-size: 16px;
+        transition: all 0.3s ease;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        cursor: pointer;
+    }
+
+    .icon {
+        margin: 0 auto;
+        width: 100%;
+        height: 80px;
+        max-width: 80px;
+        background: linear-gradient(90deg, #9d85f4 0%, #94b3f3 40%, rgba(0, 0, 0, 0.28) 60%);
+        border-radius: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: rgb(254, 253, 253);
+        transition: all 0.8s ease;
+        background-position: 0px;
+        background-size: 200px;
+    }
+
+    .material-icons.md-36 {
+        font-size: 36px;
+    }
+
+    .card .title {
+        width: 100%;
+        margin: 0;
+        text-align: center;
+        margin-top: 30px;
+        color: rgb(11, 6, 6);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+    }
+
+    .card .text {
+        width: 80%;
+        margin: 0 auto;
+        font-size: 13px;
+        text-align: center;
+        margin-top: 20px;
+        color: rgb(8, 7, 7);
+        font-weight: 200;
+        letter-spacing: 2px;
+        opacity: 0;
+        max-height: 0;
+        transition: all 0.3s ease;
+    }
+
+    .card:hover {
+        height: 270px;
+    }
+
+    .card:hover .text {
+        transition: all 0.3s ease;
+        opacity: 1;
+        max-height: 40px;
+    }
+
+    .card:hover .icon {
+        background-position: -120px;
+        transition: all 0.3s ease;
+    }        
+    .dropdown{
+        padding-left:980px;
+        
+    }
+    @media (max-width: 768px) {
+        .dropdown{
+        padding-left:250px;
+    }
+}
+
+    </style>
+    </head>
+    <body>
+        <div class='dashboard'>
+            <div class="dashboard-nav">
+                <header><a href="#!" class="menu-toggle"><i class="fas fa-bars"></i></a><a href="#"
+                                                                                           class="brand-logo"><i
+                        class="fas fa-anchor"></i> <span>Work Tried</span></a></header>
+                <nav class="dashboard-nav-list">
+                     <a
+                        href="/adminAdashboard" class="dashboard-nav-item active"><i class="fa fa-th" aria-hidden="true"style="font-size: 15px;"></i> dashboard
+                </a> 
+                <a href="/display_plans/" class="dashboard-nav-item"><i class="fa fa-rupee" aria-hidden="true"></i> Cost & Emp Limit
+                 </a>
+                <a href="/company_list/" class="dashboard-nav-item"> <i class="fa fa-building" aria-hidden="true"></i> List </a>
+                <a href="/contact-messages/" class="dashboard-nav-item"><i class="fa fa-address-book" aria-hidden="true"></i> Inbox</a>
+
+                    <div class='dashboard-nav-dropdown'><a href="#!" class="dashboard-nav-item dashboard-nav-dropdown-toggle">
+                         <i class="fa fa-list" aria-hidden="true" style="font-size:15px;"></i>
+                             Features </a>
+                        <div class='dashboard-nav-dropdown-menu'>
+                            <a href="/all_employmonitring/"  class="dashboard-nav-dropdown-item"><i class="fa fa-user-secret" aria-hidden="true"></i>&nbsp;
+                                Employee Monitoring</a>
+                            <a href="/timetracking_all_projects" class="dashboard-nav-dropdown-item"><i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;Time Tracking</a><a
+                                href="/timeattendance_all_projects" class="dashboard-nav-dropdown-item"><i class="fa fa-building" aria-hidden="true"></i>&nbsp;Time & Attendance</a><a
+                                href="/productivity_all_projects" class="dashboard-nav-dropdown-item"> <i class="fa fa-tasks" aria-hidden="true"></i>&nbsp;    Productivity</a>
+                                <a href="/screenmonitoring_all_projects"  class="dashboard-nav-dropdown-item"> <i class="fa fa-eye" aria-hidden="true"></i>&nbsp;Screen Monitoring</a>
+                                <a href="/all_activemonitrings" class="dashboard-nav-dropdown-item"> <i class="fa fa-line-chart" aria-hidden="true"></i>&nbsp;Activity Monitoring</a><a
+                                    href="/officework_all_projects" class="dashboard-nav-dropdown-item"><i class="fa fa-suitcase" aria-hidden="true"></i>&nbsp;Office Work</a><a
+                                    href="/all_projects" class="dashboard-nav-dropdown-item"><i class="fa fa-users" aria-hidden="true"></i>&nbsp;Project Managment</a>
+                                  <a href="/regprivacy" class="dashboard-nav-dropdown-item"><i class="fa fa-shield" aria-hidden="true"></i>&nbsp;Privacy and Security</a><a
+                                    href="/home_ac" class="dashboard-nav-dropdown-item"><i class="fa fa-shield" aria-hidden="true"></i> &nbsp;Admin Control</a>
+                            </div>
+                    </div>
+                    <div class='dashboard-nav-dropdown'><a href="#!" class="dashboard-nav-item dashboard-nav-dropdown-toggle">
+                        <i class="fa fa-user-secret" aria-hidden="true" style="font-size: 15px;"></i> Plans </a>
+                        <div class='dashboard-nav-dropdown-menu'><a href="/admincontrol"class="dashboard-nav-dropdown-item"> <i class="fa fa-rupee" aria-hidden="true" ></i>&nbsp;Basic Plan</a><a
+                                href="/admincontrol2" class="dashboard-nav-dropdown-item">  <i class="fa fa-dollar" aria-hidden="true"></i>&nbsp;Gold Plan</a>
+                                <a
+                                href="/admincontrol3"
+                                class="dashboard-nav-dropdown-item"> <i class="fa fa-dollar" aria-hidden="true"></i>&nbsp;Platinum Plan</a><a
+                                href="/New_Add_ons" class="dashboard-nav-dropdown-item"><i class="fa fa-rupee" aria-hidden="true"></i>&nbsp;Add-Addon's</a><a
+                                href="/New_Add_ons_table" class="dashboard-nav-dropdown-item"><i class="fa fa-dollar" aria-hidden="true"></i>&nbsp;Addon's Delete</a>
+                                <a href="/freetrailtable" class="dashboard-nav-dropdown-item"><i class="fa fa-dollar" aria-hidden="true"></i>&nbsp; Free Trail Table </a>
+                                <a
+                                href="/plandataretrive" class="dashboard-nav-dropdown-item"><i class="fa fa-dollar" aria-hidden="true"></i>&nbsp; Plan's Page Text </a>
+
+
+                            </div>
+                    </div>
+
+          
+
+                  <div class="nav-item-divider"></div>
+                 
+                </nav>
+            </div>
+            <div class='dashboard-app'>
+                <header class='dashboard-toolbar'><a href="#!" class="menu-toggle"><i class="fas fa-bars"></i></a>
+            
+                        <div class="dropdown " >
+                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                {% for data in superadminpic %}
+                                <!-- <div class="inner" style="width: 250px;"> -->
+                                    <img src="/media/{{ data.image }}" class="rounded-circle" alt="upload photo" style="width: 40px; height: 40px;">
+                                <!-- </div> -->
+                                {% endfor %}
+                            </button>
+                            <div class="dropdown-menu">
+                              <a class="dropdown-item" href="#"><p><br>
+                                {{user.username}}<br>
+                                Email:{{user.email}}</p></a>
+                              <a class="dropdown-item" href="{% url 'adminA_Password_save' %}">
+                                <i class="fa fa-sign-out" aria-hidden="true" style="font-size:large;color:rgb(78, 76, 76)">Reset Password</i>
+                            </a>
+                              <a class="dropdown-item" href="{% url 'upload_image' %}"><i class="fa fa-user" aria-hidden="true" style="font-size:large;color:rgb(78, 76, 76)">Upload Photo</i>
+                              </a>
+                              <a class="dropdown-item" href="/logout_user">
+                                <i class="fa fa-sign-out" aria-hidden="true" style="font-size: large;color: red;">
+                                 <span style="font-size: arge;color: red;">Logout</span></i>
+                             
+                             </a>
+                            </div>
+                          </div>
+                
+
+                </div>
+                </header>
+                <br> <br>
+                <div class='dashboard-content' style="overflow: scroll;"> 
+                    <br> <br>
+                        {% block main_content %}
+                        
+                    <div id="message">
+                            {% if messages %}
+                        {% for message in messages %}
+                        {% if message.tags == 'error' %}
+                        <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+                        {% endif %}
+                        {% if message.tags == 'success' %}
+                        <div class="alert alert-success" style="margin-top:20px;background-color:green;color: whitesmoke;">{{ message }}</div>
+                        {% endif %}
+                        {% endfor %}
+                        {% endif %}
+                        </div>
+                        <script>
+                            $("#message").show()
+                            setTimeout(function() {
+                                $("#message").hide()
+                            },5000)
+                        </script>
+                            <br><br><br>
+                           <center>
+                            <h1>Welcome to Admin Dashboard</h1>
+                           </center>
+                           <br><br><br>
+                        
+                           <div class="dashboard row w-100 d-flex justify-content-center">
+                            <div class="card">
+                                <a style="text-decoration: none;" href="/company_list1">
+                                      <div class="icon"><i class="material-icons md-36"> Plan1 </i></div>
+                                <p class="title">Basic Plan</p>
+                                <p class="text">Click to view the list of Basicplan subscribers.</p>
+                                </a>
+                            </div>
+                         
+                        
+                            
+                            <div class="card">
+                                <a style="text-decoration: none;" href="/company_list2">
+                                <div class="icon"><i class="material-icons md-36">Plan2</i></div>
+                                <p class="title">Gold Plan</p>
+                                <p class="text">Click to view the list of Standardplan subscribers.</p>
+                                </a>
+                            </div>
+                        
+                            
+                            <div class="card">
+                                <a style="text-decoration: none;" href="/company_list3">
+                        
+                                <div class="icon"><i class="material-icons md-36">Plan3</i></div>
+                                <p class="title">Platinum Plan</p>
+                                <p class="text">Click to view the list of Premiumplan subscribers.</p>
+                                </a>
+                            </div>
+                        
+                            <div class="card">
+                                <a style="text-decoration: none;" href="/company_list4">
+                        
+                                <div class="icon"><i class="material-icons md-36">Plan4</i></div>
+                                <p class="title">Daimond Plan</p>
+                                <p class="text">Click to view the list of Daimondplan subscribers.</p>
+                                </a>
+                            </div>
+                        
+                        {% endblock main_content %}
+                       
+
+                    </div>
+               
+            </div>
+        </div>
+  
+        <script>
+            const mobileScreen = window.matchMedia("(max-width: 990px )");
+$(document).ready(function () {
+    $(".dashboard-nav-dropdown-toggle").click(function () {
+        $(this).closest(".dashboard-nav-dropdown")
+            .toggleClass("show")
+            .find(".dashboard-nav-dropdown")
+            .removeClass("show");
+        $(this).parent()
+            .siblings()
+            .removeClass("show");
+    });
+    $(".menu-toggle").click(function () {
+        if (mobileScreen.matches) {
+            $(".dashboard-nav").toggleClass("mobile-show");
+        } else {
+            $(".dashboard").toggleClass("dashboard-compact");
+        }
+    });
+});
+        </script>
+        <script>
+            $(document).ready(function(){
+        document.querySelector("#menu_bar").onclick = function () {
+            var element = document.querySelector(".leftMenu");
+            element.classList.toggle("openMenu");
+            
+            var closeAccordion = document.getElementsByClassName('dropdown');
+            var i = 0;
+            for (i = 0; i < closeAccordion.length; i++) {
+            closeAccordion[i].classList.remove('active');
+            }
+            }
+            
+            var dropdown = document.getElementsByClassName('dropdown');
+            var i = 0;
+            for (i = 0; i < dropdown.length; i++) {
+            dropdown[i].onclick = function () {
+            this.classList.toggle('active');
+            }
+            }
+            
+            $("#menu_bar").click(function(){
+            $(".main-header span:first").toggleClass("first border");
+            $(".content-wrapper").toggleClass("content-wrapper-mid");
+            $(".tooltip_nav p").toggleClass("hide");                   
+            });
+        
+            
+            
+        jQuery(function($)
+        {
+            $("#settings_bar").click(function()
+            {
+                $(".navigation").toggleClass("open");
+            })
+        });
+        
+        $("#color01").click(function(){
+            $("body").addClass("skin-green")
+        });
+        
+        });	
+        
+        $(document).ready(function(){
+        $(".user-profile").on("click", function(e) {
+            $(".profile-hover").toggle();
+            $(".popup-overlay").toggle();
+            e.preventDefault();
+            });
+        
+            $(".popup-overlay").click(function(){
+            $(".popup-overlay").toggle();
+            $(".profile-hover").toggle();
+            });
+        
+            $(".notification-icon").on("click", function(e) {
+            $(".notification-hover").toggle();
+            $(".popup-overlay-bell").toggle();
+            e.preventDefault();
+            });
+        
+            $(".popup-overlay-bell").click(function(){
+            $(".popup-overlay-bell").toggle();
+            $(".notification-hover").toggle();
+            });
+        });
+            
+        </script>
+    </body>
+
+</html>
+
+
+
+
+
+
+

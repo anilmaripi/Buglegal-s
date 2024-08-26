@@ -1,0 +1,147 @@
+{% extends "admin-template/base_template.html" %}
+{% block main_content %}
+<style>
+  table{
+    width: 100%;
+  }
+  th{
+    background-color: #2e3a5f;
+  }
+  tr,th,td{
+            padding: 20px;
+            color: white;
+        }
+  tbody tr:nth-child(even) {
+    background-color: #2e3a5f; /* Even row color */
+  }
+
+  tbody tr:nth-child(odd) {
+    background-color: #212b4d; /* Odd row color */
+  }
+
+</style>
+<div class="container">
+<div class="row ">
+    <div class="col-lg-2"></div>
+      <div class="col-lg-8">
+
+<form method="post" action="{% url 'update_default_sal_str'  %}" style="margin-top: 100px;height: auto;">
+  {% csrf_token %}
+   
+    <h5 style="color:white;">Default Salary Structure</h5><br>
+    <div style="background-color:#282f51; color:white;text-align:justify;padding: 30px;">
+      1. You can customize the default salary structure for employee<br>
+      2. Employer contributions to PF and ESI (if applicable) are applied after the salary has been bifurcated into the components at the ratio defined. Hence,the final salary structure can have a slightly different ratio.
+    </div>
+    <br>    
+    <br>
+    <div class="form-check" id="advanceSalaryCheckboxDiv">
+      <label class="form-check-label" style="color:white;">
+        <input type="checkbox" name="default_salary" class="form-check-input" id="defaultSalaryCheckbox"
+               {% if l.default_salary == 'Enabled' %} checked {% endif %}>
+        IF You Use Default Salary Structure      
+      </label>
+    </div>
+          <br>
+
+          <div id="defaultSalaryTable">
+            <table>
+      <thead>
+      <tr >
+        <th>Salary Component</th>
+        <th>% of CTC</th>
+        <th>Percentage or Fixed ?</th>
+        <th>Taxable ?</th>
+      </tr>
+    </thead>
+    <tbody> 
+     {% for i in k %} 
+      <tr>
+        <td>{{i.salarycomponent}}</td>
+        <td>{{i.percentageofCTC}}%</td>
+        <td>{{i.percentageorfixed}}</td>
+        <td>{{i.Taxable}}</td>
+      </tr>
+      {% endfor %} 
+
+    </tbody>
+  </table>
+</div>
+
+  <br>
+  <div id="customSalaryTable">
+    <div style="background-color:#282f51; color:white;text-align:justify;padding: 30px;">
+      1. To Remove any predefined component, enter "0" as the percentage/amount.<br>
+      2. Fixed amounts should be entered as per monthly salary.<br>
+      3. If the sum of components doesn't match with monthly pay, the difference amount will be adjusted from these components-LTA,HRA,Special Allowances,Basic(Where LTA has the highest priority and Basichas the lowest priority.)
+    </div>
+    <br><br>
+    <table>
+      <thead>
+      <tr >
+        <th>Salary Component</th>
+        <th>% of CTC</th>
+        <th>Percentage or Fixed ?</th>
+        <th>Taxable ?</th>
+      </tr>
+    </thead>
+    <tbody> 
+     {% for i in f %} 
+      <tr>
+        <td>{{i.salarycomponent}}</td>
+        <td><input type="text" name="percentageofCTC_{{i.id}}" value="{{i.percentageofCTC}}" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;"></td>
+        <td>{{i.percentageorfixed}}</td>
+        <td>{{i.Taxable}}</td>
+      </tr>
+      {% endfor %} 
+
+    </tbody>
+
+    </table> 
+    
+  <br>
+
+  </div>
+  
+    <br><br>
+    <h6>*indicates required fields</h6>
+  <br>
+  <button type="submit" style="padding-left: 10px; height: 50px; width: 180px; background-color: #0079bf;">
+    <b style="color: white;">CONTINUE</b>
+</button>
+</form>
+</div>
+<div class="col-lg-2"></div>
+</div>
+</div>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+      // Get references to the checkbox and the div elements
+      const defaultSalaryCheckbox = document.getElementById("defaultSalaryCheckbox");
+      const defaultSalaryTable = document.getElementById("defaultSalaryTable");
+      const customSalaryTable = document.getElementById("customSalaryTable");
+
+      // Function to toggle visibility based on checkbox state
+      function toggleDivVisibility() {
+          if (defaultSalaryCheckbox.checked) {
+              defaultSalaryTable.style.display = "block";
+              customSalaryTable.style.display = "none";
+          } else {
+              defaultSalaryTable.style.display = "none";
+              customSalaryTable.style.display = "block";
+          }
+      }
+
+      // Initial visibility state
+      toggleDivVisibility();
+
+      // Add an event listener to the checkbox
+      defaultSalaryCheckbox.addEventListener("change", toggleDivVisibility);
+  });
+</script>
+
+    {% endblock main_content %}
+
+
+
+

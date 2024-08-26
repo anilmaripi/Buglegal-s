@@ -1,0 +1,257 @@
+{% extends 'employ-template/base_template.html' %}
+
+{% block main_content %}
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+#selected-employees-list li {
+    display: inline-block;
+    margin-right: 10px; /* Optional: Add margin between list items */
+    flex: 1;
+    row-gap: 50px;
+    padding-left: 30px; /* Add left padding to each list item */
+}
+
+#selected-employees-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(530px, 1fr)); /* Adjust column width as needed */
+    gap: 15px; /* Adjust the gap as needed */
+}
+
+.grid-item {
+    border: 1px solid #ccc; /* Optional: Add a border to grid items */
+    padding: 10px; /* Optional: Add padding to grid items */
+}
+
+#selected-employees-list .grid-item:nth-child(odd) {
+    padding-left: 50px; /* Adjust the left padding as needed */
+} 
+/* Style the select box container */
+#employee-select {
+  width: 100%;
+  max-width: 1200px; /* Adjust the width as needed */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f8f8f8;
+  font-size: 16px;
+  color: #333;
+}
+
+/* Style the options within the select box */
+#employee-select option {
+  padding: 5px;
+  background-color: #fff; /* Background color for unselected options */
+  color: #333;
+}
+
+/* Style selected options */
+#employee-select option:checked {
+  background-color: #3498db; /* Background color for selected options */
+  color: #fff;
+}
+
+/* Style the hover effect for options */
+#employee-select option:hover {
+  background-color: #f0f0f0; /* Background color on hover */
+  cursor: pointer;
+}
+
+/* Remove default select box styles */
+#employee-select::-ms-expand {
+  display: none;
+}
+
+/* Style the dropdown arrow icon (if supported) */
+#employee-select::after {
+  content: '\25BC'; /* Unicode character for a downward arrow */
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+
+
+
+</style>
+
+<div id="message">
+
+  {% if messages %}
+  {% for message in messages %}
+  {% if message.tags == 'error' %}
+  <div class="alert alert-danger" style="margin-top:20px;">{{message}}</div>
+  {% endif %}
+  {% if message.tags == 'success' %}
+  <div class="alert alert-success" style="margin-top:20px;background-color:green;color: whitesmoke;">{{message}}</div>
+  {% endif %}
+  {% endfor %}
+  {% endif %}
+
+</div>
+
+<script>
+$('#message').show()
+setTimeout(function(){
+    $('#message').hide()
+},5000)
+</script>
+
+<div class="row align-items-center d-flex  justify-content-center">
+    <div class="col-12 mb-4">
+        <div class="card border-light shadow-sm components-section align-items-center d-flex  justify-content-center" style="background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(93,162,255,1) 99%);">
+            <div class="card-body align-items-center d-flex justify-content-center" style="background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(93,162,255,1) 99%);">
+                <div class="row mb-4">
+                    <div class="col-lg-12 col-sm-16">
+                        <div class="col-lg-12 col-sm-16">
+                          <h3 class="h3 text-center text-dark">Task</h3>
+                          
+                        </div>
+                    </div>
+                    <center>
+                        <lottie-player src="https://assets8.lottiefiles.com/packages/lf20_cwA7Cn.json"
+                            background="transparent" speed="1" style="width: 400px; height: 300px;" loop autoplay>
+                        </lottie-player>
+                    </center>
+                    <div class="card-body">
+                   
+                        <form method="POST" action="{% url 'displayed' %}" >
+                            {% csrf_token %}
+                            <div class="mb-4">
+                               
+                                <div class="form-group">
+                                    <label style="color: black;">Meet Url:</label>
+ 
+                                    <input type="text" name="meeting_url" value="{{ description }}{{url}}" class="form-control" placeholder="meet url"
+                                         required>
+                                </div>
+
+                                <div class="form-group">
+                                  <label style="color: black;">Team Members:</label>
+                                  <select class="form-control" name="team_member" >
+                                    {% if team_members %}
+                                        {% for i in employees %}
+                                            <option value="{{ i.admin_id }}">{{ i.first_name }} {{ i.last_name }}</option>
+                                        {% endfor %}
+                                    {% endif %}
+                                </select>
+                              </div>
+                            
+                              
+                                  
+                                
+                                <input type="submit" class="btn btn-primary" value="submit">
+
+                                
+                              
+                                  </div>
+                                </form>
+                               
+                               
+<script>
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1; //January is 0!
+        var yyyy = today.getFullYear();
+
+        if (dd < 10) {
+            dd = '0' + dd;
+        }
+
+        if (mm < 10) {
+            mm = '0' + mm;
+        }
+
+        today = yyyy + '-' + mm + '-' + dd;
+        document.getElementById("t_deadline_date").setAttribute("min", today);
+</script>
+<!-- Calendly badge widget begin
+<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+<script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+<script type="text/javascript">window.onload = function() { Calendly.initBadgeWidget({ url: 'https://calendly.com/ssvdpavankumar16/30min', text: 'Schedule time with me', color: '#0069ff', textColor: '#ffffff', branding: true }); }</script>
+ Calendly badge widget end -->
+
+<script>
+    $(function(){ $('[data-toggle="tooltip"]').tooltip() }) // ENABLE TOOLTIP FUNCTION
+    
+    // SORT TEAMS
+    $(".dropzone-teams, .div-grp").sortable({
+      placeholder: "drag-location",
+      handle: ".team-handle",
+      start: function (e, ui) {
+        ui.placeholder.height(ui.helper.outerHeight());
+      }
+    });
+    
+    // SORT USERS
+    $(".dropzone-users").sortable({
+      connectWith: ".dropzone-users",
+      handle: ".user-handle",
+      placeholder: "drag-location",
+      start: function (e, ui) {
+        ui.placeholder.height(ui.helper.outerHeight());
+      }
+    });
+    
+    // TRASH TEAM AND/OR USER
+    $("#trash").droppable({
+      accept: ".drag-team, .div-grp",
+      hoverClass: "grid-trash-hover ",
+      drop: function (event, ui) {
+        ui.draggable.remove();
+      }
+    });
+    
+    // BUTTON: CREATE NEW TEAM
+    $(document).on('click', '.addgroup', function () {
+      $(".dropzone-teams.overview").append($('#copygroup').html());
+      $('.dropzone-users').sortable({connectWith: '.dropzone-users'});
+      $('.dropzone-teams').sortable({connectWith: '.drag-location'});
+    });
+    
+    // BUTTON: CREATE NEW DIVIDER
+    $(document).on('click', '.adddivider', function () {
+      $(".dropzone-teams.overview").append('<div class="div-grp border-bottom bg-white pt-2 mx-2 mb-2"><h4><i class="team-handle fas fa-users mr-2"></i> Divider</h4></div>');
+      $('.dropzone-users').sortable({connectWith: '.dropzone-users'});
+      $('.dropzone-teams').sortable({connectWith: '.drag-location'});
+    });
+    
+    
+    // OPTION MENU: REMOVE USER FROM TEAM
+    $(document).on('click', '.remove-user', function () {
+      let userid = $(this).closest('ul').attr('data-userid');
+      $('#modal-userid').html(userid);
+      $('.conf-remove').attr('data-removeuser', userid);
+      $('#removeuser').modal('toggle');
+    });
+    
+    // CONFIRM REMOVE USER
+    $(document).on('click', '.conf-remove', function () {
+      let userid = $(this).attr('data-removeuser');
+      let user_html = $('div[data-user="'+ userid +'"]');
+      user_html.remove();
+      $('.available-users').append(user_html);
+      $('#removeuser').modal('toggle');
+    });
+    
+    $(document).on('click', '.remove-user', function () {
+      // Display a confirmation dialog
+      let confirmRemove = confirm("Are you sure you want to remove this user?");
+    
+      // If the user confirms, proceed with removal
+      if (confirmRemove) {
+        console.log("Outer Remove user button clicked.");
+    
+        // Get the userid from the parent element with data-user attribute
+        let userid = $(this).closest('[data-user]').data('user');
+        console.log("User ID:", userid);
+    
+        // Remove the user element
+        $(this).closest('[data-user]').remove();
+      }
+    });
+    
+        </script>
+{% endblock main_content %}

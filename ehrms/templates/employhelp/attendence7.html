@@ -1,0 +1,22 @@
+{% extends 'employhelp/basehelp.html' %}
+{% block main_content %}
+<style>
+    h5{
+        font-size: medium;
+    }
+</style>
+<form>
+    <p id="ha1" style="font-size: xx-large;">What are my options for maintaining leave and attendance?</p>
+    <h5 id="p">We provides three options -</h5>
+    <p id="p1">1. <b>Use our web base attendance </b>- This is included in the default Hrms subscription, and can be enabled or disabled from Settings.</p>
+    <!-- <p id="p2">2. <b>Use our custom biometric device</b> - Our device can use fingerprints or swipe cards to automatically log the check-in / check-out timings of all the employees and contractors in your organization. It automatically synchronises all data with Hrms so you can see your attendance data through our web interface as well. For more details on this, please click here. </p> -->
+    <p id="p3">2. <b>Use our API</b> - If you have your internal mechanism for maintaining leave and attendance, but would like to synchronize that data with Hrms, then you can use our API to do it in an automated manner. For more details on this, please check Settings > API.</p><br>
+    <center><button style="width:50%;height: auto;font-size: x-large;border: 2px solid whitesmoke;">
+        <div id="a">
+            <p id="section10" style="text-align: center;">Did this answer your question?</p>
+            <p><a class="ex1" style="text-decoration: none;color: black;"><center>😄 😶 😔</center></a> </p>
+        </div>
+    </button></center><br><br><br>  
+    
+</form>
+{% endblock main_content %}

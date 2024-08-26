@@ -1,0 +1,166 @@
+{% extends 'employ-template/base_template.html' %}
+{% block main_content %}
+<style>
+
+    /* Style table cells (td) */
+    table.table tbody td,th{
+        color: black; /* Text color for table cells */
+    }
+    h4{
+        color: white; 
+    }
+   table{
+    width: 100% !important;
+   }
+.pagination {
+        margin: 20px 0;
+        text-align: center;
+    }
+    
+.pagination a, .pagination .current-page {
+        display: inline-block;
+        padding: 8px 12px;
+        text-decoration: none;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+        border-radius: 20px;
+        text-align: center;
+        /* background-color: #3775e0;
+        color: white; */
+    }
+.act{
+  /* background-color: orange; */
+  color: white;
+  height:43px;
+  width:43px;
+  border-radius: 20px;
+
+}
+ 
+</style>
+<div class="table-responsive">
+    <table class="table">
+        <tr style="color: white;">
+            <th>Task</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>
+                {% for i in task4 %}
+                <input type="text" name="task" value="{{i.tasks}}" class="form-control" readonly> <br>
+            {% endfor %}
+        </td>
+        <td>
+            {% for i in task4 %}
+            <input type="text" name="description" value="{{i.description}}" class="form-control" readonly> <br>
+        {% endfor %}
+    </td>
+    </tr>
+    </table>
+    </div>
+<br><br>
+<center><h4 class="text-dark">Add Task To Team Members</h4></center><br>
+<form action="" method="POST">
+    {% csrf_token %}
+
+
+
+    <div class="form-group" id="fieldContainer">
+        <label style="color:black;">Task Name:</label>
+        <input type="text" name="task" class="form-control mb-4" placeholder="Enter The Task Name" required>
+    </div>
+
+    <div class="form-group" id="fieldContainer">
+        <label style="color:black;">Task Description:</label>
+        <input type="text" name="description" class="form-control mb-4" placeholder="Enter The Task Name" required>
+
+    </div>
+
+    
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Create Task</button>
+    </div>
+</form>
+
+<center><h4 class="text-dark">Assign Task To Team Members</h4></center><br>
+
+<form method="post">
+    {% csrf_token %}
+    <div class="table-responsive border">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Task</th>
+                    <th>Description</th>
+                    <th>Employee</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                {% for task_item in k1 %}
+                <tr>
+                    <td style="width: 20%;">
+                        <input type="text" name="task_{{ task_item.id }}" value="{{ task_item.task }}" class="form-control" readonly>
+                    </td>
+                    <td style="width: 60%;">
+                        <textarea  name="description_{{ task_item.id }}" value="{{ task_item.description }}" class="form-control" readonly>{{ task_item.description }}</textarea>
+                    </td>
+                    <td style="width: 20%;">
+                        <select name="employees_{{ task_item.id }}[]" class="form-control">
+                            <option disabled selected>Select Employee</option>
+                            {% for emp in employees %}
+                                <option value="{{ emp.id }}">{{ emp.first_name }}</option>
+                            {% endfor %}
+                        </select>
+                        <input type="hidden" name="project_id" value="{{ project_id1 }}">
+                    </td>
+                    
+                    
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <button type="submit" class="btn btn-primary">SEND</button>
+    {% if rty %}
+    <span id="rtySpan" class="text-danger">{{ rty }}</span>
+    {% endif %}
+</form>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    // After 5 seconds, remove the rty data
+    setTimeout(function() {
+        var rtySpan = document.getElementById('rtySpan');
+        if (rtySpan) {
+            rtySpan.parentNode.removeChild(rtySpan);
+        }
+    }, 5000);
+</script>
+
+
+<div class="pagination" style="color:white; margin:20px auto;">
+    <span class="step-links">
+        {% if task.has_previous %}
+            <a  href="?page=1"><<</a>
+            <a   href="?page={{ task.previous_page_number }}" class="prev"> < </a>
+        {% endif %}
+        {% for i in task.paginator.page_range %}
+        {% if task.number == i %}
+        <button class="active act bg-info"><span>{{ i }} <span class="sr-only">(current)</span></span></button>
+        {% elif i > task.number|add:'-3' and i < task.number|add:'3' %}
+            <a  href="?page={{ i }}">{{ i }}</a>
+        {% endif %}
+        {% endfor %}
+        {% if task.has_next %}
+            {% if task.number != task.paginator.num_pages %}
+            {% endif %}
+            <a   href="?page={{ task.next_page_number }}" class="prev">> </a>
+
+            <a  href="?page={{ task.paginator.num_pages }}">>> </a>
+        {% endif %}
+    </span>
+</div>   
+{% endblock main_content %}

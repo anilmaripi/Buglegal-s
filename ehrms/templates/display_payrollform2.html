@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Display Payroll Data 2</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        img {
+            max-width: 100px;
+            max-height: 100px;
+        }
+
+        a {
+            display: inline-block;
+            margin-right: 5px;
+            text-decoration: none;
+            color: #007bff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            border: 1px solid #007bff;
+        }
+
+        a:hover {
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <h2>Payroll Data 2</h2>
+    <table border="1">
+        <tr>
+            <th>Title</th>
+            <th>Description </th>
+           
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        {% for i in pay2 %}
+        <tr>
+            <td>{{ i.title2 }}</td>
+            <td>{{ i.description2}}</td>
+           
+            <td>
+                <a href="{% url 'edit_payroll2' pk=i.pk %}">Edit</a>
+            </td>
+            <td>
+                <a href="{% url 'delete_payroll2' pk=i.pk %}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

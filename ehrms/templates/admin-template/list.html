@@ -1,0 +1,152 @@
+{% extends 'admin-template/base_template.html' %}     
+{% block main_content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Non Check-In Employees</title>
+    <style>
+        tr:nth-child(even) {background-color: rgb(233, 233, 243)}
+        tr:nth-child(odd) {background-color: rgb(239, 239, 247)}
+        .pagination {
+        margin: 20px 0;
+        text-align: center;
+    }
+    
+    /* .pagination a, .pagination .current-page {
+        display: inline-block;
+        padding: 8px 12px;
+        text-decoration: none;
+        margin: 0 4px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+    } */
+
+    .pagination a, .pagination .current-page {
+    display: inline-block;
+    padding: 8px 12px;
+    text-decoration: none;
+    margin: 0 4px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    text-align: center;
+}
+.act{
+  /* background-color: orange; */
+  color: white;
+  height:43px;
+  width:43px;
+  border-radius: 20px;
+
+}
+
+
+    </style>
+</head>
+
+<body>
+    <div style="color: white; overflow: auto; overscroll-behavior-x: contain;">
+        <center>
+            <h2 style="background-color: rgb(46, 178, 208); color: white;">Not Checked-In Employees</h2>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <p class="text-black" style="margin: 0px;padding: 0px;">Total Records: {{ records_count }}</p>
+                <div style="margin-right: 10px; padding: 5px;">
+                  <input id="name-search" type="text" placeholder="Search for name ..." style="padding: 5px; border: 2px solid #000000; border-radius: 5px;">
+                </div>
+              </div>
+            <table class="table">
+                <tr style="background-color: black; font-size: 20px;">
+                    <th>Employee ID</th>
+                    <th>Employee Name</th>
+                    <th>Contact Number</th>
+                </tr>
+                {% for record in data_to_display %}
+                    <tr style="font-size: 18px;">
+                        <td>{{ record.empid }}</td>
+                        <td>{{ record.first_name }}</td>
+                        <td>{{ record.contactno }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </center>
+    </div>
+    <!-- <div class="pagination" style="margin-left: 500px;color:white ;padding-left: 24px;" >
+        <span class="step-links">
+            {% if data_to_display.has_previous %}
+                <a href="?page=1">&laquo; First</a>
+                <a href="?page={{ data_to_display.previous_page_number }}" class="prev">&#8249; << </a>
+            {% endif %}
+      
+            {% for page in data_to_display.paginator.page_range %}
+                <a href="?page={{ page }}" {% if page == data_to_display.number %}class="active"{% endif %}>{{ page }}</a>
+            {% endfor %}
+      
+            {% if rs.has_next %}
+                {% if data_to_display.number != data_to_display.paginator.num_pages %}
+                {% endif %}
+                <a href="?page={{ data_to_display.paginator.num_pages }}">&raquo; >> </a>
+            {% endif %}
+        </span>
+      </div> -->
+
+      <div class="pagination" style="color:white; margin:20px auto;">
+        <span class="step-links">
+            {% if data_to_display.has_previous %}
+                <a  href="?page=1">&laquo;<<</a>
+                <a   href="?page={{ data_to_display.previous_page_number }}" class="prev"> < </a>
+            {% endif %}
+    
+
+            {% for i in data_to_display.paginator.page_range %}
+            {% if data_to_display.number == i %}
+            <button class="active act bg-info"><span>{{ i }} <span class="sr-only">(current)</span></span></button>
+            {% elif i > data_to_display.number|add:'-3' and i < data_to_display.number|add:'3' %}
+                <a  href="?page={{ i }}">{{ i }}</a>
+            {% endif %}
+            {% endfor %}
+
+           
+
+            {% if data_to_display.has_next %}
+                {% if data_to_display.number != data_to_display.paginator.num_pages %}
+                {% endif %}
+                <a   href="?page={{ data_to_display.next_page_number }}" class="prev">> </a>
+
+                <a  href="?page={{ data_to_display.paginator.num_pages }}">>>&raquo; </a>
+            {% endif %}
+        </span>
+    </div>  
+    <script>
+        $(document).ready(function () {
+            $("#name-search").on("keyup change", function () {
+                var nameValue = $(this).val().toLowerCase(); // Use $(this) to refer to the input element
+
+                var anyDataAvailable = false;
+
+                $("#yourTableID tbody tr").each(function () {
+                    var row = $(this);
+                    var nameMatch = row.text().toLowerCase().indexOf(nameValue) > -1;
+
+                    row.toggle(nameMatch); // Toggle visibility based on nameMatch
+
+                    if (nameMatch) {
+                        anyDataAvailable = true;
+                    }
+                });
+
+                if (!anyDataAvailable) {
+                    $(".pagination").hide();
+                    $("#no-data-message").show();
+                } else {
+                    $(".pagination").show();
+                    $("#no-data-message").hide();
+                }
+            });
+        });
+    </script>
+ 
+
+</body>
+</html>
+{% endblock main_content %}

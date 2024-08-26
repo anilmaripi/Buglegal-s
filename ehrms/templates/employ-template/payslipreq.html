@@ -1,0 +1,511 @@
+
+
+
+{% extends 'employ-template/base_template.html' %}
+{% block main_content %}
+<title>Payslip Request History</title>
+<head>
+ <!-- <style>
+        
+  label{
+      color:white;
+      font-size: 25px;
+  }
+  .vamsi:hover{
+    border: 5px solid red;
+  }
+  
+      .vamsi{
+        background-color: rgb(145, 114, 253);
+        color:#393f5c;
+        float:right;
+        margin-right: 130px;
+      }
+      .tbl-content{
+        align-items: center;
+      }
+      #btn{
+    background-color: rgb(16, 5, 57);
+    color: rgba(255, 255, 255, 0.815);
+    width: 75%;
+  }
+  button{
+    background-color: rgb(8, 8, 77);
+
+  }
+  #but{
+    background-color: rgb(8, 8, 77);
+    color: rgba(255, 255, 255, 0.815);
+
+  }
+  #sel{
+    background-color: rgb(8, 8, 77);
+    color: rgba(255, 255, 255, 0.815);
+  }
+  .wrapper-dropdown {
+  position: relative;
+  display: inline-block;
+  min-width: 150.5px;
+  width: 20%;
+  max-width:100px;
+  min-height: 50px;
+  border-radius: 0px 0px 15px 15px;
+  background: #1c2028;
+  text-align: left;
+  
+  cursor: pointer; 
+  margin-bottom: 20px;
+  font-family: Arial;
+}
+
+
+.pagination {
+  margin: 20px 0;
+  text-align: center;
+}
+
+.pagination a, .pagination .current-page {
+        display: inline-block;
+        padding: 8px 12px;
+        text-decoration: none;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+        border-radius: 20px;
+        text-align: center;
+        /* background-color: #3775e0;
+        color: white; */
+    }
+      .act{
+  /* background-color: orange; */
+  color: white;
+  height:43px;
+  width:43px;
+  border-radius: 20px;
+
+}
+ 
+
+/* .pagination a, .pagination .current-page {
+  display: inline-block;
+  padding: 8px 12px;
+  text-decoration: none;
+  margin: 0 4px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.pagination .step-links a.active {
+    background-color: orange;
+} */
+
+    
+      @media(max-width=500){
+        .col{
+          /* padding-left: 10px; */
+          margin: 10px;
+        }
+       .tbl-content{
+        overflow-x: scroll;
+       }
+      }
+      
+
+      
+        </style>
+     -->
+
+     <style>
+      .pagination a{
+        color:red;
+        text-decoration: none;
+      
+      }
+      .act{
+        border-radius: 20px;
+        padding: 4px 8px;
+        background-color: #007880;
+        border: 1px solid #ccc;
+        color:fff;
+      }
+      
+      .head-manager{
+        color: blue;
+        font-size: 36px;
+        margin-bottom: 30px;
+        text-align: center;
+        margin-top: 10px;
+    }
+    
+      .table-manager thead tr{
+      background-color: #000;
+      color: #ffffff;
+
+    }
+    .table-manager tbody tr:nth-child(odd){
+      background-color: #ccc;
+      color:#000;
+    }
+    .table-manager tbody tr:nth-child(even){
+      background-color: #e6e6e6;
+      color:#000;
+    }
+label{
+  color: #666666;
+}
+option{
+background-color: #e6e6e6;
+}
+.head-hr{
+        color: black;
+        font-size: 36px;
+        margin-bottom: 30px;
+        text-align: center;
+        margin-top: 10px;
+    }
+    
+      .table-hr thead tr{
+        background-color: #000;
+        color: white;
+    }
+    .table-hr tbody tr:nth-child(odd){
+      background-color: #ccc;
+      color:#000;
+    }
+    .table-hr tbody tr:nth-child(even){
+      background-color: #e6e6e6;
+      color:#000;
+    }
+    .table-tm thead tr{
+  background-color: #000;
+  color:white;
+
+}
+.table-tm tbody tr:nth-child(odd){
+background-color: #ccc;
+color:#000;
+}
+.table-tm tbody tr:nth-child(even){
+background-color: #e6e6e6;
+color:#000;
+}
+
+.head-tm{
+  color:#ff7733;
+  font-size: 36px;
+  margin-bottom: 30px;
+  text-align: center;
+  margin-top: 10px;
+}
+.head-tl{
+  color:#000;
+}
+.table-tm table, tr, td, th{
+  color: white;
+}  
+.table-manager td {
+  color: #000;
+}
+</style>
+
+    </head>
+    <script>
+      function printPage() {
+        window.print();
+    }
+    </script>
+        
+    <body>
+    
+      <div class="row">
+        <div class="col-lg-1 col-sm-1 col-md-1">  </div>
+        <div class="col-lg-10 col-sm-10 col-md-10"> 
+  
+        <h3 class="{% if mem_role == 'HR' and mem_hroptions == 1 %}head-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}head-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}head-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}head-tm {% endif %}" >View Past Payslip Request History </h3>
+  
+
+      <form method="post" action="{% url 'paysliprequest' %}">
+        {% csrf_token %}
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <label>Select Status:</label><br>
+              <select name="ss" class="form-control">
+                <option value="">----Select----</option>
+                <option value="1">Approved</option>
+                <option value="2">Rejected</option>
+                <option value="0">Pending</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="col" style="text-align: end;">
+            
+              <input type="submit" value="Apply Filter" style="margin-left: 20px; margin-top:20px; background-color: rgb(234, 137, 137); color: whitesmoke;  font-size: 28px;height: 50px;width: 180px; border-radius: 10px;">
+        
+          </div>
+        </div>
+        </form>
+      
+      
+      
+      
+      
+      <script>
+        function submitSearch() {
+          var input = document.getElementById("myInput");
+          var filter = input.value.trim().toUpperCase();
+          var table = document.getElementById("myTable");
+          var tr = table.getElementsByTagName("tr");
+      
+          // Remove the existing "No data found" row, if it exists
+          var existingNoDataRow = document.getElementById("noDataFoundRow");
+          if (existingNoDataRow) {
+            existingNoDataRow.remove();
+          }
+      
+          var dataFound = false;
+      
+          for (var i = 1; i < tr.length; i++) {
+            var employeeIDCell = tr[i].getElementsByTagName("td")[0];
+            if (employeeIDCell) {
+              var txtValue = employeeIDCell.textContent || employeeIDCell.innerText;
+              if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+                dataFound = true;
+              } else {
+                tr[i].style.display = "none";
+              }
+            }
+          }
+      
+          if (!dataFound) {
+            // If no data is found, create a new row and append it to the table
+            var noDataRow = document.createElement("tr");
+            noDataRow.id = "noDataFoundRow";
+            noDataRow.innerHTML = '<td colspan="6">No data found</td>';
+            table.appendChild(noDataRow);
+          }
+        }
+      </script>
+           <style>
+            .table-tl{
+              border: #000;
+            }
+
+            table, tr, td, th{
+            border: 2px solid;
+            border-color: #000;
+          }
+
+          </style>       
+      <table id="myTable" class="table text-dark {% if mem_role == 'HR' and mem_hroptions == 1 %}table-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}table-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}table-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}table-tm {% endif %} table-bordered " >
+                    <thead>
+                          <tr>
+                              <th>ID</th>
+                              <th>From Date</th>
+                              <th>To Date</th>
+                              <th>Reason</th>
+                              <th>Result</th>
+                              <th>Remarks / View</th>
+                          </tr>
+                      </thead>
+                      {% if leave_data %}
+                          <tbody>
+                              {% for row in leave_data %}
+                                  <tr>
+                                      <td>{{ row.student_id.empid }}</td>
+                                      <td>{{row.startingdate}}</td>
+                                      <td>{{row.endingdate}}</td>
+                                      <td>{{row.reason}}</td>
+                                      <td>
+                                          {% if row.status == "1" %}
+                                              <span class="alert alert-success" style="background-color:lightgreen;">Approved</span>
+                                          {% elif row.status == "2" %}
+                                              <span class="alert alert-danger" style="background-color: rgb(205, 98, 98);">Rejected</span>
+                                          {% elif  row.status == "0" %}
+                                              <span class="btn btn-info">Pending </span>
+                                          {% else %}
+                                              <span class="btn btn-info">Pending </span>
+                                          {% endif %}
+                                      </td>
+                                      {% if row.status == "1" %}
+                                      <td><center><a href="/salaryfinalemp/{{ row.id }}/"><button class="btn btn-primary">view</button></a></center></td>
+                                      {% elif row.status == "2" %}
+                                      <td>{{row.remarks}}</td>
+                                      {% else %}
+                                      <td>{{row.remarks}}</td>
+                                      {% endif %}
+                                  </tr>
+                              {% endfor %}
+                          </tbody>
+                      {% else %}
+                      <tfoot style="background-color: #ccc;">
+                        <tr>
+                            <td colspan="6" style="text-align: center;color:red;">There is no payslip requests has been found.....</td>
+                        </tr>
+                    </tfoot>
+
+                      {% endif %}
+                  </table>
+                
+                  
+                    <!-- <div class="pagination" style="color:white ;" >
+                      <span class="step-links">
+                          {% if leave_data.has_previous %}
+                              <a href="?page=1">&laquo; First</a>
+                              <a href="?page={{ leave_data.previous_page_number }}" class="prev">&#8249; << </a>
+                          {% endif %}
+                    
+                          {% for page in  leave_data.paginator.page_range %}
+                              <a href="?page={{ page }}" {% if page == leave_data.number %}class="active"{% endif %}>{{ page }}</a>
+                          {% endfor %}
+                    
+                          {% if leave_data.has_next %}
+                              {% if leave_data.number !=  leave_data.paginator.num_pages %}
+                              {% endif %}
+                              <a href="?page={{ leave_data.paginator.num_pages }}">&raquo; >> </a>
+                          {% endif %}
+                      </span>
+                    </div> -->
+                     
+                    <!-- <div class="pagination" style="margin-left: 610px; color: white; padding-left: 24px;">
+                      <span class="step-links">
+                          {% if leave_data.has_previous %}
+                              <a href="?page=1" style="border: 1px solid #ccc; border-radius: 8px; padding: 5px; margin: 2px;">First</a>
+                              <a href="?page={{ leave_data.previous_page_number }}" class="prev" style="border: 1px solid #ccc; border-radius: 8px; padding: 5px; margin: 2px;">&lt;&lt;</a>
+                          {% endif %}
+                  
+                          {% for page in leave_data.paginator.page_range %}
+                              <a href="?page={{ page }}" {% if page == leave_data.number %}class="active"{% endif %}
+                                 style="border: 2px solid #ccc; border-radius: 8px; padding: 10px; margin: 2px;">
+                                 {{ page }}
+                              </a>
+                          {% endfor %}
+                  
+                          {% if leave_data.has_next %}
+                              {% if leave_data.number != leave_data.paginator.num_pages %}
+                                  <a href="?page={{ leave_data.paginator.num_pages }}" style="border: 2px solid #ccc; border-radius: 8px; padding: 5px; margin: 2px;">&gt;&gt;</a>
+                              {% endif %}
+                          {% endif %}
+                      </span>
+                  </div>
+                   -->
+
+                   <div class="pagination" >
+                    <span class="step-links">
+                        {% if leave_data.has_previous %}
+                            <a  href="?page=1">First</a>
+                            <a   href="?page={{ leave_data.previous_page_number }}" class="prev"> << </a>
+                        {% endif %}
+                
+                
+                        {% for i in leave_data.paginator.page_range %}
+                        {% if leave_data.number == i %}
+                        <button class="active act "><span>{{ i }} <span class="sr-only">(current)</span></span></button>
+                        {% elif i > leave_data.number|add:'-3' and i < leave_data.number|add:'3' %}
+                            <a  href="?page={{ i }}">{{ i }}</a>
+                        {% endif %}
+                        {% endfor %}
+                
+                       
+                
+                        {% if leave_data.has_next %}
+                            {% if leave_data.number != leave_data.paginator.num_pages %}
+                            {% endif %}
+                            <a   href="?page={{ leave_data.next_page_number }}" class="prev"> >> </a>
+                
+                            <a  href="?page={{ leave_data.paginator.num_pages }}"> Next </a>
+                        {% endif %}
+                    </span>
+                </div>   
+              </div>
+              <div class="col-lg-1 col-sm-1 col-md-1">  </div>
+        
+            </div>
+
+                  
+              
+                
+              
+             
+                <script>
+                  var currentPage = 1; // Initialize the current page
+                  var currentFilter = "all"; // Initialize the current filter (all/employees/dismissed)
+                
+                  // Functions for filtering data
+                  function showAllRows() {
+                      currentFilter = "all";
+                      showPage(1);
+                  }
+                
+                  function showActiveEmployees() {
+                      currentFilter = "employees";
+                      showPage(1);
+                  }
+                
+                  function showDismissedEmployees() {
+                      currentFilter = "dismissed";
+                      showPage(1);
+                  }
+                
+                  function showPage(pageNumber) {
+                      var rowsPerPage = 10; // Number of rows to display per page
+                      var table = document.getElementById("myTable");
+                      var rows = table.rows;
+                      
+                      for (var i = 1; i < rows.length; i++) {
+                          var is_active = rows[i].getAttribute("data-is-active");
+                          if ((currentFilter === "all") ||
+                              (currentFilter === "employees" && is_active === "True") ||
+                              (currentFilter === "dismissed" && is_active === "False")) {
+                              if (i >= (pageNumber - 1) * rowsPerPage + 1 && i <= pageNumber * rowsPerPage) {
+                                  rows[i].style.display = ""; // Display rows within the current page range
+                              } else {
+                                  rows[i].style.display = "none"; // Hide rows outside the current page range
+                              }
+                          } else {
+                              rows[i].style.display = "none"; // Hide rows that don't match the current filter
+                          }
+                      }
+                      
+                      // Update the current page indicator
+                      document.getElementById("currentPage").textContent = "Page " + pageNumber;
+                      currentPage = pageNumber;
+                  }
+                
+                  function nextPage() {
+                      if (currentPage < totalPageCount()) {
+                          showPage(currentPage + 1);
+                      }
+                  }
+                
+                  function prevPage() {
+                      if (currentPage > 1) {
+                          showPage(currentPage - 1);
+                      }
+                  }
+                
+                  function totalPageCount() {
+                      var rowsPerPage = 10; // Number of rows to display per page
+                      var table = document.getElementById("myTable");
+                      var totalRows = table.rows.length - 1; // Exclude the header row
+                      return Math.ceil(totalRows / rowsPerPage);
+                  }
+                
+                  // Initialize pagination on page load
+                  showPage(1);
+                
+                  // Attach event listeners to the Previous and Next buttons
+                  document.getElementById("prevPage").addEventListener("click", prevPage);
+                  document.getElementById("nextPage").addEventListener("click", nextPage);
+                </script>
+              
+
+             
+       
+       
+  </body>
+    
+    {% endblock main_content %}

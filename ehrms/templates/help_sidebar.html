@@ -1,0 +1,279 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+      <style>
+        
+          h5{
+              height: 25px;
+              padding-bottom: 40px;
+              
+          }
+          
+          .card{
+              color: black !important;
+              border-radius: 35px !important;
+              background-color: #68D2E8 !important;
+              
+          }
+          
+
+          .card-body a:hover{
+              font-weight: bold !important;
+
+          }
+          
+          .btn a{
+            border-radius: 30px !important;
+            color: black !important;
+            font-weight: bold;
+            font-size: 15px !important;
+          }
+          
+      </style>
+    </head>
+    <body>
+        <center><h1 style="font-weight: bold; width:px;" class="fadeInDown wow" data-wow-duration="4s">Quick Access</h1></center></br>
+        <div id="accordion">
+            <div class="card fadeInLeft wow" data-wow-duration="0.5s">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                    <div id="" class="d-flex justify-content-between">
+                  <button style="border-width: px; font-size: 18px;" class="btn btn-lg">
+                    <a href="{% url 'retriev_card1'    %}">New to buglegal? Start here?</a>
+                  </button>
+                  <button type="button" class="btn btn-link collapsed btn  text-dark btn-lg dropdown-toggle dropdown-toggle-split" style="width: 60px;height:30px; padding-bottom: 35px;" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                    <span class="visually-hidden">Toggle Dropdown</span>
+                  </button>
+                </div>
+                </h5>
+              </div>
+              <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                <div class="card-body">
+                    <a style="padding: 5px; font-size: 13px;  color: black;" href="{% url 'retriev_card1'  %}">New To Buglegal? Start Here?</a>
+                </br></br><a style="padding: 5px; font-size: 13px;  color: black; margin-bottom: 5px; width: 350px !important;" href="{% url 'managingdata_retriev'  %}">Managing My Employee Profile</a>
+                </br> </br><a style="padding: 5px; font-size: 13px;color: black; margin-bottom: 5px;" href="{% url 'retrieve_setupqn3'  %}"> How To Set The Email Notifications For Employee?</a>
+                </br></br><a style="padding: 5px; font-size: 13px;  color: black; margin-bottom: 5px;" href="{% url 'freetrail_retrieve'  %}"> How Do You Find The Start With Free Trail?</a>
+            </br>
+                </div>
+              </div>
+            </div>
+        </br>
+            <div class="card fadeInLeft wow" data-wow-duration="1s">
+              <div class="card-header" id="headingTwo">
+                <h5 class="mb-0">
+                    <div class="d-flex justify-content-between">
+                    <button style="border-width: 0px;font-size: 18px;" class="btn btn-lg">
+                        <a href="{% url 'timetrack_qnsd'  %}">Time tracking and absences</a>
+                      </button>
+                      <button type="button" class="btn btn-link collapsed btn  text-dark btn-lg dropdown-toggle dropdown-toggle-split" style="width: 60px;height:30px; padding-bottom: 35px;" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        <span class="visually-hidden">Toggle Dropdown</span>
+                      </button>
+                    </div>
+                </h5>
+              </div>
+              <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                <div class="card-body">
+                    <a style="padding: 5px; font-size: 13px;color: black;" href="{% url 'abouttime_qns1'   %}">About Time Tracking Policies?</a>
+                </br></br><a style="padding: 5px; font-size: 13px; color: black; margin-bottom: 5px; width: 350px !important;" href="{% url 'retriev_clock'  %}">To Clock In/Out On Desktop?</a>
+                </br></br><a style="padding: 5px; font-size: 13px; color: black; margin-bottom: 5px; width: 100%" href="{% url 'retriev_assignans3'  %}">How To Create And Assign Work Schedules</a>
+                </br> </br><a style="padding: 5px; font-size: 13px; color: black; margin-bottom: 5px;" href="{% url 'retriev_breaksqns4'  %}"> About Breaks?</a>
+                 </br></br><a style="padding: 5px; font-size: 13px; color: black; margin-bottom: 5px;" href="{% url 'retriev_faq5' %}"> Frequently Aksed Quations About Time Tracking</a>
+                </div>
+              </div>
+            </div>
+        </br>
+            <div class="card fadeInLeft wow" data-wow-duration="1.5s">
+              <div class="card-header" id="headingThree">
+                <h5 class="mb-0">
+                    <div class="d-flex justify-content-between">
+                    <button style="border-width: 0px;font-size: 18px;" class="btn btn-lg">
+                        <a href="{% url 'retriev_payroll1'  %}">Payroll & Finance</a>
+                      </button>
+                      <button type="button" class="btn btn-link collapsed  text-dark btn-lg dropdown-toggle dropdown-toggle-split" style="width: 60px;height:30px; padding-bottom: 35px;" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        <span class="visually-hidden">Toggle Dropdown</span>
+                      </button>
+                    </div>
+                </h5>
+              </div>
+              <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                <div class="card-body">
+                    <a style="padding: 5px; font-size: 13px; color: black;" href="{% url 'retriev_payroll1'  %}">Payroll Process|Reimbursements|Salary Of Employees|</a>
+                </br></br><a style="padding: 5px; font-size: 13px;  color: black; margin-bottom: 5px; width: 350px !important;" href="{% url 'retriev_addempqns2'  %}">How To Add Employeesin Single Or Multiple Data ?</a>
+                </br></br><a style="padding: 5px; font-size: 13px;  color: black; margin-bottom: 5px; width: 100%" href="{% url 'retriev_reimbursementqns3'  %}"> How To Apply The Reimbursements For Employees?</a>
+                </br> </br><a style="padding: 5px; font-size: 13px;  color: black; margin-bottom: 5px;" href="{% url 'retriev_requestqns4'  %}">How Does Admin Check The Employee Pay Slip Requests And Approve Or Disapprove?</a>
+                </br></br><a style="padding: 5px; font-size: 13px; color: black; margin-bottom: 5px;" href="{% url 'retriev_advanceqns5'  %}">How Admin Can See Advance Salary Requested By Employee?</a>
+                </div>
+              </div>
+            </div>
+        </br>
+            <div class="card fadeInLeft wow" data-wow-duration="2s">
+                <div class="card-header" id="headingFour">
+                  <h5 class="mb-0">
+                    <div class="d-flex justify-content-between">
+                    <button style="border-width: 0px;font-size: 18px;" class="btn btn-lg">
+                        <a href="{% url 'documents_card'  %}">Documents & Signatures</a>
+                      </button>
+                      <button type="button" class="btn btn-link collapsed text-dark end-0  btn-lg dropdown-toggle dropdown-toggle-split" style="width: 60px;height:30px; padding-bottom: 35px;" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                        <span class="visually-hidden">Toggle Dropdown</span>
+                      </button>
+                    </div>
+                  </h5>
+                </div>
+                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+                  <div class="card-body">
+                    <a style="padding: 5px; font-size: 13px; color: black; margin-bottom: 5px; width: 350px !important;" href="{% url 'documents' %}">Where Can I Find Reports?</a>
+                      </br></br><a style="padding: 5px; font-size: 13px; color: black; margin-bottom: 5px; width: 350px !important;" href="{% url 'documents1' %}">Where Can I Find Documents?</a>
+                    </br></br><a style="padding: 5px; font-size: 13px; color: black; margin-bottom: 5px; width: 100%" href="{% url 'documents2' %}">Where Can I Find Pay Slips?</a>
+                    </br> </br><a style="padding: 5px; font-size: 13px; color: black; margin-bottom: 5px;" href="{% url 'documents3' %}">Where Can I Apply For Reimbersment?</a>
+                    </br></br><a style="padding: 5px; font-size: 13px; color: black; margin-bottom: 5px;" href="{% url 'documents4' %}">How To Add Multiple Employees Data?</a>
+                    </br></br><a style="padding: 5px; font-size: 13px; color: black; margin-bottom: 5px;" href="{% url 'documents5' %}">How Can I Send Messages?</a>
+                    </br></br><a style="padding: 5px; font-size: 13px; color: black; margin-bottom: 5px;" href="{% url 'documents6' %}">Where Can An Employee Find Received Messages?</a>
+                    </br></br><a style="padding: 5px; font-size: 13px; color: black; margin-bottom: 5px;" href="{% url 'documents7' %}">Where Can I Find My Profile?</a>
+                    </br></br><a style="padding: 5px; font-size: 13px; color: black; margin-bottom: 5px;" href="{% url 'documents8' %}">How To Upload My Profile Photo?</a>
+                    </br></br><a style="padding: 5px; font-size: 13px; color: black; margin-bottom: 5px;" href="{% url 'documents9' %}">How To Reset The Password?</a>
+                   </div>
+                </div>
+              </div>
+            </br>
+              <div class="card fadeInLeft wow" data-wow-duration="2.5s">
+                <div class="card-header" id="headingFive">
+                  <h5 class="mb-0">
+                    <div class="d-flex justify-content-between">
+                    <button style="border-width: 0px;font-size: 18px;"class="btn btn-lg">
+                        <a href="">Expenses & Cards</a>
+                      </button>
+                      <button type="button" class="btn btn-link collapsed text-dark end-0  btn-lg dropdown-toggle dropdown-toggle-split" style="width: 60px;height:30px; padding-bottom: 35px;" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                        <span class="visually-hidden">Toggle Dropdown</span>
+                      </button>
+                    </div>
+                  </h5>
+                </div>
+                <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
+                  <div class="card-body">
+                      <a style="padding: 5px; font-size: 13px; color: black;" href="{% url 'help_page_7_1'  %}">How To Create Or Assign The Project?</a>
+                  </br></br><a style="padding: 5px; font-size: 13px; color: black; margin-bottom: 5px; width: 350px !important;" href="{% url 'help_page_7_2'  %}">Where To Find The Existing Project?</a>
+                  </br></br><a style="padding: 5px; font-size: 13px; color: black; margin-bottom: 5px; width: 100%" href="{% url 'help_page_7_3'  %}"> How To Approve Or Reject The Pay Slips Requests?</a>
+                  </br> </br><a style="padding: 5px; font-size: 13px;  color: black; margin-bottom: 5px;" href="{% url 'help_page_7_4'  %}"> How To Approve Or Reject The Reimbursement Requests?</a>
+                  </br></br><a style="padding: 5px; font-size: 13px; color: black; margin-bottom: 5px;" href="{% url 'help_page_7_5'  %}"> How To Send Notifications?</a>
+                  </br></br><a style="padding: 5px; font-size: 13px; color: black; margin-bottom: 5px;" href="{% url 'help_page_7_6'  %}"> How To Set Required Documents Criteria?</a>
+                  </br></br><a style="padding: 5px; font-size: 13px; color: black; margin-bottom: 5px;" href="{% url 'help_page_7_7'  %}">How To Set Criteria For Reimbursement?</a>
+                  </br></br><a style="padding: 5px; font-size: 13px;  color: black; margin-bottom: 5px;" href="{% url 'help_page_7_8'  %}"> Enabling And Disabling The Employee?</a>
+                  
+                  </div>
+                </div>
+              </div>
+            </br>
+              <div class="card fadeInLeft wow" data-wow-duration="3s">
+                <div class="card-header" id="headingSix">
+                  <h5 class="mb-0">
+                    <div class="d-flex justify-content-between">
+                    <button style="border-width: 0px;font-size: 18px;"class="btn btn-lg">
+                        <a href="{% url 'organization_card'  %}">Organization & Monitor Logs</a>
+                      </button>
+                      <button type="button" class="btn btn-link collapsed text-dark end-0  btn-lg dropdown-toggle dropdown-toggle-split" style="width: 60px;height:30px; padding-bottom: 35px;" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                        <span class="visually-hidden">Toggle Dropdown</span>
+                      </button>
+                    </div>
+                  </h5>
+                </div>
+                <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordion">
+                  <div class="card-body">
+                    <a style="padding: 5px; font-size: 13px; color: black; margin-bottom: 5px; width: 350px !important;" href="{% url 'organization' %}">How Do We Monitor  Employee's Work?</a>
+                    </br></br><a style="padding: 5px; font-size: 13px; color: black; margin-bottom: 5px; width: 350px !important;" href="{% url 'organization1' %}">How Do We Monitor Employee's Work By Using Screen Monitor?</a>
+                    </br></br><a style="padding: 5px; font-size: 13px; color: black; margin-bottom: 5px; width: 100%" href="{% url 'organization2' %}">How Do We Monitor Employee's Work By Using Detailed Monitor?</a>
+                    </br> </br><a style="padding: 5px; font-size: 13px; color: black; margin-bottom: 5px;" href="{% url 'organization3' %}">How Do We Monitor Employee's Work By Using Power Logs Monitor?</a>
+                    </br></br><a style="padding: 5px; font-size: 13px; color: black; margin-bottom: 5px;" href="{% url 'organization' %}">How Do We Monitor Employee's Work By Using Screenshot Monitor?</a>
+                    </br></br><a style="padding: 5px; font-size: 13px; color: black; margin-bottom: 5px;" href="{% url 'organization5' %}">How To Register A Company?</a>
+                    </br></br><a style="padding: 5px; font-size: 13px; color: black; margin-bottom: 5px;" href="{% url 'organization6' %}">How Can I Setup Professional Tax For The Company?</a>
+                    </br></br><a style="padding: 5px; font-size: 13px; color: black; margin-bottom: 5px;" href="{% url 'organization7' %}">How Does Admin Create A Project?</a>
+                    </br></br><a style="padding: 5px; font-size: 13px; color: black; margin-bottom: 5px;" href="{% url 'organization8' %}">How Can Admin Check Employee's Performance?</a>
+                    </br></br><a style="padding: 5px; font-size: 13px; color: black; margin-bottom: 5px;" href="{% url 'organization9' %}">How Can Admin Monitor Check-In and Non-Check In Employee Detailes?</a>
+                  </div>
+                </div>
+              </div>
+            </br>
+              <div class="card fadeInLeft wow" data-wow-duration="3.5s">
+                <div class="card-header" id="headingSeven">
+                  <h5 class="mb-0">
+                    <div class="d-flex justify-content-between">
+                    <button style="border-width: 0px;font-size: 18px;"class="btn btn-lg">
+                        <a href="{% url 'help_page_card7' %}">Permissions & Workflows</a>
+                      </button>
+                      <button type="button" class="btn btn-link collapsed text-dark end-0  btn-lg dropdown-toggle dropdown-toggle-split" style="width: 60px;height:30px; padding-bottom: 35px;" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                        <span class="visually-hidden">Toggle Dropdown</span>
+                      </button>
+                    </div>
+                  </h5>
+                </div>
+                <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#accordion">
+                  <div class="card-body">
+                      <a style="padding: 5px; font-size: 13px;  color: black;" href="{% url 'help_page_7_1' %}">How To Create Or Assign The Project?</a>
+                  </br></br><a style="padding: 5px; font-size: 13px;  color: black; margin-bottom: 5px; width: 350px !important;" href="{% url 'help_page_7_2' %}">Where To Find The Existing Project?</a>
+                  </br></br><a style="padding: 5px; font-size: 13px;  color: black; margin-bottom: 5px; width: 100%" href="{% url 'help_page_7_3' %}"> How To Approve Or Reject The Pay Slips Requests?</a>
+                  </br> </br><a style="padding: 5px; font-size: 13px; color: black; margin-bottom: 5px; " href="{% url 'help_page_7_4' %}"> How To Approve Or Reject The Reimbursement Requests?</a>
+                  </br></br><a style="padding: 5px; font-size: 13px;  color: black; margin-bottom: 5px;" href="{% url 'help_page_7_5' %}"> How To Send Notifications?</a>
+                  </br></br><a style="padding: 5px; font-size: 13px;  color: black; margin-bottom: 5px;" href="{% url 'help_page_7_6' %}"> How To Set Required Documents Criteria?</a>
+                  </br></br><a style="padding: 5px; font-size: 13px;  color: black; margin-bottom: 5px;" href="{% url 'help_page_7_7' %}">How To Set Criteria For Reimbursement?</a>
+                  </br></br><a style="padding: 5px; font-size: 13px;  color: black; margin-bottom: 5px;" href="{% url 'help_page_7_8' %}"> Enabling And Disabling The Employee?</a>
+                  
+                  </div>
+                </div>
+              </div>
+            </br>
+              <div class="card fadeInLeft wow" data-wow-duration="4s">
+                <div class="card-header" id="headingEight">
+                  <h5 class="mb-0">
+                    <div class="d-flex justify-content-between">
+                    <button style="border-width: 0px;font-size: 18px;"class="btn btn-lg">
+                        <a href="{% url 'help_page_card8' %}">Performance & Engagemen</a>
+                      </button>
+                      <button type="button" class="btn btn-link collapsed text-dark end-0  btn-lg dropdown-toggle dropdown-toggle-split" style="width: 60px;height:30px; padding-bottom: 35px;" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                        <span class="visually-hidden">Toggle Dropdown</span>
+                      </button>
+                    </div>
+                  </h5>
+                </div>
+                <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#accordion">
+                  <div class="card-body">
+                      <a style="padding: 5px; font-size: 13px;  color: black;" href="{% url 'help_page_8_1' %}">How To Check Employee Average Performance?</a>
+                  </br></br><a style="padding: 5px; font-size: 13px;  color: black; margin-bottom: 5px; width: 350px !important;" href="{% url 'help_page_8_2' %}">How To Check Employee Task Performance?</a>
+                  </br></br><a style="padding: 5px; font-size: 13px; color: black; margin-bottom: 5px; width: 100%" href="{% url 'help_page_8_3' %}">How To Check Employee Project Performance?</a>
+                  </br> </br><a style="padding: 5px; font-size: 13px; color: black; margin-bottom: 5px;" href="{% url 'help_page_8_4' %}">How To Add Website Or A App As Productive Or Unproductive?</a>  
+                  </div>
+                </div>
+              </div>
+            </br>
+              <div class="card fadeInLeft wow" data-wow-duration="4.5s">
+                <div class="card-header" id="headingNine">
+                  <h5 class="mb-0">
+                    <div class="d-flex justify-content-between">
+                    <button style="border-width: 0px;font-size: 18px;"class="btn btn-lg">
+                        <a href="{% url 'help_page_card9' %}">App And Integrations</a>
+                      </button>
+                      <button type="button" class="btn btn-link collapsed text-dark end-0  btn-lg dropdown-toggle dropdown-toggle-split" style="width: 60px;height:30px; padding-bottom: 35px;" data-toggle="collapse" data-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+                        <span class="visually-hidden">Toggle Dropdown</span>
+                      </button>
+                    </div>
+                  </h5>
+                </div>
+                <div id="collapseNine" class="collapse" aria-labelledby="headingNine" data-parent="#accordion">
+                  <div class="card-body">
+                      <a style="padding: 5px; font-size: 13px; color: black;" href="{% url 'help_page_9_1' %}">What Are The Features On Buglegal?</a>
+                  </br></br><a style="padding: 5px; font-size: 13px; color: black; margin-bottom: 5px; width: 350px !important;" href="{% url 'help_page_9_2' %}">Excel Integration On Buglegal:</a>
+                  </br></br><a style="padding: 5px; font-size: 13px; color: black; margin-bottom: 5px; width: 100%" href="{% url 'help_page_9_3' %}">Email Integration On Buglegal:</a>
+                  </br> </br><a style="padding: 5px; font-size: 13px;  color: black; margin-bottom: 5px;" href="{% url 'help_page_9_4' %}"></a>">Face Recognition Integration On Buglegal:</a>
+                  </br></br><a style="padding: 5px; font-size: 13px; color: black; margin-bottom: 5px;" href="{% url 'help_page_9_5' %}"></a>">Screen Monitoring Integration On Buglegal:</a>
+                  </br></br><a style="padding: 5px; font-size: 13px;  color: black; margin-bottom: 5px;" href="{% url 'help_page_9_6' %}"></a>">Employee Monitoring Integration On Buglegal:</a>
+                  </br></br><a style="padding: 5px; font-size: 13px; color: black; margin-bottom: 5px;" href="{% url 'help_page_9_7' %}"></a>">Security And Privacy On Buglegal:</a>
+                  
+                  </div>
+                </div>
+              </div>
+          </div>
+         </body>
+</html>

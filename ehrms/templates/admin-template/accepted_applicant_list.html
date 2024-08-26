@@ -1,0 +1,649 @@
+{% extends 'admin-template/base_template.html' %}
+{% block main_content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Accepted Applicants For Exam</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <style>
+  
+  body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: #f8f9fa;
+            padding-top: 20px;
+        }
+        .container {
+            max-width: 1200px;
+        }
+        .page-title {
+            text-align: center;
+            font-weight: bold;
+            color: #495057;
+            margin-bottom: 30px;
+        }
+        .table-container {
+            background-color: #fff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .table-responsive {
+            overflow-x: auto;
+        }
+        .table {
+            width: 100%;
+            margin-bottom: 0;
+            color: #495057;
+        }
+        .table th, .table td {
+            border: none;
+            padding: 12px 15px;
+            text-align: center;
+            font-size: 14px;
+        }
+        .table th {
+            background-color: #007bff;
+            color: #fff;
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+        .table td {
+            background-color: #fff;
+        }
+        
+        .no-applicants {
+            text-align: center;
+            font-style: italic;
+            color: #999;
+        }
+        .action-btn, .decline-btn, .delete-btn {
+            padding: 8px 16px;
+            border: 1px solid transparent;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 14px;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+        .action-btn {
+            background-color: #28a745;
+            color: white;
+            border-color: #28a745;
+        }
+        .action-btn:hover {
+            background-color: white;
+            color: #28a745;
+            border-color: #28a745;
+        }
+        .decline-btn {
+            background-color: #ffc107;
+            color: #343a40;
+            border-color: #ffc107;
+        }
+        .decline-btn:hover {
+            background-color: white;
+            color: #ffc107;
+            border-color: #ffc107;
+        }
+        .delete-btn {
+            background-color: #dc3545;
+            color: white;
+            border-color: #dc3545;
+        }
+        .delete-btn:hover {
+            background-color: white;
+            color: #dc3545;
+            border-color: #dc3545;
+        }
+       
+        .readonly-status {
+            font-weight: bold;
+        }
+        .accepted {
+            color: #28a745;
+        }
+        .declined {
+            color: #dc3545;
+        }
+
+        /* Popup container */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+        }
+
+        /* Popup content */
+        .popup-content {
+            background-color: #fff; /* White background */
+            padding: 20px;
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
+            width: 400px; /* Set a fixed width */
+            max-width: 90%; /* Maximum width for responsiveness */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Popup title */
+        .popup-content h2 {
+            margin-bottom: 15px;
+            text-align: center;
+            color: #333;
+        }
+        .popup-content p {
+            margin-bottom: 15px;
+            text-align: center;
+            color: #333;
+        }
+        /* Form styling */
+        form {
+            margin-top: 15px;
+        }
+
+        /* Labels */
+        form label {
+            display: block;
+            margin-bottom: 8px;
+            color: #666;
+        }
+
+        /* Input fields */
+        form input[type="url"], form input[type="datetime-local"] {
+            width: calc(100% - 20px); /* Adjust for padding */
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            
+        }
+
+        /* Buttons */
+        .popup-buttons {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .popup-buttons button {
+            padding: 10px 20px;
+            margin: 0 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: #007bff; /* Blue button */
+            color: #fff;
+        }
+
+        .btn-secondary {
+            background-color: #ccc; /* Gray button */
+            color: #333;
+        }
+        .messages {
+            width: 100%;
+            margin: 20px auto;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .alert {
+            padding: 15px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+
+        .alert.success {
+            color: #3c763d;
+            background-color: #dff0d8;
+            border-color: #d6e9c6;
+        }
+
+        .alert.error {
+            color: #a94442;
+            background-color: #f2dede;
+            border-color: #ebccd1;
+        }
+
+        .alert.warning {
+            color: #8a6d3b;
+            background-color: #fcf8e3;
+            border-color: #faebcc;
+        }
+
+        .alert.info {
+            color: #31708f;
+            background-color: #d9edf7;
+            border-color: #bce8f1;
+        }
+
+    .filter-form {
+        max-width: 600px;
+        margin: 20px auto;
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .form-group {
+        margin-bottom: 15px;
+    }
+    .form-group label {
+        font-weight: bold;
+        display: block;
+        margin-bottom: 5px;
+    }
+    .form-group input[type="text"],
+    .form-group select {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+    .form-group select {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        background-image: url('data:image/svg+xml;utf8,<svg fill="%23333" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+        background-repeat: no-repeat;
+        background-position-x: 100%;
+        background-position-y: center;
+        background-size: 1.2em;
+        padding-right: 30px;
+    }
+    .form-group button {
+        background-color: #007bff;
+        color: #ffffff;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        border-radius: 4px;
+        font-size: 16px;
+    }
+    .form-group button:hover {
+        background-color: #0056b3;
+    }
+
+    </style>
+</head>
+<body>
+<!-- Create Popup -->
+<div id="createPopup" class="popup">
+    <div class="popup-content">
+        <h2>Create Interview Meeting</h2>
+        <form method="post" action="{% url 'interview_settings' %}">
+            {% csrf_token %}
+            <input type="hidden" name="companyid" value="{{ companyid }}">
+            <label for="google_meet_link">Google Meet Link:</label>
+            <input type="url" id="google_meet_link" name="google_meet_link" required><br><br>
+            <label for="interview_time">Interview Time:</label>
+            <input type="datetime-local" id="interview_time" name="interview_time" required><br><br>
+            <label for="interview_type">Interview Type:</label>
+            <select class="form-control" id="interview_type" name="interview_type">
+                <option value="virtual">Virtual</option>
+                <option value="offline">Offline</option>
+            </select><br><br>
+            <div class="popup-buttons">
+                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="button" onclick="closePopup('createPopup')" class="btn btn-secondary">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="container">
+    <h1 style="text-align: center;">Interview Meeting Details</h1>
+    <div class="table-container">
+        <div class="table-responsive">
+    <button type="button" class="action-btn" onclick="openCreatePopup()">Create Interview Meeting</button><br><br>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Google Meet Link</th>
+                <th>Interview Time</th>
+                <th>Interview Type</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for setting in interview_settings %}
+            <tr>
+                <td><a href="{{ setting.google_meet_link }}" target="_blank">{{ setting.google_meet_link }}</a></td>
+                <td>{{ setting.interview_time|date:"F d, Y H:i" }}</td>
+                <td>{{ setting.get_interview_type_display }}</td>
+                <td>
+                    <button class="action-btn"><a href="#" onclick="openUpdatePopup('{{ setting.id }}', '{{ setting.google_meet_link }}', '{{ setting.interview_time }}', '{{ setting.interview_type }}')" style="text-decoration: none;color: white ;">Update</a></button>
+                    <!-- Delete link -->
+                    <button class="delete-btn"><a href="#" onclick="openDeletePopup('{{ setting.id }}')" style="text-decoration: none;color: white;">Delete</a></button>            
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4" class="no-applicants">No interview settings found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+</div>
+</div>
+
+<!-- Update Popup -->
+<div id="updatePopup" class="popup">
+    <div class="popup-content">
+        <h2>Update Interview Settings</h2>
+        <form method="post" id="updateForm" action="">
+            {% csrf_token %}
+            <input type="hidden" id="update_setting_id" name="setting_id">
+            <label for="update_google_meet_link">Google Meet Link:</label>
+            <input type="url" id="update_google_meet_link" name="google_meet_link" required><br><br>
+            <label for="update_interview_time">Interview Time:</label>
+            <input type="datetime-local" id="update_interview_time" name="interview_time" required><br><br>
+            <label for="update_interview_type">Interview Type:</label>
+            <select class="form-control" id="update_interview_type" name="interview_type">
+                <option value="virtual">Virtual</option>
+                <option value="offline">Offline</option>
+            </select><br><br>
+            <div class="popup-buttons">
+                <button type="submit" class="btn btn-primary">Update</button>
+                <button type="button" onclick="closePopup('updatePopup')" class="btn btn-secondary">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Delete Popup -->
+<div id="deletePopup" class="popup">
+    <div class="popup-content">
+        <h2>Delete Interview Settings</h2>
+        <p>Are you sure you want to delete this interview setting?</p>
+        <form method="post" id="deleteForm" action="">
+            {% csrf_token %}
+            <input type="hidden" id="delete_setting_id" name="setting_id">
+            <div class="popup-buttons">
+                <button type="submit" class="btn btn-danger">Delete</button>
+                <button type="button" onclick="closePopup('deletePopup')" class="btn btn-secondary">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+    <div class="container">  
+    <h1 style="text-align: center;">Accepted Applicants For Exam</h1>
+    <div class="table-container">
+    <div class="table-responsive">
+    <table id="applicantsTable" class="table table-striped">
+        <thead>
+            <tr>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+                <th>Applied On</th>
+                <th>Exam</th>
+                <th>Marks</th>
+                <th>Grades</th>
+                <th>Exam Status</th>
+                <th>update Exam Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for applicant in accepted_applicants %}
+            <tr>
+                <td>{{ applicant.full_name }}</td>
+                <td>{{ applicant.email }}</td>
+                <td>{{ applicant.phone_number }}</td>
+                <td>{{ applicant.applied_on }}</td>
+                <td>{{ applicant.task_status }}</td>
+                <td>{{ applicant.marks }}</td>
+                <td>{{ applicant.grades }}</td>
+                <td>{{ applicant.exam_status }}</td>
+                 
+                <td data-bs-toggle="modal" data-bs-target="#applicantModal" data-id="{{ applicant.id }}" data-name="{{ applicant.full_name }}" data-email="{{ applicant.email }}" data-interview="{{ applicant.interview }}"  data-interview-status="{{ applicant.interview_status }}">
+                    {% if applicant.task_status == 'pending' %}
+                        <button style="background-color: #007bff; color: white;">click here</button>
+                    {% else %}        
+                        <button style="background-color: red; color: white;" disabled>updated</button>
+                    {% endif %}
+                </td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+    </div>
+    </div>
+
+    <div class="modal fade" id="applicantModal" tabindex="-1" aria-labelledby="applicantModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="applicantModalLabel">Applicant Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="applicantForm">
+                        {% csrf_token %}
+                        <input type="hidden" id="applicantId" name="applicant_id">
+                        <div class="mb-3">
+                            <label for="applicantName" class="form-label">Full Name</label>
+                            <input type="text" class="form-control" id="applicantName" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="applicantEmail" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="applicantEmail" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="taskStatus" class="form-label">Exam</label>
+                            <select class="form-control" id="taskStatus" name="task_status">
+                                <option value="complete">Complete</option>
+                                <option value="incomplete">Incomplete</option>
+                                <option value="pending">Pending</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="marks" class="form-label">Marks</label>
+                            <input type="number" class="form-control" id="marks" name="marks" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="grades" class="form-label">Grades</label>
+                            <input type="text" class="form-control" id="grades" name="grades" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="ExamStatus" class="form-label">Exam Status</label>
+                            <select class="form-control" id="exam_status" name="exam_status">
+                                <option value="qualified">Qualified</option>
+                                <option value="disqualified">Disqualified</option>
+                                <option value="pending">Pending</option>
+                            </select>
+                        </div>
+                
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="saveChanges">Save changes</button>
+                    <div id="loadingSpinner" class="spinner-border text-primary" role="status" style="display: none;">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+    <script>
+document.addEventListener('DOMContentLoaded', (event) => {
+    var applicantModal = document.getElementById('applicantModal');
+    applicantModal.addEventListener('show.bs.modal', function (event) {
+        var button = event.relatedTarget;
+        var id = button.getAttribute('data-id');
+        var name = button.getAttribute('data-name');
+        var email = button.getAttribute('data-email');
+        var task_status = button.getAttribute('data-task-status');
+        var marks = button.getAttribute('data-marks');
+        var grades = button.getAttribute('data-grades');
+        var exam_status = button.getAttribute('data-exam-status');
+        var interview_type = button.getAttribute('data-interview-type'); 
+
+
+        var applicantId = applicantModal.querySelector('#applicantId');
+        var applicantName = applicantModal.querySelector('#applicantName');
+        var applicantEmail = applicantModal.querySelector('#applicantEmail');
+        var taskStatus = applicantModal.querySelector('#taskStatus');
+        var marksInput = applicantModal.querySelector('#marks');
+        var gradesInput = applicantModal.querySelector('#grades');
+        var examStatus = applicantModal.querySelector('#exam_status');
+        var interviewType = applicantModal.querySelector('#interviewType'); 
+
+
+        applicantId.value = id;
+        applicantName.value = name;
+        applicantEmail.value = email;
+        taskStatus.value = task_status;
+        marksInput.value = marks;
+        gradesInput.value = grades;
+        examStatus.value = exam_status;
+        interviewType.value = interview_type; 
+
+
+        if (taskStatus.value === 'complete') {
+            marksInput.removeAttribute('readonly');
+            gradesInput.removeAttribute('readonly');
+            marksInput.classList.remove('readonly');
+            gradesInput.classList.remove('readonly');
+        } else {
+            marksInput.setAttribute('readonly', true);
+            gradesInput.setAttribute('readonly', true);
+            marksInput.classList.add('readonly');
+            gradesInput.classList.add('readonly');
+        }
+    });
+
+    document.getElementById('taskStatus').addEventListener('change', function () {
+        var taskStatus = this.value;
+        var marksInput = document.getElementById('marks');
+        var gradesInput = document.getElementById('grades');
+
+        if (taskStatus === 'complete') {
+            marksInput.removeAttribute('readonly');
+            gradesInput.removeAttribute('readonly');
+            marksInput.classList.remove('readonly');
+            gradesInput.classList.remove('readonly');
+        } else {
+            marksInput.setAttribute('readonly', true);
+            gradesInput.setAttribute('readonly', true);
+            marksInput.classList.add('readonly');
+            gradesInput.classList.add('readonly');
+        }
+    });
+
+    document.getElementById('saveChanges').addEventListener('click', function () {
+    var form = document.getElementById('applicantForm');
+    var loadingSpinner = document.getElementById('loadingSpinner');
+
+    loadingSpinner.style.display = 'inline-block'; 
+
+    $.ajax({
+        type: 'POST',
+        url: '/display_accepted_applicants/',
+        data: $(form).serialize(),
+        headers: {
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+        },
+        success: function (response) {
+            loadingSpinner.style.display = 'none'; 
+            if (response.success) {
+                $('#applicantModal').modal('hide');
+                location.reload();
+            }
+        },
+        error: function (response) {
+            loadingSpinner.style.display = 'none'; 
+            console.error('Error:', response);
+        }
+    });
+});
+
+
+
+    window.sendQualifiedEmail = function(applicantId) {
+        $.ajax({
+            type: 'GET',
+            url: `/send-email/${applicantId}/qualified/`,
+            success: function(response) {
+                alert('Qualified email sent!');
+            },
+            error: function(response) {
+                console.error('Error:', response);
+            }
+        });
+    };
+
+    window.sendDisqualifiedEmail = function(applicantId) {
+        $.ajax({
+            type: 'GET',
+            url: `/send-email/${applicantId}/disqualified/`,
+            success: function(response) {
+                alert('Disqualified email sent!');
+            },
+            error: function(response) {
+                console.error('Error:', response);
+            }
+        });
+    };
+});
+
+    </script>
+    <script>
+        function openCreatePopup() {
+            openPopup('createPopup');
+        }
+
+        function openUpdatePopup(id, googleMeetLink, interviewTime, interviewType) {
+            document.getElementById('update_setting_id').value = id;
+            document.getElementById('update_google_meet_link').value = googleMeetLink;
+            document.getElementById('update_interview_time').value = interviewTime;
+            document.getElementById('update_interview_type').value = interviewType;
+            document.getElementById('updateForm').action = "{% url 'update_interview_settings' '5' %}".replace('5', id);
+            openPopup('updatePopup');
+        }
+        
+        function openDeletePopup(id) {
+            document.getElementById('delete_setting_id').value = id;
+            document.getElementById('deleteForm').action = "{% url 'delete_interview_settings' '5' %}".replace('5', id);
+            openPopup('deletePopup');
+        }
+        
+        function openPopup(popupId) {
+            document.getElementById(popupId).style.display = 'block';
+        }
+        
+        function closePopup(popupId) {
+            document.getElementById(popupId).style.display = 'none';
+        }
+    </script>
+</body>
+</html>
+{% endblock main_content %}

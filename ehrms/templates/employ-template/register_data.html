@@ -1,0 +1,554 @@
+{% extends 'employ-template/base_template.html' %}
+
+<html>
+  {% block main_content %}
+    <head>
+      <title>HR Register</title>
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+     
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.js" integrity="sha512-8Z5++K1rB3U+USaLKG6oO8uWWBhdYsM3hmdirnOEWp8h2B1aOikj5zBzlXs8QOrvY9OxEnD2QDkbSKKpfqcIWw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+      
+        
+<style>
+       
+
+
+.notification {
+  /* background-color: rgb(8, 8, 77);
+  color: white; */
+  text-decoration: none;
+  /* padding: 15px 26px;
+  position: relative;
+  display: inline-block;
+  border-radius: 2px; */
+}
+
+/* .notification:hover {
+  background:rgb(8, 8, 77) ;
+}
+
+.notification .badge {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  padding: 5px 10px;
+  border-radius: 50%;
+  background-color: red;
+  color: white;
+} */
+
+
+
+
+.birth{
+    width:400px;
+    color:white;
+    background-color: rgb(8, 8, 77);
+    margin-top: 5px;
+  
+
+}
+table
+th {
+    padding-left: 10%;
+    padding-right: 10%;
+    padding: 12px;
+    text-align: center;
+    background-color: black;
+    color: white;
+  }
+td{
+  padding-left: 10%;
+  padding-right: 10%;
+  padding: 12px;
+  color: black;
+  text-align: center;
+}
+.column {
+  float: left;
+  width: 20%;
+  padding: 5px;
+  padding-left:40px;
+}
+.aa {
+  margin:8px;
+  padding: 8px;
+  background-color: #303F9F;
+  color: white;
+  text-align: center;
+  border:none;
+  border-radius:10px;
+  border: 3px solid black;
+  border-color: #AED581;
+
+  
+}
+.aa:hover {
+  color: white;
+  background-color: #AED581;
+  outline-style:solid;
+  border: 3px solid black;
+  border-color: #303F9F;
+  box-shadow: red;
+}
+thead th[scope=colum] {
+  position: -webkit-sticky;
+  position: sticky;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  z-index: 20;
+  text-align: center;
+  background-color: black;
+  color: white;
+  top: 0;
+
+}
+table th {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+
+}
+tr:nth-child(even) {
+  background-color: #04AA6D;
+}
+.col-id-no{
+  left: -2px;
+  position: sticky;
+}
+.col-name{
+  left: 110px;
+  position: sticky;
+}
+
+.freeze-table{
+  z-index: 50;
+}
+tr:nth-child(even) td[scope=row]{
+  background-color: #e6e6e6;
+}
+tr:nth-child(odd) td[scope=row]{
+  background-color: #ccc;
+}
+
+.pagination {
+  margin: 20px 0;
+  text-align: center;
+}
+
+/* .pagination a, .pagination .current-page {
+  display: inline-block;
+  padding: 8px 12px;
+  text-decoration: none;
+  margin: 0 4px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.pagination .step-links a.active {
+    background-color: orange;
+} */
+
+.pagination a, .pagination .current-page {
+        display: inline-block;
+        padding: 8px 12px;
+        text-decoration: none;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+        border-radius: 20px;
+        text-align: center;
+        /* background-color: #3775e0;
+        color: white; */
+    }
+.act{
+  /* background-color: orange; */
+  color: white;
+  height:43px;
+  width:43px;
+  border-radius: 20px;
+
+}
+
+
+
+
+
+      </style>
+
+<script>
+  function updateTableRows() {
+    var itemsPerPage = parseInt(document.getElementById('itemsPerPage').value);
+    console.log('Selected items per page:', itemsPerPage);
+
+    // Hide all rows initially
+    $("#myTable tbody tr").hide();
+
+    // Display the selected number of items per page
+    $("#myTable tbody tr").slice(0, itemsPerPage).show();
+  }
+
+  $(document).ready(function() {
+    // Initially display the selected number of items
+    updateTableRows();
+
+    // Event listener for dropdown change
+    $("#itemsPerPage").change(function() {
+      updateTableRows();
+    });
+  });
+</script>
+
+        
+
+
+     
+    </head>
+    
+  <body style="background-color:#252d57; color: white;">
+    
+   
+  
+    
+         <h3><a  href="/reports/">Reports</a><b style="color: black;">| HR Register</b></h3>
+         <div>
+          <form method="post">
+            {% csrf_token %}
+            <div class="container">
+
+            
+            <div class="row">
+                <div class="col-7">
+                    <input type="text" name="se" class="form-control" placeholder="Enter Employee ID" >
+                </div>
+                
+          
+            <div class="col-1">
+                <button type="submit" class="btn btn-primary" >Search</button>
+            </div>
+
+            <div class="col-2">
+          </div>
+
+           <div class="col-2">
+            <button onclick="exportTableToCSV('person.csv')" style="background-color: #2d3354;color: whitesmoke;" class="btn"><i class="fa fa-download"> Export</i></button>
+
+          
+          </div>
+
+        </div>
+    </div>
+        </form>
+
+          <form>
+         
+            <!-- <div class="card-tools " style="width: 95%;">
+              <div class="input-group input-group-sm" style="margin-top: 20px; margin-right: 120px; width: 100%; margin-left: 20px;">
+                <input type="text" id="myInput" onkeyup="submitSearch()" class="form-control float-right" placeholder="Search......" style="background-color: #282f51;  border: none; color: white;">
+                <div class="input-group-append">
+                  <button type="button" class="btn btn-default" style="color: white; background-color: rgba(16, 160, 243, 0.87); margin-left: 5px; width: 110%;">Search</button>
+                </div>
+              </div>
+            </div> -->
+
+            <br>
+            
+                        </form>
+                   
+                   <script>
+            function submitSearch() {
+              var input = document.getElementById("myInput");
+              var filter = input.value.toUpperCase();
+              var table = document.getElementById("myTable");
+              var tr = table.getElementsByTagName("tr");
+              var noDataMessage = document.getElementById("noDataMessage");
+            
+              var dataFound = false;
+            
+              for (var i = 1; i < tr.length; i++) {
+                  var found = false;
+                  var td = tr[i].getElementsByTagName("td");
+            
+                  for (var j = 0; j < td.length; j++) {
+                      var txtValue = td[j].textContent || td[j].innerText;
+            
+                      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                          found = true;
+                          dataFound = true;
+                          break;
+                      }
+                  }
+            
+                  if (found) {
+                      tr[i].style.display = "";
+                  } else {
+                      tr[i].style.display = "none";
+                  }
+              }
+            
+              if (!dataFound) {
+                  noDataMessage.style.display = "block";
+              } else {
+                  noDataMessage.style.display = "none";
+              }
+            }
+            </script>
+            
+           
+<div style="width:90%; overflow-x: auto; height:auto; margin-top: 8%; margin-bottom: 8%; margin: 5%;">
+  <table id="myTable"  class="freeze-table" id="entry-table">
+    <thead>
+      <tr style="background-color: black;">
+        <th class="col-id-no fixed-header" scope=colum style="min-width: 120px; width:120px">Employee ID</th>
+        <th style="min-width: 110px; width: 110px;" class="col-name fixed-header" scope=colum>First Name</th>
+        <th style="min-width: 110px; width: 110px;">Last Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Gender</th>
+          <th>Role</th>
+          <th style="min-width: 150px; width: 150px;">Date of Joining</th>
+      </tr>
+    </thead>
+      {% for i in rts %}
+      <tbody >
+      <tr>
+          <td class="col-id-no" >{{i.empid}}</td>
+          <td class="col-name" >{{i.first_name}}</td>
+          <td>{{i.last_name}}</td>
+          <td>{{i.email}}</td>
+          <td>{{i.contactno}}</td>
+          <td>{{i.gender}}</td>
+          <td>{{i.designation}}</td>
+          <td>{{i.dateofjoining | date:"M d- Y"}}</td>
+      </tr>
+      
+
+    </tbody>
+      {% endfor %}
+
+  </table>
+  <div id="noDataMessage" style="display: none; color: white;text-align: center;">
+    No data found.
+  </div>           
+            </div>
+
+
+</form>
+</div>
+</body>
+
+<!-- <div id="pagination-dropdown">
+  <label for="entries-dropdown">Page:</label>
+  <select id="entries-dropdown" onchange="changeEntriesPerPage(this)">
+    <option value="26">25</option>
+    <option value="51">50</option>
+    <option value="76">75</option>
+    <option value="101">100</option>
+    <option value="151">150</option>
+    <option value="201">200</option>
+    <option value="251">250</option>
+
+  </select>
+</div> -->
+<!-- <div class="pagination">
+  <span class="step-links">
+      {% if rts.has_previous %}
+          <a href="?page=1">&laquo; First</a>
+          <a href="?page={{ rts.previous_page_number }}" class="prev">&#8249; Previous</a>
+      {% endif %}
+
+      {% for page in rts.paginator.page_range %}
+          <a href="?page={{ page }}" {% if page == rts.number %}class="active"{% endif %}>{{ page }}</a>
+      {% endfor %}
+
+      {% if rts.has_next %}
+          {% if rts.number != rts.paginator.num_pages %}
+              <a href="?page={{ rts.next_page_number }}" class="next">Next &#8250;</a>
+          {% endif %}
+          <a href="?page={{ rts.paginator.num_pages }}">&raquo; Last</a>
+      {% endif %}
+  </span>
+</div> -->
+
+<div class="pagination" style="color:white; margin:20px auto;">
+  <span class="step-links">
+      {% if rts.has_previous %}
+          <a  href="?page=1">&laquo;<<</a>
+          <a   href="?page={{ rts.previous_page_number }}" class="prev"> < </a>
+      {% endif %}
+
+
+      {% for i in rts.paginator.page_range %}
+      {% if rts.number == i %}
+      <button class="active act bg-info"><span>{{ i }} <span class="sr-only">(current)</span></span></button>
+      {% elif i > rts.number|add:'-3' and i < rts.number|add:'3' %}
+          <a  href="?page={{ i }}">{{ i }}</a>
+      {% endif %}
+      {% endfor %}
+
+     
+
+      {% if rts.has_next %}
+          {% if rts.number != rts.paginator.num_pages %}
+          {% endif %}
+          <a   href="?page={{ rts.next_page_number }}" class="prev">> </a>
+
+          <a  href="?page={{ rts.paginator.num_pages }}">>>&raquo; </a>
+      {% endif %}
+  </span>
+</div>   
+
+            <!-- <div style="margin-top:8%">
+              <button onclick="exportTableToCSV('person.csv')" style="background-color: rgb(15, 53, 156);color: white;"> Download CSV file </button> 
+            <button><a  href="{{ register.path }}.csv" download>Download CSV file</a></button>
+            </div> -->
+
+            <script>
+              var currentPage = 1; // Initialize the current page
+              var currentFilter = "all"; // Initialize the current filter (all/employees/dismissed)
+            
+              // Functions for filtering data
+              function showAllRows() {
+                  currentFilter = "all";
+                  showPage(1);
+              }
+            
+              function showActiveEmployees() {
+                  currentFilter = "employees";
+                  showPage(1);
+              }
+            
+              function showDismissedEmployees() {
+                  currentFilter = "dismissed";
+                  showPage(1);
+              }
+            
+              function showPage(pageNumber) {
+                  var rowsPerPage = 10; // Number of rows to display per page
+                  var table = document.getElementById("myTable");
+                  var rows = table.rows;
+                  
+                  for (var i = 1; i < rows.length; i++) {
+                      var is_active = rows[i].getAttribute("data-is-active");
+                      if ((currentFilter === "all") ||
+                          (currentFilter === "employees" && is_active === "True") ||
+                          (currentFilter === "dismissed" && is_active === "False")) {
+                          if (i >= (pageNumber - 1) * rowsPerPage + 1 && i <= pageNumber * rowsPerPage) {
+                              rows[i].style.display = ""; // Display rows within the current page range
+                          } else {
+                              rows[i].style.display = "none"; // Hide rows outside the current page range
+                          }
+                      } else {
+                          rows[i].style.display = "none"; // Hide rows that don't match the current filter
+                      }
+                  }
+                  
+                  // Update the current page indicator
+                  document.getElementById("currentPage").textContent = "Page " + pageNumber;
+                  currentPage = pageNumber;
+              }
+            
+              function nextPage() {
+                  if (currentPage < totalPageCount()) {
+                      showPage(currentPage + 1);
+                  }
+              }
+            
+              function prevPage() {
+                  if (currentPage > 1) {
+                      showPage(currentPage - 1);
+                  }
+              }
+            
+              function totalPageCount() {
+                  var rowsPerPage = 10; // Number of rows to display per page
+                  var table = document.getElementById("myTable");
+                  var totalRows = table.rows.length - 1; // Exclude the header row
+                  return Math.ceil(totalRows / rowsPerPage);
+              }
+            
+              // Initialize pagination on page load
+              showPage(1);
+            
+              // Attach event listeners to the Previous and Next buttons
+              document.getElementById("prevPage").addEventListener("click", prevPage);
+              document.getElementById("nextPage").addEventListener("click", nextPage);
+            </script>
+          
+
+            <script>
+              //user-defined function to download CSV file
+              function downloadCSV(csv, filename) {
+                  var csvFile;
+                  var downloadLink;
+                 
+                  //define the file type to text/csv
+                  csvFile = new Blob([csv], {type: 'text/csv'});
+                  downloadLink = document.createElement("a");
+                  downloadLink.download = filename;
+                  downloadLink.href = window.URL.createObjectURL(csvFile);
+                  downloadLink.style.display = "none";
+              
+                  document.body.appendChild(downloadLink);
+                  downloadLink.click();
+              }
+              
+              //user-defined function to export the data to CSV file format
+              function exportTableToCSV(filename) {
+                 //declare a JavaScript variable of array type
+                 var csv = [];
+                 var rows = document.querySelectorAll("table tr");
+               
+                 //merge the whole data in tabular form 
+                 for(var i=0; i<rows.length; i++) {
+                var row = [], cols = rows[i].querySelectorAll("td, th");
+                for( var j=0; j<cols.length; j++)
+                   row.push(cols[j].innerText);
+                csv.push(row.join(","));
+                 } 
+                 //call the function to download the CSV file
+                 downloadCSV(csv.join("\n"), filename);
+              }
+              </script>
+           
+           <script>
+            const entriesPerPageDropdown = document.getElementById('entries-dropdown');
+          
+            function changeEntriesPerPage(dropdown) {
+              const selectedEntriesPerPage = parseInt(dropdown.value);
+          
+              // Assuming you have a table with ID "entry-table"
+              const table = document.getElementById('entry-table');
+              const rows = table.getElementsByTagName('tr');
+          
+              // Hide all rows initially
+              for (let i = 0; i < rows.length; i++) {
+                rows[i].style.display = 'none';
+              }
+          
+              // Display the first 'selectedEntriesPerPage' rows
+              for (let i = 0; i < selectedEntriesPerPage; i++) {
+                if (rows[i]) {
+                  rows[i].style.display = '';
+                }
+              }
+          
+              console.log(`Displaying ${selectedEntriesPerPage} entries per page`);
+            }
+          </script>
+          
+
+        </div>
+ 
+
+{% endblock main_content %}

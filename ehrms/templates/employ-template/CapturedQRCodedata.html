@@ -1,0 +1,302 @@
+{% extends 'employ-template/base_template.html' %}
+{% block main_content %}
+{% comment %} <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>QR Code Scanner</title>
+        <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+            }
+            #preview {
+                border: 1px solid black;
+            }
+            #result {
+                margin-top: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Scan QR Code</h1>
+        <video id="preview" width="400" height="300"></video>
+        <div id="result"></div>
+        <button id="capture" style="padding: 5px;font-weight: 700;font-size: 20px;" class="btn btn-primary">Capture QR Code</button>
+        <button id="save" style="display:none;padding: 5px;font-weight: 700;font-size: 20px;" class="btn btn-primary">Save QR Data</button>
+        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+
+        <script>
+            const video = document.getElementById('preview');
+            const result = document.getElementById('result');
+            const captureButton = document.getElementById('capture');
+            const saveButton = document.getElementById('save');
+            let capturedData = null;
+
+            const constraints = {
+                video: {
+                    facingMode: 'environment',
+                    width: { ideal: 640 },
+                    height: { ideal: 480 }
+                }
+            };
+
+            navigator.mediaDevices.getUserMedia(constraints)
+                .then(stream => {
+                    video.srcObject = stream;
+                    video.setAttribute('playsinline', true);
+                    video.play();
+                    startTimeout();  // Start the timeout when the video starts
+                })
+                .catch(error => {
+                    console.error('Error accessing webcam: ', error);
+                });
+
+            function scanQRCode() {
+                const canvas = document.createElement('canvas');
+                const context = canvas.getContext('2d');
+                canvas.height = video.videoHeight;
+                canvas.width = video.videoWidth;
+                context.drawImage(video, 0, 0, canvas.width, canvas.height);
+                const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+                const code = jsQR(imageData.data, canvas.width, canvas.height, { 
+                    inversionAttempts: "dontInvert" 
+                });
+
+                if (code) {
+                    capturedData = code.data;
+                    result.innerText = `${capturedData}`;
+                    saveButton.style.display = 'inline'; 
+                    captureButton.style.display = 'none'; 
+                    clearTimeout(timeoutID);  // Clear the timeout if a QR code is captured
+                    stopVideoStream();  // Stop the video stream if a QR code is captured
+                } else {
+                    requestAnimationFrame(scanQRCode);
+                }
+            }
+
+            captureButton.addEventListener('click', () => {
+                scanQRCode();
+            });
+
+
+            saveButton.addEventListener('click', () => {
+                if (capturedData) {
+                    fetch('/save_qr_code_rcp/', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                        },
+                        body: JSON.stringify({ data: capturedData })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'success') {
+                            alert('QR Code data saved successfully.');
+                            result.innerText = ''; // Hide captured data
+                            saveButton.style.display = 'none'; // Hide the save button
+                            captureButton.style.display = 'inline'; // Show the capture button
+                        } else {
+                            alert('Failed to save QR Code data: ' + data.message);
+                        }
+                    })
+                    .catch((error) => console.error('Error:', error));
+                } else {
+                    alert('No QR Code data captured.');
+                }
+            });
+            
+            let timeoutID;
+            function startTimeout() {
+                timeoutID = setTimeout(() => {
+                    result.innerText = 'No QR code is captured !';
+                    stopVideoStream();
+                }, 60000);  
+            }
+
+            function stopVideoStream() {
+                let stream = video.srcObject;
+                let tracks = stream.getTracks();
+
+                tracks.forEach(track => track.stop());
+                video.srcObject = null;
+            }
+        </script>
+    </body>
+</html> {% endcomment %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>QR Code Scanner</title>
+    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        #preview {
+            border: 1px solid black;
+        }
+        #result, #capturedDataHeading {
+            margin-top: 20px;
+            display: none;  /* Initially hidden */
+        }
+        #result {
+            color: black;
+            white-space: pre-wrap; /* Preserve formatting */
+        }
+    </style>
+</head>
+<body> 
+    <div style="text-align: end;">   
+        <a href="{% url 'gatepass_approve_data' %}" >
+            <button >
+            <h5><b>View Past GatePass Capture Data</b></h5>
+            <h6>Review the all employees previous GatePass Capture Data... </h6>
+            </button>
+        </a>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6"> 
+            <h1>Scan QR Code</h1>
+            <video id="preview" width="400" height="300"></video>
+            <button id="capture" style="padding: 5px;font-weight: 700;font-size: 20px;margin-top: 50px;" class="btn btn-primary">Capture QR Code</button>
+            <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">        
+        </div>
+
+        <div class="col-lg-6 col-md-6 col-sm-6"> 
+            <h1 id="capturedDataHeading" style="margin-top: -5px;">Captured Data</h1>
+            <div id="result"></div>
+            <button id="save" style="display:none;padding: 5px;font-weight: 700;font-size: 20px;margin-top: 50px;" class="btn btn-primary">Save QR Data</button>
+        </div>
+    </div>
+
+    <script>
+        const video = document.getElementById('preview');
+        const result = document.getElementById('result');
+        const captureButton = document.getElementById('capture');
+        const saveButton = document.getElementById('save');
+        const capturedDataHeading = document.getElementById('capturedDataHeading');
+        let capturedData = null;
+
+        const constraints = {
+            video: {
+                facingMode: 'environment',
+                width: { ideal: 640 },
+                height: { ideal: 480 }
+            }
+        };
+
+        navigator.mediaDevices.getUserMedia(constraints)
+            .then(stream => {
+                video.srcObject = stream;
+                video.setAttribute('playsinline', true);
+                video.play();
+                startTimeout();  // Start the timeout when the video starts
+            })
+            .catch(error => {
+                console.error('Error accessing webcam: ', error);
+            });
+
+        function scanQRCode() {
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+            canvas.height = video.videoHeight;
+            canvas.width = video.videoWidth;
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+            const code = jsQR(imageData.data, canvas.width, canvas.height, { 
+                inversionAttempts: "dontInvert" 
+            });
+
+            if (code) {
+                capturedData = code.data;
+                displayCapturedData(capturedData);
+                saveButton.style.display = 'inline'; 
+                captureButton.style.display = 'none'; 
+                capturedDataHeading.style.display = 'block';  // Show the heading when data is captured
+                result.style.display = 'block';  // Show the result div when data is captured
+                clearTimeout(timeoutID);  // Clear the timeout if a QR code is captured
+                stopVideoStream();  // Stop the video stream if a QR code is captured
+            } else {
+                requestAnimationFrame(scanQRCode);
+            }
+        }
+
+        captureButton.addEventListener('click', () => {
+            scanQRCode();
+        });
+
+        saveButton.addEventListener('click', () => {
+            if (capturedData) {
+                fetch('/save_qr_code_rcp/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                    },
+                    body: JSON.stringify({ data: capturedData })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        alert('QR Code data saved successfully.');
+                        clearCapturedData(); // Clear captured data after saving
+                    } else {
+                        alert('Failed to save QR Code data: ' + data.message);
+                    }
+                })
+                .catch((error) => console.error('Error:', error));
+            } else {
+                alert('No QR Code data captured.');
+            }
+        });
+
+        function displayCapturedData(data) {
+            // Split the data by lines and map to the corresponding fields
+            const fields = data.split('\n');
+            if (fields.length === 13) {
+                const labels = [
+                    'Employee ID', 'Employee Name', 'Email', 'Contact No', 
+                    'Designation', 'Reason', 'Apply Date', 'From Time', 
+                    'To Time', 'Approve Date', 'Numeric ID', 'Emp ID', 
+                    'Company ID'
+                ];
+                result.innerHTML = ''; // Clear previous data
+                fields.forEach((field, index) => {
+                    const label = labels[index];
+                    result.innerHTML += `${label} : ${field}\n`;
+                });
+            } else {
+                result.innerHTML = 'Invalid QR Code data';
+            }
+        }
+
+        function clearCapturedData() {
+            result.innerHTML = ''; // Clear captured data
+            result.style.display = 'none'; // Hide the result div
+            saveButton.style.display = 'none'; // Hide the save button
+            captureButton.style.display = 'inline'; // Show the capture button
+            capturedDataHeading.style.display = 'none'; // Hide the heading
+        }
+        
+        let timeoutID;
+        function startTimeout() {
+            timeoutID = setTimeout(() => {
+                result.innerText = 'No QR code is captured !';
+                stopVideoStream();
+            }, 60000);  
+        }
+
+        function stopVideoStream() {
+            let stream = video.srcObject;
+            let tracks = stream.getTracks();
+
+            tracks.forEach(track => track.stop());
+            video.srcObject = null;
+        }
+    </script>
+</body>
+</html>
+
+{% endblock main_content %}

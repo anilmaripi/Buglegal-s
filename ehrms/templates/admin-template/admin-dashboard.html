@@ -1,0 +1,424 @@
+{% extends 'admin-template/base_template.html' %}
+{%load mathfilters%} {%load humanize%}
+
+
+{% block main_content %}
+<title>Admin Dashboard</title>
+
+<div id="message">
+    {% if messages %}
+{% for message in messages %}
+{% if message.tags == 'error' %}
+<div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+{% endif %}
+{% if message.tags == 'success' %}
+<div class="alert alert-success" style="margin-top:20px;background-color:green;color: whitesmoke;">{{ message }}</div>
+{% endif %}
+{% endfor %}
+{% endif %}
+</div>
+<script>
+    $("#message").show()
+    setTimeout(function() {
+        $("#message").hide()
+    },5000)
+</script>
+    <!-- Main content -->
+    
+    {% if data %}
+   
+      <!-- <div class="container-fluid"> -->
+          <div class="row" >
+           
+          <div class="col-lg-8 col-12 ">
+            <!-- small box -->
+          
+              <div class="row"  >
+                
+<div class="small-box">
+    <span><h1>Welcome To Admin</h1></span>
+    {% if show_alert %}
+        <h6 style="color: red;">Alert! There are no coupons generated this month. Click<a href="/cafeteria_al_emp/"> here </a>to generate them.</h6>
+    {% endif %}
+</div>
+                  <div class="col-lg-7">
+                    <h3 style="color: black; padding: 0%;font-size: 27px;">Let's set up your organization                              
+                        <div class="row">
+                 </h3>
+                    <div class="progress" style="background-color: green; border-radius: 7px;">
+                        <div id="progressBar" class="progress-bar progress-bar-striped" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div><br>
+                    <span id="progressText" style="color: #f40d0d;">0 of 2 Completed</span>
+                    <div class="small-box-footer" style="padding: 30px 0; text-align: center;">
+                        <a data-bs-toggle="modal" data-bs-target="#myModal1" href="" style="text-decoration: none;">
+                            <!-- <i class="fa fa-question-circle" style="width: fit-content; height: fit-content; vertical-align: baseline;" aria-hidden="true"></i> &nbsp;Need help with setup? -->
+                        </a>
+                    </div>
+                    <!-- <a href="/data_table/"><button class="btn btn-success"> Employee Performence Task</button></a> -->
+
+                </div>
+                
+                <script>
+                    function toggleSubNav(element) {
+                        var subNav = $(element).next(".services-sub-nav");
+                        subNav.slideToggle();
+                        updateProgress();
+                    }
+                
+                    function showCompleted() {
+                        var completedItems = $(".completed").closest(".small-box");
+                        var pendingItems = $(".pending").closest(".small-box");
+                        
+                        if (!showCompletedFlag) {
+                            completedItems.hide();
+                            pendingItems.show();
+                            $("#showCompletedButton").text("Hide Completed").addClass("hide-button-style");
+                        } else {
+                            completedItems.show();
+                            pendingItems.hide();
+                            $("#showCompletedButton").text("Show Completed").removeClass("hide-button-style");
+                        }
+                
+                        showCompletedFlag = !showCompletedFlag;
+                        updateProgress();
+                    }
+                
+                    function updateProgress() {
+                        var completedItems = $(".completed").closest(".small-box:visible").length;
+                        var totalItems = $(".completed").closest(".small-box").length;
+                        var progress = (completedItems / totalItems) * 100;
+                
+                        // Display "0 of 0 Completed" when all items are hidden
+                        if (totalItems === 0) {
+                            $("#progressText").text("0 of 0 Completed");
+                        } else {
+                            $("#progressText").text(completedItems + " of " + totalItems + " Completed");
+                        }
+                
+                        $("#progressBar").css("width", progress + "%");
+                        $("#progressBar").attr("aria-valuenow", progress);
+                    }
+                
+                    var showCompletedFlag = false;
+                
+                    // Automatically show pending items and set up the "Show Completed" button on page load
+                    $(document).ready(function() {
+                        showCompleted();
+                
+                        $("#showCompletedButton").on("click", function() {
+                            showCompleted();
+                        });
+                    });
+                </script>
+                
+                    
+                  <div class="modal" id="myModal1" style="color: rgb(240, 242, 245);">
+                    <div class="modal-dialog bg-white">
+                      <div class="modal-content" style="width: fit-content;">
+                  
+                        
+                        <div class="modal-body" style="background-color: #282f51;">
+                          <button type="button"   class="btn-close" data-bs-dismiss="modal" ></button>
+                          <br>
+                          <br>
+                          
+                              <h3 style="color: white;">Need help with account setup?</h3>
+                              <hr style="width: 100%;text-align:left;margin-left:0">
+                              <br>
+                              <a style="text-decoration: none;background-color: white;" href="">
+                              <div class="small-box">
+                                <div class="inner">
+                                  <h4 style="color: white;">Chat with our support team </h6>
+                                  <span style="color: #879498;">Chat with our customer support team to reslove your queries regaring your account setup</span>
+                                </div>
+                              </div></a>
+        
+                           
+                        </div></div></div></div>
+                
+                        <div class="col-lg-5 align-items-center">
+                            <button id="mybutton" onclick="showCompleted()">Show Completed</button>
+                          {% for admin_home_drop in admin_home_drops %}
+                              {% if admin_home_drop.subhomedrop.exists %}
+                                  <div class="small-box" style="margin: 10px; padding: 10px; background-color:rgb(208,234,236);">
+                                      <li class="small-box-footer" style="list-style-type: none; text-align: left; background-color:rgb(208,234,236);">
+                                          <a onclick="toggleSubNav(this)" role="button" data-toggle="dropdown" style="color:black;">
+                                              {{ admin_home_drop.dashname }}
+                                              <span class="status-indicator">
+                                                  {% if admin_home_drop.progress_value == 4 %}
+                                                      <span class="completed">Completed</span>
+                                                  {% else %}
+                                                      <span class="pending">Pending</span>
+                                                  {% endif %}
+                                              </span>
+                                          </a>
+                                          <ul class="services-sub-nav" aria-labelledby="navbarDropdown" style="padding:0px; display: none;">
+                                              {% for subhomedrop in admin_home_drop.subhomedrop.all %}
+                                                  <div class="row" style="position: relative; width: 100%; background-color: rgb(208,234,236); overflow: hidden;">
+                                                      <li style="padding: 0%; list-style-type: decimal;">
+                                                          <a style="color: black; text-decoration: none; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" href="/{{subhomedrop.url}}">
+                                                              <span class="status-indicator">
+                                                                  {% if admin_home_drop.progress_value == 4 %}
+                                                                      <span class="completed">&#10003;</span>
+                                                                  {% else %}
+                                                                      <span class="pending">&#9679;</span>
+                                                                  {% endif %}
+                                                              </span>
+                                                              {{ subhomedrop.dashname }}
+                                                              <!-- <div><a href="{{subhomedrop.edit_url}}" style="float: right;">edit&nbsp;<i style="vertical-align:start;" class="fa fa-caret-right" aria-hidden="true"></i></a></div> -->
+                                                          </a>
+                                                      </li>
+                                                  </div>
+                                              {% endfor %}
+                                          </ul>
+                                      </li>
+                                  </div>
+                              {% else %}
+                                  <li><a href="{{admin_home_drop.url}}">{{ admin_home_drop.dashname }}</a></li>
+                              {% endif %}
+                          {% endfor %}
+                      </div>
+
+                      
+                      <!-- <script>
+                          function toggleSubNav(element) {
+                              var subNav = $(element).next(".services-sub-nav");
+                              subNav.slideToggle();
+                          }
+                      
+                          function showCompleted() {
+                              $(".completed").closest(".small-box").hide();
+                              $(".pending").closest(".small-box").show();
+                          }
+                      
+                          // Automatically show pending items on page load
+                          $(document).ready(function() {
+                              showCompleted();
+                          });
+                      </script> -->
+                      <!-- <script>
+                        var showCompletedFlag = false;
+                    
+                        function toggleSubNav(element) {
+                            var subNav = $(element).next(".services-sub-nav");
+                            subNav.slideToggle();
+                        }
+                    
+                        function showCompleted() {
+                            var completedItems = $(".completed").closest(".small-box");
+                            var pendingItems = $(".pending").closest(".small-box");
+                            
+                            if (!showCompletedFlag) {
+                                completedItems.show();
+                                pendingItems.hide();
+                                $("#showCompletedButton").text("Hide Completed");
+                            } else {
+                                completedItems.hide();
+                                pendingItems.show();
+                                $("#showCompletedButton").text("Show Completed");
+                            }
+                    
+                            showCompletedFlag = !showCompletedFlag;
+                        }
+                    
+                      
+                        $(document).ready(function() {
+                            showCompleted();
+                    
+                            $("#showCompletedButton").on("click", function() {
+                                showCompleted();
+                            });
+                        });
+                    </script>
+                     -->
+                   
+                    
+                    
+                      
+                      <style>
+                          .status-indicator .completed {
+                              color: green;
+                          }
+                      
+                          .status-indicator .pending {
+                              color: orange;
+                          }
+
+                          #fixed-column {
+                              position: sticky;
+                              top: 0;
+                              height: 100vh; 
+                              overflow-y: auto; 
+                              background-color: #cccccc; 
+                              z-index: 1; 
+                          }
+
+                           #mybutton{
+                            background-color: #4CAF50;
+                            border: none;
+                            color: white;
+                            padding: 10px 20px;
+                            text-align: center;
+                            display: inline-block;
+                            font-size: 16px;
+                            margin: 4px 2px;
+                            cursor: pointer;
+                            border-radius: 10px;
+                           }
+                      </style>
+                      
+                      
+                  
+                  
+                          </div>
+                          
+              
+                          {% include 'admin-template/e.html' %}
+        
+    
+                </div>
+            <div class="col-lg-1"></div>
+          <!-- ./col -->
+          
+         
+      
+      
+    
+  <!-- </div> -->
+  
+    <div class="col-lg-3 col-12 justify-content-center" id="fixed-column">
+          
+        <div class="inner" style=" width: 100%;padding-bottom: 20%;padding-left: 10px;"  >
+
+          <center>
+            {% if user.companys.profilepic  %}
+            <img style="height: 200px;" class="img-fluid"  src="/media/{{ user.companys.profilepic }}" alt="upload profile pic" onerror="this.style.display='none'" >
+            
+            {% else %}
+            {% endif %}
+        </center>
+            
+            <!-- <h1 style="color: white;text-align: center;">Welcome</h1> -->
+            <h3 style="color:black; text-align: center;">{{user.username}}</h3>
+            <h4 style="color:black; text-align: center;">{{da1.designation}}</h><br>
+                {% if payrolldates %}
+                <h4 style="color: black;text-align: center;">NEXT PAYROLL</h4>
+                <h4 style="color: black;text-align: center;">{{ next_month_payroll_date }}</h4>
+                {% else %}
+                <h4 style="color: black;text-align: center;">Please set next payroll </h4>
+                {% endif %}
+
+        </div>
+    </div>
+  </div>
+  {% else %}
+<div class="row">
+  <div class="col-lg-8">
+    <div class="small-box">
+      <h2>Welcome to Project Manager</h2>
+    </div>
+    {% if projectm %}
+    <table class="table">
+        <tr>
+            <th>Project Title</th>
+            <th>Date</th>
+        </tr>
+        {% for i in projectm %}
+        <tr>
+            <td>    {{i.project_name}}            </td>
+            <td>{{i.date}}</td>
+        </tr>
+        {% endfor %}
+
+    </table>
+   <!-- <a href="/create-proj/"><button class="btn btn-primary"> Create Project</button></a>
+   <a href="/projecttask/"><button class="btn btn-info">Create New Task</button></a>
+   <a href="/display/"><button class="btn btn-danger"> Send The Review Link</button></a> <br> <br> 
+   <a href="/employper/"><button class="btn btn-primary">ADD Employ Performances On Task</button></a>
+   
+   <a href="/data_table/"><button class="btn btn-success"> Employee Performence On Task</button></a>
+    -->
+
+   <br> <br>
+   <h3>Project Team Details</h3>
+   <table class="table" >
+    <tr>
+        <th>Project Name</th>
+        <th>Project Deadline</th>
+        <th>Team-Lead</th>
+        <td>View</td>
+        <td>Edit</td>
+    </tr>
+    {% for project in project_details %}
+        <tr>
+            <td>{{ project.p_name }}</td>
+            <td>{{ project.project_deadline }}</td>
+            {% for team_member in project.teammember_set.all %}
+        {% if team_member.is_team_lead %}
+            <td>{{ team_member.employee.first_name }}</td>
+            {% endif %}
+            {% endfor %}
+            <td> <a href="/projectwise-tasks/{{project.id}}" class="btn btn-primary">View</a>  </td>     
+            <td><a href="/update_data/{{project.id}}/" class="btn btn-warning">Edit</a></td>
+        </tr>
+    {% endfor %}
+</table>
+
+    {% else %}
+    {% endif %}
+  </div>
+  <div class="col-lg-3 col-12 justify-content-center" id="fixed-column">
+          
+    <div class="inner" style=" width: 100%;padding-bottom: 50%;padding-left: 115px;"  >
+        <div class="small-box" style="color: white;background-color: #282f51;padding: 15px;height: 590px;padding-bottom: 0%;margin-bottom: 0%;position: fixed;">
+{% if user.adminhod.adminprofilepic %}
+      <center><img style="height: 200px;" class="img-fluid"  src="{{user.adminhod.adminprofilepic.url}}" alt="upload profile pic"></center>
+      {% else %}
+      {% endif %}
+        <!-- <h1 style="color: white;text-align: center;">Welcome</h1> -->
+        <h3 style="color: aliceblue; text-align: center;">{{user.adminhod.firstname}}.{{user.adminhod.lastname}}</h3>
+        <h4 style="color: aliceblue ; text-align: center;">{{user.adminhod.designation}}</h><br>
+        <h5 style="color: aliceblue;text-align: center;">{{ user.adminhod.empid }}</h5>
+
+
+    </div>
+</div>
+  </div>
+</div>
+
+  {% endif %}
+ 
+ 
+  
+
+
+
+
+ 
+   
+    <!-- <p>check in employees count: {{b}} </p>
+    <p>Total employees count: {{c}} </p>
+    <p>NOT check in employees count: {{d}} </p>
+    <p>Leave employees count: {{leave_applicants_count}} </p>
+    <p>tomorrow leave : {{tomorrow_leave_applicants_count}}</p>
+    <p>Approved Leave Applications: {{ approved_leave_count }}</p>
+    <p>Pending Leave Applications: {{ pending_leave_count }}</p>
+    <p>Total Leave Applications: {{ total_leave_count }}</p> -->
+<style>
+ 
+    @media screen and (max-width: 768px) {
+      body{
+        display: flex;
+        font-size: 15px;
+      }
+      #fixed-column{
+        margin-top: 30px;
+      }
+    }
+
+</style>
+
+</body>
+{% endblock main_content %}
+
+

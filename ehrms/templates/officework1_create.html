@@ -1,0 +1,89 @@
+
+{% extends 'admin-template/adminAdashboard.html' %}
+{% block main_content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Save Office Work Data</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h2 {
+            color: #007bff;
+            text-align: center;
+        }
+
+        form {
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        input[type="text"],
+        textarea,
+        input[type="file"] {
+            width: calc(100% - 12px);
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button[type="submit"] {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h2>Save Office Work Data</h2>
+    <form method="post" enctype="multipart/form-data" style="width: 600px;">
+        {% csrf_token %}
+        <label for="title1">Title:</label>
+        <input type="text" name="title1" required><br>
+
+        <label for="image1">Image 1:</label>
+        <input type="file" name="image1" accept="image/*" required><br>
+
+        <label for="discription1">Description 1:</label>
+        <textarea name="discription1" required></textarea><br>
+
+        <label for="discription2">Description 2:</label>
+        <textarea name="discription2" required></textarea><br>
+
+        <label for="discription3">Description 3:</label>
+        <textarea name="discription3" required></textarea><br>
+
+        <label for="discription4">Description 4:</label>
+        <textarea name="discription4" required></textarea><br>
+
+        <label for="image2">Image 2:</label>
+        <input type="file" name="image2" accept="image/*" required><br>
+
+        <button type="submit">Save</button>
+    </form>
+</body>
+</html>
+{% endblock main_content %}

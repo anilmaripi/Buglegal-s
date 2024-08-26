@@ -1,0 +1,732 @@
+
+{% extends 'employ-template/base_template.html' %}
+        
+        
+        
+        
+{% block main_content %}
+
+<style>
+        .table-manager tbody tr:nth-child(even){
+        background-color:  #808080;
+        color:#000;
+
+    }
+    .table-manager tbody tr:nth-child(odd){
+        background-color: #ccc;
+        color:#000;
+
+    }
+
+    .hed-manager{
+        color:blue
+    }
+    .content1-manager{
+        background-color: #f2f2f2
+        ;
+    }
+    .small-box-manager{
+        background-color: #fff6e6;
+    }
+    .col-manager{
+        background-color: #ffd280;
+    }
+
+    .head-manager{
+        color: blue;
+        text-align: center;
+    }
+    .modal-body-manager{
+        background-color:#fff6e6 ;
+        box-shadow: 2px 3px 10px #999;
+
+    }
+.table td{
+    width: 50%;
+}
+h4{
+    color: rgb(255, 255, 255);
+}
+
+
+.model-open .model{
+    overflow-x:hidden;
+    overflow-y: auto;
+
+}
+.content p{
+    padding: 0%;
+
+}
+/* .btn-close{
+    background-color: white;
+} */
+.main{
+    position: absolute;
+}
+/* .content{
+    background-color: #282f51;
+} */
+tr:nth-child(even) {background-color: #d1d7e0}
+       tr:nth-child(odd) {background-color: #d1d7e0}
+/* @media (max-width: 768px) {
+    .small-box{
+        position: absolute;
+    }
+    
+}
+.deg{
+    position: fixed;
+} */
+.content1-hr{
+    background-color: #d1d7e0;
+    color: black;
+}
+.col-hr{
+    background-color: #b69ccf;
+    justify-content: center; padding: 20px;margin-top: 3px;
+}
+.content1-tm{
+    background-color: #f2f2f2
+    ;
+}
+
+.hed-tm{
+    color:#ff7733;
+}
+.modal-body-tm{
+    background-color:#ccc ;
+    box-shadow: 2px 3px 10px #999;
+
+}
+.head-tm{
+    color: orangered;
+    text-align: center;
+}
+.table-tm tbody tr:nth-child(even){
+    background-color:  #e6e6e6;
+    color:#000;
+
+}
+.table-tm tbody tr:nth-child(odd){
+    background-color: #ccc;
+    color:#000;
+
+}
+.small-box-tm{
+    background-color: #e6e6e6;
+}
+.col-tm{
+    background-color: #cccccc;
+}
+
+.hed-tl{
+    color:#000;
+}
+
+</style>
+<script>
+$(document).ready(function() {
+// Show the popup when a specific element is clicked
+$('#show-popup-button').click(function() {
+$('#popup').fadeIn();
+});
+
+// Hide the popup when the close button is clicked
+$('#close-popup-button').click(function() {
+$('#popup').fadeOut();
+});
+});
+</script>
+
+<div id="message">
+    {% if messages %}
+      {% for message in messages %}
+      {% if message.tags == 'error' %}
+      <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+      {% endif %}
+      {% if message.tags == 'success' %}
+      <div class="alert alert-success" style="margin-top:10px;background-color: green;color:whitesmoke">{{ message }}</div>
+      {% endif %}
+      {% endfor %}
+    {% endif %}
+  </div>
+<script>
+    $('#message').show()
+    setTimeout(function(){
+        $('#message').hide()
+    },3000)
+</script>
+<div class="row">
+    <div class="col-lg-9">
+<!-- <div style="text-transform: capitalize;color: white;padding: 10px;"><a href="/empform/">people</a> | {{user.first_name}}.{{user.last_name}}</div> -->
+<section class="content bg-white {% if mem_role == 'HR' and mem_hroptions == 1 %}content1-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}content1-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}content1-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}content1-tm {% endif %}"  >
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-12 ">
+                <!-- <div class="small-box " style="padding: 10px;width: 100%;"> -->
+                    <h4 class="{% if mem_role == 'HR' and mem_hroptions == 1 %}hed-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}hed-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}hed-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}hed-tm {% endif %}">Basic Information<p type="button"  data-bs-toggle="modal" data-bs-target="#myModal" style="float: right;color: black;">  
+  
+                      <a href="#" > <i class="fa fa-edit" aria-hidden="true">&nbsp;Edit</i></a>
+                        
+                     </p></h4>
+
+                     
+
+      
+      <div class="modal" id="myModal" style="color: rgb(240, 242, 245);">
+        <div class="modal-dialog bg-white">
+          <div class="modal-content">
+      
+            
+            <div class="modal-body {% if mem_role == 'HR' and mem_hroptions == 1 %}modal-body-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}modal-body-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}modal-body-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}modal-body-tm {% endif %}"  >
+
+              <button type="button"   class="btn-close bg-white" data-bs-dismiss="modal" ></button>
+              <br>
+              <br>
+              
+              <h3 class="{% if mem_role == 'HR' and mem_hroptions == 1 %}head-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}head-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}head-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}head-tm {% endif %}">Edit Basic Information </h3>
+
+                  <br>
+                  
+            
+             
+                <form role="form" id="button1" action="{% url 'employ_profile_save' %}"  method="post">
+                    {% csrf_token %}
+                  <div class="card-body">
+                    <div class="form-group">
+                      <label>Username</label>
+                      <input type="text" class="form-control" name="username" value="{{ user.username }}" disabled="disabled">
+                    </div>
+                    <div class="form-group">
+                      <label>Email</label>
+                      <input type="text" class="form-control" name="email" value="{{ user.email }}" disabled="disabled">
+                    </div>
+                     <div class="form-group">
+                      <label>First Name</label>
+                      <input type="text" class="form-control" name="first_name" value="{{ employ.first_name }}">
+                    </div>
+                    <div class="form-group">
+                      <label>Last Name</label>
+                      <input type="text" class="form-control" name="last_name" value="{{ employ.last_name }}">
+                    </div>
+                    
+                     <!-- <div class="form-group">
+                      <label>Change Password?</label>
+                      <input type="text" class="form-control" name="password" placeholder="Fill Only If You want to Change Password">
+                    </div>
+                   -->
+                   <div class="form-group">
+                    <label>Change Password</label>
+                    <div class="input-group">
+                        <input type="password" class="form-control" id="chpass" name="password" placeholder="Fill Only If You want to Change Password">
+                        <div class="input-group-append">
+                            <span class="input-group-text" id="toggle-password">
+                                <i class="fa fa-eye" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                    </div>
+                  </div>
+
+
+                    <div class="form-group">
+                      <label>location</label>
+                      <input type="text" class="form-control" name="location" value="{{employ.location}}">
+                    </div>
+                     
+  
+                  </div>
+                  <!-- /.card-body -->
+  
+                  <div class="card-footer">
+                    <button type="submit" class="btn btn-primary btn-block">Save Profile</button>
+                  </div>
+                </form><br><br>
+              
+            </div></div></div></div>
+
+                    
+           
+    <!-- <div class="card1"> -->
+        <div class="inner table-responsive">
+        <!-- <div class="card-body1" style="padding: 0px;"> -->
+            
+          
+            
+            <table class="table {% if mem_role == 'HR' and mem_hroptions == 1 %}table-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}table-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}table-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}table-tm {% endif %}">
+
+              
+                <tbody >
+                  
+                  
+                  <!-- <td><a href="/edit_basic_info/{{ employ.id }}"><i class="fa fa-pencil-square">update</i></a></td> -->
+
+                
+                                  
+                    <tr >
+                        <td >Type</td>
+                       
+                        <td>Employee</td>
+                    </tr>
+                    <tr >
+                        <td>Employee Name</td>
+                       
+                        <td>{{employ.first_name}}{{employ.last_name}}</td>
+                    </tr>
+                    <tr >
+                        <td>Email</td>
+                       
+                        <td>{{employ.email}}</td>
+                    </tr>
+                    <tr >
+                        <td>Date of Hiring</td>
+                        
+                        <td>{{employ.dateofjoining}}</td>
+                    </tr>
+                    <tr >
+                        <td>Title</td>
+                        
+                        <td>{{employ.role}}</td>
+                    </tr>
+                    <tr >
+                        <td>Employee ID</td>
+                        
+                        <td>{{employ.empid}}</td>
+                    </tr>
+                    <tr >
+                        <td>Department</td>
+                        
+                        <td>{{employ.role}}</td>
+                    </tr>
+                    <tr >
+                      <td>Manager</td>
+                      
+                      <td>Daggubati Sravan Chowdary</td>
+                  </tr>
+                  
+                    <tr >
+                        <td>Location</td>
+                        
+                        <td>{{employ.location}}</td>
+                    </tr>
+                    <tr >
+                      <td>Last Login</td>
+                      
+                      <td>{{user.last_login}}</td>
+                  </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+    
+    
+    <br>
+    <div class="row">
+        <div class="col-lg-12 col-12  table-responsive">
+
+    <!-- <h4>Compensation & Perquisites<p style="float: right;color: rgb(255, 255, 255);"><a href=""></a></p></h4> -->
+    <h4 class="{% if mem_role == 'HR' and mem_hroptions == 1 %}hed-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}hed-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}hed-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}hed-tm {% endif %}">Compensation & Prerequisite<p style="float: right;color: rgb(255, 255, 255);"><a href=""></a></p></h4>
+
+   
+    <!-- <div class="card1">
+        <div class="card-body1" style="padding: 0px;">
+             -->
+            
+                    <!-- <div class="small-box " style="padding: 10px;width: 100%;">  -->
+                        <table class="table {% if mem_role == 'HR' and mem_hroptions == 1 %}table-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}table-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}table-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}table-tm {% endif %}">
+
+                <tbody >
+                    <tr >
+                        <td >Annual Salary</td>
+                       
+                        <td>₹&nbsp;&nbsp;{{employ.package}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <br>
+    <div class="row">
+        <div class="col-lg-12 col-12 ">
+   
+            <h4 class="{% if mem_role == 'HR' and mem_hroptions == 1 %}hed-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}hed-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}hed-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}hed-tm {% endif %}">Leaves & Attendance<p style="float: right;color: rgb(255, 255, 255);"><a href=""></a></p></h4>
+
+
+   
+    <!-- <div class="card1">
+        <div class="card-body1"> -->
+          
+            
+            <table class="table {% if mem_role == 'HR' and mem_hroptions == 1 %}table-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}table-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}table-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}table-tm {% endif %}">
+
+                <tbody >
+                    <tr >
+                        <td >Shift Timing</td>
+                       
+                        <td>{{employ.working12}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-lg-12 col-12 ">
+
+            <h4 class="{% if mem_role == 'HR' and mem_hroptions == 1 %}hed-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}hed-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}hed-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}hed-tm {% endif %}">Provident Fund, Professional Tax & ESI<p style="float: right;color: rgb(255, 255, 255);"><a href=""></a></p></h4>
+   
+        
+    <!-- <div class="card1">
+        <div class="card-body1"> -->
+        
+            
+            <table class="table {% if mem_role == 'HR' and mem_hroptions == 1 %}table-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}table-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}table-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}table-tm {% endif %}">
+                <tbody >
+                    <tr >
+                        <td >PF Status</td>
+                       
+                        <td>Company Disabled</td>
+                    </tr>
+                    <tr >
+                        <td >PF UAN</td>
+                       
+                        <td>-NA-</td>
+                    </tr>
+                    <tr >
+                        <td >Professional Tax</td>
+                       
+                        <td>Company Disabled</td>
+                    </tr>
+                    <tr >
+                        <td >ESIC Status</td>
+                       
+                        <td>Registration Not Initiated</td>
+                    </tr>
+                    <tr >
+                        <td >ESIC IP Number</td>
+                       
+                        <td>-NA-</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+   
+
+    <br>
+    <div class="row">
+        <div class="col-lg-12 col-12 ">
+    {% for i in datas %}
+    <!-- <h4>Payment Information<p style="float: right;color: rgb(255, 255, 255);"><a href="/edit_pay_info/{{ i.id }}"><i class="far fa-edit">&nbsp;EDIT</i></a> -->
+        <h4 class="{% if mem_role == 'HR' and mem_hroptions == 1 %}hed-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}hed-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}hed-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}hed-tm {% endif %}">Payment Information<p style="float: right;color: rgb(255, 255, 255);"><a href="/edit_pay_info/{{ i.id }}"><i class="far fa-edit" style="font-weight: bold;">&nbsp;Edit</i></a>
+
+    </p></h4>{% endfor %}
+
+    
+<div class="inner">
+    <!-- <div class="card1">
+        <div class="card-body1" style="padding: 0%;"> -->
+         
+            
+            <table class="table {% if mem_role == 'HR' and mem_hroptions == 1 %}table-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}table-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}table-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}table-tm {% endif %}" >
+
+                <tbody >{% for data in datas %}
+                    <tr >
+                        <td>Beneficiary Name</td>
+                        
+                        <td>{{data.beneficiaryname}}</td>
+                    </tr>
+                   
+                    
+                    <tr >
+                        <td>Account Number</td>
+                       
+                        <td>{{data.acno}}</td>
+                    </tr>
+                    <tr >
+                        <td>IFSC Code</td>
+                       
+                        <td>{{data.ifsecode}}</td>
+                    </tr>
+                    <tr >
+                        <td >PAN</td>
+                       
+                        <td>{{data.pan}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div></div>
+    
+    <br>
+    <!-- <div style="display: flex; flex-direction: row; height: 50px;margin-bottom: 10px;width: 800px;"> -->
+        <div class="row">
+            <div class="col-lg-12 col-12 ">
+                <!-- <h4>Other Information<p style="float: right;color: rgb(255, 255, 255);"><a href="/edit_other_info/{{ data.id }}"><i class="far fa-edit">&nbsp;EDIT</i></a> -->
+                    <h4  class="{% if mem_role == 'HR' and mem_hroptions == 1 %}hed-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}hed-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}hed-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}hed-tm {% endif %}">Other Information<p style="float: right;color: rgb(255, 255, 255);"><a href="/edit_other_info/{{ data.id }}"><i class="far fa-edit" style="font-weight: bold;">&nbsp;Edit</i></a>
+
+
+                </p></h4>
+    
+               
+   
+   <div class="inner">
+    <!-- <div class="card1">
+        <div class="card-body1" style="padding: 0px;" > 
+           -->
+            
+           <table class="table {% if mem_role == 'HR' and mem_hroptions == 1 %}table-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}table-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}table-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}table-tm {% endif %}">
+
+                <tbody >
+                    <tr >
+                        {% if half.Personalphonenumber1 == "1" %}
+                        <td >Phone Number</td>
+                        <td>{{data.phno}}</td>
+                        {% else %}
+                        {% endif %}
+                    </tr>
+                    <tr >
+                        {% if half.PersonalEmailAddress1 == "1" %}
+                        <td>Email Address</td>
+                       
+                        <td>{{data.email}}</td>
+                        {% else %}
+                        {% endif %}
+                    </tr>
+                    <tr >
+                        {% if half.FathersName1 == "1" %}
+                        <td> Father's Name </td>
+                       
+                        <td>{{data.fathername}}</td>
+                        {% else %}
+                        {% endif %}
+                    </tr>
+                    <tr>
+                        {% if half.FathersDOB1 == "1" %}
+                        <td>Father's D.O.B</td>
+                        
+                        <td>{{data.fathersdob}}</td>
+                        {% else %}
+                        {% endif %}
+                    </tr>
+                    <tr >
+                        {% if half.MothersName1 == "1" %}
+                        <td>Mother's Name</td>
+                        
+                        <td>{{data.mothername}}</td>
+                        {% else %}
+                        {% endif %}
+                    </tr>
+                    <tr >
+                        {% if half.MothersDOB1 == "1" %}
+                        <td>Mother's  D.O.B</td>
+                        
+                        <td>{{data.mothersdob}}</td>
+                        {% else %}
+                        {% endif %}
+                    </tr>
+                    </tr>
+                    <tr  >
+                        {% if half.Childdetails1 == "1" %}
+                        <td>Child Details1</td>
+                        
+                        <td>{{data.Childdetails1}}</td>
+                        {% else %}
+                        {% endif %}
+                    </tr>
+                    <tr  >
+                        {% if half.Childdetails2 == "1" %}
+                        <td>Child Details2</td>
+                        
+                        <td>{{data.Childdetails2}}</td>
+                        {% else %}
+                        {% endif %}
+                    </tr>
+                    <tr  >
+                        {% if half.TemporaryAddress1 == "1" %}
+                        <td>Temporary Address</td>
+                        
+                        <td>{{data.address}}</td>
+                        {% else %}
+                        {% endif %}
+                    </tr>
+                    <tr  >
+                        {% if half.HighestEducatonalQualification1 == "1" %}
+                        <td>Highest Educatonal Qualification</td>
+                        
+                        <td>{{data.qualification}}</td>
+                        {% else %}
+                        {% endif %}
+                    </tr>
+                    <tr  >
+                        {% if half.Addharnumber1 == "1" %}
+                        <td>Addhar Number</td>
+                        
+                        <td>{{data.aadharno}}</td>
+                        {% else %}
+                        {% endif %}
+                    </tr>
+                    <tr  >
+                        {% if half.maritalstatus1 == "1" %}
+                        <td>Marital Status</td>
+                        
+                        <td>{{data.maritalstatus}}</td>
+                        {% else %}
+                        {% endif %}
+                    </tr>
+                    <tr  >
+                        {% if half.workexperiance1 == "1" %}
+                        <td>work Experiance1</td>
+                        
+                        <td>{{data.workexperiance}}</td>
+                        {% else %}
+                        {% endif %}
+                    </tr>
+                    <tr  >
+                        {% if half.previousemploye1 == "1" %}
+                        <td>Previous Employe</td>
+                        
+                        <td>{{data.previousemploye}}</td>
+                        {% else %}
+                        {% endif %}
+                    </tr>
+                    <tr  >
+                        {% if half.previousdesignation1 == "1" %}
+                        <td>Previous Designation</td>
+                        
+                        <td>{{data.previousdesignation}}</td>
+                        {% else %}
+                        {% endif %}
+                    </tr>
+                    <tr  >
+                        {% if half.Marriageannivarsary1 == "1" %}
+                        <td>Marriage Annivarsary</td>
+                        
+                        <td>{{data.Marriageannivarsary}}</td>
+                        {% else %}
+                        {% endif %}
+                    </tr>
+                    <tr  >
+                        {% if half.emergencycontactname1 == "1" %}
+                        <td>Emergency Contact Name</td>
+                        
+                        <td>{{data.emergencycontactname}}</td>
+                        {% else %}
+                        {% endif %}
+                    </tr>
+                    <tr  >
+                        {% if half.emergencycontactnumber1 == "1" %}
+                        <td>emergency Contact Number</td>
+                        
+                        <td>{{data.emergencycontactnumber}}</td>
+                        {% else %}
+                        {% endif %}
+                    </tr>
+                    <tr  >
+                        {% if half.emergencycontactrelation1 == "1" %}
+                        <td>Emergency Contact Relation</td>
+                        
+                        <td>{{data.emergencycontactrelation}}</td>
+                        {% else %}
+                        {% endif %}
+                    </tr>
+                    <tr  >
+                        {% if half.bloodgroup1 == "1" %}
+                        <td>Blood Group</td>
+                        
+                        <td>{{data.bloodgroup}}</td>
+                        {% else %}
+                        {% endif %}
+                    </tr>
+                    <tr  >
+                        {% if half.nationality == "1" %}
+                        <td>Nationality</td>
+                        
+                        <td>{{data.nationality}}</td>
+                        {% else %}
+                        {% endif %}
+                    </tr>
+                </tbody>
+            </table>
+            {% endfor %}
+        </div>
+    </div></div>
+   
+    <br>
+    <div class="row">
+        <div class="col-lg-12 col-12 ">
+    
+            <h4 class="{% if mem_role == 'HR' and mem_hroptions == 1 %}hed-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}hed-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}hed-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}hed-tm {% endif %}">User Roles & Permissions<p style="float: right;color: rgb(255, 255, 255);"><a href="/edit_other_info/{{ i.id }}"></a>
+
+        </p></h4>
+   
+   <div class="inner">
+              <!-- <div class="card1">
+        <div class="card-body1"> -->
+       
+            
+            <table class="table {% if mem_role == 'HR' and mem_hroptions == 1 %}table-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}table-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}table-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}table-tm {% endif %}">
+
+                <tbody >
+                    <tr >
+                        <td >Role</td>
+                       
+                        <td>Employee / Contractor</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div></div>
+
+
+<script>
+function showDiv(buttonId) {
+    var div = document.getElementById(buttonId);
+    if (div.style.display === "none") {
+        div.style.display = "block";
+    } else {
+        div.style.display = "none";
+    }
+}
+
+function hideDiv(buttonId) {
+    var div = document.getElementById(buttonId);
+    div.style.display = "none";
+}
+
+</script></div></section></div>
+<script>
+    const togglePassword = document.querySelector('#toggle-password');
+    const passwordInput = document.querySelector('#chpass');
+
+    togglePassword.addEventListener('click', function (e) {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        this.querySelector('i').classList.toggle('fa-eye-slash');
+    });
+</script>
+
+
+
+<div class="col-lg-3 {% if mem_role == 'HR' and mem_hroptions == 1 %}col-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}col-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}col-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}col-tm {% endif %}" style=" justify-content: center; padding: 20px;margin-top: 3px; " >
+    <div class="small-box {% if mem_role == 'HR' and mem_hroptions == 1 %}small-box-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}small-box-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}small-box-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}small-box-tm {% endif %} deg" style="text-align: center; padding: 10px;  max-width: 300px; width: 220px;">
+
+        <!-- <div class="inner" > -->
+    <!-- <div class="sidenav1"> -->
+    {% if emp_detail.profile_pic %}
+    <img src="/media/{{ emp_detail.profile_pic }}" alt="upload your photo" style="width: 100%; height: fit-content;">
+    {% else %}
+    {% endif %}
+    <div class="row" style="justify-content: center; padding: 10px;"><br><br>
+    <a href="/employ_upload_photo/" style="text-decoration: none;"><button class="btn btn-primary btn-block"> Update Photo</button></a>
+    
+    </div>
+    </div></div>   
+    </div>
+ {% endblock main_content %}
+
+

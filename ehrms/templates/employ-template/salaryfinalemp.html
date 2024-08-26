@@ -1,0 +1,100 @@
+{% extends 'employ-template/base_template.html' %}
+{% block main_content %}
+{% load static %}
+{%load mathfilters%}{%load humanize%}{%load static%}
+<style>
+    table, tr, td, th{
+        color: black;
+    }
+</style>
+<script>
+    window.onload = function () {
+        var today = new Date();
+        var currentMonth = today.getMonth() + 1;
+        var currentYear = today.getFullYear();
+        var inputMonth = document.getElementById('selected_month');
+        inputMonth.min= "{{mindateform}}"
+        inputMonth.max = "{{maxdateform}}"
+    };
+</script>
+<form id="month_form" method="get">
+    <label for="selected_month" style="color: black;">Select Month:</label>
+    <input type="month" id="selected_month" name="selected_month" value="{{selected_month}}" min="{{ mindateform }}" max="{{ maxdateform }}" >
+</form>
+
+<script>
+       
+    document.getElementById('selected_month').addEventListener('change', function() {
+        document.getElementById('month_form').submit();
+    });
+</script>
+<span style="color:green">Select Month From <b>{{ mindateform }}</b> To <b>{{ maxdateform }}</b></span>
+ <br> <br>
+ {% if selected_month %}
+<table class="table table-responsive">
+    {% if employees %}    
+    <tr>
+        <th>Employee Id</th>
+        <th>Name</th>
+        <!-- <th>Total Leave Daysleave ({{ selected_month }})</th> -->
+        <th>Total Working Days </th>
+        <th>Present Days</th>
+        <th>Half Days</th>
+        <th>Total Leave Days ({{ selected_month }})</th>
+        <th>Take Home Salary</th>
+        <th>Deduct Amount </th>
+        <th>Netpay</th>
+        <th>View Payslip</th>
+    </tr>
+    {% for i in slary %}
+    <tr>
+        <td>{{ i.empid }}</td>
+        <td>{{ i.first_name }}</td>
+        <!-- <td>{{ i.total_leave_days }}</td> -->
+
+        {% with totalwork=num_days_in_month|sub:weekend_count %}
+        <td>{{totalwork}}</td>
+        <td>{{i.employcheckin}}</td>
+        <td>{{i.employhalfche}}</td>
+        {% with emphalf=i.employhalfche|mul:0.5 %}
+        {% with empleave=totalwork|sub:i.employcheckin|sub:emphalf %}
+        <td>{{empleave}}</td>
+
+        {% for st in salbasic %}
+                 {% with allalow=i.package|div:12|mul:100|div:100|mul:alowsum|div:100|floatformat:2 %}
+                      {% with allded=i.package|div:12|mul:st.percentageofCTC|div:100|mul:deduct|div:100|add:deductfix|floatformat:2 %}
+                                   {% with aftersum=allalow|sub:allded %}
+                                   {% with netpay=i.package|div:12|mul:st.percentageofCTC|div:100|add:aftersum%}
+                                   {% if totalwork == empleave %}
+                                   <td>{{netpay}}</td>
+                                   <td>-{{netpay}}</td>
+                                   <td>0</td>
+                                   {% else %}
+                                   {% with rempay=netpay|div:30|mul:empleave %}
+                                   <td>{{netpay}}</td>
+                                   <td>-{{rempay}}</td>
+                                   {% with halfnet=netpay|div:30|mul:i.employhalfche|div:2 %}
+                                   <td>{{netpay|div:30|mul:i.employcheckin|add:halfnet}}</td>
+                                   {% endwith %}
+                                   {% endwith %}
+                                   {% endif %}
+                                   {% endwith %}
+                                   {% endwith %}
+                      {% endwith %}
+                 {% endwith %}
+                 {% endfor %}
+                 {% endwith %}
+                 {% endwith %}
+                 {% endwith %}
+                 <td><a href="/emp_payslipemp/{{i.employid}}/" target="_blank" class="btn btn-sm btn-info">ViewPayslip</a></td>    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<div class="row d-flex justify-content-center align-items-center">
+    <h4 class="d-flex justify-content-center mt-3">-No Data Found-</h4>
+</div>
+{% endif %}
+{% else %}
+<h4>You Don't Have any Approved Payslips Now</h4>
+{% endif %}
+{% endblock main_content %}

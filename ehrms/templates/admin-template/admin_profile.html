@@ -1,0 +1,176 @@
+{% extends 'admin-template/base_template.html' %}
+{% block main_content %}
+
+<html>
+   <head>
+       <title>add employee</title>
+   </head>
+   <style>
+       body{
+           background-color:#1e2442;
+           color:white;
+           overflow: scroll;
+
+           
+       }
+       h3{
+           text-align:center;
+           height:20%;
+           padding:5%;
+           background-color:#242B4D;
+          
+
+                      
+       }
+       .v{
+           width:100%;
+           background-color:#242B4D;
+           border: 3px solid white;
+           border-bottom: none;
+           border-top: none;
+           border-right: 3px solid white;
+           height:22%;
+         padding-left: 20px;
+       }
+    
+
+
+   </style>
+   <body>
+<form method="post" enctype="multipart/form-data" style="width: 100%;" action="{% url 'add_admin_save' %}">{% csrf_token %}
+   
+       <h3>Add Admin</h3><br>
+       <div class="form-group">
+        {% if messages %}
+          {% for message in messages %}
+          {% if message.tags == 'error' %}
+          <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+          {% endif %}
+          {% if message.tags == 'success' %}
+          <div class="alert alert-success" style="margin-top:20px;background-color:rgb(106, 230, 106);color: whitesmoke;">{{ message }}</div>
+          {% endif %}
+          {% endfor %}
+        {% endif %}
+      </div>
+     
+      
+       <div class="form-group">
+           <label>FirstName*</label>
+           <input type="text" name="first_name" class="form-control" placeholder="enter your firstname" style="background-color:#2D3354;  color:white; border:none;">
+       </div><br>
+
+       <div class="form-group">
+        <label>LastName*</label>
+        <input type="text" name="last_name" class="form-control" placeholder="enter your lastname" style="background-color:#2D3354;  color:white; border:none;">
+       </div><br>
+
+       <div class="form-group">
+           <label>Email*</label>
+           <input type="email" name="email" class="form-control" placeholder="enter email address" style="background-color:#2D3354;  color:white; border:none;">
+           <label style="background-color:#242B4D;  color:white; font-size:20px; padding:1%;"><h6>The email they will use to log into Xpayroll.If this person does not have an email address, click <a href="">here</a> to generate one of them </h6></label>
+       </div><br>
+
+       <div class="form-group">
+        <label>Username*</label>
+        <input type="text" name="username" class="form-control" placeholder="enter your username" style="background-color:#2D3354;  color:white; border:none;">
+    </div><br>
+
+    <div class="form-group">
+        <label>Password*</label>
+        <input type="password" name="password" class="form-control" placeholder="enter employe Emailid" style="background-color:#2D3354;  color:white; border:none;">
+    </div><br>
+    
+       <div class="form-group">
+        <label>Employ_ID*</label>
+        <input type="text" name="empid" class="form-control" placeholder="enter employid" style="background-color:#2D3354;  color:white; border:none;">
+       </div><br>
+
+      <div class="form-group">
+        <label>Contactnumber*</label>
+        <input type="number" name="phnos" class="form-control" placeholder="enter mobile number" style="background-color:#2D3354;color:white; border:none;">
+        <label style="background-color:#242B4D;  color:white; font-size:20px; padding:1%;"> 
+      </div>
+
+        <div class="form-group">
+            <label>Address*</label>
+            <input type="text" name="address" class="form-control" placeholder="enter Address" style="background-color:#2D3354;  color:white; border:none;">
+        </div><br>
+
+        <div class="form-group">
+            <label>Dateofbirth*</label>
+            <input type="date" name="dateofbirth" class="form-control" placeholder="enter your dateofbirth" style="background-color:#2D3354;  color:white; border:none;">
+        </div><br> 
+
+        <div class="form-group">
+            <label>Dateofjoining*</label>
+            <input type="date" name="dateofjoining" class="form-control" placeholder="enter your dateofjoining" style="background-color:#2D3354;  color:white; border:none;">
+        </div><br> 
+
+        <div class="form-group">
+            <label>Department*</label>
+            <input type="text" name="department" class="form-control" placeholder="enter department" style="background-color:#2D3354;  color:white; border:none;">
+        </div><br>
+
+        <div class="form-group">
+            <label>manager*</label>
+            <input type="text" name="manager" class="form-control" placeholder="enter your manager name" style="background-color:#2D3354;  color:white; border:none;">
+        </div><br>
+
+        <div class="form-group">
+            <label>designation*</label>
+            <input type="text" name="designation" class="form-control" placeholder="enter Designation" style="background-color:#2D3354;  color:white; border:none;">
+        </div><br>
+
+        <div class="form-group">
+            <label>Location*</label><br>
+            <select name="location"  style="background-color:#2D3354;  color:white; border:none; " class="form-control">
+                <option>andhrapradesh</option>
+                <option>telangana</option>
+            </select>    
+        </div><br><br>
+
+        <div class="form-group">
+            <label>Package*</label>
+            <input type="text" name="package" class="form-control" placeholder="enter like 350000" style="background-color:#2D3354;  color:white; border:none;">
+        </div><br>
+
+        <div class="form-group">
+            <label>Pincode*</label>
+            <input type="text" name="pincode" class="form-control" placeholder="enter pincode" style="background-color:#2D3354;  color:white; border:none;">
+        </div><br>
+
+        <div class="form-group">
+            <label>status*</label>
+            <input type="text" name="status" class="form-control" placeholder="enter status" style="background-color:#2D3354;  color:white; border:none;">
+        </div><br>
+
+        
+
+        <div class="form-group">
+            <label>bloodgroup*</label>
+            <input type="text" name="bloodgroup" class="form-control" placeholder="enter bloodgroup" style="background-color:#2D3354;  color:white; border:none;">
+        </div><br>
+        
+       <label>Gender*</label><br>
+       <label>Male:</label>
+       <input type="radio" name='gender' value="male">
+
+       <label>Female</label>
+       <input type="radio" name='gender' value="female">
+        <br>
+
+
+        <div class="form-group">
+            <label for="image">admin_profilepic*</label>
+            <input type="file" name="admin_profilepic" class="form-control-file" accept="image/*" style="color:white;">
+        </div><br>
+        
+        {% comment %} <input type="checkbox" value="Resident of india">&nbsp;Resident of india<br><br> {% endcomment %}
+        
+        <input type="submit" value="CONTINUE" style=" color:white;" class="btn btn-info">
+       
+</form>
+   </body><br><br>
+</html> 
+
+{% endblock main_content %}

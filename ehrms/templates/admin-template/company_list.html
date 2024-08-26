@@ -1,0 +1,358 @@
+{% extends 'admin-template/adminAdashboard.html' %}
+{% block main_content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <style>
+        body {
+            background-color: White;
+          
+        }
+             
+        .pagination {
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .pagination a, .pagination .current-page {
+            display: inline-block;
+            padding: 8px 12px;
+            text-decoration: none;
+            margin: 0 4px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        
+        .pagination .step-links a.active {
+             background-color: #c7a190;
+             color:white;
+            }
+             @media (max-width:765px) {
+                .container {
+                    background-color: #ffffff;
+                    border-radius: 8px;
+                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                    padding: 20px;
+                    width: 100%;
+                 }
+                }
+                h2 {
+                     text-align: center;
+                     color: black;
+                    }  
+    </style>
+
+
+<style>
+
+        .table {
+            margin-top: 20px;
+            width: 720px !important; 
+            height: auto;
+            border-radius: 10px;
+            border: none;
+            border-collapse: separate;
+            border-spacing: 15px 50px;
+            
+        }
+        tr{
+            padding-bottom: 50px;
+        }
+        table td {
+            text-align: center;
+            border-color: none;
+            width: 200px;
+            color:black;
+            padding: 8px;
+        }
+        table,td {
+            text-align: center;
+            color: black;
+            font-size: 20px;
+        }
+        td:first-child,th:first-child {
+            border-radius: 33px 0 0 33px;
+        }
+        
+        td:last-child,th:last-child{ 
+            border-radius: 0 33px 33px 0;
+        }
+
+        table tr:nth-child(odd){background-color: white;}
+        table tr:hover {background-color: rgb(241, 227, 227);}
+
+        table tr:nth-child(even){background-color:white;}
+        table tr:hover {background-color: rgb(241, 227, 227);}
+
+
+        th{
+            color:black;
+            padding: 6px;
+            font-size:20px;
+            background-color:white;
+
+        }
+
+        .gfg {
+            border-collapse:separate;
+            border-spacing:0 15px;
+        }
+
+</style>
+
+
+<style>
+    .search-container {
+    position: relative;
+}
+
+.search-input {
+    padding-right: 100px; 
+    width:100%;
+    border: 1px solid rgb(143, 141, 141);
+    padding:5px;
+    border-radius: 33px 33px 33px 33px;
+    /* background-color: pink; */
+    height:7%;
+}
+
+.search-icon {
+    position: absolute;
+    top: 50%;
+    right: -1px; 
+    transform: translateY(-50%);
+    pointer-events: auto; 
+    cursor: pointer;
+    color:black;
+    border-radius: 33px 33px 33px 33px;
+    background-size:100%;
+    background-color: #c7a190;
+    width: 40px;
+    height:39px;
+    line-height: 40px;
+    text-align: center;
+    font-size: x-large;
+    
+}
+
+::placeholder{
+    color:black;
+}
+
+.search-input:focus {
+    outline: none; 
+    border-color: black; 
+}
+</style>
+
+</head>
+<body> 
+     <center>
+    <h1 class="d-flex justify-content-center"><b>
+      {% if companies1.plantype == "1" %}
+        Basic Plan
+      {% elif companies1.plantype == "2" %}
+        Gold Plan 
+      {% elif companies1.plantype == "3" %}
+        Platinum Plan
+      {% elif companies1.plantype == "4" %}
+      Diamand Plan
+      {% else %}
+      {% endif %}
+    </td></b></h1>
+  </center>
+    
+            <form id="searchForm" method="GET" action="{% url 'company_list' %}">
+                <!-- <div class="search-container">
+                    <input type="text" name="q" id="searchInput" value="{{ search_query }}" placeholder="Search Companys Registration List" class="search-input" > -->
+                    <div class="search-container">
+                        <input id="name-search-avg"  value="{{ search_query }}"  class="form-control" type="text" name="se" placeholder="Search Companys Registration List ......"style="border-color:#c7a190; background-color:white; color:black;" > 
+                </div>
+            </form><br><br>
+                        
+            
+        <script>
+            document.getElementById('searchIcon').addEventListener('click', function(event) {
+                event.preventDefault(); 
+                document.getElementById('searchForm').submit();
+            });
+        </script>
+                        
+        <div class="container" style="background-color:#c7a190;border-radius: 10px;"><br>
+
+                    <center> <h2 class="d-flex justify-content-center"><b>Company Registration List</b></h2></center>
+
+                <table class="gfg" >
+                    <tr>
+                        <th scope="col">Ceo/Md</th>
+                        <th scope="col">Organization Name</th>  
+                        <th scope="col">View Detailes</th>  
+                        <th>Delete</th>
+                    </tr>
+                    {% for company in companies %}
+                        <tr>
+                            <td>{{ company.contact_person }}</td>
+                            <td>{{ company.organizationname }}</td>  
+                            <td><a href="/formdeatiles/{{company.id}}">view profile</a></td>
+                            <td>
+                                <!-- <a href="/delete_company_list1/{{ company.id }}" height="100px" width="150px">
+                                    <span><i class="fa fa-trash" aria-hidden="true" style="color:red"></i></span>
+                                </a> -->
+                                <a href="/delete_company_list1/{{ company.id }}" onclick="return confirmDelete();" height="100px" width="150px">
+                                    <span><i class="fa fa-trash" aria-hidden="true" style="color:red"></i></span>
+                                </a>
+                            </td> 
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="4">No companies found.</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+
+        </div>
+
+            
+            {% if companies.has_other_pages %}
+                <div class="pagination d-flex justify-content-center" style="color:white;padding-left: 24px;">
+                    <span class="step-links">
+                        {% if companies.has_previous %}
+                            <a href="?page=1">&laquo; First</a>
+                            <a href="?page={{ companies.previous_page_number }}" class="prev">&#8249; << </a>
+                        {% endif %}
+                        {% for page in companies.paginator.page_range %}
+                            <a href="?page={{ page }}" {% if page == companies.number %}class="active"{% endif %}>{{ page }}</a>
+                        {% endfor %}
+                        {% if companies.has_next %}
+                            {% if companies.number != companies.paginator.num_pages %}
+                                <a href="?page={{ companies.paginator.num_pages }}">&raquo; >> </a>
+                            {% endif %}
+                        {% endif %}
+                    </span>
+                </div>
+            {% endif %}
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    var searchInput = document.getElementById('searchInput');
+                    var searchForm = document.getElementById('searchForm');
+                    
+                    // Add event listener for keyup event
+                    searchInput.addEventListener('keyup', function(event) {
+                        // Automatically submit the form when the input field is empty
+                        if (event.keyCode === 8 && searchInput.value.trim() === '') { // Check if Backspace key is pressed and input field is empty
+                            searchForm.submit(); // Submit the form
+                        }
+                    });
+                });
+            </script>
+            <script>
+                function submitSearch() {
+                  var input = document.getElementById("myInput");
+                  var filter = input.value.toUpperCase();
+                  var table = document.getElementById("myTable"); // Changed ID to match your table ID
+                  var tr = table.getElementsByTagName("tr");
+              
+                  for (var i = 1; i < tr.length; i++) { // Start loop from index 1 to skip the header row
+                    var found = false;
+                    var td = tr[i].getElementsByTagName("td");
+                    
+                    for (var j = 0; j < td.length; j++) {
+                      var txtValue = td[j].textContent || td[j].innerText;
+                      
+                      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        found = true;
+                        break;
+                      }
+                    }
+              
+                    if (found) {
+                      tr[i].style.display = "";
+                    } else {
+                      tr[i].style.display = "none";
+                    }
+                  }
+                }
+              </script>
+
+
+            
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var forms = document.querySelectorAll('.company-form');
+    
+            forms.forEach(function (form) {
+                form.addEventListener('click', function (event) {
+                    var button = event.target;
+    
+                    if (button.classList.contains('agree-btn') || button.classList.contains('disagree-btn')) {
+                        var agreementStatus = button.getAttribute('data-agreement-status');
+                        form.querySelector('.agreement-status').value = agreementStatus;
+    
+                        form.action = "/company_list/";
+    
+                        form.submit();
+                    }
+                });
+            });
+        });
+    </script>
+        <script>
+            function confirmDelete() {
+                return confirm("Are you sure you want to delete this company?");
+            }
+        </script>
+
+<script>
+    $(document).ready(function () {
+        $("#name-search-avg").on("keyup change", function () {
+            var nameValue = $("#name-search-avg").val().toLowerCase();
+          
+
+            $("#yourTableID-avg tbody tr").filter(function () {
+                var nameMatch = $(this).text().toLowerCase().indexOf(nameValue) > -1;
+              
+                $(this).toggle(nameMatch );
+            });
+        });
+    });
+</script>           
+                
+                
+  <script>
+    $(document).ready(function () {
+        $("#name-search-avg").on("keyup change", function () {
+            var nameValue = $("#name-search-avg").val().toLowerCase();
+            var noDataRowAdded = false;
+
+            $("#yourTableID-avg tbody tr").filter(function () {
+                var nameMatch = $(this).text().toLowerCase().indexOf(nameValue) > -1;
+                $(this).toggle(nameMatch);
+
+                
+                if (nameMatch) {
+                    noDataRowAdded = true;
+                }
+            });
+
+           
+            if (!noDataRowAdded) {
+                var noDataRow = $("<tr><td colspan='4' class='no-data-message'>There is no report available for search items.....</td></tr>");
+                $("#yourTableID-avg tbody").append(noDataRow);
+            } else {
+                $("#yourTableID-avg tbody tr:contains('There is no reports available for search items.....')").remove();
+            }
+        });
+    });
+</script>
+</body>
+</html>
+
+
+
+{% endblock main_content %}

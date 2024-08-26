@@ -1,0 +1,186 @@
+{% extends 'admin-template/adminAdashboard.html' %}
+{% block main_content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <style>
+        body {
+              font-family: "Roboto", helvetica, arial, sans-serif;
+              font-size: 16px;
+              font-weight: 400;
+              text-rendering: optimizeLegibility;
+              background-color: #f4f4f4;
+              color: #333;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              /* height: 100vh; */
+              margin: 0;
+              /* margin-top: 770px; */
+          }
+     
+          .container {
+              background-color: #ffffff;
+              border-radius: 10px;
+              padding: 20px;
+              box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+              max-width: 90%;
+              width: 1000px;
+              margin: 20px auto;
+          }
+      
+          .table {
+              /* margin-top: 20px; */
+              width: 1040px !important; 
+              border-radius: 10px;
+              border: none;
+              border-spacing:0 5px;
+              border-collapse:separate;
+              
+    
+              
+              
+          }
+          /* tr{
+              padding-bottom: 10px;
+          } */
+          table td {
+              text-align: center;
+              border-color: none;
+              width: 300px;
+              color:black;
+              
+          }
+         
+          tr:nth-child(even) td {
+              background-color: #f9f9f9;
+          }
+    
+          tr:hover td {
+              background-color: #f1f1f1;
+          }
+           
+      
+          th{
+              color:black;
+              padding: 6px;
+              font-size:20px;
+              background-color:white;
+              width: 300px;
+              text-align: center;
+    
+          }
+          
+       
+          /* h2{
+              color:black;
+              font-size: xx-large;
+              text-align: center;
+          } */
+    
+          h2 {
+              color: #2E294E;
+              text-align: center;
+              margin-bottom: 20px;
+              font-size: 24px;
+          }
+    
+          td{
+              max-width: 200px; 
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+          } 
+          
+          th {
+              background-color: #64113F;
+              color: white;
+          }
+    
+          td {
+              background-color: #ffffff;
+              color: #333;
+          }
+          button{
+              color:black;
+              background-color: #ECE1;
+              border-radius: 10px;
+          }
+          th, td {
+              padding: 12px 15px;
+              text-align: center;
+              font-size: 16px;
+              border-bottom: 1px solid #ddd;
+          }
+    
+      
+          .container-fluid{
+              height: auto;
+              width: auto;
+          }
+          
+    
+    </style>
+</head>
+
+<body><br><br>
+
+    <div class="container" style="border-radius: 10px;">
+
+        <h2><b>Company Registration Details</b></h2><br>
+
+        <div class="row">
+            <div class="col-md-12 " >
+                    <table class="table  table-striped table-responsive">
+                        <thead>
+                            <tr>
+                                <!-- <th>Field</th> -->
+                                 <th>Organization Name</th>
+                                 <th>Registration Number</th>
+                                 <th>Address</th>
+                                 <th>CEO/Manager</th>
+                                 <th>Email</th>
+                                 <th>Phone Number</th>
+                                 <th>Number Of Employees</th>
+                                 <th>Designation</th>
+                                 <th>Company Registration Date</th>
+                                 <th colspan="2">Plantype</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                     <tr>
+                                <!-- <td>values</td> -->
+                                <td>{{ post1.organizationname }}</td>
+                                <td>{{ post1.registration_number }}</td>
+                                <td>{{ post1.address }}</td>
+                                <td>{{ post1.contact_person }}</td>
+                                <td>{{ post1.email }}</td>
+                                <td>{{ post1.phone_number }}</td>
+                                <td>{{ post1.Numberofemployees }}</td>
+                                <td>{{ post1.your_title }}</td>
+                                <td>{{post1.usernumber.date_joined }}</td>
+                            <td>
+                                {% if post1.plantype == "1"%}
+                                <td>Basic-Plan</td>
+                                {% elif post1.plantype == "2" %}
+                                <td>Gold-Plan</td>
+                                {% elif post1.plantype == "3" %}
+                                <td>Platinum-Plan</td>
+                                {% else %}
+                                <td>Diamond-Plan</td>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    </tbody>
+                    </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+{% endblock main_content %}

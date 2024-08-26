@@ -1,0 +1,1256 @@
+{% load static %}
+<html>
+    <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+      <link rel="stylesheet" href="style.css">
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" rel="stylesheet"/> 
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"></script>
+
+
+
+       <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{% static "plugins/fontawesome-free/css/all.min.css" %}">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Tempusdominus Bbootstrap 4 -->
+  <link rel="stylesheet" href="{% static "plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css" %}">
+  <!-- iCheck -->
+  <link rel="stylesheet" href="{% static "plugins/icheck-bootstrap/icheck-bootstrap.min.css" %}">
+  <!-- JQVMap -->
+  <link rel="stylesheet" href="{% static "plugins/jqvmap/jqvmap.min.css" %}">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{% static "dist/css/adminlte.min.css" %}">
+  <link rel="stylesheet" href="{% static "dist/css/base1.css" %}">
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="{% static "plugins/overlayScrollbars/css/OverlayScrollbars.min.css" %}">
+  <!-- Daterange picker -->
+  <link rel="stylesheet" href="{% static "plugins/daterangepicker/daterangepicker.css" %}">
+  <!-- summernote -->
+  <link rel="stylesheet" href="{% static "plugins/summernote/summernote-bs4.css" %}">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css">
+    <!-- Volt CSS -->
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.5/css/buttons.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.5/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.print.min.js"></script>
+    <script src="/static/visuals/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/js/bootstrap-tooltip.js"></script>
+    <!-- <script src="/static/visuals/custom.js"></script> -->
+    <script src="/static/visuals/echarts.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.10.2/viewer.js"
+        integrity="sha512-taR40V17AK2+3RjqzCYkczb0/hTHuQCid0kBs0I2g6DqkFjkTcAIpsa+4PzGuWcRica2AOZQmz4pNPj4InFR8A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.10.2/viewer.common.js"
+        integrity="sha512-kn4fARiLsrEj4/9vta8QR9+MmC40x+zuc7M+tihnyZk6hZrQkkxGaHrIGCYE6VZnIY/pOgLhDyqtOLtg/XenuQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.10.2/viewer.common.js"
+        integrity="sha512-kn4fARiLsrEj4/9vta8QR9+MmC40x+zuc7M+tihnyZk6hZrQkkxGaHrIGCYE6VZnIY/pOgLhDyqtOLtg/XenuQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.10.2/viewer.esm.js"
+        integrity="sha512-F+O/wYuPFPhKr+2lkkyK64aTUQD0FWytFO8LRxVnobX6rYcrUS7OPj+k5yk/mEe5SNZ3PbljhnjRNdnIM8yDqg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.10.2/viewer.css"
+        integrity="sha512-HGWrJz+Lr07phD0DNoLsSVwn3przno/eSLf1cGOrLzr6c7NUZROZJPhQdSPmLHNbsO0HP2UfUnpKTMiVxonEHw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <!--Lottie Js-->
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+  {% block custom_css %}{% endblock custom_css %}
+  <style>
+     @import url('https://fonts.googleapis.com/css?family=Montserrat:400,600,700|Trade+Winds&display=swap');
+
+    .main{
+      position: absolute;
+    }
+    .nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  background-color: #333;
+  color: white;
+  padding: 10px;
+}
+.navbar {
+  display: flex;
+  align-items: center;
+  width: 100vw;
+  background-color: var(--nav);
+  box-shadow: 0px 10px 10px 3px rgba(0, 0, 0, 0.3);
+  position: relative;
+  padding: 0px 70px;
+  color: #fff;
+}
+
+.toggle-menu1 {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.toggle-menu1.active .bar:nth-child(1),
+.toggle-menu1.active .bar:nth-child(3) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.toggle-menu1.active .bar:nth-child(2) {
+  opacity: 0;
+}
+
+.menu {
+  list-style: none;
+  display: flex;
+}
+
+.menu li {
+  margin: 0 10px;
+  position: relative;
+}
+.uer-icon{
+  cursor: pointer;
+}
+.menu li a {
+  text-decoration: none;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .toggle-menu1 {
+    display: flex;
+  }
+  
+  .menu {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    background-color: #333;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    z-index: 1;
+  }
+
+  .menu.active {
+    display: flex;
+  }
+}
+
+.sub-menu {
+  display: none;
+  list-style: none;
+  position: absolute;
+  background-color: #444;
+  top: 63px;
+  right:0px;
+  width: 200px;
+  z-index: 2;
+  transition: left 0.3s ease; 
+}
+
+.menu li:hover .sub-menu {
+  display: block;
+}
+
+.sub-menu li {
+  padding: 10px;
+}
+.fa-user-o {
+            cursor: pointer;
+        }
+
+        .sub-menu.active li {
+            display: block;
+        }
+
+.sub-menu li a {
+  text-decoration: none;
+  color: white;
+}
+.sub-menu.active {
+            left: 10px; /* Move submenu to the left when active */
+        }
+
+
+   
+  </style>
+  <style>
+     .menu {
+    list-style: none;
+    padding: 0;
+    background-color: #333;
+    display: flex;
+  }
+  .menu li {
+    position: relative;
+  }
+  .menu a {
+    display: block;
+    padding: 10px 20px;
+    color: white;
+    text-decoration: none;
+  }
+  .sub-menu {
+    display: none;
+    position: absolute;
+    background-color: #444;
+    z-index: 1;
+    padding: 0%;
+    margin: 0%;
+  }
+  .sub-menu li {
+    width: 100%;
+    padding: 0px 0px 0px 28px;
+    margin: 0%;
+    background-color: #2d3354;
+    color:white;
+  }
+  .menu li:hover .sub-menu {
+    display: block;
+    
+  }
+  .sub-menu li:hover{
+    background-color:rgba(39, 44, 192, 0.3);
+  }
+  @media screen and (max-width: 768px) {
+    .menu {
+      flex-direction: column;
+    }
+    .menu li {
+      position: static;
+    }
+    .sub-menu {
+      position: flex;
+      display: none;
+      margin-bottom: 5px;
+    
+    }
+    .menu li:hover .sub-menu {
+      display: none;
+      
+    }
+    .hidden {
+    display: none;
+}
+.hidden1{
+    display:block;
+}
+.item li{
+    padding-top: 15px ;
+    margin-left: 0;
+  }
+  h4{
+    font-size: medium;
+  }
+ul.item{
+    margin: 0px;
+    padding: 0px;
+}
+.user-text{
+  display: none;
+}
+.item2{
+  margin: 0;
+  padding: 0;
+}
+  }
+  .item li{
+    padding-top: 20px ;
+    margin-left: 30px;
+  }
+  .sub-menu li{
+    padding: 5px 2px 10px 10px;
+    margin: 0;
+  }
+  
+  </style>
+  <style>
+    
+ul.menu-child li a{
+  font-size: 13px;
+  height: 30px;
+  padding: 10px;
+  padding-top: 10px;
+  padding-top: -10px;
+  margin-top: 10px;
+}
+
+.icon-badge-icon {
+  font-size: 30px;
+  position: relative;
+  
+}
+
+.icon-badge-notification {
+  background-color: red;
+  font-size: 12px;
+  color: white;
+  text-align: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 35%;
+  position: relative;
+  top: -40px;
+  left: 16px;
+}
+.main{
+  height: calc(100% - 64px);
+}
+@media (max-width: 768px) {
+  .side-menu{
+    top: 65px;
+  }
+}
+.sub-menu a{
+  color: #fff;
+}
+body{
+  font-family:"Poppins";
+  color:#fff;
+}
+.content {
+  margin-top: 0%;
+}
+.menu-items li {
+  margin: 0;
+  padding: 0;
+}
+
+.menu-items a {
+  text-decoration: none;
+  color: white;
+  padding: 8px 15px; /* Adjust padding to make the items smaller */
+  font-size: 14px; /* Adjust font size as needed */
+} */
+  </style>
+  <style>
+    .modal-confirm {		
+	color: #636363;
+	width: 400px;
+}
+.modal-confirm .modal-content {
+	padding: 20px;
+	border-radius: 5px;
+	border: none;
+	text-align: center;
+	font-size: 14px;
+}
+.modal-confirm .modal-header {
+	border-bottom: none;   
+	position: relative;
+}
+.modal-confirm h4 {
+	text-align: center;
+	font-size: 26px;
+	margin: 30px 0 -10px;
+}
+.modal-confirm .close {
+	position: absolute;
+	top: -5px;
+	right: -2px;
+}
+.modal-confirm .modal-body {
+	color: #999;
+}
+.modal-confirm .modal-footer {
+	border: none;
+	text-align: center;		
+	border-radius: 5px;
+	font-size: 13px;
+	padding: 10px 15px 25px;
+}
+.modal-confirm .modal-footer a {
+	color: #999;
+}		
+.modal-confirm .icon-box {
+	width: 80px;
+	height: 80px;
+	margin: 0 auto;
+	border-radius: 50%;
+	z-index: 9;
+	text-align: center;
+	border: 3px solid #f15e5e;
+}
+.modal-confirm .icon-box i {
+	color: #f15e5e;
+	font-size: 46px;
+	display: inline-block;
+	margin-top: 13px;
+}
+.modal-confirm .btn, .modal-confirm .btn:active {
+	color: #fff;
+	border-radius: 4px;
+	background: #60c7c1;
+	text-decoration: none;
+	transition: all 0.4s;
+	line-height: normal;
+	min-width: 120px;
+	border: none;
+	min-height: 40px;
+	border-radius: 3px;
+	margin: 0 5px;
+}
+.modal-confirm .btn-secondary {
+	background: #c1c1c1;
+}
+.modal-confirm .btn-secondary:hover, .modal-confirm .btn-secondary:focus {
+	background: #a8a8a8;
+}
+.modal-confirm .btn-danger {
+	background: #f15e5e;
+}
+.modal-confirm .btn-danger:hover, .modal-confirm .btn-danger:focus {
+	background: #ee3535;
+}
+/* .trigger-btn {
+	display: inline-block;
+	margin: 100px auto;
+} */
+
+  </style>
+<style>
+.navbar-hr {
+  background-color: #974ec3  ; /* for HR */
+}
+.navbar-manager {
+  background-color: #007880; /* for Manager */
+}
+
+.navbar-employee-tl {
+  background-color: #ff6673		  ; /* for teamlead  */
+}
+.navbar-employee-tm {
+  background-color: #4d67ab ; /* for Employee and teammember */
+}
+
+
+.menu-items{
+  overflow: auto;
+
+}
+/* Hide scrollbar for Chrome, Safari and Opera */
+.menu-items::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.menu-items {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+/* Hide scrollbar for Chrome, Safari and Opera */
+.content::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.content {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+  height: calc(100% - 0px); 
+  overflow: auto; 
+  margin-bottom: 0px;
+
+}
+.content-hr {
+  background-color: #f5f9f5  ; /* for HR */
+}
+.content-manager {
+  background-color: #fff6e6; /* 5for Manager */
+}
+
+.content-employee-tl {
+  background-color: #fff; /* for teamlead  */
+}
+.content-employee-tm {
+  background-color:#F6F5F2 ; /* for Employee and teammember */
+}
+.sub-menu-hr li {
+  background-color: #974ec3 !important ; /* for HR */
+}
+.sub-menu-manager li {
+  background-color: #007880 !important; /* for Manager */
+}
+
+.sub-menu-employee-tl li {
+  background-color: #ff6673 !important; /* for teamlead  */
+}
+.sub-menu-employee-tm li {
+  background-color: #4d67ab !important;/* for Employee and teammember */
+}
+
+
+.sub-menu-hr li:hover{
+  background-color: #e2e2e2 !important;
+  color: #000;
+ /* for HR */
+}
+.sub-menu-manager li:hover {
+  background-color: #e2e2e2 !important;
+  color: #000; /* for Manager */
+}
+
+.sub-menu-employee-tl li:hover {
+  background-color: #fff !important;
+  color: #000; 
+ /* for teamlead  */
+}
+.sub-menu-employee-tm li:hover {
+  background-color: #fff !important;
+  color: #000; /* for Employee and teammember */
+}
+.toggle-menu-manager.active {
+  background-color: red !important;
+  box-shadow: inset 0 0 0 2px red !important;
+}
+.nav-bar .toggle-menu-manager.active:hover {
+  background-color:  red!important;
+  box-shadow: inset 0 0 0 2px red!important;
+}
+.nav-bar .toggle-menu-manager:hover {
+  background-color: #000!important;
+  box-shadow: inset 0 0 0 2px #000!important;
+}
+.toggle-menu-manager.active span {
+  background-color: #000!important;
+}
+@media (max-width: 768px) {
+  .toggle-menu-manager.active {
+    background-color: red!important;
+    box-shadow: inset 0 0 0 2px red!important;
+    opacity: 0.5!important;
+  
+  }
+  .nav-bar .toggle-menu-manager.active:hover {
+    background-color: red!important;
+    box-shadow: inset 0 0 0 2px red!important;
+    opacity: 0.5!important;
+   
+
+  }
+  .nav-bar .toggle-menu-manager:hover {
+    background-color: #000!important;
+    box-shadow: inset 0 0 0 2px #000!important;
+    opacity: 0.5!important;
+    
+  }
+  
+}
+.toggle-menu-employee-tl.active {
+  background-color: blue !important;
+  box-shadow: inset 0 0 0 2px blue !important;
+}
+.nav-bar .toggle-menu-employee-tl.active:hover {
+  background-color:  blue!important;
+  box-shadow: inset 0 0 0 2px blue!important;
+}
+.nav-bar .toggle-menu-employee-tl:hover {
+  background-color: #000!important;
+  box-shadow: inset 0 0 0 2px #000!important;
+}
+@media (max-width: 768px) {
+  .toggle-menu-employee-tl.active {
+    background-color: blue!important;
+    box-shadow: inset 0 0 0 2px blue!important;
+    opacity: 0.5!important;
+  
+  }
+  .nav-bar .toggle-menu-employee-tl.active:hover {
+    background-color: blue!important;
+    box-shadow: inset 0 0 0 2px orange!important;
+    opacity: 0.5!important;
+   
+
+  }
+  .nav-bar .toggle-menu-employee-tl:hover {
+    background-color: #000!important;
+    box-shadow: inset 0 0 0 2px #000!important;
+    opacity: 0.5!important;
+    
+  }
+  
+}
+.toggle-menu-employee-tm.active {
+  background-color: orange !important;
+  box-shadow: inset 0 0 0 2px orange !important;
+}
+.nav-bar .toggle-menu-employee-tm.active:hover {
+  background-color:  orange!important;
+  box-shadow: inset 0 0 0 2px orange!important;
+}
+.nav-bar .toggle-menu-employee-tm:hover {
+  background-color: #000!important;
+  box-shadow: inset 0 0 0 2px #000!important;
+}
+.toggle-menu-employee-tm.active span {
+  background-color: #000!important;
+}
+
+@media (max-width: 768px) {
+  .toggle-menu-employee-tm.active {
+    background-color: orange!important;
+    box-shadow: inset 0 0 0 2px orange!important;
+    opacity: 0.5!important;
+  
+  }
+  .nav-bar .toggle-menu-employee-tm.active:hover {
+    background-color: orange!important;
+    box-shadow: inset 0 0 0 2px orange!important;
+    opacity: 0.5!important;
+   
+
+  }
+  .nav-bar .toggle-menu-employee-tm:hover {
+    background-color: #000!important;
+    box-shadow: inset 0 0 0 2px #000!important;
+    opacity: 0.5!important;
+    
+  }
+  
+}
+.toggle-menu-hr.active {
+  background-color: #96EFFF!important;
+  box-shadow: inset 0 0 0 2px #96EFFF  !important;
+}
+.nav-bar .toggle-menu-hr.active:hover {
+  background-color:  #96EFFF  !important;
+  box-shadow: inset 0 0 0 2px #96EFFF  !important;
+}
+.nav-bar .toggle-menu-hr:hover {
+  background-color: #000!important;
+  box-shadow: inset 0 0 0 2px #000!important;
+}
+.toggle-menu-hr.active span {
+  background-color: #000!important;
+}
+
+@media (max-width: 768px) {
+  .toggle-menu-hr.active {
+    background-color: #96EFFF!important;
+    box-shadow: inset 0 0 0 2px #96EFFF!important;
+    opacity: 0.5!important;
+  
+  }
+  .nav-bar .toggle-menu-hr.active:hover {
+    background-color: #96EFFF!important;
+    box-shadow: inset 0 0 0 2px #96EFFF!important;
+    opacity: 0.5!important;
+   
+
+  }
+  .nav-bar .toggle-menu-hr:hover {
+    background-color: #000!important;
+    box-shadow: inset 0 0 0 2px #000!important;
+    opacity: 0.5!important;
+    
+  }
+  
+}
+
+.side-menu-hr a:hover::after{
+  transform: skewX(45deg);
+  background-color: #0000cc;
+}
+
+.side-menu-hr a::after {
+  background-color: #000;
+}
+
+.side-menu-manager a:hover::after{
+  transform: skewX(45deg);
+  background-color: #0000cc;
+}
+
+.side-menu-manager a::after {
+  background-color: #000;
+}
+.side-menu-tl a:hover::after{
+  transform: skewX(45deg);
+  background-color: brown;
+}
+.side-menu-tl a::after {
+  background-color: #fff;
+}
+
+
+.side-menu-tm a:hover::after{
+  transform: skewX(45deg);
+  background-color: #000;
+}
+.side-menu-tm a::after {
+  background-color: #FFF;
+}
+
+.sos-btn {
+    background-color: #fb0e1e; 
+    color: #fff; 
+    padding: 8px 15px; 
+    border-radius: 5px;
+    text-decoration: none; 
+    font-weight: bold; 
+    transition: background-color 0.3s ease;
+}
+
+.sos-btn:hover {
+    background-color: #ff4837;
+}
+
+
+</style>
+
+    </head>
+    <body>
+        
+      <div class="nav-bar     {% if mem_role == 'HR' and mem_hroptions == 1 %}navbar-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}navbar-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}navbar-employee-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}navbar-employee-tm {% endif %}" style="height: 62px; ">
+          
+            <ul class="item" style="list-style-type: none;  display: flex; justify-content:center; align-items: center;">
+              <li><h4>{{ organization_name }}</h4></li>
+              <li style="margin-left: 20px;"><a href="/timer" class="sos-btn"><i class="fas fa-exclamation-triangle"></i> SOS</a></li>
+
+            </ul>
+
+              <ul class="item" style="list-style-type: none; margin: 3px 12px 0px 0px; display: flex;font-size: 25px;">
+              
+                <li class=" nav-item dropdown " style="  font-family: 'Montserrat';" >
+                  <a href="{% url 'employ_all_notification' %}" class="notification nav-link  "    aria-expanded="false" style="margin-bottom: 2.5px;" >
+                      <i class="far fa-bell icon-badge-icon   " style="color: #fff;"> </i>
+                      
+                      <div class="icon-badge-notification "><span> {% if request.user.notifications.unread %} {{request.user.notifications.unread.count  }} {% else %} 0  {% endif %}</span></div>
+                  </a>
+                              </li>
+
+<!-- 
+                              <li class="nav-item dropdown" style="font-family: 'Montserrat'; margin-right: -15px;" >
+                                <a href="#" class="notification nav-link" onclick="showProjectModal()">
+                                    <i class="far fa-bell icon-badge-icon"></i>
+                                    <div class="icon-badge-notification"><span id="notificationCount">{{notifications2}}</span></div>
+                                </a>
+                              </li>   
+                                            
+                            <div id="projectModal" class="modal" style="width:30%;margin-left:800px;padding-top:50px;height:auto;">
+                                <div class="modal-content" style="background-color:#cfe2ff;color: black;">   
+                                    <span class="" onclick="closeProjectModal()"></span>
+                                    <h2 style="font-size: large;">Please Check The Projects:</h2> 
+                                    <ul style="padding-left: 5px;">
+                                        {% for project in notifications3 %}
+                                        {% if project.is_status == "0" %} 
+                                        <li><a href="{% url 'mark_as_read_done' project.id %}" onclick="selectProject('{{ project.project_name }}')" data-project="{{ project.project_name }}" style="text-decoration: none;font-size:smaller;color: black;"> Project Name:-{{ project.project_name }}</a></li>
+                                        {% endif %}  
+                                        {% endfor %} 
+                                    </ul>
+                                </div>
+                            </div>  
+                                         
+                            <script>  
+                              function showProjectModal() {
+                                  var modal = document.getElementById("projectModal");
+                                  modal.style.display = "block";
+                              }   
+                                       
+                              function closeProjectModal() {
+                                  var modal = document.getElementById("projectModal");
+                                  modal.style.display = "none";
+                              }    
+                                        
+                              function selectProject(projectName) {
+                                  var projectElement = document.querySelector("a[data-project='" + projectName + "']");
+                                  if (projectElement) {
+                                      projectElement.parentElement.remove();
+                                  }       
+                                   
+                                  var notificationCount = parseInt(document.getElementById("notificationCount").innerText);
+                                  if (notificationCount > 0) {
+                                      document.getElementById("notificationCount").innerText = notificationCount - 1;
+                                  }   
+                                    
+                                  closeProjectModal();        
+                                        
+                                }                               
+                            </script>     -->
+
+
+            <li style="margin-right: 15px;">
+              <a style="display: flex; margin-top: 4px; cursor: pointer;" ><center><i class="fas fa-user-circle fa-lg user-icon" style="margin-top: 5px;" aria-hidden="true"></i></center><div class="user-text"></div></a>               
+              <ul class="sub-menu     {% if mem_role == 'HR' and mem_hroptions == 1 %}sub-menu-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}sub-menu-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}sub-menu-employee-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}sub-menu-employee-tm {% endif %}">
+                <a href="{% url 'employ_profile' %}"><li> <i class="far fa-user"  aria-hidden="true" style="font-weight:800">&nbsp;<span>Profile</span></i>
+                    </li></a>
+                    <a href="{% url 'employ_upload_photo' %}"><li> <i class="far fa-user"  aria-hidden="true" style="font-weight: 800;">&nbsp;<span>Upload Photo</span></i>
+                    </li></a>
+                    {% if checkcheckin and not checkcheckout %}
+                    <a href="#logoutpop" class="trigger-btn" data-toggle="modal"><li><i class="fas fa-sign-out-alt" aria-hidden="true"> Logout</i>
+                    </li></a>
+                    
+                    {% else %}
+                    <a href="/logout_user"><li><i class="fas fa-sign-out-alt" aria-hidden="true"> Logout</i>
+                    </li></a>
+                           {% endif %}
+                    
+                  </ul>
+              </li>
+           
+           
+        </ul>
+        
+            
+            
+        <div id="menuToggle" class="toggle-menu  {% if mem_role == 'HR' and mem_hroptions == 1 %}toggle-menu-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}toggle-menu-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}toggle-menu-employee-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}toggle-menu-employee-tm {% endif %} ">
+          <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+              </div>
+     
+          </div>
+
+          <div id="logoutpop" class="modal fade">
+            <div class="modal-dialog modal-confirm">
+              <div class="modal-content">
+                <div class="modal-header flex-column">
+                  <div class="icon-box">
+                    <i class="material-icons">&#xE5CD;</i>
+                  </div>						
+                  <h4 class="modal-title w-100">Are you sure?</h4>	
+                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                  <p>Do you really want to Logout? Your Not CheckedOuted it Should be Consider as Absent .</p>
+                </div>
+                <div class="modal-footer justify-content-center">
+                  <a href="/logout_user"><button class="btn btn-danger">LogOut</button></a>
+                  <a href="/calendar/"><button class="btn btn-primary">CheckOut</button></a>         
+                </div>
+              </div>
+            </div>
+          </div> 
+          
+         
+          <div class="main">
+             
+            
+            <div id="sideMenu" class="side-menu {% if mem_role == 'HR' and mem_hroptions == 1 %}side-menu-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}side-menu-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}side-menu-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}side-menu-tm{% endif %}"
+
+            {% if mem_role == 'HR' and mem_hroptions == 1 %}
+            style="background-color: #974ec3 !important;"
+            {% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}
+            style="background-color: #007880 !important;"
+            {% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}
+            style="background-color: #ff6673 !important;"
+            {% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}
+            style="background-color: #4d67ab !important;"
+             {% endif %} >
+              
+              <div class="mobile-search" style="height:110px">
+                {% if a.logo %}
+                <img src="/media/{{a.logo}}"style="width: 230px;height: 100px; position:fixed;margin-top:12px;">
+                {% endif %}  
+                </div>
+          
+          
+              <div class="menu-items" style="flex: 1;overflow-y: auto;">
+                <ul class="list-unstyled components" style="width: fit-content;height: fit-content;display:in">
+                {% for i in s %}
+                <li>
+                    <a  href="{{ i.url }}">
+                        <i class="{{i.icon}}" >
+                        <span class="nav-text" style="width: fit-content;height: fit-content;">
+                            <b>{{i.name}}</b>
+                         </span></i>
+                        
+                    </a>
+                  
+                </li>
+                <!-- <li>
+                  <a  href="{{ i.url }}">
+                      <i class="{{i.icon}}" aria-hidden="true"></i>&nbsp;&nbsp;
+                      <span class="nav-text">
+                          {{i.name}}
+                       </span>
+                      
+                  </a>
+                
+              </li>  -->
+                {% endfor %}
+                <ul class="list-unstyled components" style="width:250px; height:fit-content;">
+                  {% if cef %}
+                    {% for i in  cef_url %}
+                    <li>
+                        <a  href="{{ i.url }}">
+                            <i class="{{i.icon}}" aria-hidden="true" style="color: #fff;"></i>&nbsp;&nbsp;
+                            <span class="nav-text" style="color: #fff;">
+                                {{i.name}}
+                            </span>
+                            
+                        </a>
+                      
+                    </li>
+                    {% endfor %}
+                  {% endif %}
+                </ul>
+      
+           
+                {% if data.hroptions == 1 %}
+
+                <ul class="list-unstyled components">
+                  {% for admin_drop in admin_drops %}
+                      {% if admin_drop.subdrop.exists %}
+                      <li style="width:fit-content;height: fit-content;">
+                          <a class="menu-link" role="button" data-toggle="dropdown" href="#">
+                              {{ admin_drop.name }}
+                              <i class="fa fa-caret-down" aria-hidden="true"></i>
+                          </a>
+                          <ul class="menu-child" style="list-style: none; display: none;width:fit-content;height:fit-content;" aria-labelledby="navbarDropdown">
+                              {% for subdrop in admin_drop.subdrop.all %}
+                              <li><a href="{{ subdrop.url }}" style="width: fit-content;height: fit-content;">{{ subdrop.name }}</a></li>
+                              {% endfor %}
+                          </ul>
+                      </li>
+                      {% else %}
+                      <li style="width:fit-content;height:fit-content">
+                          <a href="{{ admin_drop.url }}">{{ admin_drop.name }}</a>
+                      </li>
+                      {% endif %}
+                  {% endfor %}
+                  </ul>
+                  
+
+    <script>
+      // Add a click event listener to each menu item with a submenu
+      const menuLinks = document.querySelectorAll(".menu-link");
+      menuLinks.forEach(function (link) {
+          link.addEventListener("click", function (event) {
+              event.preventDefault(); // Prevent the default link behavior
+              toggleSubNav(link);
+          });
+      });
+  
+      // Function to toggle subnav dropdown
+      function toggleSubNav(element) {
+          const subNav = element.nextElementSibling;
+          if (subNav.style.display === "block") {
+              subNav.style.display = "none";
+          } else {
+              subNav.style.display = "block";
+          }
+      }
+  </script>
+      
+    <script>
+    
+        function toggleResponsiveMenu() {
+            const menu = document.getElementById("responsiveMenu");
+            menu.classList.toggle("responsive");
+        }
+        
+        // Attach the event listener to the hamburger icon that triggers the responsive menu toggle
+        const toggleButton = document.getElementById("toggleButton");
+        toggleButton.addEventListener("click", toggleResponsiveMenu);
+        </script>
+    
+    {% else %}
+    
+    {% endif %}
+
+    {% if data.projectmanagerop == 1 %}
+    <ul class="list-unstyled components">
+      {% for admin_drop in projects_drops %}
+          {% if admin_drop.subdrop.exists %}
+          <li style="width:fit-content;height: fit-content;">
+              <a class="menu-link1" role="button" data-toggle="dropdown" href="#">
+                  {{ admin_drop.name }}
+                  <i class="fa fa-caret-down" aria-hidden="true"></i>
+              </a>
+
+              <ul class="menu-child" style="list-style: none; display: none;width:fit-content;height:fit-content;" aria-labelledby="navbarDropdown">
+                {% for subdrop in admin_drop.subdrop.all %}
+                {% if palnid == "1" %}
+                {% if subdrop.show1 == 1 %}
+                <li><a href="{{ subdrop.url }}" style="width: fit-content;height: fit-content;">{{ subdrop.name }}</a></li>
+                {% endif %}
+                {% elif palnid == "2" %}
+                {% if subdrop.show2 == 1 %}
+                <li><a href="{{ subdrop.url }}" style="width: fit-content;height: fit-content;">{{ subdrop.name }}</a></li>
+                {% else %}
+                {% endif %}
+                {% elif palnid == "3" %}
+                {% if subdrop.show3 == 1 %}
+                <li><a href="{{ subdrop.url }}" style="width: fit-content;height: fit-content;">{{ subdrop.name }}</a></li>
+                {% endif %}
+                {% else %}
+                <li><a href="{{ subdrop.url }}" style="width: fit-content;height: fit-content;">{{ subdrop.name }}</a></li>
+                {% endif %}
+                {% endfor %}
+            </ul>
+          </li>
+          {% else %}
+          <li style="width:fit-content;height:fit-content">
+              <a href="{{ admin_drop.url }}">{{ admin_drop.name }}</a>
+          </li>
+          {% endif %}
+      {% endfor %}
+      </ul>
+      
+
+<script>
+// Add a click event listener to each menu item with a submenu
+const menuLinks1 = document.querySelectorAll(".menu-link1");
+menuLinks1.forEach(function (link) {
+link.addEventListener("click", function (event) {
+  event.preventDefault(); // Prevent the default link behavior
+  toggleSubNav(link);
+});
+});
+
+// Function to toggle subnav dropdown
+function toggleSubNav(element) {
+const subNav = element.nextElementSibling;
+if (subNav.style.display === "block") {
+  subNav.style.display = "none";
+} else {
+  subNav.style.display = "block";
+}
+}
+</script>
+
+<script>
+
+function toggleResponsiveMenu() {
+const menu = document.getElementById("responsiveMenu");
+menu.classList.toggle("responsive");
+}
+
+// Attach the event listener to the hamburger icon that triggers the responsive menu toggle
+const toggleButton = document.getElementById("toggleButton");
+toggleButton.addEventListener("click", toggleResponsiveMenu);
+</script>
+    {% endif %}
+              </div>
+            </div>
+          
+            <div class="content  {% if mem_role == 'HR' and mem_hroptions == 1 %}content-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}content-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}content-employee-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}content-employee-tm {% endif %}" >
+              {% block main_content %}{% endblock main_content %}
+            {% block content %}
+              
+            {% endblock %}
+            </div>
+          
+          
+         
+            <style>
+              .list-unstyled.components li.active {
+                 background-color: #000;
+    
+              }
+              .list-unstyled-hr.components li.active {
+                background-color: #000;
+   
+               }
+               .list-unstyled-manager.components li.active {
+                background-color: #482121;
+   
+              }
+
+              .list-unstyled-tl.components li.active {
+                background-color: blue;
+   
+              }
+              .list-unstyled-tm.components li.active {
+                background-color: orange;
+   
+              }
+
+
+              
+          </style> 
+
+
+<script>
+  window.onpageshow = function(event) {
+      if (event.persisted) {
+          window.location.reload();
+      }
+  };
+</script>
+
+    </body>
+    <script>
+    
+        function toggleResponsiveMenu() {
+            const menu = document.getElementById("responsiveMenu");
+            menu.classList.toggle("responsive");
+        }
+        
+        // Attach the event listener to the hamburger icon that triggers the responsive menu toggle
+        const toggleButton = document.getElementById("toggleButton");
+        toggleButton.addEventListener("click", toggleResponsiveMenu);
+        </script>
+    
+   
+      <script>
+
+        const subMenus = document.querySelectorAll('.sub-menu');
+      
+        subMenus.forEach(subMenu => {
+          subMenu.parentNode.addEventListener('click', () => {
+            subMenu.style.display = subMenu.style.display === 'block' ? 'none' : 'block';
+          });
+        });
+        document.addEventListener('click', function(event) {
+    const dropdown = document.querySelector('.sub-menu');
+    const userIcon = document.querySelector('.user-icon');
+
+    // Check if the clicked element is not the user icon or within the dropdown
+    if (!userIcon.contains(event.target) && !dropdown.contains(event.target)) {
+        dropdown.style.display = 'none';
+    }
+});
+      </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        const toggleMenu = document.getElementById("menuToggle");
+        const sideMenu = document.getElementById("sideMenu");
+        const content = document.querySelector(".content");
+        const bars = document.querySelectorAll(".bar");
+        const menuItems = document.querySelectorAll(".menu-items .item");
+    
+        toggleMenu.addEventListener("click", () => {
+          sideMenu.classList.toggle("resize");
+          content.classList.toggle("resize");
+          toggleMenu.classList.toggle("active");
+    
+          bars.forEach((bar) => {
+            bar.classList.add("anim-bar");
+            setTimeout(() => {
+              bar.classList.remove("anim-bar");
+            }, 1000);
+          });
+        });
+    
+        function closeSideMenu() {
+          sideMenu.classList.remove("resize");
+          content.classList.remove("resize");
+          toggleMenu.classList.remove("active");
+          bars.forEach(bar => bar.classList.remove("anim-bar"));
+        }
+    
+        // Event listener for menu item clicks
+        menuItems.forEach(function (item) {
+          item.addEventListener("click", function (event) {
+            event.preventDefault(); // Prevent the default link behavior
+    
+            menuItems.forEach(function (item) {
+              item.classList.remove("active");
+            });
+    
+            this.classList.add("active");
+          });
+        });
+    
+        // Function to handle initial and resize window width
+        function handleWindowResize() {
+          const newWindowWidth = $(window).width();
+          if (newWindowWidth < 481) {
+            
+            // For small screens
+            $(document).on("click", function(event) {
+              const target = event.target;
+              if (!sideMenu.contains(target) && target !== toggleMenu) {
+                closeSideMenu();
+              }
+            });
+          } else {
+            // For larger screens
+            $(document).off("click");
+            setTimeout(() => {
+          sideMenu.classList.add("resize");
+          content.classList.add("resize");
+          toggleMenu.classList.add("active");
+          bar.classList.add("anim-bar");
+
+          });
+          }
+        }
+    
+        handleWindowResize();
+    
+        $(window).resize(function() {
+          handleWindowResize();
+        });
+      });
+    </script>
+
+<script>
+  document.querySelector('.toggle-submenu').addEventListener('click', function (e) {
+      e.preventDefault(); // Prevent the link from navigating
+      const submenu = this.parentElement.querySelector('.sub-menu');
+      submenu.classList.toggle('active');
+  });
+</script>
+
+  <script>
+  $(document).ready(function() {
+      var currentUrl = window.location.pathname;
+  
+      $('.list-unstyled.components li a').each(function() {
+          var menuItemUrl = $(this).attr('href');
+          if (currentUrl.indexOf(menuItemUrl) === 0) {
+              $(this).closest('li').addClass('active');
+          }
+      });
+  });
+  </script>
+
+
+
+<!-- <script>
+  function refreshPage() {
+      location.reload();
+  }
+
+window.addEventListener('pageshow', function(event) {
+var messagesExist = document.querySelector('.danger') || document.querySelector('.success');
+
+if (sessionStorage.getItem('refreshed')) {
+sessionStorage.removeItem('refreshed'); 
+}
+else if(messagesExist){
+setTimeout(refreshPage, 5000); 
+
+}
+else {
+sessionStorage.setItem('refreshed', 'true'); 
+refreshPage();
+}
+});
+</script> -->
+
+{{ inline_view }}
+    </html>

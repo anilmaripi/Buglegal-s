@@ -1,0 +1,841 @@
+{% extends 'admin-template/base_template.html' %}
+{% block main_content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leave Configuration</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr@4.6.9/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.5.0/dist/css/bootstrap.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.9/dist/flatpickr.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1e2442;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        label {
+            font-size: 20px;
+            display: block;
+            margin-top: 5px;
+        }
+
+         
+        select {
+            width: 90%;
+            padding: 10px;
+            font-size: 20px;
+            background-color: #393f5c;
+            color: white;
+            border: none;
+            margin-top: 5px;
+        }  
+ 
+        table {
+            width: 100%; 
+            border-collapse: collapse;
+            margin-top: 1px; 
+        }
+
+        th, td {
+            text-align: center;
+            padding: 10px;
+        }
+
+        th {
+            background-color: #323a5f;
+            font-size: 18px;
+            height:50px;
+        }
+
+        td {
+            background-color: #242b4d;
+            font-size: 16px;
+            height:60px;
+        }
+
+        @media (max-width: 768px) {
+        .container {
+            position: sticky;
+            top: 0;
+            background-color: #1e2442;
+            z-index: 2;
+        }
+    }
+
+            table {
+                font-size: 14px; /* Decrease font size for smaller screens */
+                overflow-x: auto; /* Add horizontal scrollbar if necessary */
+            }
+
+            /* Correctly combine styles for mobile */
+            div[style*="margin-bottom:200%;"] {
+                margin-bottom: 200%;
+            }
+
+            /* Adjust the margin in the btn-container */
+            .btn-container {
+                text-align: center;
+                margin-top: 20px;
+                margin-right: 0; /* Remove right margin */
+            }
+      
+       table {
+            width: 90%; /* Make the table take up full width on small screens */
+            font-size: 16px; /* Adjust font size for smaller screens */
+        } 
+
+        table th, table td {
+            padding: 2px; /* Reduce cell padding for smaller screens */
+        } 
+
+        table th {
+            font-size: 18px; /* Increase header font size for readability */
+        } 
+
+      
+    #customHolidaysTable thead {
+        position: responsive;
+        top: 0;
+        background-color: #323a5f;
+        z-index: 1;
+    }
+    
+    /* Adjust other table styles for readability on small screens */
+    #customHolidaysTable {
+        width: 100%;
+        font-size: 6px;
+    }
+    
+    #customHolidaysTable th, #customHolidaysTable td {
+        padding: 5px;
+    }
+    
+    #customHolidaysTable th {
+        font-size: 18px;
+    }
+     .responsive-table {
+        width: 90%; /* Make the table take up full width on small screens */
+        font-size: 16px; /* Adjust font size for smaller screens */
+        table-layout: auto; /* Allow table to adjust its layout */
+        border-collapse: collapse; /* Collapse borders for a cleaner look */
+    }
+    
+    /* Decrease cell padding for smaller screens */
+    .responsive-table th,
+    .responsive-table td {
+        padding: 5px;
+    }
+    
+    /* Increase header font size for readability */
+    .responsive-table th {
+        font-size: 18px; 
+    }
+    
+    /* Hide labels for input fields on small screens */
+    .responsive-table input[type="text"] {
+        margin-left: 0;
+        width: 90%;
+    }
+    
+    /* Center-align text for table cells on small screens */
+    .responsive-table td {
+        text-align: center;
+    }
+    
+    /* Add horizontal scrollbar if necessary */
+    .table-container {
+        max-width: 10%; /* Ensure the container doesn't overflow its parent */
+    }
+    label {
+        font-size: 25px;
+    }
+
+    table {
+        width: 90%;
+    }
+
+    th, td {
+        text-align: center;
+        padding: 8px;
+    }  
+    @media (max-width: 768px) {
+        table {
+            width: 80%;
+        }
+
+        th, td {
+            white-space: nowrap;
+            text-align: left;
+        }
+
+        /* Set a specific width for the Sat5 column */
+        td:nth-child(6) {
+            width: 50px; /* Adjust the width as needed */
+        }
+    }   
+   
+
+    </style>
+</head>
+<body>
+    <div class="container  mt-4  mb-3">
+        <form method="POST" action="{% url 'update_leave' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <h3 class="text-center text-dark"><b>Attendance, Leave & Holidays</b></h3> <br>
+
+            <label for="attendanceenabled" class="mt-3 text-dark">Attendance Enabled?</label>
+            <select name="attendanceenabled" id="attendanceenabled">
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select><br><br><br>
+       <div id="contentToToggle">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="EnabledAttendance" value="yes">
+                            Enable attendance for contractors
+                        </label>
+                  
+                     
+                    
+                    <label style="font-size:25px; color: black;">Weekend</label>
+                    <table>
+                        <tr>
+                            <th>Mon</th>
+                            <th>Tue</th>
+                            <th>Wed</th>
+                            <th>Thu</th>
+                            <th>Fri</th>
+                            <th>Sat</th>
+                        </tr>
+                        <tr>
+                           
+                        
+                            {% if checkvalue.mon == 1 %}
+                            <td><input type="checkbox" name="mon" value="1" class="ch" checked></td>
+                            {% else %}
+                            <td><input type="checkbox" name="mon" value="1" class="ch" ></td>
+                            {% endif %}
+                            {% if checkvalue.tue == 1 %}
+                            <td><input type="checkbox" name="tue" value="1" class="ch" checked></td>
+                            {% else %}
+                            <td><input type="checkbox" name="tue" value="1" class="ch" ></td>
+                            {% endif %}
+                            {% if checkvalue.web == 1 %}
+                            <td><input type="checkbox" name="web" value="1" class="ch" checked></td>
+                            {% else %}
+                            <td><input type="checkbox" name="web" value="1" class="ch" ></td>
+                            {% endif %}
+                            {% if checkvalue.thu == 1 %}
+                            <td><input type="checkbox" name="thu" value="1" class="ch" checked></td>
+                            {% else %}
+                            <td><input type="checkbox" name="thu" value="1" class="ch" ></td>
+                            {% endif %}
+                            {% if checkvalue.fri == 1 %}
+                            <td><input type="checkbox" name="fri" value="1" class="ch" checked></td>
+                            {% else %}
+                            <td><input type="checkbox" name="fri" value="1" class="ch" ></td>
+                            {% endif %}
+                            {% if checkvalue.alsat == 1 %}
+                            <td><input type="checkbox" name="alsat" value="1" class="ch" checked></td>
+                            {% else %}
+                            <td><input type="checkbox" name="alsat" value="1" class="ch" ></td>
+                            {% endif %}
+                        </tr>
+                        <tr>
+                            <th>Sunday</th>
+                            <th>Sat1</th>
+                            <th>Sat2</th>
+                            <th>Sat3</th>
+                            <th>Sat4</th>
+                            <th>Sat5</th>
+                        </tr>
+                        <tr>
+                            {% if checkvalue.sun == 1 %}
+                            <td><input type="checkbox" name="sun" value="1" class="ch" checked></td>
+                            {% else %}
+                            <td><input type="checkbox" name="sun" value="1" class="ch" ></td>
+                            {% endif %}
+                            {% if checkvalue.sat1 == 1 %}
+                            <td><input type="checkbox" name="sat1" value="1" class="ch" checked ></td>
+                            {% else %}
+                            <td><input type="checkbox" name="sat1" value="1" class="ch" ></td>
+                            {% endif %}
+                            {% if checkvalue.sat2 == 1 %}
+                            <td><input type="checkbox" name="sat2" value="1" class="ch" checked ></td>
+                            {% else %}
+                            <td><input type="checkbox" name="sat2" value="1" class="ch" ></td>
+                          {% endif%}
+                          {% if checkvalue.sat3 == 1%}
+                            <td><input type="checkbox" name="sat3" value="1" class="ch" checked></td>
+                            {% else %}
+                            <td><input type="checkbox" name="sat3" value="1" class="ch" ></td>
+                            {% endif %}
+                            {% if checkvalue.sat4 == 1 %}
+                            <td><input type="checkbox" name="sat4" value="1" class="ch" checked></td>
+                            {% else %}
+                            <td><input type="checkbox" name="sat4" value="1" class="ch" ></td>
+                            {% endif %}
+                            {% if checkvalue.sat5 == 1 %}
+                            <td><input type="checkbox" name="sat5" value="1" class="ch" checked ></td>
+                            {% else %}
+                            <td><input type="checkbox" name="sat5" value="1" class="ch" ></td>
+                            {% endif %}
+                        </tr>
+                    </table><br><br>
+                                    
+                    <label for="typesOfLeavesTable" style="color: black;">Types of leaves (please read <a href="/hom34/">our FAQ</a> before setting this up)</label>
+
+                    <div class="table-responsive">
+                        <table id="typesOfLeavesTable">
+                            <thead>
+                                <tr style="text-align: left; background-color: #323a5f; font-size: 20px; height:70px;">
+                                    <th>Type</th>
+                                    <th>Default leave</th>
+                                    <th>Monthly Increment</th>
+                                    <th>Max Leave</th>
+                                    <!-- <th>Carry Forward</th> -->
+                                </tr>
+                            </thead>
+                            <tbody style="text-align: left; font-size: 18px;">
+                                {% if levid1 %}
+                                  {% for i in levid1 %}
+                                <tr>
+                                    <td><input type="text" name="type" value="{{i.type}}" style="width: 200px; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="number" name="defaultleave" value="{{i.defaultleave}}"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <!-- <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td> -->
+                                    <td><input type="hidden" name="leave_id" value="1"></td>
+                                </tr>
+                                {% endfor %}
+                                {% else %}
+                                <tr>
+                                    <td><input type="text" name="type" value="{{i.type}}" style="width: 200px; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="number" name="defaultleave" value="{{i.defaultleave}}"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <!-- <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td> -->
+                                    <td><input type="hidden" name="leave_id" value="1"></td>
+                                </tr>
+                                {% endif %}
+                    {% if levid2 %}
+                               {% for i in levid2 %}
+                                <tr>
+                                    <td><input type="text" name="type" value="{{i.type}}" style="width: 200px; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="number" name="defaultleave" value="{{i.defaultleave}}"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <!-- <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td> -->
+                                    <td><input type="hidden" name="leave_id" value="2"></td>
+                                </tr>
+                                {% endfor %}
+                                {% else %}
+                                <tr>
+                                    <td><input type="text" name="type" placeholder="eg.Medical leave" style="width: 200px; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="number" name="defaultleave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <!-- <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td> -->
+                                    <td><input type="hidden" name="leave_id" value="2"></td>
+                                </tr>
+                                {% endif %}
+                    {% if levid3 %}
+                               {% for i in levid3 %}
+                                <tr>
+                                    <td><input type="text" name="type" value="{{i.type}}" style="width: 200px; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="number" name="defaultleave" value="{{i.defaultleave}}"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <!-- <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td> -->
+                                    <td><input type="hidden" name="leave_id" value="3"></td>
+                                </tr>
+                                {% endfor %}
+                                {% else %}
+                                <tr>
+                                    <td><input type="text" name="type" value="{{i.type}}" placeholder="eg.Earned leave" style="width: 200px; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="number" name="defaultleave" value="{{i.defaultleave}}"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <!-- <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td> -->
+                                    <td><input type="hidden" name="leave_id" value="3"></td>
+                                </tr>
+                                {% endif %}
+                                {% if levid4 %}
+                                {% for i in levid4 %}
+                                <tr>
+                                    <td><input type="text" name="type" placeholder="eg.Restricted Holiday" value="{{i.type}}" style="width: 200px; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="number" name="defaultleave"value="{{i.defaultleave}}"   style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <!-- <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td> -->
+                                    <td><input type="hidden" name="leave_id" value="4"></td>
+                                </tr>
+                                {% endfor %}
+                                {% else %}
+                                <tr>
+                                    <td><input type="text" name="type" placeholder="eg.Restricted Holiday"  style="width: 200px; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="number" name="defaultleave"value="{{i.defaultleave}}"   style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <!-- <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td> -->
+                                    <td><input type="hidden" name="leave_id" value="4"></td>
+                                </tr>
+                                {% endif %}
+                                {% if levid6 %}
+                                {% for i in levid5 %}
+                                <tr>
+                                    <td><input type="text" name="type" value="{{i.type}}" placeholder="eg.Special Leave" style="width: 200px; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="number" name="defaultleave"value="{{i.defaultleave}}"   style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <!-- <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td> -->
+                                    <td><input type="hidden" name="leave_id" value="5"></td>
+                                </tr>
+                                {% endfor %}
+                                {% else %}
+                                <tr>
+                                    <td><input type="text" name="type" value="{{i.type}}" placeholder="eg.Special Leave" style="width: 200px; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="number" name="defaultleave"value="{{i.defaultleave}}"   style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <!-- <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td> -->
+                                    <td><input type="hidden" name="leave_id" value="5"></td>
+                                </tr>
+                                {% endif %}
+                                {% if levid6 %}
+                                {% for i in levid6 %}
+                                <tr>
+                                    <td><input type="text" name="type" value="{{i.type}}" placeholder=" eg.Compensatory Office" style="width: 200px; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="number" name="defaultleave" value="{{i.defaultleave}}"   style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <!-- <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td> -->
+                                    <td><input type="hidden" name="leave_id" value="6"></td>
+                                </tr>
+                                {% endfor %}
+                                {% else %}
+                                <tr>
+                                    <td><input type="text" name="type" placeholder=" eg.Compensatory Office" style="width: 200px; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="number" name="defaultleave"    style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <!-- <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td> -->
+                                    <td><input type="hidden" name="leave_id" value="6"></td>
+                                </tr>
+                                {% endif %}
+                           
+                           {% if levid7 %}
+                           {% for i in levid7 %}
+                                <tr>
+                                    <td><input type="text" name="type" value="{{i.type}}" placeholder="eg.Optional Leave" style="width: 200px; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="number" name="defaultleave" value="{{i.defaultleave}}"   style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <!-- <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td> -->
+                                    <td><input type="hidden" name="leave_id" value="7"></td>
+                                </tr>
+                                {% endfor %}
+                                {% else %}
+                                <tr>
+                                    <td><input type="text" name="type" value="{{i.type}}" placeholder="eg.Optional Leave" style="width: 200px; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="number" name="defaultleave" value="{{i.defaultleave}}"   style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <!-- <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td> -->
+                                    <td><input type="hidden" name="leave_id" value="7"></td>
+                                </tr>
+                                {% endif %}
+                               
+                             {% if levid8 %}
+                             {% for i in levid8 %}
+                                <tr>
+                                    <td><input type="text" name="type" value="{{i.type}}" placeholder="eg.Adoption Leave" style="width: 200px; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="number" name="defaultleave"value="{{i.defaultleave}}"   style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <!-- <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td> -->
+                                    <td><input type="hidden" name="leave_id" value="8"></td>
+                                </tr>
+                                {% endfor %}
+                                {% else %}
+                                <tr>
+                                    <td><input type="text" name="type" value="{{i.type}}" placeholder="eg.Adoption Leave" style="width: 200px; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="number" name="defaultleave"value="{{i.defaultleave}}"   style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <!-- <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td> -->
+                                    <td><input type="hidden" name="leave_id" value="8"></td>
+                                </tr>
+                                {% endif %}
+                            {% if levid9 %}
+                            {% for i in levid9 %}
+                                <tr>
+                                    <td><input type="text" name="type" placeholder="eg.Annual Leave" value="{{i.type}}" style="width: 200px; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="number" name="defaultleave" value="{{i.defaultleave}}"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <!-- <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td> -->
+                                    <td><input type="hidden" name="leave_id" value="9"></td>
+                                </tr>
+                                {% endfor %}
+                                {% else %}
+                                <tr>
+                                    <td><input type="text" name="type" placeholder="eg.Annual Leave" style="width: 200px; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="number" name="defaultleave"   style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <!-- <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td> -->
+                                    <td><input type="hidden" name="leave_id" value="9"></td>
+                                </tr>
+                                {% endif %}
+                                {% if levid10 %}
+                                {% for i in levid10 %}
+                                <tr>
+                                    <td><input type="text" name="type" placeholder="eg.Bereavement Leave" value="{{i.type}}" style="width: 200px; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="number" name="defaultleave" value="{{i.defaultleave}}"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <!-- <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td> -->
+                                    <td><input type="hidden" name="leave_id" value="10"></td>
+                                </tr>
+                                {% endfor %}
+                                {% else %}
+                                <tr>
+                                    <td><input type="text" name="type" placeholder="eg.Bereavement Leave" style="width: 200px; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="number" name="defaultleave"   style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <!-- <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td> -->
+                                    <td><input type="hidden" name="leave_id" value="10"></td>
+                                </tr>
+                                {% endif %}
+                                {% if levid11 %}
+                                {% for i in levid11 %}
+                                <tr>
+                                    <td><input type="text" name="type" placeholder="eg.Wellness Leave" value="{{i.type}}" style="width: 200px; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="number" name="defaultleave" value="{{i.defaultleave}}"   style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <!-- <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td> -->
+                                    <td><input type="hidden" name="leave_id" value="11"></td>
+                                </tr>
+                                {% endfor %}
+                                {% else %}
+                                <tr>
+                                    <td><input type="text" name="type" placeholder="eg.Wellness Leave" style="width: 200px; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="number" name="defaultleave"   style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <!-- <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td> -->
+                                    <td><input type="hidden" name="leave_id" value="11"></td>
+                                </tr>
+                                {% endif %}
+                                {% if levid12 %}
+                                {% for i in levid12 %}
+                                <tr>
+                                    <td><input type="text" name="type"placeholder="eg.Tenure" value="{{i.type}}" style="width: 200px; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="number" name="defaultleave"value="{{i.defaultleave}}"   style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <!-- <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td> -->
+                                    <td><input type="hidden" name="leave_id" value="12"></td>
+                                </tr>
+                                {% endfor %}
+                                {% else %}
+                                <tr>
+                                    <td><input type="text" name="type"placeholder="eg.Tenure" style="width: 200px; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="number" name="defaultleave"   style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td>
+                                    <!-- <td><input type="text" name="Casual Leave"  style="width: 90%; font-size: 18px; background-color: #393f5c; color: white; padding: 5px;"></td> -->
+                                    <td><input type="hidden" name="leave_id" value="12"></td>
+                                </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                    
+
+                     <br>
+                     {% if halfreason.halfdaylev == 1 %}
+                     <input type="checkbox" value="1" name="halfdaylev" class="ch"checked><b style="color: black;">Allow half-day leave requests</b> <br> <br>
+                     {% else %}
+                     <input type="checkbox" value="1" name="halfdaylev" class="ch"><b style="color: black;">Allow half-day leave requests</b> <br> <br>
+                     {% endif %}
+                     {% if halfreason.reason1 == 1 %}
+                     <input type="checkbox" value="1" name="reason1" class="ch" checked><b style="color: black;">Employees must enter a remark when applying for leave/half day</b> <br>
+                     {% else %}
+                     <input type="checkbox" value="1" name="reason1" class="ch"><b style="color: black;">Employees must enter a remark when applying for leave/half day</b> <br>
+                     {% endif %}
+                    
+                <br> <br>
+
+                    <label for="trackShiftsCheckbox" style="color:black">Shifts</label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" style="display: none; color: black;" id="trackShiftsCheckbox" name="field_d_data" onclick="toggleShiftTimings()">
+                        Track Shift Timings
+                    </label>
+                
+                    <!-- <div id="shiftTimingsDiv" style="display: none;"> -->
+                        <div id="shiftTimingsDiv" style="display: {% if shift_tim %} block {% else %} none {% endif %}"></div>
+                        <label style="font-size: 18px; color: black;">Default Shift Timing (in 12-Hours format, e.g., 8Am is 5Pm)</label>
+                        <table>
+                            <tbody>
+                            <tr>
+                                <label for="action" style="color: black;">Select Action:</label>
+ 
+
+    <div style="padding: 20px; background-color: #323a5f; width: 100%; display: flex; align-items: center;">
+        <input type="time" name="starting_time"value="00:00" placeholder="Starting-Time" style="height: 8%; width: 35%; font-size: large; background-color: #393f5c; color: white;">&nbsp
+        <input type="time" name="ending_time"value="00:00"  placeholder="Ending-Time" style="height: 8%; width: 35%; font-size: large; background-color: #393f5c; color: white; margin-left: 10px;">
+        <input type="text" id="myInput" name="shift_name" placeholder="Enter Shift Name" style="height: 8%; font-size: large; width: 30%; background-color: #393f5c; color: white; text-align: center; margin-left: 10px;">
+    </div>
+                            </tr>
+                        </tbody>
+                    </table> <br>
+                    <label style="font-size:18px; color: black;">Grace period For Check In in (minutes)</label>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <input type="number" name="cutoff_time"  value="2" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==3) return false;" style="height:7%; font-size:large; width:40%; background-color:#393f5c;color:white;">
+                            </tr>
+                        </tbody>
+                    </table> <br>
+                    <label style="font-size:18px; color: black;">Checkin starts before shift-time  in (minutes)</label>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <input type="number" name="befor_time" value="10" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==3) return false;"    style="height:7%; font-size:large; width:40%; background-color:#393f5c;color:white;">
+                            </tr>
+                        </tbody>
+                    </table> <br>
+                    <label style="font-size:18px; color: black;">CheckOut End Time  in (minutes)</label>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <input type="number" name="extra_time1" value="10" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==3) return false;"    style="height:7%; font-size:large; width:40%; background-color:#393f5c;color:white;">
+                            </tr>
+                        </tbody>
+                    </table> <br>
+
+                    <label style="color: black;">Select a record to Remove:</label>
+                    <table class="table">
+                        <tr  style="text-align: left; background-color: #393f5c; font-size: 20px; height:70px;">
+                    <th>Shift Starting-Time</th>
+                    <th>Shift Ending-Time</th>
+                    <th>Shift Name</th>
+                    <th>Before_Checkin Time in (minutes)</th>
+                    <th>Cutoff Time in (minutes)</th>
+                    <th>Extra Time in (minutes)</th>
+
+                    <th>Remove</th>
+                        </tr>
+                        {% for i in shift_tim %}
+
+                        <tr style="background-color: #ADD8E6; color:black">
+                            <td>
+{{i.starting_time}}
+                            </td>
+                            <td>{{i.ending_time}}</td>
+                            <td>{{i.shift_name}}</td>
+
+                            <td>{{i.cutoff_time}}</td>
+                            <td>{{i.befor_time}}</td>
+                            <td>{{i.extra_time1}}</td>
+                            
+                            <td><a href="{% url 'time_holidaydele' i.id %}">Remove </a></td>
+                        </tr>
+                        {% endfor %}
+
+                    </table>
+            </div><br>
+           <label for="trackShiftsCheckbox" style="color: black;">Organization Holidays</label>
+           <div class="table-responsive">
+            <table class="table w-100" style=" background-color:#323a5f">
+                <tr  style="text-align: left; background-color: #393f5c; font-size: 20px; height:70px;">
+                    <th>Date</th>
+                    <th>Day</th>
+                    <th>Description</th>
+                </tr>
+                {% for holiday_date, holiday_name in indianholidays %}
+                <tr>
+                    <td>   {% if holiday_date in stored_dates %}
+                        <input type="checkbox" name="publicholiday_datecheck_{{ forloop.counter }}" checked >
+                        {% else %}
+                        <input type="checkbox" name="publicholiday_datecheck_{{ forloop.counter }}" >
+                        {% endif %}
+    <input type="hidden" name="publicholiday_date_{{ forloop.counter }}" value="{{ holiday_date.day }}/{{ holiday_date.month }}/{{ holiday_date.year }}"  id="holiday_{{ forloop.counter }}">
+    <input type="hidden"  name="festival_name_{{ forloop.counter }}" value="{{ holiday_name }}"  id="festival_{{ forloop.counter }}">
+    <input type="hidden" name="finding_{{ forloop.counter }}" value="1" id="find_{{ forloop.counter }}">
+                        {{ holiday_date.day }}/{{ holiday_date.month }}/{{ holiday_date.year }}
+                    </td>
+                    <td>{{ holiday_date|date:"l" }}</td>
+                    <td>{{ holiday_name }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+
+        </div>
+
+            <div style="background-color: #2d3354; width:50%; font-size:25px;">*indicates required fields
+
+            </div>
+            <label style="font-size: 25px;" class="mt-3 text-dark">Add Custom Holidays</label>
+            <table>
+                <div style="padding: 10px; background-color: rgb(41, 215, 231); width: 100%; display: flex; align-items: center;margin-bottom:100px; color:black;">
+                  For Applying Custom Holidays Enter Both Date and Description
+                </div>
+            </table><br>
+    
+                    <table id="customHolidaysTable" class="responsive-table  w-100">
+                        <thead style="text-align: center; background-color: #323a5f; font-size: 20px; height: 30%; ">
+                            <tr>
+                                <th>Date</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                         <tbody  style="text-align: center; background-color: #242b4d; font-size: 18%;">
+                    
+                            
+                            <tr>
+                                <td>
+                                    <div class="performance-box">
+                                        <input type="date" name="date"  style="height: 40px; font-size: large; width: 100%; background-color: #393f5c; color: white; margin-left: 8px; ;">
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="performance-box">
+                                        <input type="text" name="reason"  style="height: 40px; font-size: large;  background-color: #393f5c; color: white; margin-left: 10px;">
+                                    </div>
+                                </td>
+                            </tr>
+                    
+                            <tr>
+                                <td>
+                                    <div class="performance-box">
+                                        <input type="date" name="date"  style="height: 40px; font-size: large; width: 100%; background-color: #393f5c; color: white; margin-left: 8px;">
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="performance-box">
+                                        <input type="text" name="reason"  style="height: 40px; font-size: large;  background-color: #393f5c; color: white; margin-left: 10px; ">
+                                    </div>
+                                </td>
+                            </tr>
+            
+                            <tr>
+                                <td>
+                                    <div class="performance-box">
+                                        <input type="date" name="date"  style="height: 40px; font-size: large; width: 100%; background-color: #393f5c; color: white; margin-left: 8px;">
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="performance-box">
+                                        <input type="text" name="reason"  style="height: 40px; font-size: large;  background-color: #393f5c; color: white; margin-left: 10px;">
+                                    </div>
+                                </td>
+                            </tr>
+            
+                            <tr>
+                                <td>
+                                    <div class="performance-box">
+                                        <input type="date" name="date"  style="height: 40px; font-size: large;width: 100%;  background-color: #393f5c; color: white; margin-left: 8px;">
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="performance-box" >
+                                        <input type="text" name="reason"  style="height: 40px; font-size: large; background-color: #393f5c; color: white; margin-left: 10px;">
+                                    </div>
+                                </td>
+                            </tr>
+            
+                            <tr>
+                                <td>
+                                    <div class="performance-box" >
+                                        <input type="date" name="date"  style="height: 40px; font-size: large; width: 100%; background-color: #393f5c; color: white; margin-left: 8px;">
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="performance-box">
+                                        <input type="text" name="reason"  style="height: 40px; font-size: large;  background-color: #393f5c; color: white; margin-left: 10px; ">
+                                    </div>
+                                </td>
+                            </tr>
+                        
+                            
+                        </tbody> 
+                    </table><br>
+                    <table class="table" id="custom_data" style=" width:100%; color:white; border:none; padding:10px; width:auto;">
+                        <tr style="text-align:left; background-color:#323a5f; font-size:15px;">
+                        <th>Date</th>
+                        <th>Reason</th>
+                        <th>Remove</th>
+                        </tr>
+                        {% for i in custom_holidays %}
+                        <tr style="text-align:left; background-color:#393f5c; font-size:15px;">
+                            <td>{{i.date}}</td>
+                <td>{{i.reason}}</td>
+                <td><a href="{% url 'custome_holidaydele' i.id %}">Remove </a></td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                    <script>
+                        $(document).ready(function(){
+                           $('#custom_data').hide()
+                           $('#custom_btn').click(function(){
+                            $('#custom_data').toggle()
+                           })
+                        })
+                    </script>                
+
+            <div class="btn-container mt-3" style="margin-right:90%;">
+                <button type="submit" class="btn btn-primary">CONTINUE</button>
+            </div>
+        </form><br><br>
+        <b class="btn btn-primary"  id="custom_btn">Display Custom-holidays</b><br> <br>
+
+
+
+            <script>
+                function toggleShiftTimings() {
+                    var checkbox = document.getElementById("trackShiftsCheckbox");
+                    var shiftTimingsDiv = document.getElementById("shiftTimingsDiv");
+
+                    if (checkbox.checked) {
+                        shiftTimingsDiv.style.display = "block";
+                    } else {
+                        shiftTimingsDiv.style.display = "none";
+                    }
+                }
+            </script>
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const attendanceSelect = document.querySelector('select[name="attendanceenabled"]');
+                    const contentToToggle = document.getElementById('contentToToggle');
+            
+                    attendanceSelect.addEventListener('change', function () {
+                        if (attendanceSelect.value === 'yes') {
+                            contentToToggle.style.display = 'block';
+                        } else {
+                            contentToToggle.style.display = 'none';
+                        }
+                    });
+                });
+            </script>
+            
+    
+</body>
+</html>
+{% endblock main_content %}

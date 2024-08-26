@@ -1,0 +1,197 @@
+{% extends 'admin-template/adminAdashboard.html' %}
+{% block main_content %}
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-...." crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <title>Team Lead List</title>
+</head>
+<style>
+    body {
+          font-family: "Roboto", helvetica, arial, sans-serif;
+          font-size: 16px;
+          font-weight: 400;
+          text-rendering: optimizeLegibility;
+          background-color: #f4f4f4;
+          color: #333;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          /* height: 100vh; */
+          margin: 0;
+          /* margin-top: 360px; */
+      }
+ 
+      .container {
+          background-color: #ffffff;
+          border-radius: 10px;
+          padding: 20px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          max-width: 90%;
+          width: 1000px;
+          margin: 20px auto;
+      }
+  
+      .table {
+          /* margin-top: 20px; */
+          width: 1040px !important; 
+          border-radius: 10px;
+          border: none;
+          border-spacing:0 5px;
+          border-collapse:separate;
+          
+
+          
+          
+      }
+      /* tr{
+          padding-bottom: 10px;
+      } */
+      table td {
+          text-align: center;
+          border-color: none;
+          width: 300px;
+          color:black;
+          
+      }
+     
+      tr:nth-child(even) td {
+          background-color: #f9f9f9;
+      }
+
+      tr:hover td {
+          background-color: #f1f1f1;
+      }
+       
+  
+      th{
+          color:black;
+          padding: 6px;
+          font-size:20px;
+          background-color:white;
+          width: 300px;
+          text-align: center;
+
+      }
+      
+   
+      /* h2{
+          color:black;
+          font-size: xx-large;
+          text-align: center;
+      } */
+
+      h2 {
+          color: #2E294E;
+          text-align: center;
+          margin-bottom: 20px;
+          font-size: 24px;
+      }
+
+      td{
+          max-width: 200px; 
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+      } 
+      
+      th {
+          background-color: #64113F;
+          color: white;
+      }
+
+      td {
+          background-color: #ffffff;
+          color: #333;
+      }
+      button{
+          color:black;
+          background-color: #ECE1;
+          border-radius: 10px;
+      }
+      th, td {
+          padding: 12px 15px;
+          text-align: center;
+          font-size: 16px;
+          border-bottom: 1px solid #ddd;
+      }
+
+  
+      .container-fluid{
+          height: auto;
+          width: auto;
+      }
+      
+
+</style>
+
+<body> <br><br>
+    <div class="container col-md-11">
+
+    <button type="button"  ><a href="/teamlead_form1/" style="border-radius:10px; padding:10px; background-color:#160b61; color:white;">Add new data</a></button><br><br>
+
+    <h2><b>Team Lead List 1</b></h2>
+    
+    
+    <div class="container w-100" style="border-radius: 10px;"><br>
+    
+    <table class="table table-responsive">
+            <tr>
+                <th>Image</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            {% for i in k1 %}
+            <tr>
+                <td><img src="{{i.image2.url}}" alt="{{ project.title }}" style="max-width: 100px; max-height: 100px;"></td>
+                <td>
+                    <a href="/teamlead_edit1/{{i.id}}"><i class="fas fa-edit" style="color:black;" ></i></a> 
+                </td>
+                <td>    
+                    <a href="/teamlead_delete1/{{i.id}}"><i class="fas fa-trash-alt" style="color:red;"></i></a>
+                </td>
+               
+               </tr>
+            {% endfor %}
+    </table></div>
+    
+
+    
+<button type="button"  ><a href="/reg_tl_management/" style="border-radius:10px; padding:10px; background-color:#160b61; color:white;">Add new data</a></button><br><br>
+
+<h2><b>Team Lead List 2</b></h2>
+
+<div class="container w-100" style="border-radius: 10px;"><br>
+    <!-- <h2><b>Project Management List1</b></h2> -->
+<table class="table table-responsive">
+        <tr>
+            <th>Title</th>
+            <th>Content1</th>
+            <th>Content2</th>
+            <th>Image</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        {% for i in k %}
+        <tr>
+            <td>{{i.title1}}</td>
+                <td>{{i.content1}}</td>
+                <td>{{i.content2}}</td>
+            <td><img src="{{i.image1.url}}" alt="{{ project.title }}" style="max-width: 100px; max-height: 100px;"></td>
+            <td>
+                <a href="/edit_tl_management/{{i.id}}"><i class="fas fa-edit" style="color:black;" ></i></a> 
+            </td>
+            <td>    
+                <a href="/delete_tl_management/{{i.id}}"><i class="fas fa-trash-alt" style="color:red;"></i></a>
+            </td>
+           
+           </tr>
+        {% endfor %}
+</table>
+</div>
+</div>
+<br><br>
+</body></html>
+
+{% endblock main_content %}

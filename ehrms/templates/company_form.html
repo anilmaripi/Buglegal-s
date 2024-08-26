@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Register Form</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+    @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body,
+input,
+textarea {
+  font-family: "Poppins", sans-serif;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  padding: 2rem;
+  background-color: #fafafa;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form {
+  width: 100%;
+  max-width: 820px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.contact-form {
+  background-color: #fff;
+  position: relative;
+}
+
+.circle {
+  border-radius: 50%;
+  background: linear-gradient(135deg, transparent 20%, #149279);
+  position: absolute;
+}
+
+.circle.one {
+  width: 130px;
+  height: 130px;
+  top: 130px;
+  right: -40px;
+}
+
+.circle.two {
+  width: 80px;
+  height: 80px;
+  top: 10px;
+  right: 30px;
+}
+
+.contact-form:before {
+  content: "";
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  background-color: #fff;
+  transform: rotate(45deg);
+  top: 50px;
+  left: -13px;
+}
+
+form {
+  padding: 2.3rem 2.2rem;
+  z-index: 10;
+  overflow: hidden;
+  position: relative;
+}
+
+.title {
+  color: black;
+  font-weight: 500;
+  font-size: 1.5rem;
+  line-height: 1;
+  margin-bottom: 0.7rem;
+}
+
+.input-container {
+  position: relative;
+  margin: 1rem 0;
+}
+
+.input {
+  width: 100%;
+  outline: none;
+  border: 2px solid black;
+  background: none;
+  padding: 0.6rem 1.2rem;
+  color: black;
+  font-weight: 500;
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+textarea.input {
+  padding: 0.8rem 1.2rem;
+  min-height: 150px;
+  border-radius: 5px;
+  resize: none;
+  overflow-y: auto;
+}
+
+.input-container label {
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  transform: translateY(-50%);
+  padding: 0 0.4rem;
+  color: black;
+  font-size: 0.9rem;
+  font-weight: 400;
+  pointer-events: none;
+  z-index: 1000;
+  transition: 0.5s;
+}
+
+.input-container.textarea label {
+  top: 1rem;
+  transform: translateY(0);
+}
+
+.btn {
+  padding: 0.6rem 1.3rem;
+  background-color: #32e275;
+  border: 2px solid #13df50;
+  font-size: 0.95rem;
+  color: #fff;
+  line-height: 1;
+  border-radius: 5px;
+  outline: none;
+  cursor: pointer;
+  transition: 0.3s;
+  margin: 0;
+  width: 100%;
+}
+
+.btn:hover {
+  background-color: transparent;
+  color: #a980f5;
+}
+
+.input-container span {
+  position: absolute;
+  top: 0;
+  left: 25px;
+  transform: translateY(-50%);
+  font-size: 0.8rem;
+  padding: 0 0.4rem;
+  color: transparent;
+  pointer-events: none;
+  z-index: 500;
+}
+
+.input-container span:before,
+.input-container span:after {
+  content: "";
+  position: absolute;
+  width: 10%;
+  opacity: 0;
+  transition: 0.3s;
+  height: 5px;
+  background-color: #fff;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.input-container span:before {
+  left: 50%;
+}
+
+.input-container span:after {
+  right: 50%;
+}
+
+.input-container.focus label {
+  top: 0;
+  transform: translateY(-50%);
+  left: 25px;
+  font-size: 0.8rem;
+}
+
+.input-container.focus span:before,
+.input-container.focus span:after {
+  width: 50%;
+  opacity: 1;
+}
+
+.contact-info {
+  padding: 2.3rem 2.2rem;
+  position: relative;
+}
+
+.contact-info .title {
+  color: black;
+}
+
+.text {
+  color: #333;
+  margin: 1.5rem 0 2rem 0;
+}
+
+.information {
+  display: flex;
+  color: #555;
+  margin: 0.7rem 0;
+  align-items: center;
+  font-size: 0.95rem;
+}
+
+.information i {
+  color: black;
+}
+
+.icon {
+  width: 28px;
+  margin-right: 0.7rem;
+}
+
+.social-media {
+  padding: 2rem 0 0 0;
+}
+
+.social-media p {
+  color: #333;
+}
+
+.social-icons {
+  display: flex;
+  margin-top: 0.5rem;
+}
+
+.social-icons a {
+  width: 35px;
+  height: 35px;
+  border-radius: 5px;
+  background: linear-gradient(45deg, #1abc9c, #149279);
+  color: black;
+  text-align: center;
+  line-height: 35px;
+  margin-right: 0.5rem;
+  transition: 0.3s;
+}
+
+.social-icons a:hover {
+  transform: scale(1.05);
+}
+
+.contact-info:before {
+  content: "";
+  position: absolute;
+  width: 110px;
+  height: 100px;
+  border: 22px solid #fff;
+  border-radius: 50%;
+  bottom: -77px;
+  right: 50px;
+  opacity: 0.3;
+}
+
+
+.square {
+  position: absolute;
+  height: 400px;
+  top: 50%;
+  left: 50%;
+  transform: translate(181%, 11%);
+  opacity: 0.2;
+}
+
+@media (max-width: 850px) {
+  .form {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-info:before {
+    bottom: initial;
+    top: -75px;
+    right: 65px;
+    transform: scale(0.95);
+  }
+
+  .contact-form:before {
+    top: -13px;
+    left: initial;
+    right: 70px;
+  }
+
+  .square {
+    transform: translate(140%, 43%);
+    height: 350px;
+  }
+
+  .big-circle {
+    bottom: 75%;
+    transform: scale(0.9) translate(-40%, 30%);
+    right: 50%;
+  }
+
+  .text {
+    margin: 1rem 0 1.5rem 0;
+  }
+
+  .social-media {
+    padding: 1.5rem 0 0 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 1.5rem;
+  }
+
+  .contact-info:before {
+    display: none;
+  }
+
+  .square,
+  .big-circle {
+    display: none;
+  }
+
+  form,
+  .contact-info {
+    padding: 1.7rem 1.6rem;
+  }
+
+  .text,
+  .information,
+  .social-media p {
+    font-size: 0.8rem;
+  }
+
+  .title {
+    font-size: 1.15rem;
+  }
+
+  .social-icons a {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+  }
+
+  .icon {
+    width: 23px;
+  }
+
+  .input {
+    padding: 0.45rem 1.2rem;
+  }
+
+  .btn {
+    padding: 0.45rem 1.2rem;
+  }
+}
+
+#ss{
+  margin-bottom: 230px;
+}
+@import url("//fonts.googleapis.com/css?family=Roboto");
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+.block-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  height: 100%;
+}
+.block-wrap > div {
+  width: 100%;
+  text-align: center;
+}
+
+.btn-google, .btn-fb {
+  display: inline-block;
+  border-radius: 1px;
+  text-decoration: none;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
+  transition: background-color 0.218s, border-color 0.218s, box-shadow 0.218s;
+}
+.btn-google .google-content, .btn-google .fb-content, .btn-fb .google-content, .btn-fb .fb-content {
+  display: flex;
+  align-items: center;
+  width: 300px;
+  height: 50px;
+}
+.btn-google .google-content .logo, .btn-google .fb-content .logo, .btn-fb .google-content .logo, .btn-fb .fb-content .logo {
+  padding: 15px;
+  height: inherit;
+}
+.btn-google .google-content svg, .btn-google .fb-content svg, .btn-fb .google-content svg, .btn-fb .fb-content svg {
+  width: 18px;
+  height: 18px;
+}
+.btn-google .google-content p, .btn-google .fb-content p, .btn-fb .google-content p, .btn-fb .fb-content p {
+  width: 100%;
+  line-height: 1;
+  letter-spacing: 0.21px;
+  text-align: center;
+  font-weight: 500;
+  font-family: "Roboto", sans-serif;
+}
+
+.btn-google {
+  background: #FFF;
+}
+.btn-google:hover {
+  box-shadow: 0 0 3px 3px rgba(66, 133, 244, 0.3);
+}
+.btn-google:active {
+  background-color: #eee;
+}
+.btn-google .google-content p {
+  color: #757575;
+}
+
+.btn-fb {
+  padding-top: 1.5px;
+  background: #4267b2;
+  background-color: #3b5998;
+}
+.btn-fb:hover {
+  box-shadow: 0 0 3px 3px rgba(59, 89, 152, 0.3);
+}
+.btn-fb .fb-content p {
+  color: rgba(255, 255, 255, 0.87);
+}
+
+
+    </style>
+    <script
+      src="https://kit.fontawesome.com/64d58efce2.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="container">
+      <span class="big-circle"></span>
+      <img src="img/shape.png" class="square" alt="" />
+      <div class="form">
+        <div class="contact-info">
+          <!-- <h3 class="title">Register Form</h3> -->
+         
+
+          <div class="info">
+          
+          </div>
+
+          <div class="social-media" style="margin-bottom: 50px;">
+            <br><br>
+            <h1 ><center> Hi Your </center></h1>
+            <h3><center>User Name : {{username}}</center></h3>
+         
+          </div>
+        </div>
+
+        <div class="contact-form">
+          <span class="circle one"></span>
+          <span class="circle two"></span>
+           {% if checkcustum %}
+    <div class="row align-items-center">
+    <div class="col-12" style="margin-top: 80px; ">
+      <h4 style="display: inline-block; margin-right: 10px;">You Already Have an Account</h4>
+      <br>
+      <div>
+        <a class="btn-google" href="/accounts/google/login/?process=login" style="text-decoration: none;">
+          <div class="google-content">
+            <div class="logo">
+              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 48 48">
+              <defs><path id="a" d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z"/></defs><clipPath id="b"><use xlink:href="#a" overflow="visible"/></clipPath><path clip-path="url(#b)" fill="#FBBC05" d="M0 37V11l17 13z"/><path clip-path="url(#b)" fill="#EA4335" d="M0 11l17 13 7-6.1L48 14V0H0z"/><path clip-path="url(#b)" fill="#34A853" d="M0 37l30-23 7.9 1L48 0v48H0z"/><path clip-path="url(#b)" fill="#4285F4" d="M48 48L17 24l-4-3 35-10z"/>
+            </svg>
+            </div>
+            <p>Sign in with Google</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+           {% else %}
+          <form method="post">{% csrf_token %}
+            <h3 class="title">Registration Form</h3>
+            <div class="input-container">
+              <label for="">Organization Name</label>
+              <input type="text" name="organizationname" value="{{post1.organizationname}}" required pattern="[A-Za-z\s]+" title="Only letters are allowed" class="input" />
+              <span>Organization Name</span>
+            </div>
+            <div class="input-container">
+              <input type="phone_number" name="phone_number" id="phone_number" value="{{post1.phone_number}}" required class="input" />
+              <label for="">Phone Number</label>
+              <span>Phone Number</span>
+            </div>
+            <div class="input-container">
+              <input type="address" id="address" value="{{post1.address}}" name="address" required class="input" />
+              <label for="">Address</label>
+              <span>Address</span>
+            </div>
+              
+
+            <div class="input-container">
+              <input type="contact_person" id="contact_person" value="{{post1.contact_person}}" name="contact_person" required class="input" />
+              <label for="">Username</label>
+              <span>Username</span>
+            </div>
+
+            <div class="input-container">
+              <input type="password" id="password" value="{{post1.password}}" name="password" required class="input" />
+              <label for="">Password</label>
+              <span>Password</span>
+            </div>
+
+            <br>
+            <input type="submit" value="Send" class="btn" />
+          </form>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+    
+<script>
+  document.getElementById("phone_number").addEventListener("input", function(evt) {
+      let inputValue = evt.target.value;
+      let numbersOnly = inputValue.replace(/[^\d]/g, ""); 
+      evt.target.value = numbersOnly.slice(0, 10); 
+  });
+  </script>
+
+    <script>
+      const inputs = document.querySelectorAll(".input");
+
+function focusFunc() {
+  let parent = this.parentNode;
+  parent.classList.add("focus");
+}
+
+function blurFunc() {
+  let parent = this.parentNode;
+  if (this.value == "") {
+    parent.classList.remove("focus");
+  }
+}
+
+inputs.forEach((input) => {
+  input.addEventListener("focus", focusFunc);
+  input.addEventListener("blur", blurFunc);
+});
+
+    </script>
+    <script>
+        window.onload = function() {
+            if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
+                window.location.href = "{{oldpath}}";
+            }
+        };
+    </script>
+
+  </body>
+</html>

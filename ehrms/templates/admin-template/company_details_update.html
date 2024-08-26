@@ -1,0 +1,71 @@
+{% extends 'admin-template/base_template.html' %}{% block main_content %}
+
+
+        <h3>company details</h3>
+    
+    <form method="post" action="/company_details_update/" >{% csrf_token %}
+        <label style="color:white"><b>Organisation Type*</b></label>
+        <input type="text" name="Organisationtype" value="{{ com.Organisationtype}}" class="form-control" required style="background-color:#393f5c; color:white; border:none;" required />
+        <br><br>
+
+        <label style="color:white"><b>Company Pan*</b></label>
+        <input type="text" name="companypan" value="{{ com.companypan}}"  class="form-control" style="background-color:#393f5c; color:white; border:none;" required />
+       <div style="display: flex; flex-direction: column;"></div>
+         <div class="form-control" style="background-color: #282f51; color:white; border:none;">
+              <label  >You can verify your PAN <a href="#">here..</a></label>
+         </div><br><br><br>
+         
+
+        <label style="color:white"><b>Company Name*</b></label>                 
+        <input type="text" name="companyname"  value="{{ com.companyname}}"  class="form-control" style="background-color:#393f5c; color:white; border:none;" required />
+        <div style="display: flex; flex-direction: column;">
+        </div>
+
+            <div class="form-control" style="background-color:#282f51; color:white; border:none;">
+            <label>the name of the legal entity</label>
+            </div><br><br><br>
+
+        <label style="color:white"><b>Company GSTIN*</b></label>    
+        <input type="text" name="companyGSTIN" value="{{ com.companyGSTIN}}"  class="form-control"  style="background-color:#393f5c; color:white; border:none;" required>
+            <div class="form-control" style="background-color:#282f51; color:white; height:10%; border:none;">
+             <label>enter a valid GSTIN,provide the address mentioned on your GST certificate.<a href="#">details..</a></label>
+            </div><br><br><br>
+            
+            
+        <label style="color:white"><b>Brand Name*</b></label>    
+        <input type="text" name="brandname" value="{{ com.brandname}}" class="form-control" style="background-color:#393f5c; color:white; border:none;" required>
+        <div style="display: flex; flex-direction: column; border:none;">
+        </div>
+        
+            <div class="form-control" style="background-color:#282f51; color:white; height:15%; border:none;">
+             <label>if your company is publicly known by a different brand name,then please enter that here.</label>
+            </div><br><br><br><br><br>
+
+        <label style="color:white"><b>Register Address*</b></label>    
+        <input type="text" name="registeraddress" placeholder="registeraddress"  value="{{ com.Organisationtype}}" class="form-control" style="background-color:#393f5c; color:white; border:none;" required>
+        <div style="display: flex; flex-direction: column;">
+        </div>
+        
+            <div class="form-control" style="background-color: #282f51; color:white; height:15%; border:none;">
+             <label >if you have a GSTIN, provide the address mentioned on your GST certificate.</label>
+            </div><br><br><br>
+            <label style="color:white"><b>Address*</b></label> 
+        <input type="text" name="address" placeholder="address line2"value="{{ com.address}}"  class="form-control" style="background-color:#393f5c; color:white; border:none;" required>
+        <div style="display: flex; flex-direction: column;">
+        </div><br><br>
+    
+        <label style="color:white"><b>State*</b></label><br>
+        <select name="State" class="form-control" value="{{ com.State}}"  style="background-color: #282f51; color:white;border:none; ">
+            <option>andhrapradesh</option>
+            <option>telangana</option>
+        </select><br><br>
+
+        <label style="color:white"><b>Pincode*</b></label>
+        <input type="text" name="pincode" placeholder="pincode" value="{{ com.pincode}}" class="form-control" style="background-color:#393f5c; color:white; border:none;" required><br>
+        <div style="display: flex; flex-direction: column;">
+        </div> 
+
+       <input type="submit" >
+   </form>
+
+   {% endblock main_content %}

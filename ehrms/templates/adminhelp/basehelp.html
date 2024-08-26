@@ -1,0 +1,809 @@
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+        
+        <title>Image Gallery</title>
+        <style>
+             h3{
+        
+        margin-top: 0; /* Remove default top margin */
+        margin-bottom: 20px; /* Add some bottom margin for spacing */
+    }
+
+   
+            a.ex1:hover, a.ex1:active {
+                font-size: 150%;}
+
+            #a{
+                background-color:white;
+                /* text-align: center; */
+            }
+            body{
+                background-color:white;
+            }
+            h2{
+                color: black;
+            
+            }
+            h3,h4,h5,h6{
+                color:black;
+            
+                
+            }
+            form{
+                width: 50%;
+                margin: auto;
+            }
+            /* p{
+                text-align: justify;
+            }
+             */
+        </style>
+        <style>
+            /* Style for the search bar container */
+            #btn{
+    
+                font-size: medium;
+                
+            }
+    .search-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: rgba(255, 255, 255, 0); /* Semi-transparent white background */
+        padding: 10px;
+        box-sizing: border-box;
+    }
+    
+    /* Style for the search input field */
+    .search-input {
+        width: 60%;
+        height: 40px;
+        max-width: 100%;
+        padding: 10px;
+        border: 2px solid #f5f2f2;
+        border-radius: 5px;
+        font-size: 16px;
+        background-color: rgb(70, 70, 126);
+    
+    }
+    
+    /* Style for the search button */
+    .search-button {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+    #hrms{
+        font-size: 40px;
+        padding-left: 80px;
+        
+    }
+    #btn{
+        float: right;
+    margin-top: 30px;
+    margin-right: 100px;
+    color: white;
+    }
+    #btn i {
+        margin-left: 30px; /* Adjust this value as needed */
+    }
+    
+        </style>
+        <style>
+        .search-input-container {
+                width: 60%;
+                max-width: 100%;
+                display: flex;
+                align-items: center;
+                border: 2px solid #f3f2f2;
+                border-radius: 5px;
+            }
+    
+            .search-input {
+                height: 60px;
+
+                color: white;
+                flex: 1;
+                width: 100%;
+                padding: 10px;
+                font-size: 16px;
+                background-image: linear-gradient(to top right,rgb(16, 15, 69),rgb(11, 159, 218));
+                border: none;
+            }
+    
+            .filter-button {
+                background-color: #4CAF50;
+    
+                height: auto;
+                color: white;
+                padding: 20px;
+                font-size: 16px;
+                cursor: pointer;
+            }
+    
+        </style>                       
+            <style>
+                /* Style for the search results box */
+                .search-results-box {
+                    background-color: white;
+                    border: 2px solid #ccc;
+                    border-radius: 5px;
+                    padding: 20px;
+                    width: 50%;
+                    margin: 0 auto;
+                    
+                }
+                .result-box {
+                background-color: #f5f5f5;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                padding: 10px;
+                margin: 10px;
+                text-align: left;
+            }
+            #searchResultsContainer {
+        width: 60%; /* Adjust the width as needed */
+        margin: 0 auto; /* Center the container horizontally */
+        padding: 10px; /* Add padding for spacing */
+    }
+    .sres{
+        font-size: xx-large;
+
+    }
+    
+    /* Add this new CSS */
+    .drop-search-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 92%;
+        max-width: 100%;
+        margin: 0 auto;
+    }
+    
+    
+    .search-input-container {
+        flex: 1;
+        margin-left: 10px;
+    }
+
+
+    .sres{
+    font-size: xx-large;
+}
+.eibh{
+    width:100% ;
+    height: 120px;
+}
+.cate{
+    font-size: 25px
+}
+.drop {
+    position: relative;
+    display: inline-block;
+}
+.drop select {
+    width: 850px;
+    padding: 8px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: #f1f1f1;
+}
+.hcon{
+    margin-left: 50px;
+    margin-right: 50px;
+}
+@media (max-width: 768px) {
+    .sres {
+        font-size: 20px;
+        font-weight: bold ;
+    }
+    .eibh{
+        height: 100px;
+    }
+    .cate{
+    padding-left: 25px;    
+    font-size: 20px
+}
+.drop {
+    position: relative;
+    display: inline-block;
+}
+.drop select {
+    width: 180px; 
+    padding: 6px;
+    margin-right: 5px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: #f1f1f1;
+}
+form{
+    width: 85%;
+}
+h3{
+    font-size: 18px;
+    font-weight: bold ; 
+}
+.tt{
+    font-size: 20px;
+    font-weight: bold ; 
+}
+.hcon{
+    margin-left: 20px;
+    margin-right: 20px;
+}
+}    
+</style>
+</head>
+
+    
+            </style>
+            
+        
+    </head>
+    
+
+    <body>
+             
+        <div id="filterForm">
+        {% load static %}
+        <div class="container">
+            <img class="eibh" id="background-image" src="{% static 'assets/images/help1.PNG' %}" alt="" width="100%" height="180px">
+        
+            <div class="search-container">
+                <div >
+                    <div class="hcon" style="display: flex;justify-content: space-between;align-items: center;">
+                        <h2 class="tt" style="flex: 1; color: white;">BUGLEGAL</h2>
+                        <a href="/data1/" style="color: white;">Go to Help</a>
+                    </div>
+                </div>
+                <div class="drop-search-container" style="justify-content: flex-end;">
+                    <div class="drop">
+                        <span style="color: white;" class="cate"><b>Category :</b>
+                        <select id="options">
+                            <option value="" selected disabled hidden>  Select Category  </option>
+                
+            
+                            <option value="h1"> Professional Tax Setup for your Company</option>
+                            <option value="h2"> How do we register our employees for PF?</option>
+                            <option value="h3">Employee training guide</option>
+                            <option value="h4">How can admin check the current status of existing projects?</option>
+                            
+                            <option value="h6">How do I create project?</option>
+                            <option value="h7"> How Admin can see Advance Salary Requested by Employee?</option>                                
+                            <option value="h8">How can I add the admin single and multiple employees in HRMS portal?</option>
+                            <option value="h9">How admin can watch employee data monitoring logs?</option>
+                            <option value="h10">How can we give special access (like an administrator) to somebody else?</option>
+                            <option value="h11">How can admin check the employees performance?</option>
+                            <option value="h12">How can I delete a document uploaded by an employee?</option>
+                            <option value="h13">How does Admin check the employee playslips requests and approve/disapprove?</option>
+                            <option value="h14">How can admin approve/disapprove for employee reimbursement?</option>
+                            <option value="h15"> How can admin time tracking for an employees?
+                            </a></option>
+                            <option value="h16"> How can check the admin all employees documents?
+                            </a></option>
+                            <option value="h17">How can admin add/update the shift timings?</option>
+                            <option value="h18">How can admin add/update holidays for company?
+                            </a></option>
+                            
+                    </select></span>
+                    </div>
+                    <!-- <div class="search-input-container">
+                        <input type="text" class="search-input" id="searchInput" placeholder="Enter your search text" style="height:20px;" oninput="filterResults()">
+                    </div>
+                </div> -->
+            </div>
+        </div>
+        
+    <!-- <div  id="searchResults"> -->
+    <div id="searchResultsContainer">
+    
+        <!-- Search results will be displayed here -->
+    </div>
+    <script>
+        // Function to simulate filtering results
+        function filterResults() {
+            const searchInput = document.getElementById('searchInput').value;
+            // You can implement your own filtering logic here, e.g., by making an AJAX request to a server or filtering an array of data
+            // For this example, we'll just display a message with the search query
+            document.getElementById('searchResults').innerHTML = `Search': ${searchInput}`;
+        }
+    </script>
+    <div id="formContainer">
+
+
+
+
+
+    {% block main_content %}
+    {% endblock main_content %}
+
+</div>
+</div>
+
+<script>
+    function filterResults() {
+        const searchInput = document.getElementById('searchInput').value.toLowerCase().trim();
+        const content = document.body.innerHTML.toLowerCase();
+        const results = new Set(); // Use a Set to store unique results
+        const searchResultsContainer = document.getElementById('searchResultsContainer');
+
+        if (searchInput === '') {
+            // Clear the search results container if the search input is empty
+            searchResultsContainer.innerHTML = '';
+            return;
+        }
+
+        const paragraphs = content.match(/<p[^>]*>.*?<\/p>/g) || [];
+        const headers = content.match(/<h\d[^>]*>.*?<\/h\d>/g) || [];
+
+        for (const paragraph of paragraphs) {
+            const text = paragraph.replace(/<[^>]*>/g, '').toLowerCase();
+            if (text.includes(searchInput)) {
+                results.add(paragraph);
+            }
+        }
+
+        for (const header of headers) {
+            const text = header.replace(/<[^>]*>/g, '').toLowerCase();
+            if (text.includes(searchInput)) {
+                results.add(header);
+            }
+        }
+
+        searchResultsContainer.innerHTML = '';
+
+        if (results.size > 0) {
+            const searchResultMessage = document.createElement('div');
+            searchResultMessage.innerHTML = `Search results for: <strong>${searchInput}</strong>`;
+            searchResultsContainer.appendChild(searchResultMessage);
+
+            results.forEach(result => {
+                const resultBox = document.createElement('div');
+                resultBox.className = 'result-box';
+                resultBox.innerHTML = result;
+
+                // Add a click event listener to each result to scroll to the corresponding section
+                resultBox.addEventListener('click', () => {
+                    const idMatch = result.match(/id="([^"]+)"/);
+                    if (idMatch) {
+                        const sectionId = idMatch[1];
+                        const section = document.getElementById(sectionId);
+                        if (section) {
+                            section.scrollIntoView({ behavior: 'smooth' });
+                        }
+                    }
+                });
+
+                searchResultsContainer.appendChild(resultBox);
+            });
+        } else {
+            searchResultsContainer.innerHTML = 'There is no matching search result!';
+        }
+    }
+</script>
+
+<script>
+    // Add an onchange event handler to the <select> element
+    document.getElementById("options").addEventListener("change", function() {
+        var selectedOption = this.value;
+
+        // Redirect to the appropriate URL based on the selected option
+        switch (selectedOption) {
+            case "h1":
+                window.location.href = "{% url 'hom20' %}";
+                break;
+            case "h2":
+                window.location.href = "{% url 'employeesPF' %}";
+                break;
+            case "h3":
+                window.location.href = "{% url 'EmployeeTraining' %}";
+                break;
+            case "h4":
+                window.location.href = "{% url 'currentstatus' %}";
+                break;
+            case "h5":
+                window.location.href = "{% url 'hom3' %}";
+                break;
+            case "h6":
+                window.location.href = "{% url 'createproject' %}";
+                break;
+            case "h7":
+                window.location.href = "{% url 'AdvanceSalary' %}";
+                break;
+            case "h8":
+                window.location.href = "{% url 'addingemployees' %}";
+                break;
+            case "h9":
+                window.location.href = "{% url 'monitoringlogs' %}";
+                break;
+            case "h10":
+                window.location.href = "{% url 'specialaccess' %}";
+                break;
+            case "h11":
+                window.location.href = "{% url 'employeeperformance' %}";
+                break;
+            case "h12":
+                window.location.href = "{% url 'deletedocumentuploaded' %}";
+                break;
+            case "h13":
+                window.location.href = "{% url 'paysliprequests' %}";
+                break;
+            case "h14":
+                window.location.href = "{% url 'reimburusmentrequests' %}";
+                break;
+            case "h15":
+                window.location.href = "{% url 'trackingemployeestime' %}";
+                break;
+            case "h16":
+                window.location.href = "{% url 'checkallemployeesdocuments' %}";
+                break;
+            case "h17":
+                window.location.href = "{% url 'assignShifttimings' %}";
+                break;
+            case "h18":
+                window.location.href = "{% url 'addcustomholidayscompany' %}";
+                break;
+           
+            default:
+                // Handle other cases or provide an error message
+                break;
+        }
+        });
+</script>
+<script>
+    document.getElementById("filterForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // Prevent the default form submission
+    
+        var selectedOption = document.getElementById("options").value;
+    
+        // Redirect to the appropriate URL based on the selected option
+        switch (selectedOption) {
+            case "h1":
+                window.location.href = "{% url 'hom' %}";
+                break;
+            case "h2":
+                window.location.href = "{% url 'hom1' %}";
+                break;
+            case "h3":
+                window.location.href = "{% url 'hom3' %}";
+                break;
+            case "h4":
+                window.location.href = "{% url 'hom2' %}";
+                break;
+            case "h5":
+                window.location.href = "{% url 'inf1' %}";
+                break;
+            case "h6":
+                window.location.href = "{% url 'inf2' %}";
+                break;
+            case "h7":
+                window.location.href = "{% url 'inf3' %}";
+                break;
+            case "h8":
+                window.location.href = "{% url 'EmployeeTraining' %}";
+                break;
+            case "h9":
+                window.location.href = "{% url 'dem1' %}";
+                break;
+            case "h10":
+                window.location.href = "{% url 'dem2' %}";
+                break;
+            case "h11":
+                window.location.href = "{% url 'dem3' %}";
+                break;
+            case "h12":
+                window.location.href = "{% url 'dem4' %}";
+                break;
+            case "h13":
+                window.location.href = "{% url 'dem5' %}";
+                break;
+            case "h14":
+                window.location.href = "{% url 'dem6' %}";
+                break;
+            case "h15":
+                window.location.href = "{% url 'dem7' %}";
+                break;
+            case "h16":
+                window.location.href = "{% url 'dem8' %}";
+                break;
+            case "h17":
+                window.location.href = "{% url 'peopl1' %}";
+                break;
+            case "h18":
+                window.location.href = "{% url 'peopl2' %}";
+                break;
+            case "h19":
+                window.location.href = "{% url 'peopl3' %}";
+                break;
+            case "h20":
+                window.location.href = "{% url 'peopl4' %}";
+                break;
+            case "h21":
+                window.location.href = "{% url 'peopl5' %}";
+                break;
+            case "h22":
+                window.location.href = "{% url 'payrol1' %}";
+                break;
+            case "h23":
+                window.location.href = "{% url 'payrol2' %}";
+                break;
+            case "h24":
+                window.location.href = "{% url 'payrol3' %}";
+                break;
+            case "h25":
+                window.location.href = "{% url 'payrol4' %}";
+                break;
+            case "h26":
+                window.location.href = "{% url 'payrol5' %}";
+                break;
+            case "h27":
+                window.location.href = "{% url 'payrol6' %}";
+                break;
+            case "h28":
+                window.location.href = "{% url 'statutor1' %}";
+                break;
+            case "h29":
+                window.location.href = "{% url 'statutor3' %}";
+                break;
+            case "h30":
+                window.location.href = "{% url 'employeesPF' %}";
+                break;
+            case "h31":
+                window.location.href = "{% url 'sfun3' %}";
+                break;
+            case "h32":
+                window.location.href = "{% url 'es1' %}";
+                break;
+            case "h33":
+                window.location.href = "{% url 'es2' %}";
+                break;
+            case "h34":
+                window.location.href = "{% url 'es3' %}";
+                break;
+            case "h35":
+                window.location.href = "{% url 'td1' %}";
+                break;
+            case "h36":
+                window.location.href = "{% url 'td4' %}";
+                break;
+            case "h37":
+                window.location.href = "{% url 'taxs1' %}";
+                break;
+            case "h38":
+                window.location.href = "{% url 'taxs2' %}";
+                break;
+            case "h39":
+                window.location.href = "{% url 'paymen1' %}";
+                break;
+            case "h40":
+                window.location.href = "{% url 'paymen2' %}";
+                break;
+            case "h41":
+                window.location.href = "{% url 'paymen3' %}";
+                break;
+            case "h42":
+                window.location.href = "{% url 'paymen4' %}";
+                break;
+            case "h43":
+                window.location.href = "{% url 'paymen5' %}";
+                break;
+            case "h44":
+                window.location.href = "{% url 'billin1' %}";
+                break;
+            case "h45":
+                window.location.href = "{% url 'billin2' %}";
+                break;
+            case "h46":
+                window.location.href = "{% url 'billin3' %}";
+                break;
+            case "h47":
+                window.location.href = "{% url 'billin4' %}";
+                break;
+            case "h48":
+                window.location.href = "{% url 'billin5' %}";
+                break;
+            case "h49":
+                window.location.href = "{% url 'billin6' %}";
+                break;
+            case "h50":
+                window.location.href = "{% url 'billin7' %}";
+                break;
+            case "h51":
+                window.location.href = "{% url 'billin8' %}";
+                break;
+            case "h52":
+                window.location.href = "{% url 'billin9' %}";
+                break;
+            case "h53":
+                window.location.href = "{% url 'insuranc1' %}";
+                break;
+            case "h54":
+                window.location.href = "{% url 'insuranc2' %}";
+                break;
+            case "h55":
+                window.location.href = "{% url 'insuranc3' %}";
+                break;
+            case "h56":
+                window.location.href = "{% url 'insuranc4' %}";
+                break;
+            case "h57":
+                window.location.href = "{% url 'insuranc5' %}";
+                break;
+            case "h58":
+                window.location.href = "{% url 'insuranc6' %}";
+                break;
+            case "h59":
+                window.location.href = "{% url 'insuranc7' %}";
+                break;
+            case "h60":
+                window.location.href = "{% url 'insuranc8' %}";
+                break;
+            case "h61":
+                window.location.href = "{% url 'insuranc9' %}";
+                break;
+            case "h62":
+                window.location.href = "{% url 'insuranc10' %}";
+                break;
+            case "h63":
+                window.location.href = "{% url 'insuranc11' %}";
+                break;
+            case "h64":
+                window.location.href = "{% url 'insuranc12' %}";
+                break;
+            case "h65":
+                window.location.href = "{% url 'insuranc13' %}";
+                break;
+            case "h66":
+                window.location.href = "{% url 'insuranc14' %}";
+                break;
+            case "h67":
+                window.location.href = "{% url 'insuranc15' %}";
+                break;
+            case "h68":
+                window.location.href = "{% url 'insuranc17' %}";
+                break;
+            case "h69":
+                window.location.href = "{% url 'insuranc18' %}";
+                break;
+            case "h70":
+                window.location.href = "{% url 'insuranc19' %}";
+                break;
+            case "h71":
+                window.location.href = "{% url 'slac' %}";
+                break;
+            case "h72":
+                window.location.href = "{% url 'book1' %}";
+                break;
+            case "h73":
+                window.location.href = "{% url 'book2' %}";
+                break;
+            case "h74":
+                window.location.href = "{% url 'book3' %}";
+                break;
+            case "h75":
+                window.location.href = "{% url 'book4' %}";
+                break;
+            case "h76":
+                window.location.href = "{% url 'book5' %}";
+                break;
+            case "h77":
+                window.location.href = "{% url 'book6' %}";
+                break;
+            case "h78":
+                window.location.href = "{% url 'book7' %}";
+                break;
+            case "h79":
+                window.location.href = "{% url 'book8' %}";
+                break;
+            case "h80":
+                window.location.href = "{% url 'attendenc1' %}";
+                break;
+            case "h81":
+                window.location.href = "{% url 'attendenc2' %}";
+                break;
+            case "h82":
+                window.location.href = "{% url 'attendenc3' %}";
+                break;
+            case "h83":
+                window.location.href = "{% url 'attendenc4' %}";
+                break;
+            case "h84":
+                window.location.href = "{% url 'attendenc5' %}";
+                break;
+            case "h85":
+                window.location.href = "{% url 'attendenc6' %}";
+                break;
+            case "h86":
+                window.location.href = "{% url 'attendenc7' %}";
+                break;
+            case "h87":
+                window.location.href = "{% url 'attendenc8' %}";
+                break;
+            case "h88":
+                window.location.href = "{% url 'reimbu1' %}";
+                break;
+            case "h89":
+                window.location.href = "{% url 'reimbu2' %}";
+                break;
+            case "h90":
+                window.location.href = "{% url 'letter1' %}";
+                break;
+            case "h91":
+                window.location.href = "{% url 'letter2' %}";
+                break;
+            case "h92":
+                window.location.href = "{% url 'insuranc16' %}";
+                break;
+            case "h93":
+                window.location.href = "{% url 'td2' %}";
+                break;
+            case "h94":
+                window.location.href = "{% url 'td3' %}";
+                break;
+            case "h95":
+                window.location.href = "{% url 'sfun2' %}";
+                break;
+            case "h96":
+                window.location.href = "{% url 'hom6' %}";
+                break;
+            case "h97":
+                window.location.href = "{% url 'hom7' %}";
+                break;
+            case "h98":
+                window.location.href = "{% url 'hom8' %}";
+                break;
+            case "h99":
+                window.location.href = "{% url 'hom9' %}";
+                break;
+            case "h100":
+                window.location.href = "{% url 'hom10' %}";
+                break;
+            case "h101":
+                window.location.href = "{% url 'hom11' %}";
+                break;
+            case "h102":
+                window.location.href = "{% url 'hom13' %}";
+                break;
+            case "h103":
+                window.location.href = "{% url 'hom15' %}";
+                break;
+            case "h104":
+                window.location.href = "{% url 'hom16' %}";
+                break;
+            case "h105":
+                window.location.href = "{% url 'hom12' %}";
+                break;
+            case "h106":
+                window.location.href = "{% url 'hom19' %}";
+                break;
+            case "h107":
+                window.location.href = "{% url 'employeesPF' %}";
+                break;
+
+            case "h108":
+                window.location.href = "{% url 'hom20' %}";
+                break;
+
+
+            default:
+                // Handle other cases or provide an error message
+                break;
+        }
+    });
+    </script>
+
+</body>
+</html>

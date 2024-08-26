@@ -1,0 +1,210 @@
+{% extends 'navbar.html' %}
+{% block main_content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coder Wrap: FAQ &#8211; Frequently Asked Questions with Contact us</title>
+    <link rel="icon" type="image/x-icon" href="https://coderwrap.com/wp-content/uploads/2022/09/favicon.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&display=swap");
+        body {
+            font-family: "Poppins", sans-serif;
+            color: #000;
+            box-sizing: border-box;
+            /* background-image: url({% static 'assets\images\backg5.jpg' %}) ;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center; */
+        }
+        .cw-fix {
+            /* max-width: 800px !important; */
+            width: 100%;
+            padding: 10px 0px;
+            margin-right: 50px;
+            display: flex;
+            gap: 10px;
+        }
+        /* #accordion{
+          width: 450px;
+          border-top-left-radius: 100px;
+          background-color: white;
+          border: 2px solid black;
+          margin-top: 110px;
+          margin-left: 1%;
+          padding: 50px 10px 0px;
+        } */
+        .helpnav1{
+        margin-top: 125px;
+        padding: 15px;
+        padding-top: 80px;
+        margin-right: 10px;
+        width: 425px;
+        border: 1px solid black;
+        background-color: white;
+        border-top-left-radius: 100px;
+        margin-left: 1%;
+        height: fit-content;
+        position:inherit;
+}
+        
+  
+/**Typeo CSS End (Note if is not need so remove)**/
+        .cw-section {
+          width: 1000px;
+            display: flex;
+            flex-direction: column;
+            row-gap: 2rem;
+            left: -50%;
+            padding-top: 50px;
+            margin-top: 90px !important;
+        }
+        .grid-top{
+          padding: 1rem;
+          max-width: 50rem;
+          margin: 0 auto;
+          border: 0.5px solid black; /* Add border properties */
+          border-radius: 15px;
+          background-color: whitesmoke;
+          margin-top: 150px;
+        }
+        .grid-top:hover{
+          border: 1px solid;
+          border-color: black;
+          transform: scale(1.05);
+          transition: transform 0.3s ease-in-out;
+          box-shadow: 1px 1px 2px black;
+        }
+        ol{
+        counter-reset: item;
+        list-style: none;
+        padding-left: 0;
+       }
+       ol li{
+        counter-increment: item;
+        position: relative;
+        padding-left: 20px;
+
+       }
+       ol li::before{
+        content: counter(item, lower-alpha)".";
+        font-weight: bold;
+        position: absolute;
+        left: 0;
+       }
+       
+        .grid-bottom{
+            margin-top: 30px;
+        }
+
+        /**Typeo CSS End (Note if is not need so remove)**/
+        .cw-section {
+          width: 1000px;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            row-gap: 2rem;
+            margin-top: 60px;
+            left: -50%;
+            padding-top: 50px;
+        }
+
+        .cw-section__title {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 0px;
+            color: #332470;
+        }
+
+        .cw-section__title span {
+            color: #6A49F2;
+        }
+         .cw-accordion__item:hover {
+            background-color: grey;
+            transform: scale(1.02);
+            transition: transform o.3s ease-in-out;
+            border-radius: 25px;
+        } 
+
+        .cw-accordion__item .cw-label {
+            padding-left: 26px;
+            font-size: 20px;
+            position: relative;
+            width: 100%;
+            display: inline-block;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .cw-accordion__item .cw-label:after {
+            position: absolute;
+            right: 0;
+            content: " <"; /* Changed to less-than symbol */
+            color: black;
+            font-weight: bold;
+            font-size: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        @media(max-width:992px) {
+            .cw-section__title {
+                font-size: 1.5rem;
+            }
+        }
+        
+        .butn:hover{
+          background-color: skyblue !important;
+        }
+      
+    </style>
+</head>
+<body>
+    <div class="cw-fix">
+      <div class="helpnav1 fadeInDown wow" data-wow-duration="0s" data-wow-delay="0s">
+        
+        {% include 'help_sidebar.html' %}
+        
+      </div>
+      <div class="cw-section fadeInRight wow" data-wow-duration="3s" data-wow-delay="0.5s">
+        {% for i in org7 %}
+        <div class="grid-top">
+          <h3><b>{{ i.question }}</b></h3><br>
+              <h6>{{ i.start1 }}</h6>
+              <h6>{{ i.start2 }}</h6>
+          <br>
+              <h3>{{ i.intro }}</h3>
+                  <br>
+                  <ol type="a" style="line-height:2;">
+                      <li>{{ i.line1 }}</li>
+                      <li>{{ i.line2 }}</li>
+                      <li>{{ i.line3 }}</li>
+                      <li>{{ i.line4 }}</li>
+                      <li>{{ i.line5 }}</li>
+                      <li>{{ i.line6 }}</li>
+                  </ol>
+                  <img src="{{i.image.url}}" alt="image">
+
+        </div> 
+        {% endfor %}
+      
+        <div class="grid-bottom fadeInRightt wow"  data-wow-duration="3s" data-wow-delay="0.5s">
+          <center class="mt-5" style="font-size: 20px; font-weight: bold;"><h3>If You Need Help ! Contact Us</h3></center>        
+          <center><p style="color: black;">Looking for more... we are there to help please blick below to know more.</p></center>
+          <center><a href="{% url 'contact'  %}"><button class="butn" style="height: 50px; width: 150px; border-radius: 10px; border: 2px solid skyblue;background-color: white;"><b>Contact Us</b></button></a></center>
+          <!-- <center><img src="{% static 'assets\images\contactimage.jpeg' %}" alt="" height="350px" width="800px"></center> -->
+      </div>
+    </div>
+</div>
+      
+</body>
+</html>
+{% endblock main_content %}

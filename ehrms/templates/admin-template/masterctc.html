@@ -1,0 +1,695 @@
+{% extends 'admin-template/base_template.html' %}
+{% block main_content %}
+{%load mathfilters%}{%load humanize%}{%load static%}
+<html>
+
+<head>
+<title>Master CTC Report</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.js"
+    integrity="sha512-8Z5++K1rB3U+USaLKG6oO8uWWBhdYsM3hmdirnOEWp8h2B1aOikj5zBzlXs8QOrvY9OxEnD2QDkbSKKpfqcIWw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+    integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+    integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+    crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <style>
+    @import url(//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
+    @import url(https://fonts.googleapis.com/css?family=Titillium+Web:300);
+
+    /* .fa-2x {
+      font-size: 2em;
+    }
+
+    .fa {
+      position: relative;
+      display: table-cell;
+      width: 60px;
+      height: 36px;
+      text-align: center;
+      vertical-align: middle;
+      font-size: 20px;
+    } */
+
+
+    /* .main-menu:hover,
+    nav.main-menu.expanded {
+      width: 200px;
+      overflow: visible;
+    }
+
+    .main-menu {
+      background: rgb(8, 8, 77);
+      border-right: 1px solid #e5e5e5;
+      position: absolute;
+      top: 0;
+      margin-top: 80px;
+      bottom: 0;
+      height: 100%;
+      left: 0;
+      width: 60px;
+      overflow: hidden;
+      -webkit-transition: width .05s linear;
+      transition: width .05s linear;
+      -webkit-transform:translateZ(0) scale(1,1);
+      z-index: 1000;
+    }
+
+    .main-menu>ul {
+      margin: 7px 0;
+    }
+
+    .main-menu li {
+      position: relative;
+      display: block;
+      width: 250px;
+    }
+
+    .main-menu li>a {
+      position: relative;
+      display: table;
+      border-collapse: collapse;
+      border-spacing: 0;
+      color: white;
+      font-family: arial;
+      font-size: 14px;
+      text-decoration: none;
+      -webkit-transform:translateZ(0) scale(1,1);
+      -webkit-transition: all .1s linear;
+      transition: all .1s linear;
+
+    }
+
+    .main-menu .nav-icon {
+      position: relative;
+      display: table-cell;
+      width: 60px;
+      height: 36px;
+      text-align: center;
+      vertical-align: middle;
+      font-size: 18px;
+    }
+
+    .main-menu .nav-text {
+      position: relative;
+      display: table-cell;
+      vertical-align: middle;
+      width: 190px;
+      font-family:poppins;
+    }
+
+    .main-menu>ul.logout {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+    } */
+
+    /* .no-touch .scrollable.hover {
+      overflow-y: hidden;
+    }
+
+    .no-touch .scrollable.hover:hover {
+      overflow-y: auto;
+      overflow: visible;
+    }
+
+    a:hover,
+    a:focus {
+      text-decoration: none;
+
+
+    }
+
+    nav {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      -o-user-select: none;
+      user-select: none;
+    }
+
+    nav ul,
+    nav li {
+      outline: 0;
+      margin: 0;
+      padding: 0;
+    }
+
+    .main-menu li:hover>a,
+    nav.main-menu li.active>a,
+    .dropdown-menu>li>a:hover,
+    .dropdown-menu>li>a:focus,
+    .dropdown-menu>.active>a,
+    .dropdown-menu>.active>a:hover,
+    .dropdown-menu>.active>a:focus,
+    .no-touch .dashboard-page nav.dashboard-menu ul li:hover a,
+    .dashboard-page nav.dashboard-menu ul li.active a {
+      color: #fff;
+      background-color: rgb(8, 8, 77);
+
+    } */
+
+   
+
+
+   
+
+table{
+  margin-left: 0.1%;
+  margin-top: 3%;
+
+}
+/* 
+th{
+      padding: 10px;
+      background-color: rgb(8, 8, 77);
+      text-align: center;
+      color: white;
+    }
+
+td{
+      padding: 10px;
+      text-align: center;
+      background-color: rgb(14, 14, 93);
+      color: white;
+    }
+td:nth-child(even) {
+  background-color: rgb(8, 8, 77);
+}
+td:nth-child(even) {
+  background-color: rgb(14, 14, 93);
+} */
+tr:nth-child(even) {
+  background-color:  rgb(238, 242, 244);
+}
+tr:nth-child(even) {
+  background-color:rgb(239,239,247);
+}
+
+.table-container {
+        overflow-x: auto;
+        max-width: 100%;
+    }
+    .hold {
+        border-collapse: collapse;
+        width: auto;
+    }
+    .hold th, .hold td {
+      border: 1px solid rgb(19, 18, 19);
+        padding: 6px; 
+        text-align: center;
+        white-space: nowrap;
+        max-width: 180px; 
+        overflow: hidden; 
+        text-overflow: ellipsis;
+    }
+
+.col-id-no{
+  left: 0;
+  position: sticky;
+}
+.col-name{
+  left:52px;
+  position: sticky;
+}
+.freeze-table{
+  z-index: 50;
+}
+.pagination {
+    margin: 20px 0;
+    text-align: center;
+}
+
+/* .pagination a, .pagination .current-page {
+    display: inline-block;
+    padding: 8px 12px;
+    text-decoration: none;
+    margin: 0 4px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.pagination .step-links a.active {
+    background-color: orange;
+} */
+
+.pagination a, .pagination .current-page {
+    display: inline-block;
+    padding: 8px 12px;
+    text-decoration: none;
+    margin: 0 4px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    transition: background-color 0.3s;
+    text-align: center;
+}
+.act{
+  /* background-color: orange; */
+  color: white;
+  height:43px;
+  width:43px;
+  border-radius: 20px;
+
+}
+.table-container {
+        overflow-x: auto;
+        max-width: 100%;
+    }
+    .hold {
+        border-collapse: collapse;
+        width: auto;
+    }
+    .hold th, .hold td {
+        border: 1px solid rgb(221, 218, 222);
+        padding: 10px; /* Adjusted padding for cells */
+        text-align: center;
+        white-space: nowrap;
+        max-width: 180px; /* Decreased max-width of cells */
+        overflow: hidden; /* Hide overflow for smaller cells */
+        text-overflow: ellipsis; /* Show ellipsis for overflow text */
+    }
+
+  </style>
+</head>
+
+
+
+<h3><a  href="/reports/">Reports</a><b style="color: black;">| Master CTC Report</b></h3>
+<div>
+      <h5
+        style=" margin-top: 10px; color:black;">
+        This is an exhaustive list of your employees CTC data</h5>
+<div>
+       
+
+{% block content %}
+ 
+  <ul>
+    {% for i in k %}
+      <li>{{ i.name }}</li>
+      <li>{{i.empid}}</li>
+    {% empty %}
+      
+
+    {% endfor %}
+  </ul>
+{% endblock %}
+
+</div>
+<!-- <div>
+  <button onclick="exportTableToCSV('person.csv')" style="background-color:skyblue;color:white"> Download CSV </button> 
+
+</div> -->
+        </div> <br>
+        <form method="post">
+          {% csrf_token %}
+          <div class="container">
+
+          
+          <div class="row">
+              <div class="col-7">
+                  <input type="text" name="se" class="form-control" placeholder="Enter Employee Id" >
+              </div>
+             
+        
+          <div class="col-1">
+              <button type="submit" class="btn btn-primary" >Search</button>
+          </div>
+          <div class="col-2">
+        </div>
+        <div class="col-2">
+          <button onclick="exportTableToCSV('person.csv')" style="background-color: #2d3354;color: whitesmoke;" class="btn"><i class="fa fa-download"> Export</i></button>
+        </div> 
+          
+          
+          
+          <!-- <br><br> -->
+         
+      </div>
+  </div>
+      </form>
+        
+
+      <div style="width: 100%; margin-bottom: 3%;">
+        <!-- <div class="table-responsive">
+<table id="myTable"  class="freeze-table">
+        <thead>
+          <tr>
+          <th class="col-id-no fixed-header" scope=colum >Emp ID</th>
+          <th style="min-width: 100px; width: 100px;" class="col-name fixed-header" scope=colum>Name</th>
+          <th style="min-width: 150px; width: 150px;">Email</th>
+       
+          <th>Department</th>
+          <th>Location</th>
+          <th>Status </th>
+          <th>DOJ
+          (yyyy-mm-dd)</th>
+          <th>DOL
+          (yyyy-mm-dd)</th>
+          <th>Gross ctc</th>
+          <th>Basic Salary</th>
+          <th>DA</th>
+          <th>HRA</th>
+          <th>SA</th>
+          <th>LTA</th>
+         
+      </tr>
+      
+      </thead>
+      {% for i in rst %}
+        <tbody>
+          <tr>
+          <td class="col-id-no" scope="row" >{{i.empid}}</td>
+          <td class="col-name" scope="row">{{i.first_name}}</td>
+          <td >{{i.admin.email }}</td>
+          <td>{{i.designation}}</td>
+          <td>{{i.location}}</td>
+          <td>{{i.status}}</td>
+          <td>{{i.dateofjoining | date:"M d- Y"}}</td>
+          <td>{{i.dateofbirth | date:"M d- Y"}}</td>
+        <td>{{i.package}}</td>
+   
+        <td>{{i.package | div:12 | mul:50 | div:100 | floatformat:0}}</td>
+        <td>{{i.package | div:12 | mul:10 | div:100 | floatformat:0}}</td>
+        <td>{{i.package | div:12 | mul:25 | div:100 | floatformat:0}}</td>                    
+            
+        <td>{{i.package | div:12 | mul:15 | div:100 | floatformat:0}}</td>
+            
+        <td>{{i.package | div:12 | mul:10 | div:100 | floatformat:0}}</td>
+            
+       
+        
+      </tr>
+    </tbody>
+
+      {% endfor %}
+
+    </table> -->
+  </div>
+  <div class="table-responsive">
+
+    <table  id="myTable" class="hold" >
+              
+      <tr style="background-color: black; color: #fff;" >
+      <th style="min-width: 90px;">Employee Id</th>
+      <th style="min-width: 90px;">Employee Name</th>
+      <th style="min-width: 90px;">Email</th>
+      <th style="min-width: 90px;">Department</th>
+      <th style="min-width: 90px;">Location</th>
+      <th style="min-width: 90px;">Status </th>
+      <th style="min-width: 90px;">Date of Joining</th>
+      <th style="min-width: 90px;">Date of Birth</th>
+      <th style="min-width: 90px;">Employ_Package</th>
+      <th style="min-width: 90px;">Gross CTC</th>                
+      <!-- <th style="min-width: 90px;">Date of join</th> -->
+      {% for i in salarper %}
+      <th style="min-width: 90px;">{{ i.salarycomponent }}</th>
+      {% endfor %}
+      {% for i in salarded %}
+      <th style="min-width: 90px;">{{ i.deductcomponent }}</th>
+      {% endfor %}
+      <th style="min-width: 90px;">Net Pay</th>
+      </tr>
+      </thead>
+      <tbody>
+            {% with totalnetpay=0 %}
+            {% for i in rst %}
+            <tr>
+                <td>{{ i.empid }}</td>
+                <td>{{ i.first_name }}</td>
+                <td>{{ i.admin.email }}</td>
+                <td>{{ i.designation }}</td>
+                <td>{{ i.location }}</td>
+                <td>{{ data.is_active }}</td>
+                <td>{{ i.dateofjoining | date:"d-M-Y" }}</td>
+                <td>{{ i.dateofbirth | date:"d-M-Y" }}</td>
+                <td>{{ i.package|floatformat:2 }}</td>
+                <td>{{ i.package|div:12|mul:100|div:100|floatformat:2 }}</td>
+                {% if i.dateofjoining %}
+                <!-- <td>{{ i.dateofjoining | date:"d-M-Y" }}</td> -->
+                {% else %}
+                <td>-</td>
+                {% endif %}
+                {% for st in salbasic %}
+                {% with basicsalary=i.package|div:12|mul:st.percentageofCTC|div:100|floatformat:2 %}
+                <td>{{ basicsalary }}</td>
+                {% for sb in salaryexbasic %}
+                {% with alow=i.package|div:12|mul:100|div:100|mul:sb.percentageofCTC|div:100|floatformat:2 %}
+                <td>{{ alow }}</td>
+                {% endwith %}
+                {% endfor %}
+                {% for sd in salarded %}
+                {% if sd.percentageordfixed == "Percentage" %}
+                {% with deduct=basicsalary|mul:sd.percentageofdctc|div:100|floatformat:2 %}
+                <td>-{{ deduct }}</td>
+                {% endwith %}
+                {% else %}
+                <td>-{{ sd.percentageofdctc }}</td>
+                {% endif %}
+                {% endfor %}
+                {% endwith %}
+                {% endfor %}
+                {% if deductfix or deduct %}
+                {% for st in salbasic %}
+                {% with allalow=i.package|div:12|mul:100|div:100|mul:alowsum|div:100|floatformat:2 %}
+                {% with allded=i.package|div:12|mul:st.percentageofCTC|div:100|mul:deduct|div:100|add:deductfix|floatformat:2 %}
+                {% with aftersum=allalow|sub:allded %}
+                <td>{{ i.package|div:12|mul:st.percentageofCTC|div:100|add:aftersum }}</td>
+                {% endwith %}
+                {% endwith %}
+                {% endwith %}
+                {% endfor %}
+                {% else %}
+                <td>{{ i.package|div:12|mul:100|div:100|floatformat:2 }}</td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+            {% endwith %}
+        </tbody>
+    </table>
+</div>
+
+
+    <!-- <div class="pagination d-flex justify-content-center" >
+      <span class="step-links">
+          {% if rst.has_previous %}
+              <a href="?page=1">&laquo; First</a>
+              <a href="?page={{ rst.previous_page_number }}" class="prev">&#8249; Previous</a>
+          {% endif %}
+    
+          {% for page in rst.paginator.page_range %}
+              <a href="?page={{ page }}" {% if page == rst.number %}class="active"{% endif %}>{{ page }}</a>
+          {% endfor %}
+    
+          {% if rst.has_next %}
+              {% if rst.number != rst.paginator.num_pages %}
+                  <a href="?page={{ rst.next_page_number }}" class="next">Next &#8250;</a>
+              {% endif %}
+              <a href="?page={{ rst.paginator.num_pages }}">&raquo; Last</a>
+          {% endif %}
+      </span>
+    </div> -->
+    <br>
+    <!-- <div class="text-center" style="color: white;">
+      {% if rst.number|add:'-5' > 1 %}
+            <a class="btn btn-info bi bi-arrow-left "  style="border-radius: 20px;" href="?page={{ rst.number|add:'-5' }}"></a>
+            {% endif %}
+
+            {% for i in rst.paginator.page_range %}
+            {% if rst.number == i %}
+            <button class="active btn btn-info"  style="border-radius: 20px;"><span>{{ i }} <span class="sr-only">(current)</span></span></button>
+            {% elif i > rst.number|add:'-3' and i < rst.number|add:'3' %}
+                <a class="btn btn-info"  style="border-radius: 20px;" href="?page={{ i }}">{{ i }}</a>
+            {% endif %}
+            {% endfor %}
+
+            {% if rst.paginator.num_pages > rst.number|add:'1' %}
+            <a class="btn btn-info bi bi-arrow-right" style="border-radius: 20px;" href="?page={{ rst.number|add:'5' }}"></i></a>
+            {% endif %}
+
+</div>
+   -->
+
+   <div class="pagination" style="color:white; margin:20px auto;">
+    <span class="step-links">
+        {% if rst.has_previous %}
+            <a  href="?page=1">&laquo;<<</a>
+            <a   href="?page={{ rst.previous_page_number }}" class="prev"> < </a>
+        {% endif %}
+
+
+        {% for i in rst.paginator.page_range %}
+        {% if rst.number == i %}
+        <button class="active act bg-info"><span>{{ i }} <span class="sr-only">(current)</span></span></button>
+        {% elif i > rst.number|add:'-3' and i < rst.number|add:'3' %}
+            <a  href="?page={{ i }}">{{ i }}</a>
+        {% endif %}
+        {% endfor %}
+
+       
+
+        {% if rst.has_next %}
+            {% if rst.number != rst.paginator.num_pages %}
+            {% endif %}
+            <a   href="?page={{ rst.next_page_number }}" class="prev">> </a>
+
+            <a  href="?page={{ rst.paginator.num_pages }}">>>&raquo; </a>
+        {% endif %}
+    </span>
+</div>   
+
+
+
+
+
+    <script>
+      // User-defined function to download CSV file
+      function downloadCSV(csv, filename) {
+          var csvFile = new Blob([csv], { type: 'text/csv' });
+          var downloadLink = document.createElement("a");
+  
+          downloadLink.download = filename;
+          downloadLink.href = window.URL.createObjectURL(csvFile);
+          downloadLink.style.display = "none";
+  
+          document.body.appendChild(downloadLink);
+          downloadLink.click();
+  
+          document.body.removeChild(downloadLink); // Clean up after download
+      }
+  
+      // User-defined function to export the data to CSV file format
+      function exportTableToCSV(filename) {
+          var csv = []; // Array to store CSV data
+          var table = document.getElementById("myTable");
+  
+          // Fetch the headers from the table
+          var headerRow = table.rows[0];
+          var headers = [];
+          for (var i = 0; i < headerRow.cells.length; i++) {
+              headers.push(headerRow.cells[i].innerText.trim());
+          }
+          csv.push(headers.join(",")); // Push headers to CSV array
+  
+          // Fetch data from all pages
+          var totalPages = {{ rst.paginator.num_pages }};
+          for (var page = 1; page <= totalPages; page++) {
+              $.ajax({
+                  url: window.location.href,
+                  type: "GET",
+                  data: { page: page },
+                  async: false,
+                  success: function(response) {
+                      var dataRows = $(response).find("#myTable tbody tr");
+                      dataRows.each(function(index) {
+                          var rowData = [];
+                          $(this).find("td").each(function() {
+                              rowData.push($(this).text().trim());
+                          });
+                          csv.push(rowData.join(",")); 
+                      });
+                  },
+                  error: function(xhr, status, error) {
+                      console.error("Error fetching data:", error);
+                  }
+              });
+          }
+  
+          downloadCSV(csv.join("\n"), filename);
+      }
+    </script>
+      
+
+    <script>
+      var currentPage = 1; 
+      var currentFilter = "all"; 
+    
+      function showAllRows() {
+          currentFilter = "all";
+          showPage(1);
+      }
+    
+      function showActiveEmployees() {
+          currentFilter = "employees";
+          showPage(1);
+      }
+    
+      function showDismissedEmployees() {
+          currentFilter = "dismissed";
+          showPage(1);
+      }
+    
+      function showPage(pageNumber) {
+          var rowsPerPage = 10;
+          var table = document.getElementById("myTable");
+          var rows = table.rows;
+          
+          for (var i = 1; i < rows.length; i++) {
+              var is_active = rows[i].getAttribute("data-is-active");
+              if ((currentFilter === "all") ||
+                  (currentFilter === "employees" && is_active === "True") ||
+                  (currentFilter === "dismissed" && is_active === "False")) {
+                  if (i >= (pageNumber - 1) * rowsPerPage + 1 && i <= pageNumber * rowsPerPage) {
+                      rows[i].style.display = ""; 
+                  } else {
+                      rows[i].style.display = "none"; 
+                  }
+              } else {
+                  rows[i].style.display = "none"; 
+              }
+          }
+          
+          document.getElementById("currentPage").textContent = "Page " + pageNumber;
+          currentPage = pageNumber;
+      }
+    
+      function nextPage() {
+          if (currentPage < totalPageCount()) {
+              showPage(currentPage + 1);
+          }
+      }
+    
+      function prevPage() {
+          if (currentPage > 1) {
+              showPage(currentPage - 1);
+          }
+      }
+    
+      function totalPageCount() {
+          var rowsPerPage = 2; 
+          var table = document.getElementById("myTable");
+          var totalRows = table.rows.length - 1; 
+          return Math.ceil(totalRows / rowsPerPage);
+      }
+    
+      showPage(1);
+    
+      document.getElementById("prevPage").addEventListener("click", prevPage);
+      document.getElementById("nextPage").addEventListener("click", nextPage);
+    </script>
+  
+
+ 
+
+
+
+
+
+</body>
+
+</html>
+        
+{% endblock main_content %}

@@ -1,0 +1,37 @@
+{% extends 'employhelp/basehelp.html' %}
+{% block main_content %}
+<style>
+    h5{
+        font-size: medium;
+    }
+</style>
+<form>
+
+    <p id="ha1" style="font-size: xx-large;">A payment was made through Hrms but is not reflecting in the beneficiary's account?</p>    
+    <p id="g">If you are an Hrms administrator, the first thing you should do is check the payment status. To do this, please go to Reports > Ledger, and view the report. Here you should find an entry for the salary/contractor payment that you have done through Hrms. If the entry is not there in the ledger, then that would mean that no payment has been made through Hrms.</p><br>
+    <p id="g1">If the entry is there, please see the Status column:</p>
+    
+    <p id="g2"><b>1. Pending -</b>The payment has not yet been completed by Hrms.</p>
+    <p id="g3"><b>2. In Progress -</b>The payment has been made, but we're waiting for confirmation fromthe bank that it has been completed.</p>
+    <p id="g4"><b>3. Success </b>Payment has been made and the bank has confirmed that it hasbeen completed.</p>
+    <p id="g5"><b>4. Failed - </b>The payment could not be completed for some reason.</p><br>
+    
+    <p id="g6"><b>If the payment status is Failed, then that could be for several reasons -</b></p>
+    <p id="g7">1. the beneficiary account details are incorrect.</p>
+
+      <p id="g8">  2. the beneficiary bank's systems were down when the payment was attempted.</p>
+        
+       <p id="g9">3. There is an unknown problem somewhere in the banking system.</p><br>
+    <p id="g10">Whenever a payment fails, Hrms automatically sends an email to all the administrators of that organization, plus the affected employee/contractor, informing them of the fact. This email also mentions the reason for the payment failure, if it is available. Lastly, this email contains a link that can be used to retry the payment.</p> 
+
+     <br> <p id="g11">  If the payment status is Success, but the beneficiary has still not received funds, then please wait for up to 3 working days for the transfer to complete. This can happen rarely because of issues within the banking system, and at the end of 3 days either the funds will be received, or the payment will fail after which you can retry it. </p><br>
+
+      <center><button style="width:50%;height: auto;font-size: x-large;border: 2px solid whitesmoke;">
+        <div id="a">
+            <p id="section10" style="text-align: center;">Did this answer your question?</p>
+            <p><a class="ex1" style="text-decoration: none;color: black;"><center>😄 😶 😔</center></a> </p>
+        </div>
+    </button></center><br><br><br>  
+    
+</form>
+{% endblock main_content %}

@@ -1,0 +1,21 @@
+<html>
+    <head>
+        <title>curdoperations</title>
+    </head>
+    <body>
+        <h3>KYC Details</h3>
+        <button><a href="/reg">add kyc details</a></button><br><br>
+        {% for i in k %}
+        <table border="2">
+            <tr><th>cust</th><td>{{i.cust}}</td></tr>
+            <tr><th>img</th><td>{{i.img}}</td></tr>
+            <tr><th>img1</th><td>{{i.img1}}</td></tr>
+            <tr><th>img2</th><td>{{i.img2}}</td></tr>
+            <tr><th>img3</th><td>{{i.img3}}</td></tr>
+            <tr><th>img4</th><td>{{i.img4}}</td></tr>
+            <tr><th>action</th><td><a href="/delete/{{i.id}}">Delete</a></td></tr>
+            <tr><th>action</th><td><a href="/edit/{{i.id}}">Update</a></td></tr>
+        </table>
+        {% endfor %}
+    </body>
+</html>

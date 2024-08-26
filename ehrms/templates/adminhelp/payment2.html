@@ -1,0 +1,33 @@
+{% extends 'adminhelp/basehelp.html' %}
+{% block main_content %}
+<style>
+    h5{
+        font-size: medium;
+    }
+</style>
+<form>
+    <p id="ha1" style="font-size: xx-large;">Can Hrms process Hrms and transfers on (bank) holidays/weekends?</p>    
+    <p id="f">Hrms by default uses IMPS for any payout, which is available 24/7 and works on all days, irrespective of whether it's a bank holiday or weekend. However, under certain cases the payment mode will switch to NEFT automatically-</p><br>
+    
+    <p id="d">1.If the payout amount is greater than Rs 2,00,000.</p> 
+
+     <p id="dq">2.If the organization has overridden the default settings under Settings > Payments & Compliance Setup, and chosen NEFT transfers.</p>
+        
+      <p id="df">  3.If an employee has chosen NEFT transfers under their payment information setup.</p> 
+        
+         
+    <br>
+    <p id="dd">1.Funds are transferred using NEFT/RTGS during non-banking hours or on bank holidays.</p>
+
+       <p id="dg">2.There is an error in the bank account number/ifsc in beneficiary details.</p>
+    
+    <p id="di">If a money transfer has been made using NEFT when NEFT is unavailable, then the transfer will remain in Pending status until NEFT is available again, and the beneficiary will receive the funds after that.</p><br>
+          <center><button style="width:50%;height: auto;font-size: x-large;border: 2px solid whitesmoke;">
+            <div id="a">
+                <p id="section10" style="text-align: center;">Did this answer your question?</p>
+                <p><a class="ex1" style="text-decoration: none;color: black;"><center>😄 😶 😔</center></a> </p>
+            </div>
+        </button></center><br><br><br>  
+        
+    </form>
+    {% endblock main_content %}

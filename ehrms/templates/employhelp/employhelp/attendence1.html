@@ -1,0 +1,30 @@
+{% extends 'employhelp/basehelp.html' %}
+{% block main_content %}
+<style>
+    h5{
+        font-size: medium;
+    }
+</style>
+<form>
+    <p id="p">All collections > Other Modules > Holidays,Leaves& Attendance ></p>
+    <p id="ha1" style="font-size: xx-large;">How do i configure the leave set up for my organisation</p>
+    <p id="d">Please go to <b>Settings > Holidays, Leaves & Attendance, </b>and edit this section.</p>
+    <p id="d1">Under the TYPES OF LEAVES section, you can enter the different types of leave that your employees can get, and set the following parameters for each type of leave -</p>
+    <p id="d3"><b>1.Default Amount :-</b>This is the number of leaves granted to an employee when they are newly added to the XPayroll platform. This is not the same as the number of leaves granted at the start of the leave calendar.</p>
+    <p id="d2"><b>2.Monthly Increment:-</b> Every month, our platform will automatically increase the total leave count by this amount. This increment happens on the <b>1st of every month,</b> and will take place for every active employee irrespective of their date of joining. This increment will not happen if the<b> "max amount" </b>is set, and the current number of leaves is same (or exceeding) it</p>
+    <p id="d4"><b>3.Max Amount:- </b>If you're using the monthly increment, then it is also helpful to set the maximum amount that this type of leave should not exceed. This parameter only affects the auto-increment; if you want, you can still manually edit the leaves for an employee and set it to a greater amount. Leave this blank if you do not want an upper limit on the auto-increment.</p>
+    <p id="d6"><b>4.Carry Forward:- </b>At the end of your leave calendar (financial or calendar year), XPayroll can automatically carry forward the leave balance to the next year. You can use this setting to specify the maximum carry forward. Please set this to 0 if you do not want any carry forward. If this is not set, then the entire balance will be carried forward.</p>
+    <p id="d7">Any changes made to these settings will not change the current leave data for your employees. It will become applicable only for employees added after the changes have been applied (or when the next auto-increment kicks in). </p><br>
+    <h5 id="d8">Warning - Changing the types of leave in an active account</h5>
+    <p id="d9">If you have an active XPayroll account where the leave setup has been done before, and you then decide to change the number/types of leave, then this can lead to unexpected results. For example, if the first type of leave defined is <b>"Casual Leave",</b> and you change this to <b>"Annual Leave",</b> then the system will start showing the previous casual leave balance/total as the new annual leave balance/total.</p>
+    <h5 id="d10">Bulk changes to leave data</h5>
+    <p id="d11">If you want to edit the number of leaves that have been granted to your employees in bulk, then please go to <b>Reports > Attendance > Leaves Report.</b> You can download this report, make changes to it in Excel, and upload it back. Do note that the platform will only allow you to change the total number of leaves, and not the balance (since the balance will automatically get computed based on the total that you enter, and the leaves marked by your employees).</p><br>
+    <center><button style="width:50%;height: auto;font-size: x-large;border: 2px solid whitesmoke;">
+        <div id="a">
+            <p id="section10" style="text-align: center;">Did this answer your question?</p>
+            <p><a class="ex1" style="text-decoration: none;color: black;"><center>😄 😶 😔</center></a> </p>
+        </div>
+    </button></center><br><br><br>  
+    
+</form>
+{% endblock main_content %}

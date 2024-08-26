@@ -1,0 +1,178 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic FAQ</title>
+    <style>
+    /*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v8.4.14,
+* Autoprefixer: v10.4.7
+* Browsers: last 4 version
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #F0F2F5; 
+    margin: 0;
+    padding: 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    height: 100vh;
+}
+
+.accordion-container {
+    width: 80%;
+    max-width: 600px;
+}
+
+.accordion-item {
+    background-color: #FFFFFF; /* White background for items */
+    border: 1px solid #E0E0E0; /* Light border */
+    border-radius: 8px;
+    margin-bottom: 10px;
+    -webkit-box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Softer shadow */
+}
+
+.accordion-header {
+    background-color: #6C63FF; /* Soft purple */
+    color: #FFFFFF; /* White text */
+    padding: 15px;
+    font-size: 18px;
+    border: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    outline: none;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    border-radius: 8px 8px 0 0;
+    -webkit-transition: background-color 0.3s ease;
+    -o-transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease;
+}
+
+.accordion-header:hover {
+    background-color: #5753C9; /* Darker shade of purple */
+}
+
+.accordion-content {
+    background-color: #FAFAFA; /* Very light grey for content */
+    overflow: hidden;
+    padding: 0 15px;
+    max-height: 0;
+    -webkit-transition: max-height 0.3s ease;
+    -o-transition: max-height 0.3s ease;
+    transition: max-height 0.3s ease;
+    width: 100%;
+}
+
+.accordion-content p {
+    margin: 15px 0;
+    line-height: 1.5;
+}
+
+.icon {
+    -webkit-transition: -webkit-transform 0.3s ease;
+    transition: -webkit-transform 0.3s ease;
+    -o-transition: transform 0.3s ease;
+    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, -webkit-transform 0.3s ease;
+}
+
+.active .icon {
+    -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+            transform: rotate(45deg);
+}
+    </style>
+</head>
+<body>
+   
+    <div class="accordion-container">
+    <h2>Frequently Asked Questions</h2>
+
+    {% if faq_items %}
+    {% for faq_item in faq_items %}
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion({{ faq_item.id }})">
+                {{ faq_item.question }}
+                <div class="icon">&#43;</div>
+            </div>
+            <div class="accordion-content" id="accordion-content-{{ faq_item.id }}">
+                <p>{{ faq_item.answer }}{% if faq_item.link %}
+                    <a href="{{ faq_item.link }}" target="_blank">{{ faq_item.link }}</a>,&nbsp;&nbsp;
+                                    {% endif %}
+                {% if faq_item.email %}
+                     <a href="mailto:{{ faq_item.email }}">{{ faq_item.email }}</a>
+                {% endif %}</p>
+                
+            </div>
+        </div>
+        <script>
+            // Set initial state for each accordion item
+            var accordionId = {{ faq_item.id }};
+            var accordionContent = document.getElementById('accordion-content-' + accordionId);
+            accordionContent.style.maxHeight = 0;
+        </script>
+    {% endfor %}
+{% else %}
+    <p>No frequently asked questions available.</p>
+{% endif %}
+       
+   
+</div>
+
+<script>
+    function toggleAccordion(accordionId) {
+        var accordionContent = document.getElementById('accordion-content-' + accordionId);
+        var accordionHeader = accordionContent.previousElementSibling;
+
+        accordionHeader.classList.toggle('active');
+
+        if (accordionHeader.classList.contains('active')) {
+            accordionContent.style.maxHeight = accordionContent.scrollHeight + 'px';
+        } else {
+            accordionContent.style.maxHeight = 0;
+        }
+
+        // Close other open accordion items
+        document.querySelectorAll('.accordion-header').forEach(otherHeader => {
+            if (otherHeader !== accordionHeader) {
+                otherHeader.classList.remove('active');
+                otherHeader.nextElementSibling.style.maxHeight = 0;
+            }
+        });
+    }
+</script>
+<script>
+    // JavaScript to open links in a new tab or window when clicked
+    document.querySelectorAll('.accordion-content a').forEach(link => {
+        link.addEventListener('click', function(event) {
+            event.preventDefault();  // Prevent the default link behavior
+            var fullURL = "https://" + this.getAttribute("href");  // Reconstruct the full URL
+            window.open(fullURL, "_blank");  // Open the URL in a new tab or window
+        });
+    });
+</script>
+</body>
+</html>

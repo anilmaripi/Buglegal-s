@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Information</title>
+    <style>
+        /* (Your existing CSS styles here) */
+        table {
+            border-collapse: collapse; /* Remove table borders */
+            width: 100%;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd; /* Add cell borders */
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2; /* Differentiate headers */
+        }
+        .button {
+  display: inline-block; /* Display as a block-level element that can sit inline with other content */
+  padding: 10px 15px;   /* Add spacing around the text */
+  border: none;         /* Remove default button border */
+  border-radius: 4px;   /* Add rounded corners */
+  background-color: #007bff;  /* Set background color */
+  color: #fff;            /* Set text color */
+  text-decoration: none;  /* Remove underline from links */
+  font-weight: bold;      /* Make text bold */
+  cursor: pointer;        /* Indicate interactivity */
+}
+
+.button:hover {
+  background-color: #0062cc;  /* Change background color on hover */
+}
+
+    </style>
+</head>
+<body>
+    <h1>Contact Information</h1>
+    <table>
+        <tbody>
+            <tr>
+                <th>Address</th>
+                <td>{{ contact_info2.address }}</td>
+            </tr>
+            <tr>
+                <th>City</th>
+                <td>{{ contact_info2.city }}</td>
+            </tr>
+            <tr>
+                <th>State</th>
+                <td>{{ contact_info2.state }}</td>
+            </tr>
+            <tr>
+                <th>Country</th>
+                <td>{{ contact_info2.country }}</td>
+            </tr>
+            <tr>
+                <th>Zip Code</th>
+                <td>{{ contact_info2.zip_code }}</td>
+            </tr>
+            <tr>
+                <th>Phone Number</th>
+                <td>{{ contact_info2.phone_number }}</td>
+            </tr>
+            <tr>
+                <th>Phone Hours</th>
+                <td>{{ contact_info2.phone_hours }}</td>
+            </tr>
+            <tr>
+                <th>Email Addresses</th>
+                <td>{{ contact_info2.email_addresses }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <p>
+        <a href="{% url 'update_contact_info' contact_info2.pk %}" class="button">Update</a>
+        <a href="{% url 'delete_contact_info' contact_info2.pk %}" class="button">Delete</a>
+    </p>
+</body>
+</html>

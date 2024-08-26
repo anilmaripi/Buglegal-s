@@ -1,0 +1,47 @@
+{% extends 'adminhelp/basehelp.html' %}
+{% block main_content %}
+
+    <form>
+        <p id="ha1" style="font-size: xx-large;">HRMS Account Setup Guidance</p>
+
+        <p id="e">Follow these steps to complete your company account onboarding.</p>
+        <p id="e1">Here is a checklist for your HRMS account, please ensure you go through these 10 steps to get your account ready for your first HRMS.</p>
+        <h5 id="r">1. Training Videos</h5>
+        <p id="d">a. <a href="/hom7">For Admins</a>(Get Started Guide)</p>
+        <p id="ee">b. daily live product demo sessions <a href="https://www.youtube.com/watch?v=XZ3J6s3Lz7U">For employees</a></p>
+        <h5 id="e12">2. Ensure you have added all employees:</h5>
+        <p id="e2">a. single add: Admin options>people>Add one</p>
+        <p id="p"> b. Add many: <a href="/upload">Bulk update employee list</a></p> 
+        <h5 id="pp">3. Let us know what compliances are enabled.</h5>
+        <p id="pr">a. Enable<a href="/payments_edit">compliances</a></p>
+        <p id="et">b. <a href="/tds">connect compliances portal</a>(if applicable)</p>
+        <h5 id="fg">4. Update your logo:(this will reflect on payslips)</h5>
+        <p id="pl"><a href="/company_detail">company details > Logo </a></p>
+        <h5 id="p1">5. Set your default salary structure</h5>
+        <p id="p2"><a href="/update_default_sal_str">Admin option>settings>basic info>Default salary structure </a></p>
+        <h5 id="p3">6. Check for Missing information</h5>
+        <p id="p4">You can track which employee profiles have mandatory information missing.</p>
+        <p id="p5"><a href="/all_employees_missing_info">Admin option>Reports>Missing information</a></p>
+        <h5 id="p6">7. Check the Salary Register to reconfirm all salary components.</h5>
+        <p id="p7">You can reconfirm if the salary components and the net salaries are accurate here.</p>
+        <p id="p8"><a href="/yearmonth_uploaded">Admin option>Reports>SalaryResister</a></p>
+        <h5 id="p9">8. Ask employees to update their Tax declarations</h5>
+        <p id="p10"> The employee would need to  Navigate to 'Tax Deductions' so they can update declarations and minimize their taxes deducted.</p>
+        <p id="p11"><a href="/setup_guide">video walkthrough</a></p>
+        <h5 id="p12">9. Add HRMS details as a beneficiary</h5>
+        <p id="p13">We assign a unique customer identifier to each HRMS client for transferring funds for executing HRMS.</p>
+        <p id="p14">Adding this unique number to your bank account as a beneficiary is required in advance as most banks have a 24-hour cooling period before funds can be transferred.</p>
+        <p id="p15">you can find your account details by <a href="/setup_guide">clicking this link</a>(login required)<br></p>
+        <h5 id="p16">10. Update the UAN for employees (if PF is applicable)</h5>
+        <p id="p17"> <a href="/people_count/">Admin options>peoples>select any one employee name</a>, Professional Tax & ESI. Do reach us on the live chat in-app, if you need any assistance with this.</p><br>
+        <center><button style="width:50%;height: auto;font-size: x-large;border: 2px solid whitesmoke;">
+            <div id="a">
+                <p id="section10" style="text-align: center;">Did this answer your question?</p>
+                <p><a class="ex1" style="text-decoration: none;color: black;"><center>😄 😶 😔</center></a> </p>
+                
+            </div>
+        </button></center><br><br><br>  
+
+    </form>
+
+{% endblock main_content %}

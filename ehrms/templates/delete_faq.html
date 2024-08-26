@@ -1,0 +1,55 @@
+<!-- delete_faq.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete FAQ</title>
+    <!-- Add any additional CSS styles you want for the form -->
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            margin: 20px;
+        }
+
+        h2 {
+            color: #dc3545;
+        }
+
+        form {
+            max-width: 600px;
+            margin: auto;
+        }
+
+        button {
+            background-color: #dc3545;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #bd2130;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Delete FAQ</h2>
+
+{% if faq_item %}
+    <p>Are you sure you want to delete "{{ faq_item.question }}"?</p>
+
+    <form action="/delete_faq_view/{{ faq_item.id }}/" method="post">
+        {% csrf_token %}
+        <button type="submit">Delete</button>
+    </form>
+{% else %}
+    <p>No data available for deletion.</p>
+{% endif %}
+
+</body>
+</html>

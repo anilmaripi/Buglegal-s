@@ -1,0 +1,35 @@
+<html>
+    <head></head>
+<body>
+  <h2>timeattendance2</h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <label >Image1:</label>
+    <input type="file" name="image1" accept="image/*" ><br>
+    
+    
+    <label >Title1:</label>
+    <input type="text" name="title1" ><br>
+    
+    
+    <label>Description1:</label>
+    <input type="text" name="discription1"><br>
+
+    <label >Image2:</label>
+    <input type="file" name="image2" accept="image/*" ><br>
+    
+    
+    <label >Title2:</label>
+    <input type="text" name="title2" ><br>
+    
+    
+    <label>Description2:</label>
+    <input type="text" name="discription2"><br>
+
+    
+
+    <button type="submit">Save</button>
+  </form>
+</body>
+</html>

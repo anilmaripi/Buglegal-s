@@ -1,0 +1,189 @@
+{% extends 'admin-template/adminAdashboard.html' %}
+{% block main_content %}
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>New_Add_ons</title>
+        <style>
+            body {
+                font-family: 'Arial', sans-serif;
+                background-color: #f4f4f4;
+                margin: 0;
+                padding: 0;
+            }
+    
+            form {
+                width:600px;
+                margin: 50px auto;
+                background-color:#c9c8c6;
+                padding: 20px;
+                border-radius: 8px;
+                /* box-shadow: 5px 5px rgb(167, 161, 161); */
+            }
+    
+           .form-group {
+                margin-bottom: 15px;
+            }
+    
+            label {
+                display: block;
+                margin-bottom: 8px;
+            }
+    
+           .form-control {
+                width: 100%;
+                padding: 8px;
+                box-sizing: border-box;
+                /* border: 1px solid #ccc; */
+                border-radius: 4px;
+            }
+    
+            button {
+                background-color:#B0C4DE;
+                color: black;
+                padding: 7px 20px;
+                border: none;
+                border-radius: 10px;
+                cursor: pointer;
+                font-size: medium;
+            }
+    
+            button:hover {
+                background-color:lightskyblue;
+                
+            }
+            select{
+                width: 100%;
+                height: 5%;
+                border-radius: 3px;
+            }
+          
+
+            h2{
+                text-align: center;
+                color:black;
+                font-size: xx-large;
+            }
+
+
+
+            label{
+                color:black;
+            }
+            @media (max-width:765px) {
+                form {
+                    width:fit-content
+                }
+            }
+        </style>
+
+
+    </head>
+        <body class="d-flex justify-content-center w-100">
+            <form method="post" action="" enctype="multipart/form-data">{% csrf_token %}
+    
+                <div class="form-group" >
+                    <h2>Select New Addons</h2>
+                    
+                    <b><label>Select Plan Type:</label></b>
+                    <select type="text" name="plantype" id="plantype">
+                        <option value="" selected disabled >--Choose plan--</option>
+                        {% for j in g1 %}
+                        {% if j.id != 4 %}
+                        <option value="{{j.id}}" {% if j.id == plan_type %}selected{% endif %}>{{j.annual_price}}</option> 
+                        {% endif %}
+
+                        {% endfor %} 
+                      </select>
+                </div>
+    
+                <div class="form-group" id="basic-plan" style="display: none;">
+                    <b><label>Select Feature Type:</label></b>
+                    <select type="text" name="name" >
+                        <option value="" selected disabled >--Choose feature type--</option>
+                        {% for i in shou %}
+                        <option {% if plan_type and plan.annual_price == 'Basic Plan' and i.name in shou %}selected{% endif %}>{{i.name}}</option> 
+                        {% endfor %}             
+                        {% for i in prdrop %}
+                        <option {% if plan_type and  plan.annual_price == 'Basic Plan' and i.name in prdrop %}selected{% endif %}>{{i.name}}</option> 
+                        {% endfor %}             
+                        {% for i in screen %}
+                        <option {% if plan_type and plan.annual_price == 'Basic Plan' and i.name in screen %}selected{% endif %}>{{i.name}}</option> 
+                        {% endfor %} 
+                       
+            
+                    </select>
+                </div>
+    
+                <div class="form-group" id="annual-plan" style="display: none;">
+                    <b><label>Select Feature Type:</label></b>
+                    <select type="text" name="name" >
+                        <option value="" selected disabled >--Choose feature type--</option>
+                        {% for i in shou1 %}
+                        <option {% if plan_type and plan.annual_price == 'Gold Plan' and i.name in shou1 %}selected{% endif %}>{{i.name}}</option> 
+                        {% endfor %} 
+                        {% for i in prdrop1 %}
+                        <option {% if plan_type and plan.annual_price == 'Gold Plan' and i.name in prdrop1 %}selected{% endif %}>{{i.name}}</option> 
+                        {% endfor %} 
+                        {% for i in screen1 %}
+                        <option {% if plan_type and plan.annual_price == 'Gold Plan' and i.name in screen1 %}selected{% endif %}>{{i.name}}</option>
+                        {% endfor %} 
+                    </select>
+                </div>
+    
+                <div class="form-group" id="platinum-plan" style="display: none;">
+                   
+                   <b> <label>Select Feature Type:</label></b>
+                    <select type="text" name="name" >
+                        <option value="" selected disabled >--Choose feature type--</option>
+                        {% for i in shou2 %}
+                        <option {% if plan_type and plan.annual_price == 'Platinum Plan' and i.name in shou2 %}selected{% endif %}>{{i.name}}</option> 
+                        {% endfor %} 
+                        {% for i in prdrop2 %}
+                        <option {% if plan_type and plan.annual_price == 'Platinum Plan' and i.name in prdrop2 %}selected{% endif %}>{{i.name}}</option> 
+                        {% endfor %} 
+                        {% for i in screen2 %}
+                        <option {% if plan_type and plan.annual_price == 'Platinum Plan' and i.name in screen2 %}selected{% endif %}>{{i.name}}</option>
+                        {% endfor %} 
+                    </select>
+                </div>
+                <div class="form-group">
+                   <b> <label>Enter the Amount:</label></b>
+                    <input type="number" name="amount" class="form-control" >
+                </div>
+
+                <center>
+                <div class="form-group ">
+                    <button type="submit"  value="Submit">Save</button>
+                </div>
+                </center>
+            </form>
+
+                    <script>
+                        const planTypeSelect = document.getElementById('plantype');
+                        const basicPlan = document.getElementById('basic-plan');
+                        const annualPlan = document.getElementById('annual-plan');
+                        const platinumPlan = document.getElementById('platinum-plan');
+                      
+                        planTypeSelect.addEventListener('change', function() {
+                          if (planTypeSelect.value === '1') {
+                            basicPlan.style.display = 'block';
+                            annualPlan.style.display = 'none';
+                            platinumPlan.style.display = 'none';
+                          } else if (planTypeSelect.value === '2') {
+                            basicPlan.style.display = 'none';
+                            annualPlan.style.display = 'block';
+                            platinumPlan.style.display = 'none';
+                          } else if (planTypeSelect.value === '3') {
+                            basicPlan.style.display = 'none';
+                            annualPlan.style.display = 'none';
+                            platinumPlan.style.display = 'block';
+                          }
+                        });
+                      </script>
+                      
+        </body> 
+    </html>   
+    {% endblock main_content %}                  

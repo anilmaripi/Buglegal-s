@@ -1,0 +1,15 @@
+<!-- employees/employee_form.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>dataForm</title>
+</head>
+<body>
+    <h1>dataForm</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+</body>
+</html>

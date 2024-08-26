@@ -1,0 +1,60 @@
+
+<html>
+    <head>
+        <title>Hiring Table</title>
+    </head>
+
+    <style>
+        table,th,td{
+            border:2px solid black;
+        }
+        th{
+            text-align: center;
+            background: linear-gradient(#5785e9,rgb(236, 198, 216));
+            color:black;
+
+        }
+        td{
+            text-align: center;
+            color:black;
+        }
+
+        tr:nth-child(even) {background-color: #96b4f3}
+        tr:nth-child(odd) {background-color:rgb(236, 198, 216) }
+    </style>
+
+
+    <body>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>heading</th>
+                            <th>description1</th>
+                            <th>description2</th>
+                            <th>image</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in k %}
+                        <tr>
+                            <td>{{i.heading}}</td>
+                            <td>{{i.description1}}</td>
+                            <td>{{i.description2}}</td>
+                            <td><img src="{{i.image.url}}" height="50"></td>
+                            <td><a href="/recruitment_update/{{i.pk}}">edit</a></td>
+                            <td><a href="/recruitment_delete/{{i.pk}}">Delete</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+        </form>
+    </body>
+</html>
+
+
+

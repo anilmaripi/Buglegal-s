@@ -1,0 +1,27 @@
+{% extends 'employ-template/base_template.html' %}
+        
+        
+{% block main_content %}
+
+
+
+<form method="post" >
+   
+    {% csrf_token %}
+<div class="form-group">
+    <label>Role*</label><br>
+    <select name="designation"  style="background-color:#2D3354;  color:white; border:none;" class="form-control">
+        <option>HR</option>
+        <option>Manager</option>
+        <option>Employee</option>
+
+    </select>    
+</div><br> 
+
+<input type="submit" class="btn btn-lg btn-info w-50" value="continue">
+
+</form>
+{% endblock main_content %}
+
+
+

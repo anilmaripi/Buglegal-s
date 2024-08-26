@@ -1,0 +1,401 @@
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
+<style>
+  .collapsing.width {
+transition-property: width;
+width: 0;
+height: auto;
+}
+
+.collapsing.width > * {
+width: 400px; /* the demo used inline styling */
+}
+
+</style>
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>
+</head>
+<body>
+
+  
+  <div class="row">
+  <nav class="navbar bg-light">
+    <div class="container-fluid">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="col-md-2">
+  
+   </div>
+   <div class="col-md-1">
+
+
+
+    </div>
+      <div class="col-md-5">
+      <form  method="post" enctype="multipart/form-data" stye="width:500px">{% csrf_token %}
+          <input name="slug" type="text" placeholder="Search..." aria-label="Search" style="width:400px">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="width:20%">Search</button>
+          <!-- <input type="submit" > -->
+        </form></div>
+      
+
+     <div class="col-md-5">
+        {% if user.is_authenticated %}
+        
+          <li><a href="{% url 'logout' %}">Logout</a></li>
+          {% else %}
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">Login or Signup</button>
+          <!-- <li><a href="{% url 'register' %}">Signup</a></li> -->
+          {% endif %}
+      
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <li  style="font-size: xx-large;margin-left: 500px;">
+          {% if user.is_authenticated %}
+            <a href="/cart/">
+              {% else %}
+              <a href="{% url 'login' %}">
+                {% endif %}
+
+              <i class="fa fa-shopping-basket"><sup>{{  cart_count  }}  {{  cart_items_count  }}  </sup></i></a> </a> </li>
+      
+            
+        <li class=" ml-5"> hi , {{user.username}}</li>
+ </div>
+      
+      </div>
+    </div>
+  </div>
+</div>  
+</nav>
+    <div class="row">
+      <nav class="navbar bg-light">
+        <div class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button><hr>
+     
+      <div class="col">
+        <p>
+          <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#horizontalCollapse" aria-expanded="false" aria-controls="collapseExample">
+        
+          </button>
+        </p>
+        <div class="collapse width" id="horizontalCollapse">
+          <div class="card card-body">
+         
+    
+      {% for category in categories %}
+      
+    {% if category.subcategories.exists %}
+    <li class="nav-item dropdown{% if category.slug == category_slug %} active{% endif %}">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown{{ category.slug }}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{ category.name }} ({{ category.pro }}) 
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdown{{ category.slug }}">
+            {% for subcategory in category.subcategories.all %}
+            
+              <li > <a class="dropdown-item " href="{{ subcategory.get_absolute_url }}">{{ subcategory.name }}({{ subcategory.prods }})</a> </li> 
+            {% endfor %}
+        </ul>
+    </li>
+    {% else %}
+    <li class="nav-item{% if category.slug == category_slug %} active{% endif %}">
+        <a class="nav-link" href="{{ category.get_absolute_url }}">{{ category.name }}({{ category.prods }})</a>
+    </li>
+    
+    {% endif %}
+    {% endfor %}
+    </div>
+   </div></div></nav>
+
+   
+<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8PrCWvhR3cqQCOgVYK-Insc2i8Hke7Eo"></script> -->
+    
+<!-- <div id="map" style="height: 400px;display: none;"></div>
+<script>
+  function mymap() {
+    document.getElementById("map").style.display = "block";
+  }
+  </script>
+<script>
+  const button = document.getElementById('get-location-btn');
+  const map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 10,
+    center: {lat: 0, lng: 0}
+  });
+  button.addEventListener('click', () => {
+    
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+        const marker = new google.maps.Marker({
+          position: {lat: latitude, lng: longitude},
+          map: map
+        });
+        google.maps.event.addListenerOnce(map, 'idle', () => {
+          map.setZoom(10);
+          map.setCenter(marker.getPosition());
+        });
+      },
+      (error) => {
+        console.error(error.message);
+      }
+    );
+  });
+</script>
+
+   -->
+
+  <div class="container">
+    
+
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+          {{ message }}
+        </div>
+      {% endfor %}
+    {% endif %}
+    {% block content %}{% endblock %}
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  {% block scripts %}{% endblock %}
+
+
+
+  
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></script>
+</body>
+<style>
+  /* .navbar {
+background-color: #e74c3c;
+} */
+
+.navbar .navbar-brand {
+color: rgb(128, 7, 234);
+
+}
+
+.navbar .navbar-brand:hover,
+.navbar .navbar-brand:focus {
+color: #e70d11;
+}
+
+.navbar .navbar-text {
+color: #09f554;
+}
+
+.navbar .navbar-text a {
+color: #ec090d;
+}
+
+.navbar .navbar-text a:hover,
+.navbar .navbar-text a:focus {
+color: black;
+}
+
+.navbar .navbar-nav .nav-link {
+color: black;
+border-radius: .25rem;
+margin: 0 0.25em;
+scroll-margin-right: 230px;
+}
+
+
+  .nav-item.active .nav-link,
+  .nav-item.active .nav-link:hover,
+  .nav-item.active .nav-link:focus,
+  .nav-item.show .nav-link,
+  .nav-item.show .nav-link:hover,
+  .nav-item.show .nav-link:focus {
+color: #ffbbbc;
+background-color: #c0392b;
+
+}
+.dropdown-menu {
+position: absolute;
+bottom: 0px;
+left:270px;
+width: fit-content;
+height: fit-content;
+
+}
+.dropdown-item{
+position: relative;
+color: black;
+
+/* width: 10px;
+height: 150px; */
+}
+.dropdown-menu :hover
+{
+color:rgb(128, 255, 0);
+background-color:aqua;
+}
+
+
+
+body{
+
+background-color: #eee;
+
+}
+
+
+
+.card{
+
+background-color: #fff;
+border:none;
+border-radius: 10px;
+width: 100%;
+box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}
+
+.image-container{
+
+position: relative;
+}
+
+.thumbnail-image{
+border-radius: 10px !important;
+}
+
+
+.discount{
+
+background-color: red;
+padding-top: 1px;
+padding-bottom: 1px;
+padding-left: 4px;
+padding-right: 4px;
+font-size: 12px;
+border-radius: 6px;
+color: #fff;
+}
+
+.wishlist{
+
+height: 25px;
+width: 25px;
+background-color: #eee;
+display: flex;
+justify-content: center;
+align-items: center;
+border-radius: 50%;
+box-shadow:  0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.first{
+position: absolute;
+width: 100%;
+padding: 9px;
+}
+.dress-name{
+font-size: 18px;
+font-weight: bold;
+width: 80%;
+}
+.new-price{
+font-size: 14px;
+font-weight: bold;
+color: red;
+
+}
+.old-price{
+font-size: 10px;
+font-weight: bold;
+color: grey;
+}
+
+
+
+.item-size{
+width: 15px;
+height: 15px;
+border-radius: 50%;
+background: #fff;
+border: 1px solid grey;
+color: grey;
+font-size: 10px;
+text-align: center;
+align-items: center;
+display: flex;
+justify-content: center;
+}
+.rating-star{
+font-size: 10px !important;
+}
+.rating-number{
+font-size: 16px;
+color: grey;
+}
+.buy{
+font-size: 12px;
+color: purple;
+font-weight: 500;
+}
+.voutchers{
+background-color: #fff;
+border:none;
+border-radius: 10px;
+width: 190px;
+box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+overflow: hidden;
+
+}
+.voutcher-divider{
+
+display: flex;
+
+}
+.voutcher-left{
+width: 60%
+}
+.voutcher-name{
+color: grey;
+font-size: 9px;
+font-weight: 500;
+}
+.voutcher-code{
+color: red;
+font-size: 11px;
+font-weight: bold;
+}
+.voutcher-right{
+width: 40%;	 
+background-color: purple;
+color: #fff;
+}
+
+.discount-percent{
+font-size: 12px;
+font-weight: bold;
+position: relative;
+top: 5px;
+}
+.off{
+font-size: 14px;
+position: relative;
+bottom: 5px;
+}
+
+</style>
+</html>
+
+
+
+
+

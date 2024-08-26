@@ -1,0 +1,145 @@
+{% extends 'admin-template/adminAdashboard.html' %}
+{% block main_content %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update Project</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 600px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #007bff;
+            text-align: center;
+            
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        textarea,
+        input[type="file"],
+        input[type="submit"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 10px;
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        a:hover {
+            color: #0056b3;
+        }
+        @media (max-width:765px) {
+            .container {
+            width: 100%;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+               
+           }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <center><h2>Update Project</h2></center>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="title">Title:</label>
+        <input type="text" name="title" value="{{ project.title }}"><br>
+
+        <label for="subtitle">Subtitle:</label>
+        <input type="text" name="subtitle" value="{{ project.subtitle }}"><br>
+
+        <label for="discription">Description:</label>
+        <textarea name="discription" >{{ project.discription }}</textarea><br>
+    
+        <label for="image">Image:</label>
+        <input type="file" name="image1" value="{{project.image1}}"><br>
+
+        
+        <label for="image">Image:</label>
+        <input type="file" name="image2" value="{{project.image2}}"><br>
+
+        <input type="submit" value="Update">
+    </form>
+
+    <a href="{% url 'projectmanagement_list' %}">Cancel</a>
+</div>
+
+</body>
+</html>
+
+
+
+<!-- <!DOCTYPE html>
+<html>
+<head>
+    <title>Update Project</title>
+    
+</head>
+<body>
+
+<h2>Update Project</h2>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label for="title">Title:</label>
+    <input type="text" name="title" value="{{ project.title }}"><br>
+
+    <label for="subtitle">Subtitle:</label>
+    <input type="text" name="subtitle" value="{{ project.subtitle }}"><br>
+
+    <label for="discription">Description:</label>
+    <textarea name="discription">{{ project.discription }}</textarea><br>
+
+    <label for="image">Image:</label>
+    <input type="file" name="image"><br>
+
+    <input type="submit" value="Update">
+</form>
+
+<a href="{% url 'projectmanagement_list' %}">Cancel</a>
+
+</body>
+</html> -->
+{% endblock main_content %}

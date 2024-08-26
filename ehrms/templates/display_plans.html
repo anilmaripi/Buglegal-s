@@ -1,0 +1,139 @@
+{% extends 'admin-template/adminAdashboard.html' %}
+{% block main_content %}
+<html>
+    <head>
+		<title>Table Style</title>
+
+	</head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"content="initial-scale=1.0;maximum-scale=1.0;width=device-width;">
+    <link href="https://fonts.googleapis.com/css? family=Roboto:400,500,700,300,100"rel="stylesheet"type="text/css"/>
+    <style>
+        body {
+            font-family: "Roboto", helvetica, arial, sans-serif;
+            font-size: 16px;
+            font-weight: 400;
+            text-rendering: optimizeLegibility;
+            background-color: #f4f4f4;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* height: 100vh; */
+            margin: 0;
+        }
+
+        .container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 90%;
+            width: 1000px;
+            margin: 20px auto;
+        }
+
+        h2 {
+            color: #2E294E;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: center;
+            font-size: 16px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #64113F;
+            color: white;
+        }
+
+        td {
+            background-color: #ffffff;
+            color: #333;
+        }
+
+        tr:nth-child(even) td {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover td {
+            background-color: #f1f1f1;
+        }
+
+        .btn-edit, .btn-delete {
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .btn-edit {
+            color: blue;
+        }
+
+        .btn-delete {
+            color: red;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        td.edit, td.delete {
+            width: 50px;
+        }
+       </style>
+    
+<body><br><br>
+			<div class="container"><br>
+
+
+				<center> <h2 class="d-flex justify-content-center" style="color:black;"><b>Cost and Employ Limit List</b></h2></center>
+
+
+
+	<table class="gfg">
+		<thead>
+			<tr>
+				<th>Plan Type</th>
+				<th>Monthly Price </th>
+                <th>Annual Price</th>
+                <th>Employee Limit</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+		</thead>
+		<tbody class="table-hover">
+            {% for plan in plans %}
+
+			<tr>
+				<td>{{ plan.annual_price }}</td>
+				<td>{{ plan.price }}</td>
+                <td>{{ plan.price_for_annual }}</td>
+                <td>{{ plan.employe_limit }}</td>
+                <td><a href="{% url 'update_plan' pk=plan.pk %}"><i class="fas fa-edit" style="color:blue;" ></i></a></td>
+				<td><a href="{% url 'delete_plan' pk=plan.pk %}"><i class="fas fa-trash-alt" style="color:red;"></i></a></td>
+
+
+			</tr>
+            {% endfor %}
+
+            </tbody></table>
+			</div>
+		
+		</body>
+		</html>
+			{% endblock main_content %}

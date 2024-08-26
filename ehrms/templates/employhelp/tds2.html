@@ -1,0 +1,26 @@
+{% extends 'employhelp/basehelp.html' %}
+   {% block main_content %}
+   <style>
+       h5{
+           font-size: medium;
+       }
+   </style>
+       <form>
+        <p id="ha1" style="font-size: xx-large;">When will HRMS file my TDS return?</p>
+    
+    <p id="ta">First, please ensure that HRMS is configured to file your 24Q/26Q returns by going to Settings > TDS Filing Setup. In this section of the settings, you can configure whether XPayroll should file your 24Q returns (for employees), 26Q returns (for contractors), or both. If you're a new customer and want to take care of the current filing yourself, you can also set the FY quarter from which the filing should start.</p><br>
+    
+    <p  id="tb">Please note that HRMS will only include payments in the 24Q/26Q filings for which TDS  payments have been made through the platform. If any TDS has been paid externally, then it will not be included in the filing. In such a case, you will either have to file the returns externally (and switch off returns filing in Settings), or file a correction after XPayroll has filed the returns.</p><br>
+    <p  id="tc">HRMS will typically start the filing process a week before the due date. During this period, you will see the TDS filing data under Reports  TDS  View TDS Filings, but the acknowledgement will not be present under the attachments column. Once we receive the acknowledgement it will be made available here, and you will also be informed on email that your filing has been completed.</p><br>
+    <p  id="td">Please note that HRMS does not file nil TDS returns. If there was no TDS deducted for your company for an entire quarter, then no filing will be done.</p><br>
+
+         <center><button style="width:50%;height: auto;font-size: x-large;border: 2px solid whitesmoke;">
+            <div id="a">
+                <p id="section10" style="text-align: center;">Did this answer your question?</p>
+                <p><a class="ex1" style="text-decoration: none;color: black;"><center>😄 😶 😔</center></a> </p>
+            </div>
+        </button></center><br><br><br>  
+        
+    </form>
+    {% endblock main_content %}
+    

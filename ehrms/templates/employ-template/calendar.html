@@ -1,0 +1,801 @@
+{% extends 'employ-template/base_template.html' %}
+
+{% block main_content %}
+<title>Leave & Attendance</title>
+<style>
+.calendar {
+width: 97%;
+margin: auto;
+font-size: 13px;
+background-color: black;
+
+}
+
+.calendar tr{
+border: 1px solid black;
+}
+
+.calendar th {
+padding: 10px;
+text-align: center;
+font-size: 18px;
+color:azure;
+/* background-color: rgb(56, 56, 63); */
+}
+
+.calendar td {
+width: 50px;
+height: 50px;
+padding: 20px 0px 0px 5px;
+color: white;
+text-align: center;
+background-color: linear-gradient(rgb(239,239,247), rgb(238,244,244)) !important;
+font-size: 18px;
+
+}
+.calendar td:hover{
+color:rgb(255, 2, 2);
+
+}
+.calendar td::select{
+background-color: gray;
+}
+
+.month {
+font-size: 25px;
+}
+
+.date {
+font-size: 16px;
+}
+a {
+  color: #17a2b8;
+}
+.left {
+  float: left;
+}
+.center {
+  float: center;
+}
+
+.right {
+  float: right;
+}
+
+.btn {
+  outline: none;
+  color:black;
+  background-color: rgb(41, 215, 231);
+  box-shadow: 0 0 0 0;
+}
+
+.clearfix {
+  margin-top: 20px;
+  text-align: center;
+  background-color: #c6d2e8;
+  flex-grow: 1;
+  height: 40px;
+  border: none;
+  width: 100%;
+  
+}
+.check{
+  background-color: #282f51;
+  padding:25px;
+  display:row;
+  flex-direction: row;
+  justify-content: center;
+}
+.levb{
+  background-color: #282f51;
+  color:white;
+  padding:25px;
+  display:row;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+}
+td.datepresent{
+  color: rgb(0, 0, 0);
+  background-color: rgba(246, 230, 0, 0.311);
+}
+td.datepresent1{
+  color: green;
+  background-color: rgba(229, 255, 0, 0.451);
+}
+span.datepresent2{
+  color:pink
+  
+}
+span.datepresent3{
+  color:red
+  
+}
+td.datepresent2{
+  color: pink;
+  background-color: rgba(229, 255, 0, 0.451);
+}
+td.datepresent3{
+  color: red;
+  background-color: rgba(229, 255, 0, 0.451);
+}
+span.datepresent1{
+  color: rgb(95, 255, 3);
+  
+}
+.area{
+	padding: 10px;
+	height: auto;
+}
+.check_notify{
+  background-color: green;
+  color:white;
+}
+/* .button{
+  background-color: rgb(26, 31, 182);
+  color:white;
+} */
+button:disabled {
+  cursor: not-allowed;
+  pointer-events: all !important;
+}
+
+@media screen and (max-width: 768px){
+  .col-md-3{
+    margin-top:10px;
+  }
+  
+}
+.blur {
+            filter: blur(5px); /* Adjust the blur effect as needed */
+            pointer-events: none; /* Prevent interaction with blurred elements */
+        }
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Ensure it's above other elements */
+}
+
+#overlay {
+  position: fixed;
+  display: none;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.7);
+  z-index: 2;
+  cursor: pointer;
+}
+
+
+#text{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 50px;
+  color: white;
+  transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+}
+  </style>
+      <style>
+        .cad{
+            background-color: rgb(239,239,247);
+            padding:25px;
+            display:row;
+            flex-direction: row;
+            justify-content: center;
+    
+        }
+        .lev{
+            background-color: rgb(239,239,247);
+            font-size: 20px;
+            color: black;
+            }
+
+        .hed-manager{
+            color:blue;
+            font-size: 36px;
+            margin-bottom: 30px;
+          } 
+          .btn-manager {
+            background-color: #28A745;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            font-weight: 600;
+          }
+          
+          .btn-manager:hover {
+            background-color: #218838;
+          }
+          .btn1-manager {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            font-weight: 600;
+      
+          }
+          
+          .btn1-manager:hover {
+            background-color: #0056b3;
+          }
+          
+          .btn2-manager{
+            background-color: #e69d00;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            font-weight: 600;
+      
+          }
+          
+          .btn2-manager:hover {
+            background-color: #D66D0E;
+          }
+          .lev-manager{
+            background-color: #bfbfbf;
+          }
+          .cad-manager{
+            background-color: #bfbfbf;
+          }
+          .clearfix-manager{
+            background-color:  #ffc766
+
+            ;
+          }
+           .pre-manager{
+            background-color: #ffa200;
+            border: none;
+           }
+           .hed-tm{
+            color:#ff7733;
+            font-size: 36px;
+            margin-bottom: 30px;
+          }
+          .btn-tm {
+            background-color: #28A745;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            font-weight: 600;
+          }
+          
+          .btn-tm:hover {
+            background-color: #218838;
+          }
+          .btn1-tm {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            font-weight: 600;
+      
+          }
+          
+          .btn1-tm:hover {
+            background-color: #0056b3;
+          }
+          
+          .btn2-tm{
+            background-color: #e69d00;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            font-weight: 600;
+      
+          }
+          
+          .btn2-tm:hover {
+            background-color: #D66D0E;
+          }
+          .lev-tm{
+            background-color: #bfbfbf;
+          }
+          .cad-tm{
+            background-color: #bfbfbf;
+          }
+          .clearfix-tm{
+            background-color:  #ffc766
+
+            ;
+          }
+           .pre-tm{
+            background-color: #ffa200;
+            border: none;
+           }
+           {% comment %} .calendar-tm{
+            background-color: pink!important;
+           } {% endcomment %}
+           .hed-tl{
+            color: black;
+           } 
+         .hed-hr{
+        color: black;
+       }
+    </style>
+
+<div id="overlay">
+  <div id="text">
+    <div class="spinner-border spinner-border-xl" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+    Page is Loading...</div>
+</div>
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %} style="background-color: green;color: whitesmoke;padding: 10px;list-style-type: none;width: 70%;">{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+
+<div class="col-md-12">
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<span id="employ_is_launched" style="display: none;"></span>
+
+    <script>
+        $(document).ready(function () {
+            const userId = "{{ request.user.id }}"; 
+            const socket = new WebSocket(`wss://${window.location.host}/ws/employ_updates/?user_id=${userId}`,{transports: ["websocket"]} );
+            
+         
+
+            socket.onopen = function() {
+                console.log('WebSocket connection established');
+            };
+
+            socket.onmessage = function(e) {
+                const employData = JSON.parse(e.data);
+               
+                const employStatusElement = $('#employ_is_launched');
+                
+                document.getElementById("overlay").style.display = "none";
+             
+    
+                employStatusElement.text(employData.is_launched);
+
+                // Add an event listener to the element
+                employStatusElement.on('DOMSubtreeModified', function() {
+                    // Reload the page when the text data changes
+                    location.reload();
+                    document.getElementById("overlay").style.display = "block";
+                });
+                
+            };
+            
+
+            socket.onclose = function() {
+                console.log('WebSocket connection disconnected');    
+            };
+
+            socket.onerror = function(error) {
+                console.error("WebSocket error:", error);
+            };
+          
+            document.getElementById("overlay").style.display = "block";
+        });
+      
+    </script>
+
+
+{% load user_agents %}
+
+
+
+
+<h3 class="{% if mem_role == 'HR' and mem_hroptions == 1 %}hed-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}hed-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}hed-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}hed-tm {% endif %}">Leave & Attendance</h3>
+<button type="button" class="btn btn-primary {% if mem_role == 'HR' and mem_hroptions == 1 %}btn-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}btn-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}btn`-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}btn-tm {% endif %}" data-toggle="modal" data-target="#exampleModalLong">
+Download App
+      </button>
+     
+      
+      {% if request|is_pc %}  
+      {% if not check_out %}
+           {% if request.user.employs.is_launched %}
+               <button  class="btn btn-outline-success">   App is Launched </button>
+           {% else %}
+             <a href="buglegalmonitorapp://run?unique_user_id={{request.user.employs.desktop_user_identifier}}"> <button  class="btn btn-outline-secondary{% if mem_role == 'HR' and mem_hroptions == 1 %}btn1-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}btn1-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}btn1-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}btn1-tm {% endif %}">Launch App</button></a>
+           {% endif %}
+       {% else %}
+       <button  class="btn btn-outline-danger">  App is closed</button> 
+       {% endif %}
+        | 
+    
+
+<div class="modal fade " id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog " role="document">
+    <div class="modal-content bg-dark">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Employee Monitoring Consent Form</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+    
+
+<!-- <h4>BUGLEGAL</h4> -->
+
+<h5>Purpose of Monitoring &nbsp;&nbsp;:</h5>
+<p><b>BUGLEGAL</b> implements employee monitoring software for the purpose it ensures efficient operations, automates routine tasks, and tracks key performance indicators for better employee management. The monitoring includes capturing screenshots, tracking website usage, monitoring keystrokes, and other relevant activities performed on company-provided devices.</p>
+
+<h5>Consent Agreement &nbsp;&nbsp;:</h5>
+
+<p>I acknowledge that I have been informed and understand the following:</p>
+
+<!-- <h6>Nature of Monitoring &nbsp;&nbsp;:</h6> -->
+<p>I understand that our company will monitor my activities on company-provided devices, including but not limited to computers, laptops, tablets, and smartphones.</p>
+
+<!-- <h6>Types of Monitoring &nbsp;&nbsp;:</h6> -->
+<p> I am aware that monitoring may include capturing screenshots, recording keystrokes, tracking website usage, monitoring application usage, and other relevant activities.</p>
+
+<!-- <h6>Purpose of Monitoring &nbsp;&nbsp;:</h6> -->
+<p> I understand that the monitoring is conducted for legitimate business purposes, including but not limited to ensuring productivity, protecting company assets, maintaining cybersecurity, and complying with company policies and legal obligations.</p>
+
+<!-- <h6>Scope of Monitoring &nbsp;&nbsp;:</h6> -->
+<p> I acknowledge that monitoring may occur during work hours and, in some cases, outside of regular working hours if I am using company-provided devices.</p>
+
+<!-- <h6>Data Handling &nbsp;&nbsp;:</h6> -->
+<p>I understand that the data collected through monitoring will be handled in accordance with our company privacy policy and applicable laws and regulations.</p>
+
+<!-- <h6>Employee Rights &nbsp;&nbsp;:</h6> -->
+<p> I acknowledge that I have the right to access my personal data collected through monitoring, and I may request clarification or dispute any inaccuracies in the data.</p>
+
+<!-- <h6>Voluntary Consent &nbsp;&nbsp;:</h6> -->
+<label for="myCheckbox" style="text-align: justify;"><input type="checkbox" id="myCheckbox">&nbsp;&nbsp;&nbsp; I hereby voluntarily consent to the monitoring of my activities on company-provided devices by our company and its authorized representatives.</label>
+
+
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <a href="{% url 'download_installer' %}"><button type="button" class="btn btn-primary" id="myButton" disabled>Download Installer</button></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const checkbox = document.getElementById("myCheckbox");
+  const button = document.getElementById("myButton");
+  
+function updateButtonState() {
+    button.disabled = !checkbox.checked;
+}
+
+checkbox.addEventListener('click', updateButtonState);
+
+updateButtonState();
+  </script>
+  <style>
+    .instruction-step {
+        display: none;
+      }
+    
+      .instruction-step.active {
+        display: block;
+      }
+    
+    </style>
+                <button type="button" class="btn btn-info {% if mem_role == 'HR' and mem_hroptions == 1 %}btn2-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}btn2-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}btn2-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}btn2-tm {% endif %}" data-toggle="modal" data-target="#exampleModalLong1">Instructions</button>
+    
+      <div class="modal fade" id="exampleModalLong1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle1" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title text-dark" id="exampleModalLongTitle1">Instructions for launching app</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body" >
+              <div class="instruction-container">
+                <div id="step1" class="instruction-step active" >
+                  <span style="color: black;width:500px;height:50px;padding:10px;"><b>step-1</b>&nbsp;&nbsp;&nbsp;:Click on the "Download App".</span>
+                  <center><img src="/media/model1.png" style="width: 400px;height: 200px;"></center>
+                </div>
+                <div id="step2" class="instruction-step" >
+                  <span style="color: black;width:500px;height:50px;padding:10px;"><b>step-2</b>&nbsp;&nbsp;:Read the instructions and click on the checkbox to download the installer.</span>
+                  <center><img src="/media/model2.png" style="width: 400px;height: 200px;"></center>
+                </div>
+                <div id="step3" class="instruction-step">
+                  <span style="color: black;width:500px;height:50px;padding:10px;"><b>step-3</b>&nbsp;&nbsp;&nbsp;:A zip file will be downloaded.</span>
+                  <center><img src="/media/model3.png" style="width: 400px;height: 200px;"></center>
+                </div>
+                <div id="step4" class="instruction-step">
+                  <span style="color: black;width:500px;height:50px;padding:10px;"><b>step-4</b>&nbsp;&nbsp;&nbsp;:Now, extract the zip file.</span>
+                  <center><img src="/media/model4.png" style="width: 400px;height: 200px;"></center>
+                </div>
+                <div id="step5" class="instruction-step">
+                  <span style="color: black;width:500px;height:50px;padding:10px;"><b>step-5</b>&nbsp;&nbsp;&nbsp;:Open the extracted folder and locate the "desktop_app" file.</span>
+                  <center><img src="/media/model5.png" style="width: 450px;height: 200px;"></center>
+                </div>
+                <div id="step6" class="instruction-step">
+                  <span style="color: black;width:500px;height:50px;padding:10px;"><b>step-6</b>&nbsp;&nbsp;&nbsp;:Right-click on the "desktop_app" file </span>
+                  <center><img src="/media/model6.png" style="width: 400px;height: 200px;"></center>
+                </div>
+                <div id="step7" class="instruction-step">
+                  <span style="color: black;width:500px;height:50px;padding:10px;"><b>step-7</b>&nbsp;&nbsp;&nbsp;:Select "More info" from the context menu.</span>
+                  <center><img src="/media/model7.png" style="width: 400px;height: 200px;"></center>
+                </div>
+                <div id="step8" class="instruction-step">
+                  <span style="color: black;width:500px;height:50px;padding:10px;"><b>step-8</b>&nbsp;&nbsp;&nbsp;: Click on "Run anyway" to launch the application, then app will open and close at once and now open to the "Attendance" section in the software.</span>
+                  <center><img src="/media/model8.png" style="width: 400px;height: 200px;"></center>
+                </div>
+                <div id="step9" class="instruction-step">
+                  <span style="color: black;width:500px;height:50px;padding:10px;"><b>step-9</b>&nbsp;&nbsp;&nbsp;:Finally click on the "Launch App" button in the "Attendance" section to initiate the functionality.</span>
+                  <center><img src="/media/model9.png" style="width: 400px;height: 200px;"></center>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" id="prevBtn" style="color: black;">Previous</button>
+              <button type="button" class="btn btn-primary" id="nextBtn" style="color: black;">Next</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: black;">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+      <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          const steps = document.querySelectorAll(".instruction-step");
+          let currentStep = 0;
+      
+          function showStep(stepIndex) {
+            steps.forEach((step, index) => {
+              if (index === stepIndex) {
+                step.classList.add("active");
+              } else {
+                step.classList.remove("active");
+              }
+            });
+      
+            // Disable or enable buttons based on current step
+            prevBtn.disabled = stepIndex === 0;
+            nextBtn.disabled = stepIndex === steps.length - 1;
+          }
+      
+          function goToNextStep() {
+            if (currentStep < steps.length - 1) {
+              currentStep++;
+              showStep(currentStep);
+            }
+          }
+      
+          function goToPrevStep() {
+            if (currentStep > 0) {
+              currentStep--;
+              showStep(currentStep);
+            }
+          }
+      
+          const nextBtn = document.getElementById("nextBtn");
+          const prevBtn = document.getElementById("prevBtn");
+      
+          nextBtn.addEventListener("click", goToNextStep);
+          prevBtn.addEventListener("click", goToPrevStep);
+      
+          // Initially disable the "Previous" button since there's no previous step
+          prevBtn.disabled = true;
+        });
+      </script>
+ {% endif %}
+    
+      <div class="row" style="margin-top: 10px;">
+        <div class="col-md-9">
+          <div  class="cad {% if mem_role == 'HR' and mem_hroptions == 1 %}cad-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}cad-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}cad-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}cad-tm {% endif %} ">
+            <div class="row justify-content-between">
+        <div sytle="flex-direction:column;">
+        <h2 style="color:white; font-size:24px;">Mark attendance for today(<span id="date"></span>)</h2>
+        <!-- <p style="color:white; font-size:16px;">You can mark your attendance for today. For any other day, please use the edit option below.</p> -->
+      </div>
+      {% if is_weekoff_today %}
+      
+        <div class="col">
+          
+          <form method="post" id="checkInForm" enctype="multipart/form-data">
+            {% csrf_token %}
+            <button class="btn btn-info startTracking" id="checkInButton" name="vk"  type="submit" style="color: white;border: none; background-color: #4358c2;"disabled >Check In</button>
+          </form><br>
+
+  
+          <form method="post" id="checkOutForm" enctype="multipart/form-data">
+            {% csrf_token %}
+            <button class="btn btn-info stopAndSave" id="checkOutButton" name="vk1"  type="submit" style="color: white;border: none; background-color: #4358c2" >Check Out</button>
+          </form>
+        </div>
+        {% else %}
+        <div class="col">
+        
+          <form method="post" id="checkInForm" enctype="multipart/form-data">
+            {% csrf_token %}
+            <button class="btn btn-info " id="checkInButton" name="vk"  type="submit" style="color: white;border: none; background-color: #4358c2;"{% if check_in or not can_check_in %} disabled {% endif %} 
+                                                                                                                                                         {% if request|is_pc %}  
+                                                                                                                                                       {% if not request.user.employs.is_launched %} disabled {% endif %} 
+                                                                                                                                                        
+                                                                                                                                                        {% endif %}
+                                                                                                                                                        >Check In</button>
+
+          {% if request|is_pc %}                                                                                                                                              
+            {% if check_in %}
+            <div class="hidden-message text-warning " id="alreadycheckin" >You have already Checked In today</div>
+            {% elif not can_check_in %}
+            <div class="hidden-message text-danger " id="checkindisabled">You are too early or too late to check in</div>
+            
+            {% elif not request.user.employs.is_launched %}
+            <div class="hidden-message text-danger " id="launchdisabled">App is not Launched</div>
+           
+            {% endif %}
+          {% else %}
+            {% if check_in %}
+            <div class="hidden-message text-warning " id="alreadycheckin" >You have already Checked In today</div>
+            {% elif not can_check_in %}
+            <div class="hidden-message text-danger " id="checkindisabled">You are too early or too late to check in</div>
+            {% endif %}
+          {% endif %}
+          </form><br>
+        
+  
+          <form method="post" id="checkOutForm" enctype="multipart/form-data">
+            {% csrf_token %}
+          
+
+            <button class="btn btn-info " id="checkOutButton" name="vk1" type="submit" style="color: white;border: none; background-color: #4358c2" {% if not check_in or  check_out %} disabled {% endif %}  >Check Out</button>
+            {% if not check_in %}
+            <div class="hidden-message2 text-danger" id="checkoutdisabled">You have to Check In first</div>
+            {% elif check_out %}
+                <div class="hidden-message2 text-warning" id="alreadycheckout">You have already Checked Out today</div>
+            {% endif %}
+          </form>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+
+        <script>
+          $(document).ready(function () {
+              // Show/hide messages on button hover
+              $('#checkInButton').hover(
+                  function () {
+                      $('.hidden-message').hide(); // Hide all messages
+                    {% if request|is_pc %}  
+                      {% if check_in %}
+                          $('#alreadycheckin').show();
+                      {% elif  not can_check_in %}
+                          $('#checkindisabled').show();
+                          
+                            {% elif not request.user.employs.is_launched %}
+                                $('#launchdisabled').show();
+                          
+                          
+                      {% endif %}
+                    {% else %}
+                      {% if check_in %}
+                            $('#alreadycheckin').show();
+                        {% elif  not can_check_in %}
+                            $('#checkindisabled').show();
+                        {% endif %}
+                    
+                    {% endif %}
+                  },
+                  function () {
+                      $('.hidden-message').hide(); // Hide all messages on mouseout
+                  }
+              );
+              $('#checkOutButton').hover(
+                  function () {
+                      $('.hidden-message2').hide(); // Hide all messages
+                      {% if not check_in %}
+                          $('#checkoutdisabled').show();
+                      {% elif check_in %}
+                          $('#alreadycheckout').show();
+                      {% endif %}
+                  },
+                  function () {
+                      $('.hidden-message2').hide(); // Hide all messages on mouseout
+                  }
+              );
+      
+      
+      
+      
+      
+          });
+      </script>
+    
+
+        {% endif %}
+      </div>
+    </div>  
+      </div>
+      <div class="col-md-3 lev {% if mem_role == 'HR' and mem_hroptions == 1 %}lev-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}lev-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}lev-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}lev-tm {% endif %} ">
+        <div>
+            <br>
+            {% if employlevsheetcausel %}
+                <b style="color:black">{{employlevsheetcausel.type}} &nbsp;&nbsp;&nbsp;: &nbsp;&nbsp;{{ employlevsheetcausel.defaultleave}}/{{usedcausel}}</b><br><br>
+            {% else %}
+            {% endif %}
+
+            {% if employlevsheetmedical %}
+                <b style="color: black;">{{employlevsheetmedical.type}} &nbsp;&nbsp;&nbsp;: &nbsp;&nbsp;{{employlevsheetmedical.defaultleave }}/{{usedmedical}}</b><br><br>
+            {% else %}
+            {% endif %}
+
+            {% if employlevsheetearned %}
+                <b style="color: black;">{{employlevsheetearned.type}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: &nbsp;&nbsp;{{ employlevsheetearned.defaultleave }}/{{usedearned}}</b><br><br>
+            {% else %}
+            {% endif %}
+        </div>
+    </div>  
+</div> 
+        <script>
+        n =  new Date();
+        y = n.getFullYear();
+        m = n.getMonth() + 1;
+        d = n.getDate();
+        document.getElementById("date").innerHTML = d + "/" + m + "/" + y;
+        </script>
+   
+        
+   <div class="clearfix {% if mem_role == 'HR' and mem_hroptions == 1 %}clearfix-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}clearfix-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}clearfix-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}clearfix-tm {% endif %}">
+    <a class="btn btn-info left {% if mem_role == 'HR' and mem_hroptions == 1 %}pre-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}pre-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}pre-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}pre-tm {% endif %} " href="{% url 'ehrms:calendar' %}?{{ prev_month }}" style="margin-left: 5px;"> << Prev</a>
+    <a class="btn btn-info center {% if mem_role == 'HR' and mem_hroptions == 1 %}pre-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}pre-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}pre-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}pre-tm {% endif %}" href="{% url 'ehrms:calendar' %}?{{ get_date }}"> Today </a>
+    <a class="btn btn-info right {% if mem_role == 'HR' and mem_hroptions == 1 %}pre-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}pre-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}pre-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}pre-tm {% endif %}" href="{% url 'ehrms:calendar' %}?{{ next_month }}" style="margin-right: 5px;"> Next >> </a>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+<div class="table-responsive">
+<div class="TFtable">
+  {{ calendar }}
+</div>
+</div>
+
+
+</div>
+
+
+
+
+
+{% endblock main_content %}
+
+

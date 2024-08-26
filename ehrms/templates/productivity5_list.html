@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TimeAttendance2</title>
+</head>
+<body>
+
+<h2>TimeAttendance2</h2>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>image1</th>
+            <th>Title1</th>
+            <th>Discription1</th>
+            <th>image2</th>
+            <th>Title2</th>
+            <th>Discription2</th>
+            
+
+        </tr>
+    </thead>
+    <tbody>
+        {% for project in projects5 %}
+        <tr>
+            <td>{{ project.image1 }}</td>
+
+            <td>{{ project.title1 }}</td>
+            <td>{{ project.discription1 }}</td>
+            
+
+            {% comment %} <td><img src="https://www.nicmar.ac.in/uploads/fundamentals-project-management.png" alt="{{ project.image }}" style="max-width: 100px; max-height: 100px;"></td> {% endcomment %}
+            <td>
+                <a href="{% url 'productivity5_update' pk=project.pk %}">Edit</a> |
+                <a href="{% url 'productivity5_delete' pk=project.pk %}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+</body>
+</html>

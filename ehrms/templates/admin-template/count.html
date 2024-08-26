@@ -1,0 +1,193 @@
+{% extends 'hod_template/home_content.html' %}{% block main_content %}
+
+<!-- <div class="container mt-3" id="css" style="margin-left: 100px;"> -->
+  <div class="row">
+    <div class="col-8">
+      <div class="area" >
+
+        <h6 style="margin-left: 10px;margin-top: 15px;">People</h6>
+        <div>
+          <div class="card-tools">
+            <div class="input-group input-group-sm" style=" margin-top: 20px;">
+              <input type="text" id="myInput" onkeyup="myFunction()" class="form-control float-right"
+                placeholder="Search employee name and empid">
+
+              <div class="input-group-append">
+                <button type="button" class="btn btn-default"
+                  style="color:white;background-color: aquamarine; margin-left: 5px;" onclick="submitSearch()">
+                     Search</button>
+              </div>
+            </div>
+          </div>
+        <!-- </div><br> -->
+        <br>
+        <br>
+<div>
+
+    <div>
+      <button id="btnShowAll" onclick="showAllRows()"
+        style="background-color: 2d324f;color: white;width: auto;margin-right: 50px;margin-left: 50px;">All
+        Count ({{ total_employees_count }})</button>
+      <button id="btnShowEmployees" onclick="showEmployees()"
+        style="background-color: 2d324f;color: white;margin-right: 50px;">Employees({{ emp }})</button>
+      <button id="btnShowContract" onclick="showContract()"
+        style="background-color: 2d324f;color: white;margin-right: 50px;">Contract({{ con }})</button>
+      <button id="btnShowDismissed" onclick="showDismissed()"
+        style="background-color: 2d324f;color: white;">Dismissed({{ dis }})</button>
+    </div><br>
+    <div class="header" style="height: 5.5%;margin-left: 80px;">
+      <h6 style="color:white;">*Names of People with missing information shown in gray</h1>
+        <div class="progress-container">
+          <div class="progress-bar" id="myBar"></div>
+        </div>
+    </div><br>
+
+ 
+      <table id="myTable">
+        <tr>
+          <th>Employee Name</th>
+          <th>Employee Role</th>
+        </tr>
+        {% for employ in students %}
+        <tr data-employee-role="{{ i.role }}" style="width: 10px;">
+          <td style="padding: 10px;"><a
+              href="{% url 'edit_people_admin' std=employ.admin.id %}">{{employ.first_name}}</a></td>
+          <td>{{employ.role}}</td>
+        </tr>
+        {% endfor %}
+      </table>
+
+  </div>
+</div>
+</ul>
+</nav>
+
+</div>
+</div>
+
+<div class="col-4">
+<div class="row">
+<div class="col-12">
+
+  <button style="text-align: left;background-color: rgb(8, 8, 77);width: 40%;margin-top: 10px;"><a href="{% url 'add_employ'  %}">
+      <!-- <i class="fa fa-paper-plane" style="padding-left: 220px;color: rgb(8, 32, 252);"></i> -->
+      <h5><b style="color: rgba(255, 255, 255, 0.966);">Add one</b></h5>
+      <p style="color: rgba(255, 255, 255, 0.815);">Add a single employee and/or contractors in seconds
+      </p>
+    </a>
+  </button>
+</div>
+</div>
+<br>
+<div class="row">
+<div class="col-12">
+
+  <button style="text-align: left;background-color: rgb(8, 8, 77);width: 40%;"><a href="{% url 'add_employ'  %}">
+      <!-- <i class="fa fa-paper-plane" style="padding-left: 220px;color: rgb(8, 32, 252);"></i> -->
+      <h5><b style="color: rgba(255, 255, 255, 0.966);">Add multiple</b></h5>
+      <p style="color: rgba(255, 255, 255, 0.815);">add many employees and/or contractors through an Excel template
+      </p>
+    </a>
+  </button>
+</div>
+</div><br>
+
+<div class="row">
+<div class="col-12">
+
+  <button style="text-align: left;background-color: rgb(8, 8, 77);width: 40%;"><a href="#">
+      <!-- <i class="fa fa-paper-plane" style="padding-left: 220px;color: rgb(8, 32, 252);"></i> -->
+      <h5><b style="color: rgba(255, 255, 255, 0.966);">Invite many</b></h5>
+      <p style="color: rgba(255, 255, 255, 0.815);">invite multiple employees and/or contractors  using their email address
+      </p>
+    </a>
+  </button>
+</div>
+</div>  
+
+
+
+</div>
+</div>
+
+
+
+<script>
+function showAllRows() {
+var table = document.getElementById("myTable");
+for (var i = 1, row; row = table.rows[i]; i++) {
+row.style.display = ""; // show all rows
+}
+}
+
+function showEmployees() {
+var table = document.getElementById("myTable");
+for (var i = 1, row; row = table.rows[i]; i++) {
+if (row.cells[1].innerText === "TRAINEE ENGINEER") {
+row.style.display = ""; // show this row
+} else {
+row.style.display = "none"; // hide other rows
+}
+}
+}
+
+function showContract() {
+var table = document.getElementById("myTable");
+for (var i = 1, row; row = table.rows[i]; i++) {
+if (row.cells[1].innerText === "Java") {
+row.style.display = ""; // show this row
+} else {
+row.style.display = "none"; // hide other rows
+}
+}
+}
+
+function showDismissed() {
+var table = document.getElementById("myTable");
+for (var i = 1, row; row = table.rows[i]; i++) {
+if (row.cells[1].innerText === "dismissed") {
+row.style.display = ""; // show this row
+} else {
+row.style.display = "none"; // hide other rows
+}
+}
+}
+
+
+
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
+
+<script>
+function submitSearch() {
+var input = document.getElementById("myInput");
+var filter = input.value.toUpperCase();
+var table = document.getElementById("myTable");
+var tr = table.getElementsByTagName("tr");
+
+for (var i = 0; i < tr.length; i++) {
+var td = tr[i].getElementsByTagName("td")[0]; // get the first column (employee name)
+if (td) {
+var txtValue = td.textContent || td.innerText;
+if (txtValue.toUpperCase().indexOf(filter) > -1) {
+  tr[i].style.display = "";
+} else {
+  tr[i].style.display = "none";
+}
+}
+}
+}
+</script>
+<style>
+  th,td{
+    text-align: center;
+    padding-left: 10%;
+    width: 30%;
+
+  }
+</style>
+{% endblock main_content %}

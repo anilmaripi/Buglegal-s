@@ -1,0 +1,15 @@
+<!-- In your_template.html -->
+<form method="post" action="{% url 'your_form_submission_url' %}">
+    {% csrf_token %}
+    
+
+    <h2>Select features</h2>
+    {% for feature in selected_features %}
+        <div>
+            <input type="checkbox" name="selected_features" value="{{ feature.id }}">
+            {{ feature.name }}
+        </div>
+    {% endfor %}
+
+    <button type="submit">Submit</button>
+</form>

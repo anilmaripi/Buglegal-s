@@ -1,0 +1,218 @@
+{% extends 'admin-template/base_template.html' %}
+{% block main_content %}
+<style>
+  .file-upload-container {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+  }
+
+  .file-input {
+      display: none;
+  }
+
+  .custom-file-input {
+      border: 1px solid #282f51;
+      padding: 5px;
+      min-width: 250px;
+      background-color: #393f5c;
+      cursor: pointer;
+      margin-left: 140px;
+  }
+</style>
+<div id="sh" method="post" enctype="multipart/form-data" style="border:2px;width:50%;margin:auto";>{% csrf_token %}
+    <center><h4>initiate kyc verification</h4><br></center>
+    
+    <center>
+        <div class="card" style="width: 600px;background-color: #282f51;">
+            <div class="card-body">
+        <span>XPayroll requires you to complete the KYC verification for us to
+       process payments on your behalf.Update the KYC details given
+       below.
+        </span>
+            </div>
+        </div><br>
+    
+    <div class="card" style="width: 600px;background-color: #282f51;">
+        <div class="card-body">
+    <span>Select the type oof your organisation and upload the required
+    documents.<br>
+    Important! Incase of any modifications to the organisation,
+    XPayroll requires you to request for another KYC verification</span>
+    </div>
+    </div><br>
+
+    <span id="sa" style="margin-left: 25%;">Type of organisation?*</span>
+    <select id="select-form" style="width: 600px;height: 45px;background-color: #393f5c;color: white;" > 
+        <option>pick a type</option>
+        <option value="Pvt ltd/pub ltd/llp" onclick="showForm('Pvt ltd/pub ltd/llp')">Private Limited/Public Limited/LLP</option>
+        <option value="sole-proprietorship" onclick="showForm('sole-proprietorship')">Sole proprietorship</option>
+        <option value="partnership" onclick="showForm('partnership')">Partnership</option>
+        <option value="Trust/NGO" onclick="showForm('Trust/NGO')">Trust/NGO</option>
+      </select>
+      <br><br>
+    
+
+    <div class="card" style="width: 600px;background-color: #282f51;">
+        <div class="card-body">
+    <span>You can select multiple files to upload simultaneously.</span>
+    </div>
+    </div><br>
+    <form id="Pvt ltd/pub ltd/llp" method="post" enctype="multipart/form-data" action="/pvt_pub_form/" style="display: none;">{% csrf_token %}
+   
+        <span>Proof of Business Identity(certificate of Incorporation)*<br>
+            <a href="/media/media/Sample_Certificate of incorporation.pdf" style="text-decoration: none;">View Sample File</a><br>
+         <input type="file" name="certificate" style="border: 2px solid #393f5c;width:500px;background-color: #282f51;" ></span><br><br><br>
+       
+         <span>Proof of Business Existense(Company PAN Card)*<br>
+         <input type="file" name="cmpny_pancard" style="border: 2px solid #393f5c;width:500px;background-color: #282f51" ></span><br><br><br>
+       
+          <span>proof of Business Work(Company Current Account Statement With IFSC<br>
+             Code on it (past 3 months) or Cancelled Cheque)*<br>
+             <a href="/media/media/Sample_cancelled cheque.pdf" style="text-decoration: none;">View Sample File</a><br>
+          <input type="file" name="cheque" style="border: 2px solid #393f5c;width:500px;background-color: #282f51" ></span><br><br><br>
+         
+         <span>Proof of Identity of Owners(Authorized Signatory PAN Card)*<br>
+          <input type="file" name="owner_pancard" style="border: 2px solid #393f5c;width:500px;background-color: #282f51" ></span> <br><br><br>           
+         
+         <span>Proof of Adress of Owners (Governament approved Authorized Signatory
+           identity proof (like Aaadhar card / Voter Card / DL / Pasport))*
+           <input type="file" name="id_proof" style="border: 2px solid #393f5c;width:500px;background-color: #282f51" ></span> <br><br> <br>
+
+         <span>GSTIN certificate(Your company GSTIN certificate. This is mandatory if
+            you have a valid GSTIN)*<br>
+            <a href="/media/media/Sample_GSTIN.pdf" style="text-decoration: none;">View Sample File</a><br>
+           <input type="file" name="gst" style="border: 2px solid #393f5c;width:500px;background-color: #282f51" >
+    
+         </span><br><br>
+        <input type="submit" value="SAVE DRAFT" style="border: 2px;background-color:#5a99e8;color: white;">
+    </form>
+
+ 
+    <form id="sole-proprietorship" method="post" enctype="multipart/form-data" action="/sole_proprietorship_form/"  style="display: none;">{% csrf_token %}
+        
+        <span>Proof of Business Identity(VAT Registration or Shops and
+            Establishments Certificate or Trade License, TIN or Sales Tax Registration
+            or GST Certificate)*</span>
+                <span><a href="/media/media/Sample_Certificate of incorporation.pdf" style="text-decoration: none;">View Sample File</a><br>
+                <input type="file" name="gst_certificate" style="border: 2px solid #393f5c;width:500px;background-color: #282f51">
+                </span><br><br><br>
+            <span>Proof of Business Work(Company Current Account Statement with IFSC
+                code on it(past 3 months)Cancelled Cheque)*<br>
+            </span>
+              <span><a href="/media/media/Sample_cancelled cheque.pdf" style="text-decoration: none;">View Sample File</a>
+               <input type="file" name="cancelled_cheque" style="border: 2px solid #393f5c;width:500px;background-color: #282f51" ></span><br><br><br>
+        
+                Proof of Identity of Owners(PAN Card)*
+                <input type="file" name="owner_pancard1" style="border: 2px solid #393f5c;width:500px;background-color: #282f51" ><br><br>
+              </span><br>
+            <span>
+                Proof of Address of Owners(Government approved Identity and Address
+                proof of proprietor (like personal Aadhaar/Voter card/DL/
+                Passport))*
+                <input type="file" name="idproof" style="border: 2px solid #393f5c;width:500px;background-color: #282f51" >
+            </span><br><br><br>
+            <span>GSTIN certificate(YOur Company GSTIN Certificate.This is Mandatory if
+                you have a valid GSTIN)<br>
+                <a href="/media/media/Sample_GSTIN.pdf" style="text-decoration: none;">View Sample File</a><br>
+                <input type="file" name="GST" style="border: 2px solid #393f5c;width:500px;background-color: #282f51" >
+            </span><br><br><br>
+
+            <input type="submit" value="SAVE DRAFT" style="border: 2px;background-color:#5a99e8;color: white;">
+
+</form>
+    <form id="partnership" method="post" enctype="multipart/form-data" action="/partnership_form/" style="display: none;">{% csrf_token %}
+
+     <span>Proof of Business Identity (1. Registered Partnership deed 2. Any one of -<br>
+        Sales Tax Registration or VAT /TIN Registration or Shops and<br>
+        Establishment Certificate or Trade License)*<br>
+        <a href="/media/media/Sample_Certificate of incorporation.pdf" style="text-decoration: none;">View Sample File</a><br>
+     <input type="file" name="shop_license" style="border: 2px solid #393f5c;width: 500px;background-color: #282f51" ></span><br><br><br>
+   
+     <span>Proof of Business Existense(Company PAN Card)*<br>
+       <input type="file" name="cmpny_pan" style="border: 2px solid #393f5c;width:500px;background-color: #282f51" ></span><br><br><br>
+     
+        <span>proof of Business Work(Company Current Account Statement With IFSC
+           Code on it (past 3 months) or Cancelled Cheque)*<br>
+           <a href="/media/media/Sample_cancelled cheque.pdf" style="text-decoration: none;">View Sample File</a><br>
+        <input type="file" name="cheque1" style="border: 2px solid #393f5c;width:500px;background-color: #282f51" ></span><br><br><br><br>
+       
+       <span>Proof of Identity of Owners(Authorized Signatory PAN Card)*<br>
+        <input type="file" name="owner_pan" style="border: 2px solid #393f5c;width:500px;background-color: #282f51" ></span><br><br> <br>          
+       
+       <span>Proof of Adress of Owners (Governament approved Authorized Signatory
+         identity proof (like Aaadhar card / Voter Card / DL / Passport))*
+         <input type="file" name="id_proof1" style="border: 2px solid #393f5c;width:500px;background-color: #282f51" ></span><br><br> <br>       
+       <span>GSTIN certificate(Your company GSTIN certificate. This is mandatory if
+          you have a valid GSTIN)*
+          <a href="/media/media/Sample_GSTIN.pdf" style="text-decoration: none;">View Sample File</a><br>
+         <input type="file" name="gst1" style="border: 2px solid #393f5c;width:500px;background-color: #282f51"></span> <br><br><br>
+            
+         <input type="submit" value="SAVE DRAFT" style="border: 2px;background-color:#5a99e8;color: white;">
+    </form>
+      
+  <form id="Trust/NGO" method="post" enctype="multipart/form-data" action="/trust_ngo_form/" style="display: none;">{% csrf_token %}
+
+     <span>Proof of Business Identity (1. Registered Trust Deed 2. Any one of-Sales
+       Tax Registration or VAT/TIN Registration, Trade License and so on)*
+       <a href="/media/media/Sample_Certificate of incorporation.pdf" style="text-decoration: none;">View Sample File</a><br>
+        <input type="file" name="shop_license1" style="border: 2px solid #393f5c;width: 500px;background-color: #282f51" ></span><br><br><br><br>
+
+      <span>Proof of Business Existense(Company PAN Card)*
+       <input type="file" name="cmpny_pan1" style="border: 2px solid #393f5c;width:500px;background-color: #282f51" ></span><br><br><br><br>
+ 
+      <span>proof of Business Work(Company Current Account Statement With IFSC
+       Code on it (past 3 months) or Cancelled Cheque)*
+       <a href="/media/media/Sample_cancelled cheque.pdf" style="text-decoration: none;">View Sample File</a><br>
+      <input type="file" name="cheque2" style="border: 2px solid #393f5c;width:500px;background-color: #282f51" ></span><br><br><br>
+   
+      <span>Proof of Identity of Owners(Authorized Signatory PAN Card)*<br>
+      <input type="file" name="owner_pan1" style="border: 2px solid #393f5c;width:500px;background-color: #282f51" ></span><br><br><br>           
+   
+      <span>Proof of Adress of Owners (Governament approved Authorized Signatory
+        identity proof (like Aaadhar card / Voter Card / DL / Pasport))*
+        <input type="file" name="id_proof2" style="border: 2px solid #393f5c;width:500px;background-color: #282f51" ></span> <br><br><br> 
+
+      <span>GSTIN certificate(Your company GSTIN certificate. This is mandatory if
+        you have a valid GSTIN)*
+        <a href="/media/media/Sample_GSTIN.pdf" style="text-decoration: none;">View Sample File</a><br>
+      <input type="file" name="gst2" style="border: 2px solid #393f5c;width:500px;background-color: #282f51" ></span> <br><br><br>
+
+      <input type="submit" value="SAVE DRAFT" style="border: 2px;background-color:#5a99e8;color: white;">
+  </form>
+
+    
+  <script>
+    const selectForm = document.getElementById('select-form');
+    const forms = document.getElementsByTagName('form');
+  
+    selectForm.addEventListener('change', function() {
+      const selectedForm = this.value;
+      for (let i = 0; i < forms.length; i++) {
+        if (forms[i].id === selectedForm) {
+          forms[i].style.display = 'block';
+        } else {
+          forms[i].style.display = 'none';
+        }
+      }
+    });
+  </script>
+  <script>
+    const fileInputs = document.querySelectorAll('.file-input');
+    const customFileInputs = document.querySelectorAll('.custom-file-input');
+  
+    fileInputs.forEach((input, index) => {
+        input.addEventListener('change', function () {
+            const file = this.files[0];
+            const customInput = customFileInputs[index];
+            if (file) {
+                customInput.textContent = `Selected file: ${file.name}`;
+            } else {
+                customInput.textContent = 'Choose a File';
+            }
+        });
+    });
+  </script>
+ 
+</form>
+{% endblock main_content %}

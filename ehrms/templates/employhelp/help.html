@@ -1,0 +1,471 @@
+{% extends 'employ-template/base_template.html' %}
+{% block main_content %}
+
+
+
+<html>
+<head>
+    <title>Help</title>
+    
+</head>
+<!-- <style>
+    /* Add your preferred CSS styles here */
+    .quick-links {
+      list-style: none;
+      padding: 0;
+    }
+
+    .quick-links li {
+      margin-bottom: 10px;
+    }
+
+    .quick-links li a {
+      text-decoration: none;
+      color: #000;
+      font-weight: bold;
+    }
+    a{
+        text-decoration: none; 
+        color:whitesmoke;
+    }
+    .card{
+        background-color: #2d3354;
+        width: 100%;
+        height:auto;
+        font-size: 18px;
+        font-family: poppins;
+    }
+    body{
+        background-color:#242d4d ;
+    }
+    h1{
+        color: whitesmoke;
+    }
+    h2{
+     
+      color: whitesmoke;
+      margin-left: 10px;
+    }
+  </style> -->  
+  <style>
+    .card-manager{
+        width: 100%;
+        height:auto;
+        font-size: 18px;
+        padding-bottom: 30px;
+        background-color: #f2f2f2;
+    }
+    .card-manager section{
+      padding-left: 70px;
+      margin-bottom: 18px;
+
+    }
+    .hed-manager{
+      color:blue;
+      font-size: 36px;
+      margin-bottom: 30px;
+     }
+     .link-manager{
+      color:orange;
+      font-size: 28px;
+      margin:20px;
+      font-weight: 650;
+     }
+     .card-manager section a{
+      /* color:#4d9900 !important;  */
+      text-decoration: none;
+      font-size: 17px;
+     }
+     .card-manager section a:hover{
+      color: #000066 !important;
+
+     }
+
+     .card-hr{
+        width: 100%;
+        height:auto;
+        font-size: 18px;
+        padding-bottom: 30px;
+        background-color: #f2f2f2;
+    }
+    .card-hr section{
+      padding-left: 20px;
+      margin-bottom: 18px;
+
+    }
+    .hed-hr{
+      color:blue;
+      font-size: 36px;
+      margin-bottom: 30px;
+     }
+     .link-hr{
+      color:orange;
+      font-size: 28px;
+      margin:20px;
+      font-weight: 650;
+     }
+     .card-hr section a{
+      color:#000066;
+      text-decoration: none;
+     }
+     .card-hr section a:hover{
+      color: #4d9900;
+
+     }
+     .hed-tm{
+      color:#ff7733;
+      font-size: 36px;
+      margin-bottom: 30px;
+     }
+
+     .card-tm{
+      width: 100%;
+      height:auto;
+      font-size: 18px;
+      padding-bottom: 30px;
+      background-color: #f2f2f2;
+  }
+  .card-tm section{
+    padding-left: 20px;
+    margin-bottom: 18px;
+
+  }
+  .link-tm{
+    color:#808080;
+    font-size: 28px;
+    margin:20px;
+    font-weight: 650;
+   }
+   .card-tm section a{
+    color:#003399
+    ;
+    text-decoration: none;
+   }
+   .card-tm section a:hover{
+    color: gray;
+
+   }
+
+   .hed-tl{
+    color: #000;
+    text-align:center;
+   }
+   .link-tl{
+    color: #000;
+   }
+   .fa-file-text{
+    color:#000 !important;
+    /* font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif' */
+    padding: 10px;
+   }
+  </style>
+
+</head>
+<body>
+
+  <h3 class="{% if mem_role == 'HR' and mem_hroptions == 1 %}hed-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}hed-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}hed-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}hed-tm {% endif %}">Get Help</h3>
+
+    
+  <div class="container">
+    <div class="card p-3{% if mem_role == 'HR' and mem_hroptions == 1 %} card-hr {% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %} card-manager {% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %} card-tl {% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %} card-tm {% endif %}" >
+
+      <div class="row">
+        <h4 class="{% if mem_role == 'HR' and mem_hroptions == 1 %}link-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}link-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}link-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}link-tm {% endif %}">Quick Links</h4>
+
+      
+     
+       {% if data.hroptions == 1 %}
+       <section id="I have recieved an email that Payroll has changed/removed by tax declaration why is that">
+        <a  class="fa fa-file-text" aria-hidden="true" href="/hrs1">&nbsp;&nbsp;&nbsp;	How can HR view Attendance in the HRMS portal?
+        </a>
+         </section><br>
+
+         <section id="apply-for-leave">
+          <a class="fa fa-file-text" aria-hidden="true"   href="/hrs2">&nbsp;&nbsp;&nbsp; How can HR Upload Documents in the HRMS portal?</a>
+          <!-- <h2>How do I apply for a leave?</h2> -->
+          <!-- <p>Content for applying for leave goes here...</p> -->
+        </section><br>
+      
+     
+        <section id="apply-for-leave">
+          <a class="fa fa-file-text" aria-hidden="true"   href="/hrs3">&nbsp;&nbsp;&nbsp;&nbsp;How do HR apply for a leave in the HRMS portal?</a>
+          <!-- <h2>How do I apply for a leave?</h2> -->
+          <!-- <p>Content for applying for leave goes here...</p> -->
+        </section><br>
+
+
+        <section id="apply-for-leave">
+          <a class="fa fa-file-text" aria-hidden="true"   href="/hrs4">&nbsp;&nbsp;&nbsp; How to HR view the Attendance of the Employees in the HRMS portal?
+          </a>
+          <!-- <h2>How do I apply for a leave?</h2> -->
+          <!-- <p>Content for applying for leave goes here...</p> -->
+        </section><br>
+
+
+        <section id="apply-for-leave">
+          <a class="fa fa-file-text" aria-hidden="true"   href="/hrs5">&nbsp;&nbsp;&nbsp;&nbsp;How to see HR  all Documents of current employees in the HRMS portal?
+          </a>
+          <!-- <h2>How do I apply for a leave?</h2> -->
+          <!-- <p>Content for applying for leave goes here...</p> -->
+        </section><br>
+
+        <section id="apply-for-leave">
+          <a class="fa fa-file-text" aria-hidden="true"   href="/hrr7">&nbsp;&nbsp;&nbsp; How to HR add single employee and multiple employees in HRMS portal? </a> </section><br>
+
+
+          <section id="apply-for-leave">
+            <a class="fa fa-file-text" aria-hidden="true"   href="/hrr8">&nbsp;&nbsp;&nbsp; How to HR  apply for Reimbursements and View Past Request in the HRMS portal? </a> </section><br>
+
+
+
+            <section id="apply-for-leave">
+              <a class="fa fa-file-text" aria-hidden="true"   href="/info1">&nbsp;&nbsp;&nbsp;&nbsp;How do HR contact support?</a>
+              <!-- <h2>How do I apply for a leave?</h2> -->
+              <!-- <p>Content for applying for leave goes here...</p> -->
+            </section><br>
+          <section>
+            <a class="fa fa-file-text" aria-hidden="true" href="/hrs11">&nbsp;&nbsp;&nbsp;How to HR check all Employees Reimbursement Report in the HRMS portal? </a>
+          </section><br>
+          <section>
+            <a class="fa fa-file-text" aria-hidden="true" href="/hrmissinfo">&nbsp;&nbsp;&nbsp;Where was Employees Missing Information data in the HRMS portal</a>
+          </section><br>
+          <section>
+            <a class="fa fa-file-text" aria-hidden="true" href="/hrempper">&nbsp;&nbsp;&nbsp; How can the HR check the Performance of the Employees in the HRMS portal?</a>
+          </section><br>
+         
+          <!-- <section>
+            <a class="fa fa-file-text" aria-hidden="true" href="/hrmissinfo">&nbsp;&nbsp;&nbsp;Where was Employees Missing Information data in the HRMS portal</a>
+          </section><br> -->
+          <section>
+            <a class="fa fa-file-text" aria-hidden="true" href="/hrphoto">&nbsp;&nbsp;&nbsp;How to HR upload/update profile photo in the HRMS portal?</a>
+          </section><br>
+          <section>
+            <a class="fa fa-file-text" aria-hidden="true" href="/hrs10">&nbsp;&nbsp;&nbsp; How can edit check Personal Information of the HR in the HRMS portal?</a>
+          </section><br>
+          <section>
+            <a class="fa fa-file-text" aria-hidden="true" href="/hrs9">&nbsp;&nbsp;&nbsp;How to HR apply for payslip, view past payslip request and apply for advance salary?</a>
+          </section><br>
+          <section>
+            <a class="fa fa-file-text" aria-hidden="true" href="/hrmonitoring">&nbsp;&nbsp;&nbsp;How to HR Monitoring the Employees in the HRMS portal?</a>
+          </section><br>
+         <!-- <section>
+         <a class="fa fa-file-text" aria-hidden="true" href="#">&nbsp;&nbsp;&nbsp;How to HR check the performance of the Employee</a>
+         </section><br>
+         <section>
+          <a class="fa fa-file-text" aria-hidden="true" href="#">&nbsp;&nbsp;&nbsp;How to HR check the Daily Performance of the Employee</a>
+         </section><br>
+         <section>
+          <a class="fa fa-file-text" aria-hidden="true" href="#">&nbsp;&nbsp;&nbsp;How to HR check the Average Performance of the Employee</a>
+         </section><br> -->
+
+
+      
+      {% elif data.projectmanagerop == 1 %}
+      <section id="access-projects">
+        <a class="fa fa-file-text" aria-hidden="true"   href="/home19">&nbsp;&nbsp;&nbsp;How can the Project Manager access projects and tasks in the HRMS portal?</a>
+      </section><br>
+      
+      <section id="create-project">
+        <a class="fa fa-file-text" aria-hidden="true"   href="/home28">&nbsp;&nbsp;&nbsp;How can the Project Manager  add a new project to the HRMS portal? </a>
+      </section><br>
+
+      <section id="assign-task">
+        <a class="fa fa-file-text" aria-hidden="true"   href="/home20">&nbsp;&nbsp;&nbsp;How can the Project Manager create  task to team members in the HRMS portal? </a>
+      </section><br>
+
+      <!-- <section id="progress-monitor">
+        <a class="fa fa-file-text" aria-hidden="true"   href="/home21">&nbsp;&nbsp;&nbsp;How can the Project Manager  monitor the progress of tasks in the HRMS portal? </a>
+      </section><br> -->
+      
+      <!-- <section id="communicate-team">
+        <a class="fa fa-file-text" aria-hidden="true"   href="/home22">&nbsp;&nbsp;&nbsp;How can the Project Manager  communicate with the team lead and team members in the HRMS portal? </a>
+      </section><br> -->
+  
+      <section id="modify-details">
+        <a class="fa fa-file-text" aria-hidden="true" href="/home23">&nbsp;&nbsp;&nbsp;How can the Project Manager  update or modify the details of an existing project or task in the HRMS portal?</a><br>
+      </section><br>
+
+      <!-- <section id="Employee-Get Started">
+        <a class="fa fa-file-text" aria-hidden="true" href="/home">&nbsp;&nbsp;&nbsp;Employee-Get Started</a><br>
+      </section><br> -->
+
+      <section id="apply-for-leave">
+        <a class="fa fa-file-text" aria-hidden="true"   href="/home1">&nbsp;&nbsp;&nbsp;How does a Project Manager  apply for a leave?</a>
+      </section><br>
+      <section id="apply-for-reimbursements">
+        <a class="fa fa-file-text" aria-hidden="true" href="/home3">&nbsp;&nbsp;&nbsp;How to the Project Manager apply for Reimbursement ?</a>
+      </section><br>
+      
+
+      <!-- <section id="I have recieved an email that Payroll has changed/removed by tax declaration why is that">
+        <a  class="fa fa-file-text" aria-hidden="true" href="/home2">&nbsp;&nbsp;&nbsp;Project Manager  have recieved an email that HRMS has changed/removed by tax declaration why is that?</a>
+        </section><br> -->
+
+        <section id="upload-doc">
+          <a class="fa fa-file-text" aria-hidden="true"   href="/home24">&nbsp;&nbsp;&nbsp;How can the Project Manager  upload the documents to the HRMS portal?</a>
+        </section><br>
+
+        
+      
+
+        <section id="responsibilities-primary">
+          <a class="fa fa-file-text" aria-hidden="true"   href="/home26">&nbsp;&nbsp;&nbsp;What are the primary responsibilities of the Project Manager in the HRMS?</a>
+        </section><br>
+
+        <section id="implement">
+          <a class="fa fa-file-text" aria-hidden="true"   href="/home27">&nbsp;&nbsp;&nbsp;How does a Project Manager ensure that the HRMS implementation aligns with the organization's strategic goals?</a>
+      
+     
+
+       </section><br>
+       <section>
+        <a class="fa fa-file-text" aria-hidden="true"   href="/home35">&nbsp;&nbsp;&nbsp;How can the Project Manager add the performance of the Employee based on their assigned Task in the HRMS?</a>
+      </section><br>
+      <section>
+        <a class="fa fa-file-text" aria-hidden="true"   href="/home30">&nbsp;&nbsp;&nbsp;How can the Project Manager send the review link to  the team leader in the HRMS?</a>
+      </section><br>
+      <section>
+        <a class="fa fa-file-text" aria-hidden="true"   href="/home31">&nbsp;&nbsp;&nbsp;How can the Project Manager give the status of the project in the HRMS?</a>
+      </section><br>
+      <section>
+        <a class="fa fa-file-text" aria-hidden="true"   href="/home32">&nbsp;&nbsp;&nbsp;How can the Project Manager upload/update the profile photo in the HRMS?</a>
+      </section><br>
+      <section>
+        <a class="fa fa-file-text" aria-hidden="true"   href="/home33">&nbsp;&nbsp;&nbsp;How can edit and check the personal information of the project manager in the HRMS portal?</a>
+      </section><br>
+      
+      <section id="apply-for-payslip">
+        <a class="fa fa-file-text" aria-hidden="true" href="/home34">&nbsp;&nbsp;&nbsp;How to the Project Manager apply for Payslips and advance salary  ?</a>
+      </section><br>
+      <section>
+        <a class="fa fa-file-text" aria-hidden="true"   href="/home36">&nbsp;&nbsp;&nbsp;How can the Project Manager check the performance of the Employees in the HRMS portal?</a>
+      </section><br>
+      <section>
+        <a class="fa fa-file-text" aria-hidden="true" href="/home37">&nbsp;&nbsp;&nbsp;How do schedule time with me powered by a calendar?</a>
+      </section>
+
+        <!-- <section id="upload-doc">
+          <a class="fa fa-file-text" aria-hidden="true"   href="/home1">&nbsp;&nbsp;&nbsp; How can I upload documents in the DMS module of HRMS?</a>
+        </section><br>
+
+        <section id="upload-doc">
+          <a class="fa fa-file-text" aria-hidden="true"   href="/home1">&nbsp;&nbsp;&nbsp; How can I upload documents in the DMS module of HRMS?</a>
+        </section><br>
+
+        <section id="upload-doc">
+          <a class="fa fa-file-text" aria-hidden="true"   href="/home1">&nbsp;&nbsp;&nbsp; How can I upload documents in the DMS module of HRMS?</a>
+        </section><br> -->
+
+        {% elif teamleadop %}
+        
+        <section id="apply-for-leave">
+          <a class="fa fa-file-text" aria-hidden="true"   href="/tlleave">&nbsp;&nbsp;&nbsp;How do apply for team leader leave?</a>
+         
+        </section><br>
+      
+        
+      
+        <section id="apply-for-leave">
+          <a class="fa fa-file-text" aria-hidden="true"   href="/tldoc">&nbsp;&nbsp;&nbsp;How can the Team Leader upload documents to the HRMS portal?</a>
+          
+        </section><br>
+      
+        <section id="apply-for-reimbursements">
+          <a class="fa fa-file-text" aria-hidden="true" href="/tlreimbursment">&nbsp;&nbsp;&nbsp;How can the Team Leader apply for Reimbursement?</a>
+        </section><br>
+        <section id="I have recieved an email that Payroll has changed/removed by tax declaration why is that">
+          <a  class="fa fa-file-text" aria-hidden="true" href="/tlpayslip">&nbsp;&nbsp;&nbsp;How do Team Leader Apply for payslips,view their past payslip request and apply for advance salary in the HRMS?</a>
+           </section><br>
+      
+           
+      
+             <section id="I have recieved an email that Payroll has changed/removed by tax declaration why is that">
+              <a  class="fa fa-file-text" aria-hidden="true" href="/tlempperform">&nbsp;&nbsp;&nbsp;How	can the Team Leader check the Performance of the Employee in HRMS portal?</a>
+               </section><br>
+      
+               <section id="I have recieved an email that Payroll has changed/removed by tax declaration why is that">
+                <a  class="fa fa-file-text" aria-hidden="true" href="/tlpersonal">&nbsp;&nbsp;&nbsp;How do Team Leader check their Personal details?</a>
+                 </section><br>
+             
+                 
+      
+                   <section id="I have recieved an email that Payroll has changed/removed by tax declaration why is that">
+                    <a  class="fa fa-file-text" aria-hidden="true" href="/tlphoto">&nbsp;&nbsp;&nbsp;How do Team Leader upload/update their profile photo?
+                    </a>
+                     </section><br>
+                     <section id="payslips-atten">
+                      <a class="fa fa-file-text" aria-hidden="true"   href="/tltaskbypm">&nbsp;&nbsp;&nbsp;How can the Team Leader check the task assigned by the Project Manager?</a>
+                    </section><br>
+      
+                     <section id="I have recieved an email that Payroll has changed/removed by tax declaration why is that">
+                      <a  class="fa fa-file-text" aria-hidden="true" href="/tlassign">&nbsp;&nbsp;&nbsp;How should the team leader view the assigned-task to team members given by the project manager?
+                      </a>
+                       </section><br>
+                       <section id="atten">
+                        <a class="fa fa-file-text" aria-hidden="true"   href="/tlattendance">&nbsp;&nbsp;&nbsp;How do Team Leader  check in/check out and view Attendance?</a>
+                      </section><br>
+                      <section id="meet">
+                        <a class="fa fa-file-text" aria-hidden="true"   href="/tlmeeting">&nbsp;&nbsp;&nbsp;How to send the meeting link team lead to team member and schedule time with me powered by  calender?</a>
+                      </section><br>
+                      <section id="task">
+                        <a class="fa fa-file-text" aria-hidden="true"   href="/tldailytask">&nbsp;&nbsp;&nbsp;How can Team Lead check daily tasks?</a>
+                      </section><br>
+                       
+      {% else %}
+      
+      
+      
+                      
+
+                       <section id="apply-for-leave">
+                        <a class="fa fa-file-text" style="padding-bottom: 8px;" aria-hidden="true"   href="/empleave">&nbsp;&nbsp;&nbsp;How do Employees apply for a leave and check leave application history?</a>
+                   
+                      </section><br>
+                      <section id="apply-for-reimbursements">
+                        <a class="fa fa-file-text" style="padding-bottom: 8px;" aria-hidden="true" href="/empreimbursement">&nbsp;&nbsp;&nbsp;How do Employees apply for Reimbursement and view past Reimbursement request?</a>
+                      </section><br>
+                      <section id="payslips-atten">
+                        <a class="fa fa-file-text" style="padding-bottom: 8px;" aria-hidden="true"   href="/emppayslip">&nbsp;&nbsp;&nbsp;How do Employees Apply for payslips,view their past payslip request and apply for advance salary in the HRMS?</a>
+                      </section><br>
+                      <!-- <section>
+                        <a class="fa fa-file-text" aria-hidden="true" href="#">&nbsp;&nbsp;&nbsp; How do Employees fill in their details?</a>
+                      </section><br> -->
+                      <section>
+                        <a class="fa fa-file-text" style="padding-bottom: 8px;" aria-hidden="true" href="/empphoto">&nbsp;&nbsp;&nbsp; How do Employees upload/update their profile photo? </a>
+                      </section><br>
+                      <section>
+                        <a class="fa fa-file-text" style="padding-bottom: 8px;" aria-hidden="true" href="/empinf" >&nbsp;&nbsp;&nbsp; How do Employees check their Personal details?</a>
+                      </section><br>
+                      <!-- <section>
+                        <a class="fa fa-file-text" aria-hidden="true" href="#">&nbsp;&nbsp;&nbsp; How do Employees exit from the HRMS portal? </a>
+                      </section><br> -->
+                      <section>
+                        <a class="fa fa-file-text" style="padding-bottom: 8px;" aria-hidden="true" href="/empdocument">&nbsp;&nbsp;&nbsp; How do Employees upload Documents in the HRMS portal?</a>
+                      </section><br>
+                      
+                      <section>
+                        <a class="fa fa-file-text" style="padding-bottom: 8px;" aria-hidden="true" href="/empattendance">&nbsp;&nbsp;&nbsp; How do Employees  check in/check out and view Attendance?  </a>
+                      </section><br>
+                    <section>
+                      <a class="fa fa-file-text" style="padding-bottom: 8px;" aria-hidden="true" href="/emptask">&nbsp;&nbsp;&nbsp; How do Employees check Daily Task?</a>
+                    </section><br>
+                    
+      {% endif %}
+      
+             <!-- <br><br>         
+     <section id="search">
+      <a href="/home6">&nbsp;&nbsp;&nbsp;Search for More Details</a>
+    </section><br><br><br> -->
+
+
+  
+  
+  </div>
+  </div>
+  </div>
+  
+  
+  
+</body>
+</html>
+{% endblock main_content %}

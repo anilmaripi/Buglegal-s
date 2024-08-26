@@ -1,0 +1,28 @@
+{% extends 'employhelp/basehelp.html' %}
+{% block main_content %}
+<style>
+    h5{
+        font-size: medium;
+    }
+</style>
+<form>
+    <p id="ha1" style="font-size: xx-large;">We have purchased a biometric device from CAMS. How do we integrate it with XPayroll?</p>
+        <p id="s">1.Go to <a href="">www.camsunit.com</a> and log in -</p>
+        <p id="s1">2.Go to <b>"Device Status"</b>, and confirm that your device is online. If it does not appear online, then that implies that the device is not connected to the Internet, and will not work -</p>
+        <p id="s2 ">3.Click on "<b>Device Management"</b>. Copy-paste the service tag id into a text file.</p>
+        <p id="s3">4.On the Device Management page, click on the "manage" icon and make sure that the callback URL has the value <a href="">https://payroll.razorpay.com/api/camsunitv3"</a>.Make sure the encryption key is empty, and click on the button to generate an auth token and copy-paste into a text file as well.</p>
+    <p id="s4">Once you've done the above, please go to the XPayroll integrations page for CAMS, and enter it under "add a new device". You will need to enter the service tag id and auth token from the above steps as well.</p>
+
+    <p id="s6">Once the device setup has been completed, we will push all your XPayroll employees and contractors to the device automatically. This process can take up to an hour, so please be patient. Please do not add your people to the device yourself, since they need to be added by our system for the device to work properly. Once your employees appear on the device, you can register their fingerprints/faces on the device, and it will automatically start sync'ing the data with XPayroll attendance.</p>
+
+
+<br>
+    <center><button style="width:50%;height: auto;font-size: x-large;border: 2px solid whitesmoke;">
+        <div id="a">
+            <p id="section10" style="text-align: center;">Did this answer your question?</p>
+            <p><a class="ex1" style="text-decoration: none;color: black;"><center>😄 😶 😔</center></a> </p>
+        </div>
+    </button></center><br><br><br>  
+    
+</form>
+{% endblock main_content %}

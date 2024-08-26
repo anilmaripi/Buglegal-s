@@ -1,0 +1,236 @@
+{% extends 'admin-template/base_template.html' %}
+
+{% block main_content %}
+
+        <style>
+            body{
+                
+                background-color: #1E2442;
+            
+            }
+           
+            h1,h2,h3,h4,h5,h6{
+                color:white;
+                margin-top: 4px;
+            }
+            
+            tr:nth-child(even){
+                background-color:#2D3354;
+            }
+            tr:nth-child(odd){
+                background-color:#242B4D;
+            }
+            table{
+                border-collapse: collapse;
+                color: white;
+                width: 100%;
+                border:1px  solid #ffff;
+
+            }
+            table{
+                table-layout: auto;
+            }
+            th,td{
+                font-size: 20px;
+                padding:15px;
+            }
+           
+            
+        </style>
+
+
+      <style>
+        
+
+
+
+a:hover,a:focus {
+text-decoration:none;
+
+
+}
+
+
+label{
+    color: black;
+    font-size: 25px;
+}
+
+#btn{
+    background-color: #1e2442;
+    color: rgba(255, 255, 255, 0.815);
+    width: 75%;
+  }
+  button{
+    background-color: #1e2442;
+
+  }
+  #but{
+    background-color: #1e2442;
+    color: rgba(255, 255, 255, 0.815);
+
+  }
+  #sel{
+    background-color: #1e2442;
+    color: rgba(255, 255, 255, 0.815);
+  }
+  .wrapper-dropdown {
+  position: relative;
+  display: inline-block;
+  min-width: 231.5px;
+  width: 80%;
+  max-width: 403px;
+  min-height: 44px;
+  border-radius: 0px 0px 15px 15px;
+  background: #1c2028;
+  text-align: left;
+
+  cursor: pointer; 
+  margin-top: 20px;
+  font-family: Arial;
+}
+
+
+
+@media only screen and (max-width:768px){
+  
+}
+
+
+
+
+
+
+
+      </style>
+     
+
+ 
+
+
+  
+  
+<div class="row">
+    <div class="col-lg-8" style="background-color:#1e2442; ">
+      
+          <!-- <h3>Modal Example</h3>
+          <p>Click on the button to open the modal.</p> -->
+        
+          <div class="small-box">
+          <div class="inner">
+        
+          <form method="post" style="height: 400px;">{% csrf_token %}
+        
+            <h2><b style="color: rgba(255, 255, 255, 0.966);">Pay Slips</b></h2>
+            
+            <div class="row">
+                <div class="col-8">
+                  <b style="color: white;">Select finanacial year</b>
+                  <select  class="wrapper-dropdown" name="status"   style="background-color:#1e2442; color: white; ">
+                <a href=""></a>
+                {% for i in m %}
+                <option>{{i.years}}</option>
+                
+               </select>
+           </div>
+
+
+
+           
+           <div class="col-4">
+          
+            <button type="button"  id="but" data-bs-toggle="modal" data-bs-target="#myModal" style="margin-right: 60px; margin-bottom: 20px; padding: 10px" ><i class="fa fa-download" style="width: auto;">
+              Download payslips</i>
+            </button>
+        
+            
+            <!-- <button  id="mybtn"><i class="fa fa-download"></i> Download your payslip</button> -->
+          </div>
+          <br>
+          <br>
+        
+          <b style="padding: 30px; margin-right:30px; color: white;">Oops , looks  like we have not processed a payroll for you</b>
+          
+        </div>
+        
+        
+      
+                <button type="button" style="width: auto; height:50px; text-align: center; padding: 10px; "    id="but" data-bs-toggle="modal" data-bs-target="#myModal"  >
+                     <a href="/Employ_home"  style="color: rgba(255, 255, 255, 0.815);  "> Return to DashBoard</a>
+                  </button>
+         
+        </form>
+      </div>
+    </div>
+      
+        
+        
+        <!-- The Modal -->
+        <div class="modal" id="myModal" style="color: rgb(240, 242, 245);">
+          <div class="modal-dialog" >
+            <div class="modal-content" style="background-color: #1e2442;">
+        
+              <!-- Modal Header -->
+              <div class="modal-header">
+                <h4 class="modal-title">Download your pay slips</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+              </div>
+        
+              <!-- Modal body -->
+              <div class="modal-body">
+                <select name="select Financial Year" class="form-control" required>
+                  <a href=""><i class="fa fa-chevron-circle-down" aria-hidden="true"></i></a>
+                 <option disabled="true" selected>select finanacial year
+                 </option>
+          
+            
+             
+             <option>{{i.month}}</option>
+             {% endfor %}
+                 
+             </select>
+             <br>
+             <!-- {% for i in n %}
+             <p>File download can take upto 20 minutes. We will email the files to you at {{i.email}}</p>
+             
+             {% endfor %} -->
+             <button  class="btn btn-primary"><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;<a href="/send_payslip_to_employeemail/" style="color: black;">Email</a></button>
+              </div>
+        
+              <!-- Modal footer -->
+              <!-- <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+              </div> -->
+        
+            </div>
+          </div>
+        </div>
+        </div>
+        
+
+
+
+
+
+
+ 
+
+
+     
+            <div class="col-lg-4" style="background-color: #242b4d; padding :60px; ">
+              
+           
+          <br>
+          <br>
+          
+        
+            <div >
+              <button style=" background-color: rgb(28, 20, 56);width:auto; padding: 10px;"><a href="/salary/">
+                    <i class="fa fa-paper-plane" style="padding-left: 220px;color: rgb(8, 32, 252);"></i>
+                  <h5><b style="color: rgba(255, 255, 255, 0.966);">Salary Advance</b></h5>
+                  <b style="color: rgba(255, 255, 255, 0.815);">View or request an Salary Advance</b></a>
+            </button>
+            </div>
+          </div>
+        </div>
+   {% endblock main_content %}                                                                                                                                                                                                                                                                                                                                                                                                                                    

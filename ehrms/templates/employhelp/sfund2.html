@@ -1,0 +1,26 @@
+
+{% extends 'employhelp/basehelp.html' %}
+{% block main_content %}
+<style>
+    h5{
+        font-size: medium;
+    }
+</style><form>
+    <p1  id="ha1" style="font-size: xx-large;">How are PF contributions calculated?</p1><br><br>
+    
+    <p id="ta">PF contributions are calculated as 12% of all fixed wages (except HRA). Assuming you have enabled the PF cap under Settings > Payments & Compliance Setup, the fixed wages will be capped at Rs 15,000, and thus the maximum contribution calculated by Xpayroll will be 12% of 15,000 = Rs 1,800. 
+    </p><br>
+    
+    <p id="tb">If you have not set a cap, then HRMS will calculate PF at 12% of basic, assuming it is above Rs 15,000.</p><br>
+    <p id="tc">There is a common misconception that PF is calculated only on basic salary. This is incorrect, and there was a Supreme Court ruling on this matter in 2019. Hence, by default, XPayroll will calculate PF on all wages (except HRA). If you wish, you can change the configuration to calculate PF only on basic salary, but XPayroll will not be responsible for any compliance issues if you do this.</p><br>
+    
+  <p id="td">Lastly, the employer's PF contribution can be higher by 1%, depending on whether the employer chooses to include the EDLI and admin charges in an employee's CTC or not. Please note that there is a minimum Rs 500 administration charge imposed by the EPFO, and if you have fewer than 7 employees then XPayroll will charge you this amount separately. </p><br>
+        <center><button style="width:50%;height: auto;font-size: x-large;border: 2px solid whitesmoke;">
+            <div id="a">
+                <p id="section10" style="text-align: center;">Did this answer your question?</p>
+                <p><a class="ex1" style="text-decoration: none;color: black;"><center>😄 😶 😔</center></a> </p>
+            </div>
+        </button></center><br><br><br>  
+        
+    </form>
+    {% endblock main_content %}

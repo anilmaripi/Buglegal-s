@@ -1,0 +1,204 @@
+{% extends 'admin-template/base_template.html' %}
+{% block main_content %}
+
+
+
+<html>
+    <head>
+        <title>Verification Data Table</title>
+    </head>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: #f8f9fa;
+            padding-top: 20px;
+            color: black;
+        }
+        .container {
+            max-width: 1400px;
+        }
+        .page-title {
+            text-align: center;
+            font-weight: bold;
+            color: #495057;
+            margin-bottom: 30px;
+        }
+        .table-container {
+            background-color: #fff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .table-responsive {
+            overflow-x: auto;
+        }
+        .table {
+            width: 100%;
+            margin-bottom: 0;
+            color: #495057;
+        }
+        .table th, .table td {
+            border: none;
+            padding: 12px 15px;
+            text-align: center;
+            font-size: 14px;
+            color: black;
+        }
+        .table th {
+            background-color: #007bff;
+            color: #fff;
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+        .table td {
+            background-color: #fff;
+        }
+        
+        .btn {
+            font-size: 14px;
+            padding: 8px 16px;
+        }
+        .modal-content {
+            background-color: #fff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+        .modal-header {
+            background-color: #007bff;
+            color: #fff;
+            border-bottom: none;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        .modal-title {
+            font-weight: bold;
+        }
+        .modal-body {
+            padding: 20px;
+        }
+        .modal-footer {
+            border-top: none;
+            padding: 10px 20px;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+        .form-control {
+            font-size: 14px;
+            height: auto;
+        }
+        .readonly {
+            background-color: #f8f9fa;
+            color: #6c757d;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-primary:hover {
+            border-color: #0056b3;
+        }
+    </style>
+
+
+
+    <body>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <h2 style="text-align: center;"> Verification Candidate List</h2>
+
+        <div class="container">
+
+        <div class="table-container">
+        <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Official Mail</th>
+                    <th>Phone Number</th>
+                    <th>Job Role</th>
+                    <th>Address</th>
+                    <th>Image</th>
+                    <th>Street</th>
+                    <th>State</th>
+                    <th>Country</th>
+                    <th>City</th>
+                    <th>Pincode</th>
+                    <th>Experience</th>
+                    <th>Current Salary</th>
+                    <th>Source of Hire</th>
+                    <th>Skills</th>
+                    <th>Nationality</th>
+                    <th>AadharNum</th>
+                    <th>PAN Number</th>
+                    <th>DateOfBirth</th>
+                    <th>Gender</th>
+                    <th>Offer Letter</th>
+                    <th>Aadharimage</th>
+                    <th>Panimage</th>
+                    <th>Designation</th>
+                    <th>Payslip</th>
+                    <th>Relivingletter</th>
+                    <th>PFno</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                    <th>Go to Onboarding</th>
+
+
+                </tr>
+            </thead>
+            <tbody>
+                {% for candidate in candidates %}
+                <tr>
+                    <td>{{ candidate.first_name }}</td>
+                    <td>{{ candidate.Last_name }}</td>
+                    <td>{{ candidate.email }}</td>
+                    <td>{{ candidate.Official_mail }}</td>
+                    <td>{{ candidate.contactno }}</td>
+                    <td>{{ candidate.job_role }}</td>
+                    <td>{{ candidate.address }}</td>
+                    <td><img src="{{ candidate.image.url }}" height="50"></td>
+                    <td>{{ candidate.street }}</td>
+                    <td>{{ candidate.state }}</td>
+                    <td>{{ candidate.country }}</td>
+                    <td>{{ candidate.city }}</td>
+                    <td>{{ candidate.Pincode }}</td>
+                    <td><a href="{{ candidate.Experience.url }}" class="img-fluid" >{{ candidate.Experience.name }}</a></td>
+
+                    <td>{{ candidate.current_salary }}</td>
+                    <td>{{ candidate.source_of_hire }}</td>
+                    <td>{{ candidate.skills }}</td>
+                    <td>{{ candidate.Nationality }}</td>
+                    <td>{{ candidate.AadharNo }}</td>
+                    <td>{{ candidate.PanNo }}</td>
+                    <td>{{ candidate.dob }}</td>
+                    <td>{{ candidate.gender }}</td>
+                    <td><a href="{{ candidate.offer_letter.url }}" class="img-fluid" >{{ candidate.offer_letter.name }}</a></td>
+                    <td><a href="{{ candidate.Aadharimage.url }}" class="img-fluid" >{{ candidate.Aadharimage }}</a></td>
+                    <td><a href="{{ candidate.Panimage.url }}" class="img-fluid" >{{ candidate.Panimage }}</a></td>
+                    <td>{{ candidate.designation }}</td>
+                    <td><a href="{{ candidate.Payslip.url }}" class="img-fluid" >{{ candidate.Payslip }}</a></td>
+                    <td><a href="{{ candidate.Relivingletter.url }}" class="img-fluid" >{{ candidate.Relivingletter }}</a></td>
+                    <td>{{ candidate.PFno }}</td>
+                    <td><a href="{% url 'edit_candidate' candidate.id %}">Edit</a></td>
+                    <td><a href="{% url 'delete_candidate' candidate.id %}">Delete</a></td>
+                    <td><a href="{% url 'onboarding_form' %}">onboarding</a></td>
+
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+            </div>
+</div>
+</div>
+        </form>
+    </body>
+</html>
+
+{% endblock main_content%}

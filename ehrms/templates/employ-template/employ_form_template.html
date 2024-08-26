@@ -1,0 +1,241 @@
+
+{% extends 'employ-template/base_template.html' %}
+{% block main_content %}
+<html>
+   <head>
+       <title>add employee</title>
+   </head>
+   <style>
+       body{
+           background-color:#1e2442;
+           color:white;
+           overflow: scroll;
+
+           
+       }
+       h4{
+           text-align:center;
+           
+           padding:3%;
+           background-color:#242B4D;
+          
+
+                      
+       }
+       .v{
+           width:100%;
+          
+           background-color:#242B4D;
+           border: 3px solid white;
+           border-bottom: none;
+           border-top: none;
+           border-right: 3px solid white;
+           height:22%;
+         padding-left: 20px;
+       }
+    
+label.class{
+    color:#1e2442;
+    border:none;
+}
+div.class{
+    border:none;
+}
+
+   </style>
+    
+   <body>
+
+<div class="row justify-content-center">
+    <div class="col-lg-9 col-12">
+
+
+        <h4>Employee Onboarding</h4>
+      
+        <div class="form-group">
+            <label>select role</label>
+            <select class="form-control" required name="role">
+            {% for i in li %}
+              <option value="{{i.name}}">{{i.name}}</option>
+              {% endfor %}
+            
+            </select> 
+            
+                
+                
+        </div>
+       
+  <br><br>
+
+<form id="employadd" method="post" enctype="multipart/form-data" style="width: 100%;" action="#">{% csrf_token %}
+   
+
+    
+       <div class="form-group">
+        {% if messages %}
+          {% for message in messages %}
+          {% if message.tags == 'error' %}
+          <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+          {% endif %}
+          {% if message.tags == 'success' %}
+          <div class="alert alert-success" style="margin-top:20px;background-color:green;color: whitesmoke;">{{ message }}</div>
+          {% endif %}
+          {% endfor %}
+        {% endif %}
+      </div>
+     
+    
+       <div class="form-group">
+           <label>FirstName*</label>
+           <input type="text" name="first_name" class="form-control" placeholder="enter your firstname" style="background-color:#2D3354;  color:white; border:none;">
+       </div><br>
+
+       <div class="form-group">
+        <label>LastName*</label>
+        <input type="text" name="last_name" class="form-control" placeholder="enter your lastname" style="background-color:#2D3354;  color:white; border:none;">
+    </div><br>
+    
+    
+    <div class="form-group">
+        <label>Dateofbirth*</label>
+        <input type="date" name="dateofbirth" class="form-control" placeholder="enter your dateofbirth" style="background-color:#2D3354;  color:white; border:none;">
+    </div><br> 
+    
+    <div class="form-group">
+        <label>Username*</label>
+        <input type="text" name="username" class="form-control" placeholder="enter your username" style="background-color:#2D3354;  color:white; border:none;">
+    </div><br>
+
+    <div class="form-group">
+        <label>Password*</label>
+        <input type="password" name="password" class="form-control" placeholder="enter employe Emailid" style="background-color:#2D3354;  color:white; border:none;">
+    </div><br>
+
+       <div class="form-group">
+           <label>Email*</label>
+           <input type="email" name="email" class="form-control" placeholder="enter email address" style="background-color:#2D3354;  color:white; border:none;">
+           <label style="background-color:#242B4D;  color:white; font-size:15px; padding:1%;height:fit-content"><h6 style="height:fit-content;">The email they will use to log into payroll.</h6></label>
+       </div><br>
+
+       <div class="form-group">
+        <label>Web_Email*</label>
+        <input type="email" name="web_mail" class="form-control" placeholder="enter your webemail address" style="background-color:#2D3354;  color:white; border:none;">
+        <label style="background-color:#242B4D;  color:white; font-size:15px; padding:1%;height:fit-content"><h6 style="height:fit-content;">The email they will use to log into payroll.</h6></label>
+    </div><br>
+
+
+       <label>Gender*</label><br>
+       <label>Male:</label>
+       <input type="radio" name='gender' value="male">
+
+       <label>Female</label>
+       <input type="radio" name='gender' value="female">
+       <br><br>
+
+        <div class="form-group">
+            <label>Address*</label>
+            <input type="text" name="address" class="form-control" placeholder="enter Address" style="background-color:#2D3354;  color:white; border:none;">
+        </div><br>
+
+        <div class="form-group">
+            <label>Employ_ID*</label>
+            <input type="text" name="empid" class="form-control" placeholder="enter employid" style="background-color:#2D3354;  color:white; border:none;">
+        </div><br>
+        
+        <div class="form-group">
+            <label>bloodgroup*</label>
+            <input type="text" name="bloodgroup" class="form-control" placeholder="enter bloodgroup" style="background-color:#2D3354;  color:white; border:none;">
+        </div><br>
+
+        <div class="form-group">
+            <label>Dateofjoining*</label>
+            <input type="date" name="dateofjoining" class="form-control" placeholder="enter your lastname" required style="background-color:#2D3354;  color:white; border:none;">
+        </div><br>
+    
+       
+       <div class="form-group">
+           <label>Designation*</label>
+           <input type="text" name="designation" class="form-control" placeholder="enter Designation" style="background-color:#2D3354;  color:white; border:none;">
+       </div><br>
+
+       <div class="form-group">
+        <label>Role*</label>
+        <input type="text" name="role" class="form-control" placeholder="enter role" style="background-color:#2D3354;  color:white; border:none;">
+       </div><br>
+
+       <!-- <div class="form-group">
+        <label>Hroptions</label>
+        <input type="number" name="hroptions" class="form-control" placeholder="enter 1 to activate Hr" style="background-color:#2D3354;  color:white; border:none;">
+       </div><br> -->
+
+       <div class="form-group">
+           <label> Manager*</label><br>
+              <input type="text" name="Manager" style="background-color:#2D3354;  color:white; border:none; padding:1%;" class="form-control">
+       </div><br>    
+       <div class="form-group">
+           <label>Annual salary*</label>
+           <input type="number" name="package" class="form-control" placeholder="" style="background-color:#2D3354;color:white; border:none;">
+           <label style="background-color:#242B4D;  color:white; font-size:15px; padding:1%;"><h6>annual salary is the current CTC(cost of company)for this employee, not including variable pay. if you have a monthly CTC.please multiply by 12.Xpayroll will automatically create an ideal salary structure.</h6></label>
+       </div><br>
+
+       <div class="form-group">
+           <label>Location*</label><br>
+           <select name="location"  style="background-color:#2D3354;  color:white; border:none; padding:1%;" class="form-control">
+
+               <option>andhrapradesh</option>
+               <option>telangana</option>
+           </select>    
+       </div><br>
+       <div class="form-group">
+        <label>Pincode*</label><br>
+        <input type="text" name="pincode" class="form-control" placeholder="enter pincode" style="background-color:#2D3354;color:white; border:none;">
+    </div><br>
+
+    <div class="form-group">
+        <label>Contactnumber*</label>
+        <input type="number" name="contactno" class="form-control" placeholder="enter mobile number" style="background-color:#2D3354;color:white; border:none;">
+       
+        </div>
+        <br><br>
+
+        <!-- <div class="flex w-full h-screen items-center justify-center bg-grey-lighter">
+            <label class="w-75   flex flex-col items-center px-4 py-64 text-light rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:text-white  border:none">
+                
+                <input type='file' name="profile_pic" />
+            </label>
+        </div> -->
+        
+           <input type="checkbox" value="Resident of india"  >&nbsp;Resident of india<br><br>
+
+           
+       
+       <input type="submit" value="CONTINUE" style=" color:white;" class="btn btn-info">
+       
+</form>
+
+
+
+</div>
+</div>
+
+<script>
+    const selectForm = document.getElementById('select-form');
+    const forms = document.getElementsByTagName('form');
+  
+    selectForm.addEventListener('change', function() {
+      const selectedForm = this.value;
+      for (let i = 0; i < forms.length; i++) {
+        if (forms[i].id === selectedForm) {
+          forms[i].style.display = 'block';
+        } else {
+          forms[i].style.display = 'none';
+        }
+      }
+    });
+  </script>
+</body>
+</html> 
+
+  {% endblock main_content %}
+
+ 

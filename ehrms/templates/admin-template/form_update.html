@@ -1,0 +1,267 @@
+
+{% extends 'admin-template/base_template.html' %}
+{% block main_content %} 
+
+    <style>
+        body {
+	/* height: 100%; */
+    background-color: #1e2442;
+
+    
+}
+body{
+    font-family: "Lucida Console", "Courier New", monospace;
+}
+
+h1 {
+    text-align: center;
+}
+h2 {
+    margin: 0;
+	color: white;
+}
+#multi-step-form-container {
+    margin-top: 5rem;
+	margin: 100px;
+	margin-left: 300px;
+	margin-right: 300px;
+	
+}
+.text-center {
+    text-align: center;
+}
+.mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+}
+.pl-0 {
+    padding-left: 0;
+}
+.button {
+    padding: 0.7rem 1.5rem;
+    border: 1px solid #4361ee;
+    background-color: #4361ee;
+    color: #f5f1f1;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.submit-btn {
+    border: 1px solid #0e9594;
+    background-color: #0e9594;
+    float: right;
+}
+.mt-3 {
+    margin-top: 2rem;
+}
+.d-none {
+    display: none;
+}
+.form-step {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    padding: 3rem;
+	background-color: #2f3b74;
+
+}
+.font-normal {
+    font-weight: normal;
+}
+ul.form-stepper {
+    counter-reset: section;
+    margin-bottom: 3rem;
+}
+ul.form-stepper .form-stepper-circle {
+    position: relative;
+}
+ul.form-stepper .form-stepper-circle span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+}
+.form-stepper-horizontal {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+ul.form-stepper > li:not(:last-of-type) {
+    margin-bottom: 0.625rem;
+    -webkit-transition: margin-bottom 0.4s;
+    -o-transition: margin-bottom 0.4s;
+    transition: margin-bottom 0.4s;
+}
+.form-stepper-horizontal > li:not(:last-of-type) {
+    margin-bottom: 0 !important;
+}
+.form-stepper-horizontal li {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: start;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+}
+.form-stepper-horizontal li:not(:last-child):after {
+    position: relative;
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    height: 1px;
+    content: "";
+    top: 32%;
+}
+.form-stepper-horizontal li:after {
+    background-color: #fcfdfd;
+}
+.form-stepper-horizontal li.form-stepper-completed:after {
+    background-color: #4da3ff;
+}
+.form-stepper-horizontal li:last-child {
+    flex: unset;
+}
+ul.form-stepper li a .form-stepper-circle {
+    display: inline-block;
+    width: 100%;
+    height: auto;
+    margin-right: 0;
+    line-height: 1.7rem;
+    text-align: center;
+    border-radius: 50%;
+}
+.form-stepper .form-stepper-active .form-stepper-circle {
+    background-color: #4361ee !important;
+    color: #fcf8f8;
+}
+.form-stepper .form-stepper-active .label {
+    color: #eef0f9 !important;
+}
+.form-stepper .form-stepper-active .form-stepper-circle:hover {
+    background-color: #4361ee !important;
+    color: #fff !important;
+}
+.form-stepper .form-stepper-unfinished .form-stepper-circle {
+    background-color: #f8f7ff;
+}
+.form-stepper .form-stepper-completed .form-stepper-circle {
+    background-color: #0e9594 !important;
+    color: #fff;
+}
+.form-stepper .form-stepper-completed .label {
+    color: #0e9594 !important;
+}
+.form-stepper .form-stepper-completed .form-stepper-circle:hover {
+    background-color: #0e9594 !important;
+    color: #fff !important;
+}
+.form-stepper .form-stepper-active span.text-muted {
+    color: #fff !important;
+}
+.form-stepper .form-stepper-completed span.text-muted {
+    color: #fff !important;
+}
+.form-stepper .label {
+    font-size: 1rem;
+    margin-top: 0.9rem;
+
+}
+.form-stepper a {
+    cursor: default;
+}
+#msform fieldset {
+	background: rgba(49, 49, 107, 0.366);
+	border: 0 none;
+	border-radius: 20px;
+	box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+	
+	box-sizing: border-box;
+	
+	
+	position: relative;
+}
+#msform fieldset:not(:first-of-type) {
+	display: none;
+}
+  
+form .s{
+    color: rgb(255, 255, 255);
+}
+form label{
+    color: #caccd5;
+}
+
+
+
+
+    </style>
+    
+<body>
+    
+    
+       
+    
+        
+            <form  action="/company_form_update/{{form_edit.id}}" method="POST" enctype="multipart/form-data" >{% csrf_token %} 
+            
+				
+                
+                        <label>companyname*</label>                 
+                        <input type="text" name="name" placeholder="companyname" class="form-control" value="{{form_edit.companyname}}"  required />
+                        <div style="display: flex; flex-direction: column;">
+                        </div>
+                            <div class="form-control">
+                            <label>the name of the legal entity</label>
+                            </div><br>
+                            <label>BrandName*</label>    
+                            <input type="text" name="bname" placeholder="brandname" class="form-control" value="{{form_edit.brandname}}" required>
+                            <div style="display: flex; flex-direction: column;">
+                            </div>
+                            
+                                <div class="form-control">
+                                 <label>if your company is publicly known by a different brand name,then please enter that here.</label>
+                                </div><br>
+
+                                <label>registeraddress*</label>    
+                                <input type="text" name="raddress" placeholder="registeraddress" value="{{form_edit.registeraddress}}" class="form-control" required>
+                                <div style="display: flex; flex-direction: column;">
+                                </div>
+                                    <div class="form-control">
+                                     <label>if you have a GSTIN, provide the address mentioned on your GST certificate.</label>
+                                    </div> <input type="text" placeholder="line 2">
+                                    <div style="display: flex; flex-direction: column;">
+                                    </div><br> 
+                        <br>
+                       
+                        
+                        
+                    
+                        <label>State*</label>
+                        <input type="text" name="Sta" placeholder="State" class="form-control" value="{{form_edit.State}}" required><br>
+                        <div style="display: flex; flex-direction: column;">
+                        </div>
+                        <!-- <select name="State">
+                            <option>andhrapradesh</option>
+                            <option>telangana</option>
+                        </select><br> -->
+                        <label>pincode*</label>
+                        <input type="number" name="pin" placeholder="pincode" class="form-control" value="{{form_edit.pincode}}" required><br>
+                        <div style="display: flex; flex-direction: column;">
+                        </div>
+                            
+                    
+                        <input type="submit" class="btn btn-info btn-lg" value="submit">
+                  
+             </div>
+    
+</body>
+
+{% endblock main_content %}

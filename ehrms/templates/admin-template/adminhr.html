@@ -1,0 +1,73 @@
+{% extends 'admin-template/base_template.html' %}
+{% block main_content %}
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+</head>
+<body class="d-flex align-items-center">
+
+
+    <div id="message">
+        {% if messages %}
+        {% for message in messages %}
+        {% if message.tags == 'error' %}
+        <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+        {% endif %}
+        {% if message.tags == 'success' %}
+        <div class="alert alert-success" style="margin-top:20px;background-color:green;color: whitesmoke;">{{ message }}</div>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+        </div>
+        <script>
+            $("#message").show();
+            setTimeout(function() {
+                $("#message").hide();
+            }, 5000);
+        </script>
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <h4 class="text-white d-flex justify-content-center align-items-center">HR-Features Controlling</h4>
+            <div class="card" style="background-color: cornflowerblue;" >
+                <div class="card-body">
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-md-6 d-flex justify-content-center">
+                            <h5>Name:{{emp.first_name}}{{emp.last_name}}</h5>
+                        </div>
+                        <div class="col-md-6 d-flex justify-content-center">
+                            <h5>EmpID:{{emp.empid}}</h5>
+                        </div>
+                    </div> 
+                
+    <form method="post" action="/adminhr/{{emp.id}}/">{% csrf_token%}
+        <table class="table text-white">
+            <tr style="background-color: blue;">
+            <th><center> Feature </center></th>
+            <th><center>Enable/Disable</center></th>
+            </tr>
+                {% for i in hr_op %}
+                <tr>
+                <input type="hidden" name="field_name_{{forloop.counter}}" value="{{i.name}}" readonly>
+               <td><center>{{i.name}}</center> </td>
+                {% if i.name in storedoption %}
+               <td><center><input type="checkbox" name="selected_fild_{{forloop.counter}}" checked></center></td>
+                {% else %}
+               <td><center><input type="checkbox" name="selected_fild_{{forloop.counter}}"></center></td>
+                {% endif %}
+            </tr>
+                {% endfor %}
+        </table>
+        <button class="btn btn-primary" type="submit">SUBMIT</button>
+    </form>
+                </div>
+        </div>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</body>
+
+{% endblock main_content %}

@@ -1,0 +1,185 @@
+{% extends "admin-template/base_template.html" %}
+{% block main_content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send Verification Form</title>
+    <style>
+        
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f0f0f0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+form {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 6px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+input[type="email"],
+
+select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+@media (max-width: 768px) {
+    .container {
+        width: 90%;
+    }
+}
+
+
+</style>
+</head>
+
+<body>
+    <div class="container">
+    <h2>Send Verification Form to Candidate</h2>
+    
+    <form method="post" id="sendForm">
+        {% csrf_token %}
+        <label for="full_name">Select Applicant:</label>
+        <select name="full_name" id="full_name">
+            <option value="">Select</option>
+            {% for applicant in nd %}
+                <option value="{{ applicant.id }}" data-email="{{ applicant.email }}">{{ applicant.full_name }}</option>
+            {% endfor %}
+        </select><br>
+        <label for="candidate_email">Candidate's Email:</label>
+        <input type="email" id="candidate_email" name="candidate_email" required><br><br>
+        
+        <button type="submit">Send Form</button>
+    </form>
+    </div>
+<br>
+
+<!-- 
+    <h2>Candidate List</h2>
+        
+        <table class="table table-bordered mt-3">
+            <thead class="thead">
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Official Mail</th>
+                    <th>Phone Number</th>
+                    <th>Job Role</th>
+                    <th>Address</th>
+                    <th>Image</th>
+                    <th>Street</th>
+                    <th>State</th>
+                    <th>Country</th>
+                    <th>City</th>
+                    <th>Pincode</th>
+                    <th>Experience</th>
+                    <th>Current Salary</th>
+                    <th>Source of Hire</th>
+                    <th>Skills</th>
+                    <th>Offer Letter</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for candidate in candidates %}
+                <tr>
+                    <td>{{ candidate.first_name }}</td>
+                    <td>{{ candidate.Last_name }}</td>
+                    <td>{{ candidate.email }}</td>
+                    <td>{{ candidate.Official_mail }}</td>
+                    <td>{{ candidate.contactno }}</td>
+                    <td>{{ candidate.job_role }}</td>
+                    <td>{{ candidate.address }}</td>
+                    <td><img src="{{ candidate.image }}" class="img-fluid"></td>
+                    <td>{{ candidate.street }}</td>
+                    <td>{{ candidate.state }}</td>
+                    <td>{{ candidate.country }}</td>
+                    <td>{{ candidate.city }}</td>
+                    <td>{{ candidate.Pincode }}</td>
+                    <td>{{ candidate.Experience }}</td>
+                    <td>{{ candidate.current_salary }}</td>
+                    <td>{{ candidate.source_of_hire }}</td>
+                    <td>{{ candidate.skills }}</td>
+                    <td><a href="{{ candidate.offer_letter.url }}" target="_blank">{{ candidate.offer_letter.name }}</a></td>
+
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    -->
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var fullNameSelect = document.getElementById('full_name');
+            var candidateEmailInput = document.getElementById('candidate_email');
+            
+            fullNameSelect.addEventListener('change', function() {
+                var selectedOption = fullNameSelect.options[fullNameSelect.selectedIndex];
+                var selectedEmail = selectedOption.getAttribute('data-email');
+                
+                candidateEmailInput.value = selectedEmail;
+            });
+        });
+    </script>
+    
+</body>
+
+</html>
+
+
+
+
+
+</html>
+{% endblock main_content %}
+

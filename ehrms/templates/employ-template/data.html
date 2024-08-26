@@ -1,0 +1,250 @@
+{% extends 'employ-template/base_template.html' %}
+
+{% block main_content %}
+<title>Send The Review Link</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+        .card-manager{
+        background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(93,162,255,1) 99%);
+        box-shadow: 2px 3px 10px #999;
+        border-radius: 10px;
+    }
+    .head-manager{
+        color: blue;
+        font-size: 36px;
+        margin-bottom: 30px;
+        text-align: center;
+        margin-top: 10px;
+    }
+
+#selected-employees-list li {
+    display: inline-block;
+    margin-right: 10px; /* Optional: Add margin between list items */
+    flex: 1;
+    row-gap: 50px;
+    padding-left: 30px; /* Add left padding to each list item */
+}
+
+#selected-employees-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(530px, 1fr)); /* Adjust column width as needed */
+    gap: 15px; /* Adjust the gap as needed */
+}
+
+.grid-item {
+    border: 1px solid #ccc; /* Optional: Add a border to grid items */
+    padding: 10px; /* Optional: Add padding to grid items */
+}
+
+#selected-employees-list .grid-item:nth-child(odd) {
+    padding-left: 50px; /* Adjust the left padding as needed */
+} 
+/* Style the select box container */
+#employee-select {
+  width: 100%;
+  max-width: 1200px; /* Adjust the width as needed */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f8f8f8;
+  font-size: 16px;
+  color: #333;
+}
+
+/* Style the options within the select box */
+#employee-select option {
+  padding: 5px;
+  background-color: #fff; /* Background color for unselected options */
+  color: #333;
+}
+
+/* Style selected options */
+#employee-select option:checked {
+  background-color: #3498db; /* Background color for selected options */
+  color: #fff;
+}
+
+/* Style the hover effect for options */
+#employee-select option:hover {
+  background-color: #f0f0f0; /* Background color on hover */
+  cursor: pointer;
+}
+
+/* Remove default select box styles */
+#employee-select::-ms-expand {
+  display: none;
+}
+
+/* Style the dropdown arrow icon (if supported) */
+#employee-select::after {
+  content: '\25BC'; /* Unicode character for a downward arrow */
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+    .mb-4{
+        padding: 30px;
+
+    }
+    lottie-player{
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+    #img{
+        margin-top: -80px;
+
+    }
+    .card-manager{
+        background-color: #F2F2F2;
+        box-shadow: 2px 3px 10px #999;
+        border-radius: 10px;
+        width: 100%;
+    }
+
+}
+
+
+
+</style>
+<div id="message">
+    {% if messages %}
+    {% for message in messages %}
+    {% if message.tags == 'error' %}
+    <div class="alert alert-danger" style="margin-top:20px;">{{message}}</div>
+    {% endif %}
+    {% if message.tags == 'success' %}
+    <div class="alert alert-success" style="margin-top:20px;background-color:green;color: whitesmoke;">{{message}}</div>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+    </div>
+    <script>
+        $('#message').show()
+        setTimeout(function(){
+            $('#message').hide()
+        },5000)
+    </script>
+<div class="row align-items-center d-flex  justify-content-center">
+    <div class="col-10 mb-4">
+        <h3 class="{% if mem_role == 'HR' and mem_hroptions == 1 %}head-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}head-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}head-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}head-tm {% endif %}" >Send The Review Link</h3>
+
+
+        <div class="card-body {% if mem_role == 'HR' and mem_hroptions == 1 %}card-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}card-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}card-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}card-tm {% endif %} align-items-center d-flex justify-content-center"  >
+            <div class="row mb-4">
+                    <div class="col-lg-12 col-sm-16">
+                        <div class="col-lg-12 col-sm-16">
+                          
+                        </div>
+                    </div>
+                    <center>
+                        <lottie-player src="https://assets8.lottiefiles.com/packages/lf20_cwA7Cn.json"
+                            background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay>
+                        </lottie-player>
+                    </center>
+                    <div class="card-body">
+                        {% if projects %}
+                        <form method="POST"  >
+                            {% csrf_token %}
+                            <div class="mb-4">
+
+                                <div class="form-group">
+                                    <label for="p_name" style="color:black;">Projects List:</label>
+                                    <select id="project-dropdown" name="p_name" class="form-control">
+                                        <option value="">Select a project</option>
+                                        {% for project in projects %}
+                                            <option value="{{ project.p_name }}">{{ project.p_name }}</option>
+                                
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                               
+                                <div class="form-group">
+                                    <label class="h6" style="color:black;" for="exampleFormControlTextarea1">Meet URL:</label>
+ 
+                                    <input type="text" name="p_url" class="form-control" placeholder="Meet URL"
+                                         required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="team-lead" style="color:black;">Team Lead:</label>
+                                    <select id="team-lead-dropdown" name="team_lead" class="form-control">
+                                        <option value="">Select a team lead</option>
+                                    </select>
+                                </div>
+    
+                                <div class="form-group" style="margin-bottom: -60px;text-align: end;">
+
+                                    <input type="submit" class="btn btn-primary" value="submit">
+
+                                </div>
+       
+                              
+                                  </div>
+                                </form>
+                                {% else %}
+                            
+                                {% endif %}
+</div>
+           
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+   
+$(document).ready(function() {
+    $('#project-dropdown').change(function() {
+        var projectName = $(this).val();
+        if (projectName) {
+            $.ajax({
+                url: '/get_project_employees/' + projectName,
+                type: 'GET',
+                success: function(response) {
+                    var teamLeadDropdown = $('#team-lead-dropdown');
+                    teamLeadDropdown.empty();
+                    teamLeadDropdown.append('<option value="">Select a team lead</option>');
+                    $.each(response.team_lead, function(index, teamLead) {
+                        teamLeadDropdown.append('<option value="' + teamLead.id + '">' + teamLead.first_name + ' ' + teamLead.last_name + '</option>');
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error('AJAX Error:', status, error);
+                }
+            });
+        } else {
+            $('#team-lead-dropdown').empty().append('<option value="">Select a team lead</option>');
+            $('#team-member-dropdown').empty().append('<option value="">Select a team member</option>');
+            $('#task-description').html('<label>Description Not Available</label>');
+        }
+    });
+
+});
+</script>
+
+<script>
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1; //January is 0!
+        var yyyy = today.getFullYear();
+
+        if (dd < 10) {
+            dd = '0' + dd;
+        }
+
+        if (mm < 10) {
+            mm = '0' + mm;
+        }
+
+        today = yyyy + '-' + mm + '-' + dd;
+        document.getElementById("t_deadline_date").setAttribute("min", today);
+</script>
+<!-- Calendly badge widget begin -->
+<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+<script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+<!-- <script type="text/javascript">window.onload = function() { Calendly.initBadgeWidget({ url: 'https://calendly.com/ssvdpavankumar16/30min', text: 'Schedule time with me', color: '#0069ff', textColor: '#ffffff', branding: true }); }</script> -->
+<!-- Calendly badge widget end -->
+{% endblock main_content %}

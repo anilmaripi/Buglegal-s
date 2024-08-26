@@ -1,0 +1,21 @@
+<html>
+    <head>
+        <title></title>
+        <style>
+             form{
+                background-color:#1E2442;
+                color: white;
+                margin-top: 40px;
+            }
+        </style>
+    </head>
+    <body>
+        <form method="post" enctype="multipart/form-data" action="/company_update2/{{post.id}}" style="border: 2px solid black; width: 30%; height: 100px;">{% csrf_token %}
+            <div class="form-group">
+                <label>KYCSTATUS</label>
+                <input type="text" name="KYCSTATUS" class="form-control" value="{{post.KYCSTATUS}}"><br>
+            </div>
+            <input type="submit" class="btn btn-success btn-lg">
+        </form>
+    </body>            
+</html>

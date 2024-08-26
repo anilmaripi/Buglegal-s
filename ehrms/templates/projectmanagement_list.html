@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Project Management List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h2 {
+            color: #007bff;
+            text-align: center;
+            
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        img {
+            max-width: 100px;
+            max-height: 100px;
+            display: block;
+        }
+
+        a {
+            text-decoration: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            margin-right: 5px;
+            color: #fff;
+        }
+
+        a[href*="update"] {
+            background-color: #007bff;
+        }
+
+        a[href*="delete"] {
+            background-color: #dc3545;
+        }
+
+        a:hover {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Project Management List</h2>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Subtitle</th>
+            <th>Description</th>
+            <th>Image</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for project in projects %}
+        <tr>
+            <td>{{ project.title }}</td>
+            <td>{{ project.subtitle }}</td>
+            <td>{{ project.discription }}</td>
+            <td><img src="{{ project.image.url }}" alt="{{ project.title }}"></td>
+            <td>
+                <a href="{% url 'projectmanagement_update' pk=project.pk %}" style="background-color: #007bff;">Edit</a>
+                <a href="{% url 'projectmanagement_delete' pk=project.pk %}" style="background-color: #dc3545;">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+</body>
+</html>

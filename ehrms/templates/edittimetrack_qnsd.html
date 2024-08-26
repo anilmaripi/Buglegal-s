@@ -1,0 +1,84 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Time Track Question</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 20px;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 50%;
+            margin: auto;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            max-width: 600px;
+            margin: auto;
+        }
+        label {
+            font-weight: bold;
+        }
+        input[type=text], input[type=url] {
+            width: 100%;
+            padding: 8px;
+            margin: 6px 0;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin: 6px 0;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+        }
+        input[type=submit] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            float: right;
+        }
+        input[type=submit]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Edit Time Track Question</h2>
+        
+        <form method="post">
+            {% csrf_token %}
+            <label for="qns">Question:</label><br>
+            <input type="text" id="qns" name="qns" value="{{ ins1.qns }}" required><br><br>
+            
+            <label for="title2">Title:</label><br>
+            <input type="text" id="title2" name="title2" value="{{ ins1.title2 }}" required><br><br>
+            
+            <label for="discription">Description:</label><br>
+            <textarea id="discription" name="discription" rows="4" required>{{ ins1.discription }}</textarea><br><br>
+            
+            <label for="link">Link:</label><br>
+            <input type="url" id="link" name="link" value="{{ ins1.link }}"><br><br>
+            
+            <input type="submit" value="Save Changes">
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,853 @@
+{% extends 'employ-template/base_template.html' %}
+{% block page_title %}
+{% endblock page_title %}
+{% block main_content %}
+<!-- Main content -->
+<title>Dashbaord</title>
+<style>
+    .small-box span{
+        font-size: 15px;
+        padding: 0%;
+        margin: auto;
+        text-align: initial;
+        font-weight: 100;
+    }
+    .content{
+        padding-bottom: 0%;
+        margin-bottom: 0px;
+    }
+    .inner p{
+        font-size: 15px;
+    }
+    h5,h6{
+        color: white;
+    }
+    {% comment %} .pagination a, .pagination .current-page {
+        display: inline-block;
+        padding: 8px 12px;
+        text-decoration: none;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+    } 
+     .pagination a, .pagination .current-page {
+        display: inline-block;
+        padding: 8px 12px;
+        text-decoration: none;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+        border-radius: 20px;
+        text-align: center;
+        background-color: #3775e0;
+        color: white; 
+    }
+    {% comment %} background-color: orange;  {% endcomment %}
+
+    {% comment %} .act{
+    color: white;
+    height:43px;
+    width:43px;
+    border-radius: 20px; 
+
+    }  {% endcomment %}
+    .pagination a{
+        color:red;
+        text-decoration: none;
+
+    }
+    .act{
+        border-radius: 20px;
+        padding: 4px 8px;
+        background-color: #007880;
+        border: 1px solid #ccc;
+        color:fff;
+    }
+
+    img{
+        color:#fff;
+    }
+    hr{
+        background-color: #000;
+        height: 5px;
+    }
+    /* #fixed-column{
+        position: sticky;
+        top:0;
+        height: 100vh;
+        overflow-y: auto;
+        background-color: #323a5f;
+        z-index: 1;
+    } */
+    .fixed-column{
+        position: sticky;
+        top:0;
+        height: 100vh;
+        overflow-y: auto;
+        z-index: 1;
+    }
+    .fixed-column-hr {
+        background-color: #e0c6e2;
+        position: sticky;
+        box-shadow: 3px 0 0 3px #d2bfad;
+        margin-top:5px ;
+
+        /* for HR */
+      }
+      .fixed-column-manager {
+        background-color: #ffd280;
+        position: sticky;
+        box-shadow: 3px 0 0 3px #d2bfad;
+        margin-top:5px ;
+
+        /* for Manager */
+      }
+      .fixed-column-employee-tl {
+        background-color:   #ffccd0; 
+        position: sticky;
+        box-shadow: 3px 0 0 3px #d2bfad;
+        margin-top:5px ;
+
+        /* for teamlead  */
+      }
+      .fixed-column-employee-tm {
+        background-color:#cccccc; 
+        position: sticky;
+        box-shadow: 3px 0 0 3px #bfbfbf;
+        margin-top:5px ;
+
+        /* for Employee and teammember */
+      }
+
+      .small-box-employee-tm{
+        background-image: linear-gradient(to bottom right,#d9d9d9 75%,#b3b3b3 25% );
+      }
+      .small-box-manager {
+        background-color: #ffa200;
+        padding:20px;
+      }
+      .mg{
+        color:blue;
+        font-size: 36px;
+        font-weight: 600;
+        padding-left:15px;
+        box-shadow: 0 2px 0 4px #808080;
+      }
+      .mg:hover{
+        color: #ff9900;
+        cursor: default;
+        box-shadow: 0 2px 0 4px #ccc;
+      }
+      .hr{
+
+        color:#ff9900;
+        font-size: 36px;
+        font-weight: 600;
+        padding-left:15px;
+        box-shadow: 0 2px 0 4px #ccc;
+      }
+      .hr:hover{
+        color: blue;
+        cursor: default;
+        box-shadow: 0 2px 0 4px #01204E;
+      }
+      .tl{
+        color:#ff9900;
+        font-size: 36px;
+        font-weight: 600;
+        padding-left:15px;
+        box-shadow: 0 2px 0 4px #ccc;
+
+      }
+      .tl:hover{
+        color: blue;
+        cursor: default;
+        box-shadow: 0 2px 0 4px #01204E;
+      }
+      .tm{
+        color:#ff7733;
+        font-size: 36px;
+        font-weight: 600;
+        padding-left:15px;
+        box-shadow: 0 2px 0 4px #cdc3b1
+        ;
+
+      }
+      .tm:hover{
+        color: blue;
+        cursor: default;
+        box-shadow: 0 2px 0 4px #01204E;
+      }
+      .emp{
+        color:#ff7733;
+        font-size: 36px;
+        font-weight: 600;
+        padding-left:15px;
+        box-shadow: 0 2px 0 4px #cdc3b1
+        ;
+      }
+      .emp:hover{
+        color: blue;
+        cursor: default;
+        box-shadow: 0 2px 0 4px #ccc;
+      }
+
+      @media screen and(max-width:768px){
+        .mg{
+            color: blue;
+            font-size: 36px;
+            font-weight: 600;
+            padding-left:15px;
+            box-shadow: 0 2px 0 4px #808080;
+    
+          }
+          .mg:hover{
+            color: #ff9900;
+            cursor: default;
+            box-shadow: 0 2px 0 4px #ccc;
+          }
+          .hr{
+            color:#ff9900;
+            font-size: 36px;
+            font-weight: 600;
+            padding-left:15px;
+            box-shadow: 0 2px 0 4px #ccc;
+    
+          }
+          .hr:hover{
+            color: blue;
+            cursor: default;
+            box-shadow: 0 2px 0 4px #01204E;
+          }
+          .tl{
+            color:#ff9900;
+            font-size: 36px;
+            font-weight: 600;
+            padding-left:15px;
+            box-shadow: 0 2px 0 4px #ccc;
+    
+          }
+          .tl:hover{
+            color: blue;
+            cursor: default;
+            box-shadow: 0 2px 0 4px #01204E;
+          }
+          .tm{
+            color:#ff7733;
+            font-size: 36px;
+            font-weight: 600;
+            padding-left:15px;
+            box-shadow: 0 2px 0 4px #cdc3b1
+            ;
+          }
+          .tm:hover{
+            color: blue;
+            cursor: default;
+            box-shadow: 0 2px 0 4px #01204E;
+          }
+          .emp{
+            color:#ff7733;
+            font-size: 36px;
+            font-weight: 600;
+            padding-left:15px;
+            box-shadow: 0 2px 0 4px #cdc3b1
+            ;
+            margin-top: -40px;
+          }
+          .emp:hover{
+            color: blue;
+            cursor: default;
+            box-shadow: 0 2px 0 4px #ccc;
+          }
+          }
+      
+
+
+</style>
+<style>
+    .table-manager tr:nth-child(even){
+        background-color: #e6e6e6;
+        color:#000;
+    }
+    .table-manager tr:nth-child(odd){
+        background-color: #ccc;
+        color:#000;
+
+    }
+
+    .name-manager{
+        padding-bottom: 5px;
+        padding-left: 10px;
+        color:#1a1a1a
+    }
+    .name-tl{
+        padding-bottom: 5px;
+        padding-left: 10px;
+        color:#1a1a1a
+
+    }
+    .name-tm{
+        padding-bottom: 5px;
+        padding-left: 10px;
+        color:#1a1a1a
+
+    }
+    .name-hr{
+        padding-bottom: 5px;
+        padding-left: 10px;
+        color:#1a1a1a
+
+    }
+
+    .id-manager{
+        padding-bottom: 5px;
+        padding-left: 10px;
+        color:#1a1a1a
+
+    }
+    .id-hr{
+        padding-bottom: 5px;
+        padding-left: 10px;
+        color:#1a1a1a
+
+    }
+    .id-tl{
+        padding-bottom: 5px;
+        padding-left: 10px;
+    }
+    .id-tm{
+        padding-bottom: 5px;
+        padding-left: 10px;
+        color:#1a1a1a
+
+    }
+    .des-manager{
+        color:#01204E!important;
+        font-weight: 600!important;
+        cursor: default!important;
+
+    }
+    .head-manager{
+        color:#01204E!important;
+        font-weight: 600!important;
+        cursor: default!important;
+    }
+
+    .hd-manager{
+        color:#ff4d4d;
+        
+    }
+    .hd-tm{
+        color:blue;
+    }
+    .small-box-employee-tm {
+        background-color: #ff7733;
+        padding:20px;
+      }
+</style>
+<style>
+    .hd-tl{
+        color:black ;
+    }
+    .head-tl{
+        color:black;
+        padding:5px;
+    }
+    .des-tl{
+        color:black
+    }
+    .hd-hr{
+        color: black;
+    }
+</style>
+<style>
+    @media screen and(max-width:768px){
+        body{
+            display:flex;
+            font-size: 15px;
+        }
+        #fixed-column{
+            margin-top: 30px;
+        }
+        .card{
+            margin-top: 30px;
+        }
+    }
+
+    .meeting-hed-tm{
+        color:black;
+        font-weight: 600;
+        font-size: 30px;
+    }
+    .meeting-tm{
+        background-image: linear-gradient(to bottom right,#f2f2f2,gold,#f2f2f2);
+        margin-top: 20px;
+        box-shadow: 2px 3px 10px #999;
+        border-radius: 10px;
+    }
+    .des-tm{
+        color:black;
+        font-weight: 600!important;
+        cursor: default!important;
+
+    }
+    .head-tm{
+        color:navy;
+        font-weight: 600!important;
+        cursor: default!important;
+
+    }
+    .head-hr{
+        color: black;
+        font-weight: 600!important;
+    }
+    .des-hr{
+        color: black;
+    }
+
+</style>
+<div id="message">
+    {% if messages %}
+    {% for message in messages %}
+    {% if message.tags == 'error' %}
+    <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+    {% endif %}
+    {% if message.tags == 'success' %}
+    <div class="alert alert-success" style="margin-top:20px;background-color:green;color: whitesmoke;">{{ message }}</div>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+</div>
+<script>
+    $("#message").show()
+    setTimeout(function() {
+        $("#message").hide()
+    },3000)
+</script>
+    <div class="row">
+        <div class="col-lg-9">
+                <script>
+                    const toggleButton = document.getElementById("toggle-button");
+                    const taskTableContainer = document.getElementById("task-table-container");
+                    let isTableVisible = false;
+                    toggleButton.addEventListener("click", function () {
+                        if (!isTableVisible) {
+                            taskTableContainer.style.display = "block";
+                            toggleButton.textContent = "Hide Tasks";
+                            toggleButton.style.backgroundColor= "blue";
+                            toggleButton.style.color="white";
+                        } else {
+                            taskTableContainer.style.display = "none";
+                            toggleButton.textContent = "Show Tasks";
+                            toggleButton.style.backgroundColor= "green";
+                            toggleButton.style.color="white";
+                        }
+                        isTableVisible = !isTableVisible;
+                    });
+                </script>
+                <div class="row">
+                    <div class="col col-sm-12 col-md-12 col-lg-12">
+
+                        {% if data.hroptions == 1 %}
+                        <div class="small-box hr">
+                            Welcome To HR
+                        </div>
+                        {% else %}
+                        {% endif %}
+                        {% if data.projectmanagerop == 1 %}
+                        <div class="small-box mg">
+                            Welcome To Project Manager
+                        </div>
+                        {% else %}
+                        {% endif %}
+                        {% if teamlead == 1 and data.hroptions == 0 and data.projectmanagerop == 0 %}
+                        <div class="small-box tl">
+                            Welcome To TeamLead
+                        </div>
+                        {% elif teamlead == 0 and data.hroptions == 0 and data.projectmanagerop == 0 %}
+                        <div class="small-box tm">
+                            Welcome To Teammember
+                        </div>
+                        {% elif data.hroptions == 0 and data.projectmanagerop == 0 %}
+                        <div class="small-box emp">
+                            Welcome {{emp_detail.first_name}} {{emp_detail.last_name}}
+                        </div>
+                        {% endif %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        {% if is_form_complete and is_form_complete_doc and is_profile_pic_complete %}
+                        {% else %}
+                        <div class="col-lg-12 col-md-12 col-sm-12" style="text-align: initial;">
+                            <h3 style="cursor: default;" class="{% if mem_role == 'HR' and mem_hroptions == 1 %}hd-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}hd-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}hd-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}hd-tm {% endif %}">REMINDERS</h3 ><hr>
+                        </div>
+                        {% endif %}
+                        {% if is_profile_pic_complete %}
+                        {% else %}
+                            <div class="col-lg-6 col-sm-12" style="text-align: initial;">
+                                <div class="small-box   {% if mem_role == 'HR' and mem_hroptions == 1 %}small-box-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}small-box-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}small-box-employee-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}small-box-employee-tm {% endif %}" >
+                                        <h5 class="{% if mem_role == 'HR' and mem_hroptions == 1 %}head-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}head-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}head-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}head-tm {% endif %}">Upload Your Profile Pic</h5><hr>
+                                        <span class="{% if mem_role == 'HR' and mem_hroptions == 1 %}des-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}des-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}des-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}des-tm {% endif %}">Your Profile Pic is not upload, Please <a href="{% url 'employ_upload_photo' %}"style="text-decoration: none;" ><i style="color: blue;">click here</i></a> to upload it</span>
+                                </div>
+                            </div>
+                        {% endif %}  
+                        {% if is_form_complete %}
+                        {% else %}
+                            <div class="col-lg-6 col-sm-12" style="text-align: initial;">
+                                <div class="small-box   {% if mem_role == 'HR' and mem_hroptions == 1 %}small-box-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}small-box-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}small-box-employee-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}small-box-employee-tm {% endif %}" >
+                                        <h5 class="{% if mem_role == 'HR' and mem_hroptions == 1 %}head-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}head-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}head-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}head-tm {% endif %}" >Update Your Profile Details</h5><hr>
+                                        <span class="{% if mem_role == 'HR' and mem_hroptions == 1 %}des-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}des-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}des-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}des-tm {% endif %}" >Your profile is not complete, Please <a href="{% url 'employ_add' %}" style="text-decoration: none;"><i style="color: blue;">click here</i></a> to update it.</span>
+                                </div> 
+                            </div>
+                        {% endif %} 
+                        {% if is_form_complete_doc %}
+                        {% else %}
+                            <div class="col-lg-6 col-sm-12" style="text-align: initial;">
+                                <div class="small-box   {% if mem_role == 'HR' and mem_hroptions == 1 %}small-box-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}small-box-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}small-box-employee-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}small-box-employee-tm {% endif %}" >
+                                        <h5 class="{% if mem_role == 'HR' and mem_hroptions == 1 %}head-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}head-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}head-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}head-tm {% endif %}">Upload Your Documents</h5><hr>
+                                        <span class="{% if mem_role == 'HR' and mem_hroptions == 1 %}des-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}des-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}des-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}des-tm {% endif %}">Required  documents is not upload, Please <a href="{% url 'trails' %}"style="text-decoration: none;" ><i style="color: blue;">click here</i></a> to upload it</span>
+                                </div>
+                            </div>
+                        {% endif %}  
+                        {% if projectm %}
+                        <table class="table ml-3" id="yourTableID " style="width:765px;">
+                            <tr style="background:linear-gradient(#5785e9,rgb(236, 198, 216));color: black;">                 
+                                <th>Project Title</th>
+                                <th>Date</th>
+                            </tr>
+                            {% for i in projectm %}
+                            <tr>
+                                <td> {{i.project_name}} </td>
+                                <td>{{i.date}}</td>
+                            </tr>
+                            {% endfor %}
+                    
+                        </table>
+                        {% endif %}
+                        {% if projectm1 %}
+                        {% comment %} {% if mem_role == 'HR' and mem_hroptions == 1 %}head-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}head-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}head-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}head-tm {% endif %} {% endcomment %}
+                        <div>
+                            <h3 style="color:#0A1D56">Project Team Details</h3>
+                            <div class="table-responsive">
+                                <table class="table {% if mem_role == 'HR' and mem_hroptions == 1 %}table-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}table-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}table-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}table-tm {% endif %}" id="yourTableID " >
+                                    <tr style="background:#000;color:white;">             
+                                        <th>Project Name</th>
+                                        <!-- <th>Employee Designation</th> -->
+                                        <th>Project Deadline</th>
+                                        <th>Team-Lead</th>
+                                        <th>View</th>
+                                        <th>Edit</th>
+                                        <!-- <th>Delete</th> -->
+                                    </tr>
+                                    {% for project in project_details %}
+                                    <tr>
+                                       <td>{{ project.p_name }}</td>
+                                       <td>{{ project.project_deadline }}</td>
+                                       <td>
+                                           {% for team_member in project.teammember_set.all %}
+                                           {% if team_member.is_team_lead %}
+                                           {{ team_member.employee.first_name }} {{ team_member.employee.last_name }}
+                                           <!-- {{team_member.employee.designation}} -->
+                                           {% endif %}
+                                           {% endfor %}
+                                       </td>
+                       
+                                        <td> <a href="/projectwise_task/{{project.id}}" class="btn btn-primary">View</a>  </td>     
+                                        <td><a href="/update_data1/{{project.id}}/" class="btn btn-warning">Edit</a></td>
+                                        <!-- <td><a href="/delete_data1/{{project.id}}/"><i class="fas fa-trash-alt" style="color:red; margin-top:10px;"></i></a></td> -->
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="5" class="text-center" style="color: red;">There is no report available for project team details.....
+                                            
+                                        </td>
+                                    </tr>
+
+                                    {% endfor %}
+                    
+                                </table>
+                            </div>
+                            <div class="pagination" >
+                                <span class="step-links">
+                                    {% if project_details.has_previous %}
+                                        <a  href="?page=1">First</a>
+                                        <a   href="?page={{ project_details.previous_page_number }}" class="prev"> << </a>
+                                    {% endif %}
+                            
+
+                                    {% for i in project_details.paginator.page_range %}
+                                    {% if project_details.number == i %}
+                                    <button class="active act "><span>{{ i }} <span class="sr-only">(current)</span></span></button>
+                                    {% elif i > project_details.number|add:'-3' and i < project_details.number|add:'3' %}
+                                        <a  href="?page={{ i }}">{{ i }}</a>
+                                    {% endif %}
+                                    {% endfor %}
+
+                                
+
+                                    {% if project_details.has_next %}
+                                        {% if project_details.number != project_details.paginator.num_pages %}
+                                        {% endif %}
+                                        <a   href="?page={{ project_details.next_page_number }}" class="prev"> >> </a>
+
+                                        <a  href="?page={{ project_details.paginator.num_pages }}">Next </a>
+                                    {% endif %}
+                                </span>
+                            </div>   
+                        </div>
+                        {% else %}
+                        {% endif %}
+                        {% if  team_members %}
+                        <!-- <div class="col-md-2"></div> -->
+                           <div class="col-md-10">
+
+                            <div class="table-responsive">
+                                <table id="yourTableID" class="table text-dark table-striped table-bordered" style="width: 500px; height:200px; border: 0px solid black;">
+                                    <tr >                
+                                    <th>Project Name</th> 
+                                        <td >
+                                            {% for i in projects %}
+                                            {{ i.p_name }}
+                                            {% endfor %}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Project Deadline</th>
+                                        <td >
+                                            {% for i in projects %}
+                                            {{ i.project_deadline }}
+                                            {% endfor %}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Project Manager</th>
+                                        <td>
+                                            {% for i in projects %}
+                                            {{ i.o_id.first_name }}
+                                            {{ i.o_id.last_name }}
+                                            {% endfor %}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Team Members</th>
+                                        <td >
+                                            {% for employee in employees %}
+                                            {{ employee.first_name }} {{employ.last_name}}<br>
+                                            {% endfor %}
+                                        </td>
+                                    </tr>
+                                </table>      
+                            </div> 
+                        </div>
+                        <div class="col-md-1"></div>
+                        {% else %}
+                        {% endif %}	
+                    </div>
+                    <br>
+                    <br>
+                    <div class="table-responsive">
+                    {% if tlop %}
+                        <!-- {% if k %}
+                        <table border="2" style="background-color: #282f51; border: none;">
+                            <tr>
+                                {% if k.p_url %}
+                                <th style="color: white; padding: 10px; font-size: 30px; font-weight: bold;">Meeting URL:</th>
+                                <td style="color: white; padding: 5px;"><a href="{{k.p_url }}" style="overflow: scroll;" target ="_blank" >{{k.p_url }}</a></td>
+                                {% endif %}
+                            </tr>
+                        </table> -->
+                        <table border="2" style="background-color: #e47070; border: none;border-radius: 10px; box-shadow: 3px 3px 5px 0px rgb(228, 139, 139);">
+                            <tr>
+                                {% if k.p_url %}
+                                <th style="color: white; padding: 10px; font-size: 20px; font-weight: bold;">Meeting URL:</th>
+                        
+                                <td style="color: white; padding: 5px;">
+                                    <span>{{ description }}</span>
+                                    <a href="{{ url }}" style="overflow: scroll; color:white;" target="_blank">{{ url }}</a>
+                                </td>
+                            
+                               {% endif %}
+                        </tr>
+                    </table>
+                    <br>
+                
+                        <a href="/displayed/"><button class="btn btn-danger"> Send The Meeting Link</button></a>
+                        <br><br>
+                        {% endif %}
+                    {% else %}
+                    </div>
+                    <div>
+                        {% if k1 %}
+                            <div class="container  {% if mem_role == 'HR' and mem_hroptions == 1 %}meeting-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}meeting-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}meeting-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}meeting-tm {% endif %}" >
+                                <div class="row">
+                                    <div class="col-md-4  col-sm-12 p-2">
+                                        <div class="{% if mem_role == 'HR' and mem_hroptions == 1 %}meeting-hed-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}meeting-hed-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}meeting-hed-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}meeting-hed-tm {% endif %}">Meeting URL :</div>
+                                    </div>
+                                    <div class="col-md-8 col-sm-12 mt-2 p-2">
+                                        <span>{{ description1 }}</span>
+                                        <a href="{{ url1 }}" target="_blank">{{ url1 }}</a>
+                                        <!-- <a href="{{ k1.meeting_url }}" target ="_blank" style="font-size: 20px;">{{ k1.meeting_url }}</a> -->
+                                    </div>
+                                 </div>
+                            </div>
+                        {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+            <div class="col-lg-3 col-12 justify-content-center  fixed-column   "  >
+                <div class="small-box {% if mem_role == 'HR' and mem_hroptions == 1 %}fixed-column-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}fixed-column-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}fixed-column-employee-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}fixed-column-employee-tm {% endif %}">    
+                        {% if emp_detail.profile_pic %}
+                            <img src="/media/{{ emp_detail.profile_pic }}" alt="upload your photo" style="width: 100%; height: fit-content;border-radius: 100%;padding: 10px;">
+                        {% endif %}
+                        <h4 class="{% if mem_role == 'HR' and mem_hroptions == 1 %}name-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}name-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}name-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}name-tm {% endif %}">{{emp_detail.first_name}}&nbsp;{{emp_detail.last_name}}</h4>
+                        <h4 class="{% if mem_role == 'HR' and mem_hroptions == 1 %}id-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}id-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}id-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}id-tm {% endif %}">({{emp_detail.empid}})</h4>
+                        {% if teamlead == 1 %}
+                            <h5
+                            style="padding-left: 10px;padding-bottom: 10px;color:#1a1a1a">Team Leader</h5>
+                        {% elif teamlead == 0 %}
+                            <h5
+                            style="padding-left: 10px;padding-bottom: 10px;color:#1a1a1a">Team Member</h5>
+                        {% elif emp_detail.projectmanagerop == 1 %}
+                            <h5
+                            style="padding-left: 10px;padding-bottom: 10px;color:#1a1a1a">Project Manager</h5>
+                        {% elif emp_detail.hroptions == 1 %}
+                            <h5
+                            style="padding-left: 10px;padding-bottom: 10px;color:#1a1a1a">HR</h5>
+                        {% else %}
+                            <h5
+                            style="padding-left: 10px;padding-bottom: 10px;color:#1a1a1a">Employee</h5>
+                        {% endif %}
+                </div>     
+            </div> 
+        </div>
+        <script>
+                function toggleCheckboxes(checkbox) {
+                var checkboxes = document.getElementsByName("selected_employees");
+                for (var i = 0; i < checkboxes.length; i++) {
+                    checkboxes[i].checked = checkbox.checked;
+                }
+                var checkedCount = 0;
+                for (var i = 0; i < checkboxes.length; i++) {
+                    if (checkboxes[i].checked) {
+                        checkedCount++;
+                    }
+                }
+                var modal = document.getElementById("sendEmailModal");
+                var modalMessage = document.getElementById("modal-message");
+                modalMessage.textContent = checkedCount == 0? "Please select at least one employee." : "Are you sure you want to send the email to the selected employees?";
+                modal.querySelector("#send-button").disabled = checkedCount == 0;
+                }
+                
+                function validateForm() {
+                var checkboxes = document.getElementsByName("selected_employees");
+                var checkedCount = 0;
+                for (var i = 0; i < checkboxes.length; i++) {
+                    if (checkboxes[i].checked) {
+                        checkedCount++;
+                    }
+                }
+                if (checkedCount == 0) {
+                    var modal = document.getElementById("sendEmailModal");
+                    var modalMessage = document.getElementById("modal-message");
+                    modalMessage.textContent = "Please select at least one employee.";
+                    modal.querySelector("#send-button").disabled = true;
+                    return false;
+                } else {
+                    var modal = document.getElementById("sendEmailModal");
+                    var modalMessage = document.getElementById("modal-message");
+                    modalMessage.textContent = "Are you sure you want to send the email to selected employees.";
+                    modal.querySelector("#send-button").disabled = false;
+                    return true;
+                }
+                }
+        </script>
+    </div>
+          
+          
+        
+  
+{% comment %} <div class="sidenav1">
+    <a href="#about"><img src="{{employ.profile_pic}}"></a>
+</div> {% endcomment %}
+{% endblock main_content %}
+{% block custom_js %}
+
+<script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-messaging.js"></script>
+<script>
+    var firebaseConfig = {
+        apiKey: "YOUR_API_KEY",
+        authDomain: "FIREBASE_AUTH_URL",
+        databaseURL: "FIREBASE_DATABASE_URL",
+        projectId: "FIREBASE_PROJECT_ID",
+        storageBucket: "FIREBASE_STORAGE_BUCKET_URL",
+        messagingSenderId: "FIREBASE_SENDER_ID",
+        appId: "FIREBASE_APP_ID",
+        measurementId: "FIREBASE_MEASUREMENT_ID"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const messaging=firebase.messaging();
+
+    function IntitalizeFireBaseMessaging() {
+        messaging
+            .requestPermission()
+            .then(function () {
+                console.log("Notification Permission");
+                return messaging.getToken();
+            })
+            .then(function (token) {
+                console.log("Token : "+token);
+                sendToServer(token);
+            })
+            .catch(function (reason) {
+                console.log(reason);
+            });
+    }
+
+    messaging.onMessage(function (payload) {
+        console.log(payload);
+        const notificationOption={
+            body:payload.notification.body,
+            icon:payload.notification.icon
+        };
+
+        if(Notification.permission==="granted"){
+            var notification=new Notification(payload.notification.title,notificationOption);
+
+            notification.onclick=function (ev) {
+                ev.preventDefault();
+                window.open(payload.notification.click_action,'_blank');
+                notification.close();
+            }
+        }
+
+    });
+    messaging.onTokenRefresh(function () {
+        messaging.getToken()
+            .then(function (newtoken) {
+                console.log("New Token : "+ newtoken);
+                sendToServer(newtoken);
+            })
+            .catch(function (reason) {
+                console.log(reason);
+            })
+    });
+
+    function sendToServer(token){
+         $.ajax({
+                url:'{% url 'employ_fcmtoken_save' %}',
+                type:'POST',
+                data:{token:token},
+            })
+            .done(function(response){
+                if(response=="True"){
+                    console.log("Token Save")
+                }
+                else{
+                    console.log("Error in Token Save")
+                }
+            });
+    }
+    IntitalizeFireBaseMessaging();
+</script>
+{% endblock custom_js %}

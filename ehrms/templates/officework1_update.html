@@ -1,0 +1,112 @@
+{% extends 'admin-template/adminAdashboard.html' %}
+{% block main_content %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update Project</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 20px;
+            /* text-align: center; */
+        }
+        h2 {
+            color: #007bff;
+            text-align: center;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 600px;
+            margin: 0 auto;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        input[type="text"],
+        input[type="file"],
+        input[type="submit"] {
+            width: calc(100% - 12px);
+            margin-bottom: 10px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            transition: background-color 0.3s ease;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        a {
+            display: block;
+            margin-top: 10px;
+            text-decoration: none;
+            color: #007bff;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        @media (max-width:765px) {
+            form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            margin: 0 auto;
+        }
+            
+        }
+    </style>
+
+
+</head>
+<body>
+
+<h2>Update Project</h2>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label for="title1">Title:</label>
+    <input type="text" name="title1" value="{{ officework1_item.title1 }}"><br>
+
+    <label for="image1">Image1:</label>
+    <input type="file" name="image1"><br>
+
+    <label for="discription1">discription1:</label>
+    <input type="text" name="discription1" value="{{ officework1_item.discription1 }}"><br>
+
+    <label for="discription2">discription2:</label>
+    <input type="text" name="discription2" value="{{ officework1_item.discription2 }}"><br>
+
+    <label for="discription3">discription3:</label>
+    <input type="text" name="discription3" value="{{ officework1_item.discription3 }}"><br>
+
+    <label for="discription4">discription4:</label>
+    <input type="text" name="discription4" value="{{ officework1_item.discription4 }}"><br>
+
+    <label for="image2">Image2:</label>
+    <input type="file" name="image2"><br>
+
+    <input type="submit" value="Update">
+    <a href="{% url 'officework1_list' %}">Cancel</a>
+</form>
+
+</body>
+</html>
+{% endblock main_content %}

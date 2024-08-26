@@ -1,0 +1,78 @@
+{% extends 'admin-template/base_template.html'%}
+{% block main_content %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Document setup</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/js/bootstrap.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr@4.6.9/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.9/dist/flatpickr.min.js"></script>
+    <style>
+         body {
+            background-color: #1e2442;
+            color: white;
+            font-size: 16px;
+            margin: 0;
+            padding: 0;
+        }
+        @media screen and (max-width: 768px) {
+        }
+    </style>
+</head>
+<body>
+    <form method="post" action="{% url 'update_document_setup' %}">
+        {% csrf_token %}
+        <label style="font-size: 30px;">WE😍DEVELOPTREES</label><br><br>
+        <h>Documents Setup</h><br>
+        <label style="width:60%; background-color:#323a5f;">
+          <span>payroll gives your employees the option of uploding documents like ID's,contracts etc. </span>  
+        </label><br><br>
+        <table border="2" style="background-color:#2d3354; color:white; width:60%; height:50%;border-collapse: collapse; border:none;">
+            <thead>
+             <tr style="background-color:#323a5f;">
+               <th>document_type</th>
+               <th>compulsory</th>
+               <th>Enabled</th>
+               <th>action</th>
+             </tr>
+         </thead>
+         {% for i in post %}
+            <tr>
+                <td ><input type="checkbox" name="document_type" value="{{ i.document_type }}">{{ i.document_type }}</td>
+                <td><input type="checkbox" name="compulsory" {% if i.compulsory == 'Yes' %}checked{% endif %}></td>
+                <td><input type="checkbox" name="Enabled" {% if i.Enabled == 'Yes' %}checked{% endif %}></td>
+                <td><a href="/delete_document_setup/{{i.id}}">delete</a></td>
+            </tr>         
+        {% endfor %}   
+            <tr>
+                <td><button type="button" id="addButton" onclick="addRow()">Add</button></td>
+            </tr>
+        </table>
+        <div>
+            *indicates required fields
+         </div><br><br>
+         <button type="submit" style="padding-left: 10px; height: 50PX; width: 180px;background-color: #0079bf;">
+            <a href="/setting"><b style="color: white;">CONTINUE</b></a>
+          </button>
+    </form>
+    <script>  
+        function addRow() {
+            var table = document.querySelector("table tbody");
+            var newRow = table.insertRow(table.rows.length);
+            var documentTypeCell = newRow.insertCell(0);
+            var compulsoryCell = newRow.insertCell(1);
+            var enabledCell = newRow.insertCell(2);     
+            documentTypeCell.innerHTML = '<input type="checkboc" name="document_type">';
+            compulsoryCell.innerHTML = '<input type="checkbox" name="compulsory">';
+            enabledCell.innerHTML = '<input type="checkbox" name="Enabled" >';
+            document.getElementById("addButton").disabled="true"
+        }
+    </script>
+</body>
+</html>
+{% endblock main_content %}
+ 

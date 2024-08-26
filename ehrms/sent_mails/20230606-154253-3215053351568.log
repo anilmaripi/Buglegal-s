@@ -1,0 +1,25 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: Password reset on 127.0.0.1:8000
+From: webmaster@localhost
+To: vamsi@gmail.com
+Date: Tue, 06 Jun 2023 10:12:53 -0000
+Message-ID: <168604637313.8128.7209491762091246530@DESKTOP-4RILQDB>
+
+
+You're receiving this email because you requested a password reset for your user account at 127.0.0.1:8000.
+
+Please go to the following page and choose a new password:
+
+http://127.0.0.1:8000/accounts/reset/Mw/bpdqbh-061b060a62668f24d694c84cf5521fb9/
+
+Your username, in case you’ve forgotten: vamsi1234
+
+Thanks for using our site!
+
+The 127.0.0.1:8000 team
+
+
+
+-------------------------------------------------------------------------------

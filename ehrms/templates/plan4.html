@@ -1,0 +1,1147 @@
+
+{%load mathfilters%}{%load humanize%}{%load static%}
+
+
+<html>
+  <head>
+      
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://daneden.github.io/animate.css/animate.min.css">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="..." crossorigin="anonymous">
+  <style>
+    /*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v8.4.14,
+* Autoprefixer: v10.4.7
+* Browsers: last 4 version
+*/
+
+.col {
+          display: -webkit-box;
+          display: -ms-flexbox;
+          display: flex;
+          -webkit-box-align: center;
+              -ms-flex-align: center;
+                  align-items: center;
+          -webkit-box-pack: center;
+              -ms-flex-pack: center;
+                  justify-content: center;
+      }
+      .col .true {
+          position: relative;
+          padding-left: 30px;
+          margin-bottom: 10px;
+      }
+      .col .true:before {
+          position: absolute;
+          left: 10px; /* Adjust as needed */
+          font-size: 16px;
+          color: #2bd40f;
+          content: "\f058";
+          font-family: "Font Awesome 5 Free";
+      }
+
+      a,
+      a:hover,
+      a:focus,
+      a:active {
+          text-decoration: none;
+          outline: none;
+      }
+      
+      a,
+      a:active,
+      a:focus {
+          color: #333;
+          text-decoration: none;
+          transition-timing-function: ease-in-out;
+          -ms-transition-timing-function: ease-in-out;
+          -moz-transition-timing-function: ease-in-out;
+          -webkit-transition-timing-function: ease-in-out;
+          -o-transition-timing-function: ease-in-out;
+          transition-duration: .2s;
+          -ms-transition-duration: .2s;
+          -moz-transition-duration: .2s;
+          -webkit-transition-duration: .2s;
+          -o-transition-duration: .2s;
+      }
+      
+      ul {
+          margin: 0;
+          padding: 0;
+          list-style: none;
+                }
+      img {
+  max-width: 100%;
+  height: auto;
+}
+/*--blog----*/
+
+.sec-title{
+position:relative;
+margin-bottom:70px;
+}
+
+.sec-title .title{
+position: relative;
+display: block;
+font-size: 16px;
+line-height: 1em;
+color: #ff8a01;
+font-weight: 500;
+background: rgb(247,0,104);
+background: -webkit-gradient(linear, right top, left top, from(rgba(247,0,104)),color-stop(25%, rgba(68,16,102,1)),color-stop(75%, rgba(247,0,104,1)),to(rgba(68,16,102,1)));
+background: -o-linear-gradient(right, rgba(247,0,104) 0%,rgba(68,16,102,1) 25%,rgba(247,0,104,1) 75%,rgba(68,16,102,1) 100%);
+background: linear-gradient(to left, rgba(247,0,104) 0%,rgba(68,16,102,1) 25%,rgba(247,0,104,1) 75%,rgba(68,16,102,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#F70068', endColorstr='#441066',GradientType=1 );
+color: transparent;
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+text-transform: uppercase;
+letter-spacing: 5px;
+margin-bottom: 15px;
+}
+
+.sec-title h2{
+position:relative;
+display: inline-block;
+font-size:48px;
+line-height:1.2em;
+color:#1e1f36;
+font-weight:700;
+}
+
+.sec-title .text{
+position: relative;
+font-size: 16px;
+line-height: 28px;
+color: #888888;
+margin-top: 30px;
+}
+
+.sec-title.light h2,
+.sec-title.light .title{
+color: #ffffff;
+-webkit-text-fill-color:inherit; 
+}
+.pricing-section {
+  position: relative;
+  padding: 100px 0 80px;
+  overflow: hidden;
+}
+.pricing-section .outer-box{
+max-width: 1100px;
+margin: 0 auto;
+}
+
+
+.pricing-section .row{
+margin: 0 -30px;
+}
+
+.pricing-block{
+
+position: relative;
+padding: 0 30px;
+margin-bottom: 40px;
+}
+
+.pricing-block .inner-box{
+position: relative;
+background-color: #ffffff;
+-webkit-box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+padding: 0 0 30px;
+max-width: 600px;
+width: 100%;
+margin: 0 auto;
+border-bottom: 20px solid #40cbb4;
+}
+
+.pricing-block .icon-box{
+position: relative;
+padding: 50px 30px 0;
+background-color: #40cbb4;
+text-align: center;
+}
+
+.pricing-block .icon-box:before{
+position: absolute;
+left: 0;
+bottom: 0;
+height: 75px;
+width: 100%;
+border-radius: 50% 50% 0 0;
+background-color: #ffffff;
+content: "";
+}
+
+
+.pricing-block .icon-box .icon-outer{
+position: relative;
+height: 150px;
+width: 150px;
+background-color: #ffffff;
+border-radius: 50%;
+margin: 0 auto;
+padding: 10px;
+}
+
+.pricing-block .icon-box i{
+position: relative;
+display: block;
+height: 130px;
+width: 130px;
+line-height: 120px;
+border: 5px solid #40cbb4;
+border-radius: 50%;
+font-size: 50px;
+color: #40cbb4;
+-webkit-transition:all 600ms ease;
+-o-transition:all 600ms ease;
+transition:all 600ms ease;
+}
+
+.pricing-block .inner-box:hover .icon-box i{
+-webkit-transform:rotate(360deg);
+    -ms-transform:rotate(360deg);
+        transform:rotate(360deg);
+}
+
+.pricing-block .price-box{
+position: relative;
+text-align: center;
+padding: 10px 20px;
+}
+
+.pricing-block .title{
+position: relative;
+display: block;
+font-size: 24px;
+line-height: 1.2em;
+color: #222222;
+font-weight: 600;
+}
+
+.pricing-block .title {
+  font-weight: bold;
+}
+
+.pricing-block .price{
+display: block;
+font-size: 20px;
+color: #222222;
+font-weight: 700;
+color: #40cbb4;
+}
+
+
+.pricing-block .features{
+position: relative;
+max-width: 200px;
+margin: 0 auto 20px;
+}
+
+.pricing-block .features li{
+height: 48px;
+  border-top: 1px solid #e8ebee;
+  border-bottom: 1px solid #e8ebee;
+  align-items: center;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  padding-left: 24px;
+  display: flex;
+  box-sizing: border-box;
+  font-weight: 700;
+
+/* position: relative;
+display: block;
+font-size: 14px;
+line-height: 30px;
+color: black;
+
+padding: 5px 0;
+padding-left: 30px;
+border-bottom: 1px dashed #dddddd; */
+}
+/* .pricing-block .features li:before {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  font-size: 16px;
+  color: #2bd40f;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  line-height: 1;
+  content: "\f058";
+  font-family: "Font Awesome 5 Free";
+  margin-top: -8px;
+} */
+/* .pricing-block .features li.false:before{
+color: #e1137b;
+content: "\f057";
+} */
+
+.pricing-block .features li a{
+color: #848484;
+}
+
+.pricing-block .features li:last-child{
+border-bottom: 0;
+}
+
+.pricing-block .btn-box{
+position: relative;
+text-align: center;
+}
+
+.pricing-block .btn-box a{
+position: relative;
+display: inline-block;
+font-size: 14px;
+line-height: 25px;
+color: #ffffff;
+font-weight: 500;
+padding: 8px 30px;
+background-color: #40cbb4;
+border-radius: 10px;
+border-top:2px solid transparent;
+border-bottom:2px solid transparent;
+-webkit-transition: all 400ms ease;
+-o-transition: all 400ms ease;
+-webkit-transition: all 300ms ease;
+-o-transition: all 300ms ease;
+transition: all 300ms ease;
+}
+
+.pricing-block .btn-box a:hover{
+color: #ffffff;
+}
+
+.pricing-block .inner-box:hover .btn-box a{
+color:#40cbb4;
+background:none;
+border-radius:0px;
+border-color:#40cbb4;
+}
+
+.pricing-block:nth-child(2) .icon-box i,
+.pricing-block:nth-child(2) .inner-box{
+border-color:  #ffc20b;
+}
+
+.pricing-block:nth-child(2) .btn-box a,
+.pricing-block:nth-child(2) .icon-box{
+background-color:  #ffc20b;
+}
+
+.pricing-block:nth-child(2) .inner-box:hover .btn-box a{
+color: #ffc20b;
+background:none;
+border-radius:0px;
+border-color: #ffc20b;
+}
+
+.pricing-block:nth-child(2) .icon-box i,
+.pricing-block:nth-child(2) .price{
+color: #ffc20b;
+}
+.pricing-block:nth-child(4) .icon-box i,
+.pricing-block:nth-child(4) .inner-box{
+border-color:rgb(241, 80, 22);
+}
+
+.pricing-block:nth-child(4) .btn-box a,
+.pricing-block:nth-child(4) .icon-box{
+background-color: rgb(241, 80, 22);
+}
+
+.pricing-block:nth-child(4) .icon-box i,
+.pricing-block:nth-child(4) .price{
+color:rgb(241, 80, 22);
+}
+
+.pricing-block:nth-child(4) .inner-box:hover .btn-box a{
+color:rgb(241, 80, 22);
+background:none;
+border-radius:0px;
+border-color:rgb(241, 80, 22);
+}
+
+.pricing-block:nth-child(3) .icon-box i,
+.pricing-block:nth-child(3) .inner-box{
+border-color:navy;
+}
+
+.pricing-block:nth-child(3) .btn-box a,
+.pricing-block:nth-child(3) .icon-box{
+background-color: navy;
+}
+
+.pricing-block:nth-child(3) .icon-box i,
+.pricing-block:nth-child(3) .price{
+color:navy;
+}
+
+.pricing-block:nth-child(3) .inner-box:hover .btn-box a{
+color:navy;
+background:none;
+border-radius:0px;
+border-color:navy;
+}
+
+
+.buttons button.button_buy {
+  position: relative;
+  display: inline-block;
+  font-size: 16px;
+  line-height: 45px;
+  font-weight: 600;
+  padding: 0 30px;
+  border-radius: 25px;
+  margin-right: 15px;
+  color: #fff;
+  background-color: #ff8a01;
+  -webkit-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.buttons button.button_try {
+  position: relative;
+  display: inline-block;
+  font-size: 16px;
+  line-height: 45px;
+  font-weight: 600;
+  padding: 0 30px;
+  border-radius: 25px;
+  color: #fff;
+  background-color: #40cbb4;
+  -webkit-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+.buttons button.button_buy:hover,
+.buttons button.button_try:hover {
+  opacity: 0.8;
+}
+
+.buttons button.button_try {
+  background-color: #1d95d2; 
+}
+.buttons button.button_buy,
+.buttons button.button_try {
+  cursor: pointer;
+}
+h5{
+font-size: small;
+color: #f60303;
+}
+h2{
+padding-top: 30px;
+}
+
+.col-4 ul {
+  list-style-type: disc; 
+  padding-left: 20px; 
+}
+
+.col-4 ul li {
+  margin-bottom: 5px; 
+}
+
+
+.container .row .col-4 {
+  padding: 20px;
+  border: 1px solid #ddd; /* Add a border for better visibility */
+}
+
+.container .row .col-4:nth-child(even) {
+background-color: white;
+}
+
+.container .row .col-4:nth-child(odd) {
+
+background-color: white;}
+
+
+.row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -ms-flex-pack: distribute;
+      justify-content: space-around; 
+  margin-bottom: 20px; /* Add margin between rows */
+}
+
+/* Style for each column */
+.col-4 {
+  width: 100%; /* By default, each column takes the full width on smaller screens */
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box; /* Include padding and border in the column's total width */
+  padding: 20px; /* Add padding as needed */
+  border: 1px solid #ddd; /* Add a border for better visibility */
+  margin-bottom: 20px; /* Add margin between columns */
+}
+
+/* Style for headings */
+.col-4 h4 {
+  color: #333;
+}
+
+.col-4 button {
+  background-color: #007bff; /* Set the button background color */
+  color: #fff; /* Set the button text color */
+  padding: 10px 20px; /* Add padding to the button */
+  border: none; /* Remove button border */
+  cursor: pointer;
+  -webkit-transition: background-color 0.3s ease;
+  -o-transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease; /* Add a smooth transition effect */
+}
+
+.col-4 button:hover {
+  background-color: #b32d00; /* Change the background color on hover */
+}
+
+
+
+.ribbon-wrapper {
+width: 85px;
+height: 88px;
+overflow: hidden;
+position: absolute;
+top: -3px;
+left: -3px;
+.ribbon1 {
+  font: bold 15px sans-serif;
+  color: #333;
+  text-align: center;
+  -webkit-transform: rotate(-45deg);
+  -moz-transform:    rotate(-45deg);
+  -ms-transform:     rotate(-45deg);
+  -o-transform:      rotate(-45deg);
+  position: relative;
+  padding: 7px 0;
+  top: 15px;
+  left: -30px;
+  width: 120px;
+  background-color: #ebb134;
+  color: #fff;
+}
+}
+
+
+
+.ribbon {
+  width: 150px;
+  height: 150px;
+  overflow: hidden;
+  position: absolute;
+  z-index: 1;
+}
+.ribbon::before,
+.ribbon::after {
+  position: absolute;
+  z-index: -1;
+  content: '';
+  display: block;
+  border: 5px solid #2980b9;
+}
+.ribbon span {
+  position: absolute;
+  display: block;
+  width: 225px;
+  padding: 15px 0;
+  background-color: #f70202;
+  -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.1);
+          box-shadow: 0 5px 10px rgba(0,0,0,.1);
+  color: #fff;
+  font: 700 18px/1 'Lato', sans-serif;
+  text-shadow: 0 1px 1px rgba(0,0,0,.2);
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.ribbon-top-right {
+  top: -10px;
+  right: -10px;
+}
+.ribbon-top-right::before,
+.ribbon-top-right::after {
+  border-top-color: transparent;
+  border-right-color: transparent;
+}
+.ribbon-top-right::before {
+  top: 0;
+  left: 20;
+}
+.ribbon-top-right::after {
+  bottom: 20;
+  right: 0;
+}
+.ribbon-top-right span {
+  left: -15px;
+  top: 20px;
+  -webkit-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+
+
+
+.accordion-container {
+  width: 100%;
+  max-width: 900px;
+}
+
+.accordion-item {
+  background-color: #FFFFFF; /* White background for items */
+  border: 1px solid #E0E0E0; /* Light border */
+  border-radius: 8px;
+  margin-bottom: 10px;
+  -webkit-box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+          box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Softer shadow */
+}
+
+.accordion-header {
+  background-color: #6C63FF; 
+  color: #FFFFFF; 
+  padding: 15px;
+  font-size: 18px;
+  border: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-radius: 8px 8px 0 0;
+  -webkit-transition: background-color 0.3s ease;
+  -o-transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease;
+}
+
+.accordion-header:hover {
+  background-color: #5753C9; 
+}
+
+.accordion-content {
+  background-color: #FAFAFA; 
+  overflow: hidden;
+  padding: 0 15px;
+  max-height: 0;
+  -webkit-transition: max-height 0.3s ease;
+  -o-transition: max-height 0.3s ease;
+  transition: max-height 0.3s ease;
+  width: 100%;
+}
+
+.accordion-content p {
+  margin: 15px 0;
+  line-height: 1.5;
+}
+
+.icon {
+  -webkit-transition: -webkit-transform 0.3s ease;
+  transition: -webkit-transform 0.3s ease;
+  -o-transition: transform 0.3s ease;
+  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, -webkit-transform 0.3s ease;
+}
+
+.active .icon {
+  -webkit-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+
+
+
+</style>
+</head>
+  <body>
+      <section class="pricing-section">
+          <div class="container">
+              <div class="sec-title text-center">
+                  <h2>Get plan</h2>
+                  <span class="title">Choose a right Plan for your business</span>
+                  <div class="col">
+                    <div class="true">No forced contracts</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="true">15-day free trial</div>
+                </div><br>
+                    <div class="buttons">
+                    <button id="monthlyButton"class="button_buy gradient action_button_1" >Monthly Plans</button>
+                    <button id=""class="button_try gradient action_button_2" >Annualy Plans</button>
+                    </div>
+              </div>
+  
+              <div class="outer-box">
+                  <div class="row">
+
+  
+  <div class="pricing-block col-lg-3 col-md-6 col-sm-12 wow fadeInUp">
+  <div class="inner-box" style="width: 280px;">
+      <div class="ribbon ribbon-top-right"><span>20% Offer</span></div>
+
+      <div class="icon-box">
+        {% for i in k %}
+          <div class="icon-outer"><i class="{{ i.icon1 }}"></i></div>
+          {% endfor %}
+      </div>
+      
+      <div class="price-box">
+        <!-- {% for i in a %}
+          <div class="title">{{ i.plans }}</div>
+          {% endfor %} -->
+
+
+          {% for i in b %}
+
+        <div class="price monthly">$ {{ i.price }}<br><br>
+
+              <span style="font-size: 10px;color: rgb(179, 125, 0);">Monthly Per Employee</span></div>
+
+        {% endfor %}
+
+        {% for i in c %}
+
+          <h4 class="price annual" style="display: none; ">$ {{ i.annual_price }}<br><br>
+        
+              <span style="font-size: 10px;color: rgb(179, 125, 0);">Monthly Per Employee <br> Billed Annually</span></h4>
+
+
+              {% endfor %}
+              {% for i in d %}
+              <p style="font-size: 12px;color: rgb(179, 125, 0);">Employee Limit: {{ i.employe_limit }}</p>
+
+
+              {% endfor %}
+
+
+      </div>
+
+      <ul class="features">
+        {% for feature in features_list %}
+            {% for subfeature in feature.sub_features.all %}
+                <li style="color: {% if feature.show1 %}green{% else %}green{% endif %};">{{ subfeature.name }}</li> 
+
+            {% endfor %}
+        {% endfor %}
+      </ul>  
+
+
+    
+    <div class="btn-box" style="cursor: pointer;">
+      <form method ="post">{% csrf_token %}
+        <input type="hidden" name="planamount" value="{{s.price | mul:s.employe_limit | mul:12 | floatformat:0}}">
+        <input type="hidden" name="planType"value=1>
+        <input type="submit" value="subscribe">
+       </form>
+    </div> 
+  </div>
+</div>
+
+
+<div class="pricing-block col-lg-3 col-md-6 col-sm-12 wow fadeInUp">
+  <div class="inner-box" style="width: 280px;">
+      <div class="ribbon ribbon-top-right"><span>20% Offer</span></div>
+
+      <div class="icon-box">
+        {% for i in k1 %}
+          <div class="icon-outer"><i class="{{ i.icon1 }}"></i></div>
+          {% endfor %}
+      </div>
+      
+      <div class="price-box">
+
+        <!-- {% for i in a1 %}
+        <div class="title">{{ i.plans }}</div>
+        {% endfor %}  -->
+       
+
+        {% for i in b1 %}
+
+        <div class="price monthly">$ {{ i.price }}<br><br>
+
+              <span style="font-size: 10px;color: rgb(179, 125, 0);">Monthly Per Employee</span></div>
+
+        {% endfor %} 
+
+        {% for i in c1 %}
+
+        <h4 class="price annual" style="display: none; ">$ {{ i.annual_price }}<br><br>
+      
+            <span style="font-size: 10px;color: rgb(179, 125, 0);">Monthly Per Employee <br> Billed Annually</span></h4>
+
+
+            {% endfor %}
+            
+            {% for i in d1 %}
+              <p style="font-size: 12px;color: rgb(179, 125, 0);">Employee Limit: {{ i.employe_limit }}</p>
+
+
+              {% endfor %}
+              
+
+      </div>
+
+      <ul class="features">
+        {% for feature in features_list1 %}
+            {% for subfeature in feature.sub_features.all %}
+                <li style="color: {% if feature.show1 %}green{% else %}green{% endif %};">{{ subfeature.name }}</li>
+            {% endfor %}
+        {% endfor %}
+    </ul> 
+      <div class="btn-box" style="cursor: pointer;">
+        <form method ="post">{% csrf_token %}
+          <input type="hidden" name="planamount" value="{{s1.price | mul:s1.employe_limit | mul:12 | floatformat:0}}">
+          <input type="hidden" name="planType" value=2>
+          <input type="submit" value="subscribe">
+         </form>
+      </div>
+  </div>
+</div>
+
+<div class="pricing-block col-lg-3 col-md-6 col-sm-12 wow fadeInUp">
+  <div class="inner-box" style="width: 280px;">
+      <div class="ribbon ribbon-top-right"><span>20% Offer</span></div>
+
+      <div class="icon-box">
+        {% for i in k2 %}
+          <div class="icon-outer"><i class="{{ i.icon1 }}"></i></div>
+          {% endfor %}
+      </div>
+      
+      <div class="price-box">
+        <!-- {% for i in a2 %}
+        <div class="title">{{ i.plans }}</div>
+        {% endfor %} 
+         -->
+        
+        {% for i in b2 %}
+
+        <div class="price monthly">${{ i.price }}<br><br>
+
+              <span style="font-size: 10px;color: rgb(179, 125, 0);">Monthly Per Employee</span></div>
+
+        {% endfor %}
+
+
+        {% for i in c2 %}
+
+        <h4 class="price annual" style="display: none; ">$ {{ i.annual_price }}<br><br>
+      
+            <span style="font-size: 10px;color: rgb(179, 125, 0);">Monthly Per Employee <br> Billed Annually</span></h4>
+
+
+            {% endfor %}
+
+            {% for i in d2 %}
+            <p style="font-size: 12px;color: rgb(179, 125, 0);">Employee Limit: {{ i.employe_limit }}</p>
+
+
+            {% endfor %}
+
+      
+      </div>
+
+      <ul class="features">
+        {% for feature in features_list2 %}
+            {% for subfeature in feature.sub_features.all %}
+                <li style="color: {% if feature.show1 %}green{% else %}green{% endif %};">{{ subfeature.name }}</li>
+            {% endfor %}
+        {% endfor %}
+    </ul> 
+        <div class="btn-box" style="cursor: pointer;">
+          <form method ="post">{% csrf_token %}
+            <input type="hidden" name="planamount" value="{{s2.price | mul:s2.employe_limit | mul:12 | floatformat:0}}">
+            <input type="hidden" name="planType"value=3>
+            <input type="submit" value="subscribe">
+           </form>
+      </div>
+  </div>
+</div>
+<div class="pricing-block col-lg-3 col-md-6 col-sm-12 wow fadeInUp">
+  <div class="inner-box" style="width: 280px;">
+      <div class="ribbon ribbon-top-right"><span>20% Offer</span></div>
+
+      <div class="icon-box">
+        {% for i in k3 %}
+          <div class="icon-outer"><i class="{{ i.icon1 }}"></i></div>
+          {% endfor %}
+      </div>
+      
+      <div class="price-box">
+        
+        <!-- {% for i in a3 %}
+        <div class="title">{{ i.plans }}</div>
+        {% endfor %}    -->
+
+
+        {% for i in b3 %}
+
+        <div class="price monthly">$ {{ i.price }}<br><br>
+
+              <span style="font-size: 10px;color: rgb(179, 125, 0);">Monthly Per Employee</span></div>
+
+        {% endfor %}
+
+        {% for i in c3 %}
+
+        <h4 class="price annual" style="display: none; ">$ {{ i.annual_price }}<br><br>
+      
+            <span style="font-size: 10px;color: rgb(179, 125, 0);">Monthly Per Employee <br> Billed Annually</span></h4>
+
+
+            {% endfor %}
+            
+            {% for i in d3 %}
+              <p style="font-size: 12px;color: rgb(179, 125, 0);">Employee Limit: {{ i.employe_limit }}</p>
+
+
+            {% endfor %}
+
+      </div>
+
+      <ul class="features">
+        {% for feature in features_list3 %}
+            {% for subfeature in feature.sub_features.all %}
+                <li style="color: {% if feature.show1 %}green{% else %}green{% endif %};">{{ subfeature.name }}</li>
+            {% endfor %}
+        {% endfor %}
+    </ul>
+
+      <div class="btn-box" style="cursor: pointer;">
+        <!-- <form method ="post">{% csrf_token %}
+          <input type="hidden" name="planamount" value="5000">
+          <input type="hidden" name="planType"value="4">
+          <input type="submit" value="Bye">
+         </form> -->
+      </div>
+
+  </div>
+</div>
+
+plan1: {{s.price | mul:s.employe_limit | mul:12 | floatformat:0}}
+<br>
+
+plan2: {{s1.price | mul:s1.employe_limit | mul:12 | floatformat:0}}
+
+<br>
+plan3: {{s2.price | mul:s2.employe_limit | mul:12 | floatformat:0}}
+
+<div class="row d-flex justify-content-center">
+                <div class="pricing-block col-lg-3 col-md-6 col-sm-12 wow fadeInUp">
+                  <a href="/addonauthentication/">
+                        <div class="inner-box" style="width:280;height:auto;">
+                            <div class="container" style="background-color: #cec7f1; height: 50px; padding-top: 0px; text-align: center; font-size: 25px;">
+                                ADD-ON
+                            </div><br>
+                            
+                            <ul class="features">
+                                {% for p in newplan %}
+                                    <li>{{ p.name }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </a>
+                </div>
+            
+                <div class="pricing-block col-lg-3 col-md-6 col-sm-12 wow fadeInUp">
+                  <a href="/addonauthentication/">
+                        <div class="inner-box" style="width:280; height:auto;">
+                            <div class="container" style="background-color: #cec7f1; height: 50px; padding-top: 0px; text-align: center; font-size: 25px;">
+                              ADD-ON
+                            </div><br>
+                            
+                            <ul class="features">
+                                {% for p in newplan1 %}
+                                    <li>{{ p.name }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+
+                    </a>
+                </div>
+            
+                <div class="pricing-block col-lg-3 col-md-6 col-sm-12 wow fadeInUp">
+                  <a href="/addonauthentication/">
+                    <div class="inner-box" style="width:280; height:auto;">
+                            <div class="container" style="background-color: #cec7f1; height: 50px; padding-top: 0px; text-align: center; font-size: 25px;">
+                              ADD-ON
+                            </div><br>
+                            
+                            <ul class="features">
+                                {% for p in newplan2%}
+                                    <li>{{ p.name }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </a>
+                </div>
+
+                
+                <div class="pricing-block col-lg-3 col-md-6 col-sm-12 wow fadeInUp">
+                  <a href="/addonauthentication/">
+                    <div class="inner-box" style="width:280; height:auto;">
+                            <div class="container" style="background-color: #cec7f1; height: 50px; padding-top:0px; text-align: center; font-size: 25px;">
+                              ADD-ON
+                            </div><br>
+                            
+                            <ul class="features">
+                                {% for p in newplan3 %}
+                                    <li>{{ p.name }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </a>
+                </div> 
+
+</div>
+
+
+
+                <br>
+                <center>
+              <div class="accordion-container">
+              <h2>Frequently Asked Questions</h2>
+
+              {% if faq_items %}
+              {% for faq_item in faq_items %}
+                  <div class="accordion-item">
+                      <div class="accordion-header" onclick="toggleAccordion({{ faq_item.id }})">
+                          {{ faq_item.question }}
+                          <div class="icon">&#43;</div>
+                      </div>
+                      <div class="accordion-content" id="accordion-content-{{ faq_item.id }}">
+                          <p>{{ faq_item.answer }}{% if faq_item.link %}
+                              <a href="{{ faq_item.link }}" target="_blank">{{ faq_item.link }}</a>,&nbsp;&nbsp;
+                                              {% endif %}
+                          {% if faq_item.email %}
+                              <a href="mailto:{{ faq_item.email }}">{{ faq_item.email }}</a>
+                          {% endif %}</p>
+                          
+                      </div>
+                  </div>
+                  
+      <script>
+          var accordionId = {{ faq_item.id }};
+          var accordionContent = document.getElementById('accordion-content-' + accordionId);
+          accordionContent.style.maxHeight = 0;
+      </script>
+  {% endfor %}
+{% else %}
+  <p>No frequently asked questions available.</p>
+{% endif %}
+     
+ 
+</div>
+</center>
+<script>
+  function toggleAccordion(accordionId) {
+      var accordionContent = document.getElementById('accordion-content-' + accordionId);
+      var accordionHeader = accordionContent.previousElementSibling;
+
+      accordionHeader.classList.toggle('active');
+
+      if (accordionHeader.classList.contains('active')) {
+          accordionContent.style.maxHeight = accordionContent.scrollHeight + 'px';
+      } else {
+          accordionContent.style.maxHeight = 0;
+      }
+
+      document.querySelectorAll('.accordion-header').forEach(otherHeader => {
+          if (otherHeader !== accordionHeader) {
+              otherHeader.classList.remove('active');
+              otherHeader.nextElementSibling.style.maxHeight = 0;
+          }
+      });
+  }
+</script>
+<script>
+  document.querySelectorAll('.accordion-content a').forEach(link => {
+      link.addEventListener('click', function(event) {
+          event.preventDefault();  
+          var fullURL = "https://" + this.getAttribute("href");  
+          window.open(fullURL, "_blank");  
+      });
+  });
+</script>
+              </div>
+      </section>
+
+  
+      <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const monthlyButton = document.querySelector('.button_buy');
+            const annualButton = document.querySelector('.button_try');
+            const monthlyPrices = document.querySelectorAll('.price.monthly');
+            const annualPrices = document.querySelectorAll('.price.annual');
+            
+            const customBuyMonthlyButtons = document.querySelectorAll('.custom-buy-plan-button[data-plan-type="monthly"]');
+            const customBuyAnnualButtons = document.querySelectorAll('.custom-buy-plan-button[data-plan-type="Annual"]');
+      
+            function showMonthlyPrices() {
+              monthlyPrices.forEach(price => price.style.display = 'block');
+                annualPrices.forEach(price => price.style.display = 'none');
+                customBuyMonthlyButtons.forEach(button => button.style.display = 'inline-block');
+                customBuyAnnualButtons.forEach(button => button.style.display = 'none');
+            }
+      
+            function showAnnualPrices() {
+              monthlyPrices.forEach(price => price.style.display = 'none');
+                  annualPrices.forEach(price => price.style.display = 'block');
+                customBuyMonthlyButtons.forEach(button => button.style.display = 'none');
+                customBuyAnnualButtons.forEach(button => button.style.display = 'inline-block');
+            }
+      
+            monthlyButton.addEventListener('click', showMonthlyPrices);
+            annualButton.addEventListener('click', showAnnualPrices);
+        });
+      </script>
+      
+      
+      <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const buyPlanButtons = document.querySelectorAll('.custom-buy-plan-button');
+            const baseUrl = "{% url 'SubscriptionDetail' %}?amount=";
+      
+            buyPlanButtons.forEach(function (button) {
+                button.addEventListener('click', function () {
+                 
+                    const planType = button.dataset.planType;
+                    const amount = button.dataset.amount;
+              const planName = button.closest('.pricing-block').querySelector('.title').textContent;
+      
+                    console.log(`Buy ${planName} Plan Button Clicked`);
+                    console.log('Selected Amount:', amount);
+      
+        window.location.href = `${baseUrl}${amount}&plan_type=${planType}&plan_name=${planName}`;                           });
+            });
+        });
+      </script>
+  
+  
+    </body> 
+</html> 
+

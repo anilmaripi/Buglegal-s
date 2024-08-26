@@ -1,0 +1,109 @@
+<!-- 
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Insert Data</title>
+</head>
+<body>
+    <h1>Insert Data</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="post_id">Post ID:</label>
+        <input type="number" name="post_id" required><br>
+        <label for="students_id">Students ID:</label>
+        <input type="number" name="students_id" required><br>
+        <label for="data_id">Data ID:</label>
+        <input type="number" name="data_id" required><br>
+        <label for="address">Address:</label>
+        <input type="text" name="address" required><br>
+        <label for="first_name">First Name:</label>
+        <input type="text" name="first_name" required><br>
+        <label for="email">Email:</label>
+        <input type="email" name="email" required><br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html> -->
+
+<!-- insert_data.html -->
+<!-- <!DOCTYPE html>
+<html>
+<head>
+    <title>{% if existing_post %}Update Data{% else %}Insert Data{% endif %}</title>
+</head>
+<body>
+    <h1>{% if existing_post %}Update Data{% else %}Insert Data{% endif %}</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="post_id">Post ID:</label>
+        <input type="number" name="post_id" value="{% if existing_post %}{{ existing_post.post_id }}{% endif %}" {% if existing_post %}readonly{% endif %} required><br>
+        <label for="students_id">Students ID:</label>
+        <input type="number" name="students_id" value="{% if existing_post %}{{ existing_post.Students_id_id }}{% endif %}" required><br>
+        <label for="data_id">Data ID:</label>
+        <input type="number" name="data_id" value="{% if existing_post %}{{ existing_post.data_id_id }}{% endif %}" required><br>
+        <label for="address">Address:</label>
+        <input type="text" name="address" value="{% if existing_post %}{{ existing_post.address }}{% endif %}" required><br>
+        <label for="first_name">First Name:</label>
+        <input type="text" name="first_name" value="{% if existing_post %}{{ existing_post.first_name }}{% endif %}" required><br>
+        <label for="email">Email:</label>
+        <input type="email" name="email" value="{% if existing_post %}{{ existing_post.email }}{% endif %}" required><br>
+        <input type="submit" value="{% if existing_post %}Update{% else %}Submit{% endif %}">
+    </form>
+</body>
+</html>
+ -->
+
+ <!-- insert_data.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% if pt and pf and esic %}Update Data{% else %}Insert Data{% endif %}</title>
+</head>
+<body>
+    <h1>{% if pt and pf and esic %}Update Data{% else %}Insert Data{% endif %}</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="id">PT ID:</label>
+        <input type="number" name="id" value="{% if pt %}{{ pt.id }}{% endif %}" {% if existing_post %}readonly{% endif %} required><br>
+        <label for="professional_tax">professional_tax:</label>
+       
+        <select name="professional_tax" value="{% if pt %}{{ pt.professional_tax }}{% endif %}" required><br>">
+            <option>please select</option>
+            <option>Enabled</option>
+            <option>Disabled</option>
+        </select>
+        
+        
+        
+        
+        
+        <!-- Additional fields for the Data model -->
+<br><br>
+        <label for="id">PF ID:</label>
+        <input type="number" name="id" value="{% if pf %}{{ pf.id }}{% endif %}" {% if existing_post %}readonly{% endif %} required><br>
+       
+        <label for="pf_status">pf_status:</label>
+       
+        <select name="pf_status" value="{% if pt %}{{ pt.pf_status }}{% endif %}" required><br>">
+            <option>please select</option>
+            <option>Enabled</option>
+            <option>Disabled</option>
+        </select>
+
+        <br><br>
+        <label for="id">ESIC ID:</label>
+        <input type="number" name="id" value="{% if esic %}{{ esic.id }}{% endif %}" {% if existing_post %}readonly{% endif %} required><br>
+       
+        <label for="esi_status">esic_status:</label>
+       
+        <select name="esi_status" value="{% if pt %}{{ pt.esi_status }}{% endif %}" required><br>">
+            <option>please select</option>
+            <option>Enabled</option>
+            <option>Disabled</option>
+        </select>
+
+
+        <input type="submit" value="{% if pt and pf and esic %}Update{% else %}Submit{% endif %}">
+    </form>
+</body>
+</html>

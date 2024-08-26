@@ -1,0 +1,203 @@
+{% extends 'employ-template/base_template.html' %}
+
+
+    
+    {% block main_content %}
+
+
+
+
+
+
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+        crossorigin="anonymous"></script>
+        <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+ 
+   
+
+
+    <style>
+        body {
+            background-color: #1e2442;
+            color: white;
+            margin: 2%;
+            width: 100% auto;
+        }
+
+        span {
+            color: #8c8fa2;
+        }
+        
+th, td{
+        padding-left: 10%;
+        padding-right: 10%;
+        padding: 12px;
+        text-align: left;
+        background-color: #323a5f;
+        color: white;
+
+        } 
+  td{
+    background-color: #242b4d;
+  }
+
+
+
+ 
+
+/* table {
+            border-collapse: collapse;
+
+            width: 100%;
+        }
+          
+        th, td {
+            text-align: left;
+            padding: 8px;
+        } 
+          
+        tr:nth-child(even) {
+            background-color: #2e3658;
+        } */
+
+#for{
+    margin-right: 35px;
+    width: auto;
+    color: white;
+    padding: 10px;
+    
+}
+#for1{
+    text-align: right;
+    float: right;
+    width: auto;
+    padding: 10px;
+ 
+
+
+    
+}
+
+
+        
+    </style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+  function myFunction() {
+    var input1, input2, filter1, filter2, table, tr, td, i;
+    input1 = document.getElementById("myInput");
+    input2 = document.getElementById("myInput2");
+    filter1 = new Date(input1.value);
+    filter2 = new Date(input2.value);
+    table = document.getElementById("myTable");
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td")[0];
+      if (td) {
+        var tdDate = new Date(Date.parse(td.innerHTML.split(' ')[0] + ' ' + td.innerHTML.split(' ')[1] + ' ' + td.innerHTML.split(' ')[2]));
+        if (tdDate >= filter1 && tdDate <= filter2) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      }       
+    }
+  }
+  </script>
+  <script>
+    $(document).ready(function(){
+      $("#myInput4").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#myTable1 tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    });
+    </script>
+</head>
+
+<body>
+    <div>
+        <h2><span>Reports|</span>Adit Report</h2>
+
+        <div>
+            <form class="form-inline" onsubmit="event.preventDefault(); myFunction();">
+                <div class="form-group" id="for">
+                  <label for="email">Type:</label><br>
+                  <select style="height: 6%;width: 100% auto;background-color: #393f5c;">
+                    <option style="height: 6%;width: 100% auto;">All</option>
+                    <option>kkkvdvdvdvddtyutyutyurt</option>
+                  </select>
+                </div>
+                <div class="form-group" id="for">
+                  <label>Frome Date:</label><br>
+                  <input type="date" id="myInput" class="form-control"  placeholder="Enter password" name="" style="background-color: #393f5c;">
+                </div>
+                <div class="form-group" id="for">
+                    <label>To Date:</label><br>
+                    <input type="date" id="myInput2" class="form-control"  placeholder="Enter password" name="" style="background-color: #393f5c;">
+                  </div>
+                <button type="submit" class="btn btn-default" style="margin-top: 20px;background-color: #5a99e8; color: white;margin-right: 23%;">APPLY FILTER</button>
+                
+              </form>
+        </div>
+        <div  id="for1">
+          <label >Person:</label><br>
+          <input type="text" id="myInput4" class="form-control"  placeholder="Enter Name" name="" style="background-color: #393f5c; color: white;">
+        </div>
+
+        <div>
+            <table style="width:100%;" id="myTable">
+              <thead>
+                <tr>
+                    <th>Date</th>
+                    <th >Type</th>
+                    <th >Person</th>
+                    <th>Action By</th>
+                    <th>OldData/ Description</th>
+                </tr>
+              </thead>
+              
+               {% for i in rs %}
+               <tbody id="myTable1">
+                <tr>
+                    <td>{{i.0}} {{i.1}}</td>
+                    <td></td>
+                    <td><a href="http://127.0.0.1:8000/employ_profile">{{i.2}} .  {{i.3}}</a></td>
+                    <td><a href="http://127.0.0.1:8000/employ_profile">{{i.2}} . {{i.3}}</a></td>
+                    <td></td>
+                </tr>
+              </tbody>
+                {% endfor %}
+              
+            </table>
+            
+        </div>
+
+
+    </div>
+</body>
+
+</html>
+
+{% endblock main_content %}

@@ -1,0 +1,590 @@
+{% extends 'employ-template/base_template.html' %}
+{% block main_content %}
+<title>Reimbursement Apply History</title>
+ <style>
+           .table-manager thead tr {
+        background-color: black;
+        text-align: center;
+        color: white;
+      }  
+      .table-manager tbody tr:nth-child(even) {
+        background-color: #e6e6e6;
+        color:#000;
+      }  
+      .table-manager tbody tr:nth-child(odd) {
+        background-color: #ccc;
+        color:#000;
+
+      }  
+  label{
+      color: #666666;
+      font-size: 20px;
+  }
+  .vamsi:hover{
+    border: 5px solid red;
+  }
+  
+  .vamsi{
+        background-color: rgb(145, 114, 253);
+        color:aliceblue;
+        float:right;
+        margin-right: 130px;
+      }
+  .tbl-content{
+        align-items: center;
+      }
+   #btn{
+    background-color: rgb(16, 5, 57);
+    color: rgba(255, 255, 255, 0.815);
+    width: 75%;
+  }
+  button{
+    background-color: rgb(8, 8, 77);
+
+  }
+  #but{
+    background-color: rgb(8, 8, 77);
+    color: rgba(255, 255, 255, 0.815);
+
+  }
+  #sel{
+    background-color: rgb(8, 8, 77);
+    color: rgba(255, 255, 255, 0.815);
+  }
+  .wrapper-dropdown {
+  position: relative;
+  display: inline-block;
+  min-width: 150.5px;
+  width: 20%;
+  max-width:100px;
+  min-height: 50px;
+  border-radius: 0px 0px 15px 15px;
+  background: royalblue !important;
+  text-align: left;
+  
+  cursor: pointer; 
+  margin-bottom: 20px;
+  font-family: Arial;
+}
+/* .pagination {
+  margin: 20px 0;
+  text-align: center;
+} */
+
+/* .pagination a, .pagination .current-page {
+  display: inline-block;
+  padding: 8px 12px;
+  text-decoration: none;
+  margin: 0 4px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.pagination .step-links a.active {
+    background-color: orange;
+} */
+
+/* .pagination a, .pagination .current-page {
+        display: inline-block;
+        padding: 8px 12px;
+        text-decoration: none;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+        border-radius: 20px;
+        text-align: center;
+        background-color: #3775e0;
+        color: white;
+    }
+      .act{
+  background-color: orange;
+  color: white;
+  height:43px;
+  width:43px;
+  border-radius: 20px;
+
+} */
+
+.pagination a{
+  color:red;
+  text-decoration: none;
+
+}
+.active{
+  border-radius: 20px;
+  padding: 4px 8px;
+  background-color: #007880;
+  border: 1px solid #ccc;
+  color:fff;
+}
+    
+      @media(max-width=500){
+        .col{
+          /* padding-left: 10px; */
+          margin: 10px;
+        }
+       .tbl-content{
+        overflow-x: scroll;
+       }
+      }
+      @media print {
+        body * {
+          visibility: hidden;
+        }
+  
+        #printableTable,
+        #printableTable * {
+          visibility: visible;
+        }
+  
+        #printableTable {
+          position: absolute;
+          left: 0;
+          top: 0;
+        }
+      }
+
+      .head-manager{
+        color: blue;
+        font-size: 36px;
+        margin-bottom: 30px;
+        text-align: center;
+        margin-top: 10px;
+    }
+    
+    .table-hr thead tr {
+        background-color: black;
+        text-align: center;
+        color: white;
+      }  
+      .table-hr tbody tr:nth-child(even) {
+        background-color: #e6e6e6;
+        color:#000;
+      }  
+      .table-hr tbody tr:nth-child(odd) {
+        background-color: #ccc;
+        color:#000;
+
+      }  
+      .head-hr{
+        color: black;
+        font-size: 36px;
+        margin-bottom: 30px;
+        text-align: center;
+        margin-top: 10px;
+    }
+    .head-tm{
+      color: #ff7733;
+      font-size: 36px;
+      margin-bottom: 30px;
+      text-align: center;
+      margin-top: 10px;
+  }
+
+    .table-tm thead tr {
+      background-color: black;
+      text-align: center;
+      color: white;
+    }  
+    .table-tm tbody tr:nth-child(even) {
+      background-color: #e6e6e6;
+      color:#000;
+    }  
+    .table-tm tbody tr:nth-child(odd) {
+      background-color: #ccc;
+      color:#000;
+
+    }  
+
+.head-tl{
+  color: #000;
+}
+  
+        </style>
+    
+
+    </head>
+    <script>
+      function printPage() {
+        window.print();
+    }
+    </script>
+        
+    <body>
+    
+
+
+      <form method="post" action="{% url 'reg' %}">
+        {% csrf_token %}
+        <div class="row">
+          <div class="col">
+            <h3 class=" {% if mem_role == 'HR' and mem_hroptions == 1 %}head-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}head-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}head-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}head-tm {% endif %}" >Reimbursement Apply History</h3><br>
+          </div>      
+        </div>
+
+
+
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <label>Select Status</label><br>
+              <select name="ss" class="form-control">
+                <option selected disabled value="">----Select Status----</option>
+                <option value="1">Approved</option>
+                <option value="2">Rejected</option>
+                <option value="0">Pending</option>
+              </select>
+            </div>
+          </div> 
+          
+          <div class="col">
+            <div class="form-group">
+              <label>Select Type</label><br>
+              <select name="vk" class="form-control">
+                <option selected disabled>----Select Type----</option>
+                {% for i in k %}
+                  <option value="{{i.reimbursement_type}}">{{i.reimbursement_type}}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div> 
+          
+          <div class="col">
+            <div class="form-group">
+              <label>From Date</label>
+              <input type="date" name="d1" max="9999-12-31" class="form-control" id="fromDate" style="text-align: center;">
+            </div>
+          </div>
+
+
+
+          <div class="col">
+            <div class="form-group">
+              <label>To Date</label>
+              <input type="date" name="d2" max="9999-12-31" class="form-control" id="toDate" style="text-align: center;">
+            </div>
+          </div>
+          
+            <center>
+              <input type="submit" value="Apply Filter" style="margin-left:20px;margin-top: 20px;margin-bottom: 30px;background-color: rgb(234, 137, 137);color:whitesmoke;height: 50px;width: 180px;font-size: 30px; border-radius: 10px;">
+            </center>
+          </div>
+      </form>
+      <style>
+        table, tr, td, th{
+          border: 2px solid;
+          border-color: #000;
+        }
+      </style>
+        
+          <div >
+                <section>
+                  <div class="table" id="printableTable">
+                    <div class="tbl-header">
+                      <table id="myTable" class="table text-dark {% if mem_role == 'HR' and mem_hroptions == 1 %}table-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}table-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}table-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}table-tm {% endif %} ">
+
+                      <thead>
+                        <tr>
+                          <th>ID</th>
+                             <th>Date</th>
+                             <th>Type</th>
+                             <th>Reason</th>
+                             <th>Amount</th>
+                             <th>Files</th>
+                             <th> Status</th>
+                        </tr>
+                      </thead>
+                 
+                  </div>
+                  <div class="tbl-content">
+                  
+                      <tbody>
+                        {% for row in leave_data %}
+                              <tr>
+                                  <td>{{row.employ_id.empid}}</td>
+                                  
+                                  <td>{{row.date}}</td>
+                                  
+                                  
+                                  <td>{{row.typea}}</td>
+                                  <td>{{row.detail}}</td>
+                                  <td>{{row.amount}}</td>
+                                
+                                  <td>
+                                    {% if row.image %}
+                                  <a href="{{row.image.url}}" height="100px" width="150px" class="notification"  target="_blank">#
+                                  <i class="fa fa-paperclip" aria-hidden="true"></i>
+                                  </a>
+                                  {% else %}
+                                  {% endif %}
+                                 </td>
+                               
+                                   <!-- <td>
+                               
+                                      {% if row.reimbursement_status == 1 %}
+                                          <span class="alert alert-success" style="background-color:lightgreen;">Approved</span>
+                                      {% elif row.reimbursement_status == 2 %}
+                                          <span class="alert alert-danger" style="background-color: rgb(205, 98, 98);">Rejected</span>
+                                      {% elif  row.reimbursement_status == 0 %}
+                                          <span class="btn btn-info">Pending </span>
+                                      {% else %}
+                                          <span class="btn btn-info">Pending </span>
+                                      {% endif %}
+                                  </td> -->
+                                  <td>
+  
+                                    {% if row.reimbursement_status == 1 %}
+                                        <span class="btn btn-success" style="background-color:lightgreen;width: 95px;padding-left: 5px;">Approved</span>
+                                    {% elif row.reimbursement_status == 2 %}
+                                        <span class="btn btn-danger" style="background-color: rgb(205, 98, 98);width: 95px;padding-left: 10px;">Rejected</span>
+                                    {% elif  row.reimbursement_status == 0 %}
+                                        <span class="btn btn-info"style="width: 95px;padding-left: 10px;">Pending </span>
+                                    {% else %}
+                                        <span class="btn btn-info"style="width: 95px;padding-left: 10px;">Pending </span>
+                                    {% endif %}
+                                </td>
+                                  
+                                  <!-- <td>
+                                    <a href="/edit/{{row.id}}">
+                                    <button style="padding: 0px; background-color: white;"   data-bs-toggle="modal" data-bs-target="#myModal">
+    
+                                      
+                                      <i class="fa fa-pencil-square" aria-hidden="true" style="font-size:30px;"></i>
+                                    
+                                    </button>
+                                    </a>
+                            
+                                  
+                                    </td> -->
+
+                                    <!-- <td>
+                                      <center>
+                                      {% if row.reimbursement_status != 1 and row.reimbursement_status != 2 %}  Only show the button if status is not "Approved" 
+                                          <a href="/edit/{{ row.id }}">
+                                              <button style="padding: 0px;border: none; background: #fff;" data-bs-toggle="modal" data-bs-target="#myModal">
+                                                  <i class="fa fa-pencil-square" aria-hidden="true" style="font-size:30px;color: blue;"></i>
+                                              </button>
+                                          </a>
+                                      {% endif %}
+                                        </center>
+                                      
+                                    </td> -->
+                                        
+    
+    
+                                  <!-- <td>
+                                    <center>
+                                    <a href="/delete/{{row.id}}"><i class="fa fa-solid fa-trash" style="color: red; font-size:30px;"></i></a>
+                                  </center>
+                                  </td> -->
+                              </tr>
+                              
+                         {% endfor %}
+                      </tbody>
+                    </table>
+
+                                       {% if leave_data %}
+                    <!-- <div class="pagination" style="margin: 20px auto; color: white; padding-left: 24px;">
+                      <span class="step-links">
+                        {% if leave_data.has_previous %}
+                          <a href="?page=1">&laquo; First</a>
+                          <a href="?page={{ leave_data.previous_page_number }}" class="prev">&#8249; << </a>
+                        {% endif %}
+                  
+                        {% for page in leave_data.paginator.page_range %}
+                          <a href="?page={{ page }}" {% if page == leave_data.number %}class="active"{% endif %}>{{ page }}</a>
+                        {% endfor %}
+                  
+                        {% if leave_data.has_next %}
+                          {% if leave_data.number != leave_data.paginator.num_pages %}
+                            <a href="?page={{ leave_data.paginator.num_pages }}">&raquo; >> </a>
+                          {% endif %}
+                          <a href="?page={{ leave_data.paginator.num_pages }}">&raquo; >> </a>
+                        {% endif %}
+                      </span>
+                    </div> -->
+
+                    <div class="pagination" >
+                      <span class="step-links">
+                          {% if leave_data.has_previous %}
+                              <a  href="?page=1">First</a>
+                              <a   href="?page={{ leave_data.previous_page_number }}" class="prev"> << </a>
+                          {% endif %}
+                  
+              
+                          {% for i in leave_data.paginator.page_range %}
+                          {% if leave_data.number == i %}
+                          <button class="active act "><span>{{ i }} <span class="sr-only">(current)</span></span></button>
+                          {% elif i > leave_data.number|add:'-3' and i < leave_data.number|add:'3' %}
+                              <a  href="?page={{ i }}">{{ i }}</a>
+                          {% endif %}
+                          {% endfor %}
+              
+                         
+              
+                          {% if leave_data.has_next %}
+                              {% if leave_data.number != leave_data.paginator.num_pages %}
+                              {% endif %}
+                              <a   href="?page={{ leave_data.next_page_number }}" class="prev"> >></a>
+              
+                              <a  href="?page={{ leave_data.paginator.num_pages }}">Next</a>
+                          {% endif %}
+                      </span>
+                  </div>   
+
+                  {% else %}
+                  <p style="color: #000;background-color: #ccc;text-align: center;margin-top: -15px;padding-top: 10px;">There is no reimbursement requests has been found.....
+   
+                    </p>
+                  {% endif %} 
+                    
+                  </div>
+                </div>
+                </section>
+                <div class="row">
+                  <div class="col-2"></div>
+    
+                  <div class="col-6">
+                    <label>Pending Amount <br>
+                    <b style="font-size: 30px;"><i class="fa fa-rupee" style="font-size: 30px;"> {{ total1 }}/- </i></b>
+                    </label>
+    
+                  </div>
+    
+                  <div class="col-4">
+                    <label>Approved Amount<br>
+                     <b style="font-size: 30px;"><i class="fa fa-rupee" style="font-size: 30px;" > {{ total }}/- </i> </b>
+                    </lable>
+                  </div>
+    
+                  <div class=""></div>
+                  <center>
+                    <button type="button" class="wrapper-dropdown" onclick="printPage()" id="but" data-bs-toggle="modal" data-bs-target="#myModal" style="margin-top: 60px; padding-left: 20px; width: 10px;">
+                      <i style="width: auto; padding-left: 20px; font-size: xx-large;"><b> Print</b></i>
+                    </button>
+                  </center>
+            
+                  </button>
+                  
+                 </div>
+                
+      </div>           
+       </div> 
+       <button type="button" onclick="printPage()">Print Table</button>
+    
+
+       
+       <script>
+        // Your existing JavaScript code
+        $(window).on("load resize ", function () {
+          var scrollWidth = $('.tbl-content').width() - $('.tbl-content table').width();
+          $('.tbl-header').css({ 'padding-right': scrollWidth });
+        }).resize();
+      </script>
+
+{% comment %} <script>
+  var currentPage = 1; // Initialize the current page
+  var currentFilter = "all"; // Initialize the current filter (all/employees/dismissed)
+
+  // Functions for filtering data
+  function showAllRows() {
+      currentFilter = "all";
+      showPage(1);
+  }
+
+  function showActiveEmployees() {
+      currentFilter = "employees";
+      showPage(1);
+  }
+
+  function showDismissedEmployees() {
+      currentFilter = "dismissed";
+      showPage(1);
+  }
+
+  function showPage(pageNumber) {
+      var rowsPerPage = 10; // Number of rows to display per page
+      var table = document.getElementById("myTable");
+      var rows = table.rows;
+      
+      for (var i = 1; i < rows.length; i++) {
+          var is_active = rows[i].getAttribute("data-is-active");
+          if ((currentFilter === "all") ||
+              (currentFilter === "employees" && is_active === "True") ||
+              (currentFilter === "dismissed" && is_active === "False")) {
+              if (i >= (pageNumber - 1) * rowsPerPage + 1 && i <= pageNumber * rowsPerPage) {
+                  rows[i].style.display = ""; // Display rows within the current page range
+              } else {
+                  rows[i].style.display = "none"; // Hide rows outside the current page range
+              }
+          } else {
+              rows[i].style.display = "none"; // Hide rows that don't match the current filter
+          }
+      }
+      
+      // Update the current page indicator
+      document.getElementById("currentPage").textContent = "Page " + pageNumber;
+      currentPage = pageNumber;
+  }
+
+  function nextPage() {
+      if (currentPage < totalPageCount()) {
+          showPage(currentPage + 1);
+      }
+  }
+
+  function prevPage() {
+      if (currentPage > 1) {
+          showPage(currentPage - 1);
+      }
+  }
+
+  function totalPageCount() {
+      var rowsPerPage = 10; // Number of rows to display per page
+      var table = document.getElementById("myTable");
+      var totalRows = table.rows.length - 1; // Exclude the header row
+      return Math.ceil(totalRows / rowsPerPage);
+  }
+
+  // Initialize pagination on page load
+  showPage(1);
+
+  // Attach event listeners to the Previous and Next buttons
+  document.getElementById("prevPage").addEventListener("click", prevPage);
+  document.getElementById("nextPage").addEventListener("click", nextPage);
+</script> {% endcomment %}
+
+
+<script>
+  // Get today's date
+  var today = new Date().toISOString().split('T')[0];
+  
+  // Set the max attribute of the from date input field to today's date
+  document.getElementById("fromDate").setAttribute("max", today);
+
+</script>
+
+<script>
+  // Get the input element
+  var toDateInput = document.getElementById("toDate");
+
+  // Get the current date
+  var currentDate = new Date();
+  var year = currentDate.getFullYear();
+  var month = ("0" + (currentDate.getMonth() + 1)).slice(-2);
+  var day = ("0" + currentDate.getDate()).slice(-2);
+  var today = year + "-" + month + "-" + day;
+
+  // Set the maximum date to today
+  toDateInput.setAttribute("max", today);
+</script>
+
+     
+            
+              <button onclick="printPage()">print</button>
+    
+       
+  </body>
+    
+    {% endblock main_content %}

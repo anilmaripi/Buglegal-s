@@ -1,0 +1,199 @@
+{% extends 'admin-template/base_template.html'%}
+{% block main_content %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Document setup</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/js/bootstrap.min.js"></script>
+
+
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr@4.6.9/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.9/dist/flatpickr.min.js"></script>
+    
+    
+    <style>
+         body {
+            background-color: #1e2442;
+            color: white;
+            font-size: 16px;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Additional styles for mobile view */
+        @media screen and (max-width: 768px) {
+            /* Mobile styles here */
+        }
+
+        /* Add more of your custom CSS here */
+
+        
+    </style>
+</head>
+<body>
+    <form method="POST" action="{% url 'update_document_setup' %}">
+        {% csrf_token %}
+
+        <label style="font-size: 30px;">WE😍DEVELOPTREES</label><br><br>
+
+
+        <h>Documents Setup</h><br>
+        <label style="widht:60%; background-color:#323a5f;">
+          Xpayroll gives your employees and contractors the option of uploding documents like ID's,<br> contracts etc.   
+        </label><br><br>
+
+      <table border="2" style="background-color:#2d3354; color:white; width:80%; height:50%;border-collapse: collapse; border:none;">
+           <thead>
+            <tr style="background-color:#323a5f;">
+              <th>document_type</th>
+              <th>compulsory</th>
+              <th>Enabled</th>
+              <th>action</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+            {% for i in k5 %}
+
+            <tr style="{% cycle 'background-color:#1e2442;' 'background-color:#2d3354;' %}">
+              {% comment %} <td><input type="checkbox">{{ i.document_type }}</td> {% endcomment %}
+
+              <td>
+                <input type="checkbox" name="document_type" value="aadhar">aadhar<br>
+                <input type="checkbox" name="document_type" value="ssc">ssc<br>
+                <input type="checkbox" name="document_type" value="pan">pan<br>
+                <input type="checkbox" name="document_type" value="degree">degree<br>
+                <input type="checkbox" name="document_type" value="btech">btech<br>
+                <input type="checkbox" name="document_type" value="Professional Documents">Professional Documents<br>
+                <input type="checkbox" name="document_type" value="Tax Deductions Supporting Documents">Tax Deductions Supporting Documents<br>
+                <input type="checkbox" name="document_type" value="Employment Contract">Employment Contract<br>
+                <input type="checkbox" name="document_type" value="Previous Employment Documents">Previous Employment Documents<br>
+                <input type="checkbox" name="document_type" value="Bank Account Details">Bank Account Details<br>
+                <input type="checkbox" name="document_type" value="INTER OR DIPLOMA">INTER OR DIPLOMA<br>
+              
+              </td>
+
+              <td><input type="checkbox" name="field_d_data" ></td>
+              <td><input type="checkbox" name="field_e_data" ></td>
+              <td>
+                  {{ i.id }}
+                  <a href="/delete12/{{i.id}}"><i class="fas fa-trash"></i></a>
+              </td> 
+          </tr>
+          
+           
+            {% endfor %}
+            <tr>
+            <td><input type="text" name="documentType" style="background-color:#2d3354;color:white;border:none"></td>
+            <td><input type="checkbox" name="field_d_data"></td>
+            <td>
+                    
+                <a href="/delete12/{{i.id}}"><i class="fas fa-trash"></i></a>
+                    
+            </td> 
+
+            </tr>
+        </tbody>
+          </table>
+
+
+          <button type="button" onclick="addRow()" style="background-color: blue;color: white;">Add</a></button>
+
+          <br><br><br>
+          <h5>*indicates required fields </h5><br><br>
+
+        <center>
+            <input type="submit" class="btn btn-lg btn-info " value="continue">
+          </center>
+        
+
+    </form>
+    <script>
+      // JavaScript to handle delete button click for the template row
+      const templateRow = document.querySelector('#tableBody tr:last-child');
+      const deleteButton = templateRow.querySelector('.delete-button');
+  
+      deleteButton.addEventListener('click', function(e) {
+          e.preventDefault(); // Prevent the link from navigating
+  
+          // Implement your logic to remove the template row here
+          templateRow.remove();
+      });
+  </script>
+  
+  
+  
+  
+  
+  
+     <script>
+        function deleteRow(id) {
+            var row = button.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+        }
+        function addRow() {
+            var tableBody = document.getElementById("tableBody");
+            var newRow = tableBody.insertRow();
+            
+            var document_type = newRow.insertCell(0);
+            var compulsory = newRow.insertCell(1);
+            var Enabled = newRow.insertCell(2);
+            document_type.innerHTML = '<input type="text" name="documentType" style="background-color: #2d3354; color: white; border: none">';
+            
+            compulsoryCell.innerHTML = '<input type="checkbox" name="compulsoryCheckbox">';
+        }
+    </script>
+    <script>
+      $(document).ready(function () {
+          $('.ch').click(function () {
+              var selectedValues = [];
+              $('.ch:checked').each(function () {
+                  selectedValues.push($(this).val());
+              });
+              $('#chl').val(selectedValues.join(', ')); // Display selected values in the input field
+          });
+      });
+  </script>
+    <script>
+          document.addEventListener('DOMContentLoaded', function() {
+            const selectAllCheckboxes = document.querySelectorAll('.select-all-checkbox');
+            
+            selectAllCheckboxes.forEach(function(selectAllCheckbox) {
+              selectAllCheckbox.addEventListener('change', function() {
+                const row = this.closest('tr');
+                const rowCheckboxes = row.querySelectorAll('.row-checkbox');
+                
+                rowCheckboxes.forEach(function(rowCheckbox) {
+                  rowCheckbox.checked = selectAllCheckbox.checked;
+                });
+              });
+            });
+          });
+    </script>  
+        
+    <script>
+        const attendanceCheckbox = document.getElementById('attendanceCheckbox');
+        const attendanceEnabledInput = document.getElementById('attendanceEnabled');
+
+        attendanceCheckbox.addEventListener('change', function() {
+            if (attendanceCheckbox.checked) {
+                attendanceEnabledInput.value = 'yes';
+            } else {
+                attendanceEnabledInput.value = 'no';
+            }
+        });
+    </script><br><br><br>
+</body>
+</html>
+
+{% endblock main_content %}
+
+
+
+
+

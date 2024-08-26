@@ -1,0 +1,85 @@
+{% extends 'admin-template/base_template.html' %}
+
+{% block main_content %}
+
+  
+ 
+
+<div class="container mt-5">
+    <h1>Assign Extra Time to Employees</h1>
+
+    <form method="get">
+        <div class="form-group">
+            <label for="extra_time_slot_id" style="color:black">Select Extra Time Slot:</label>
+            <select name="extra_time_slot_id" id="extra_time_slot_id" class="form-control" onchange="this.form.submit()">
+                <option value="">-- Select Duration --</option>
+                {% for slot in extra_time_slots %}
+                    <option value="{{ slot.id }}" {% if slot.id == selected_extra_time_slot_id %}selected{% endif %}>
+                        {{ slot.duration }} minutes - {{ slot.reason }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+    </form>
+
+    {% if selected_extra_time_slot_id %}
+        <form method="get">
+            <div class="form-group">
+                <label for="designation">Select Designation:</label>
+                <select name="designation" id="designation" class="form-control" onchange="this.form.submit()">
+                    <option value="">-- Select Designation --</option>
+                    {% for designation in designations %}
+                        <option value="{{ designation }}" {% if designation == selected_designation %}selected{% endif %}>
+                            {{ designation }}
+                        </option>
+                    {% endfor %}
+                </select>
+                <input type="hidden" name="extra_time_slot_id" value="{{ selected_extra_time_slot_id }}">
+            </div>
+        </form>
+    {% endif %}
+
+    {% if selected_designation %}
+        <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="extra_time_slot_id" value="{{ selected_extra_time_slot_id }}">
+            <input type="hidden" name="designation" value="{{ selected_designation }}">
+            <div class="form-group">
+                <label>Select Employees:</label>
+                <div class="checkbox-group">
+                    {% for emp in employ %}
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="employ_ids" id="emp{{ emp.id }}" value="{{ emp.id }}"
+                                   {% if emp.id in already_assigned_employee_ids %}checked{% endif %}>
+                            <label class="form-check-label" for="emp{{ emp.id }}">
+                                {{ emp.first_name }} {{ emp.last_name }}
+                                {% if emp.id in already_assigned_employee_ids %}
+                                    (Already assigned)
+                                {% endif %}
+                            </label>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Assign</button>
+        </form>
+    {% endif %}
+    
+    {% if messages %}
+    <div class="mt-3">
+        {% for message in messages %}
+            <div id="message-{{ forloop.counter }}" class="alert alert-{{ message.tags }}" role="alert">
+                {{ message }}
+            </div>
+            <script>
+                setTimeout(function() {
+                    document.getElementById("message-{{ forloop.counter }}").remove();
+                }, 5000); // 5000 milliseconds = 5 seconds
+            </script>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+
+{% endblock main_content %}
+ 

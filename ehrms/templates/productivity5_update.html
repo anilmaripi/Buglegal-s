@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update Project</title>
+</head>
+<body>
+
+<h2>Update Project</h2>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <label for="image1">Image1:</label>
+    <input type="file" name="image1"><br>
+
+    <label for="title1">Title1:</label>
+    <input type="text" name="title1" value="{{ project5.title1 }}"><br>
+
+    
+    <label for="discription1">Description1:</label>
+    <input type="text" name="discription1" value="{{ project5.discription1 }}"><br>
+
+    
+
+
+    <input type="submit" value="Update">
+</form>
+
+<a href="{% url 'productivity5_list' %}">Cancel</a>
+
+</body>
+</html>

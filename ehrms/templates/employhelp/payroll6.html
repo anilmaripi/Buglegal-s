@@ -1,0 +1,24 @@
+{% extends 'employhelp/basehelp.html' %}
+{% block main_content %}
+<style>
+    h5{
+        font-size: medium;
+    }
+</style>
+    <form>
+        <p id="ha1" style="font-size: xx-large;">When and how do employees get their Form 16?</p>
+        <p id="f1">Form 16 is generated after the end of the financial year. The exact date on which it is generated can vary depending on factors like government notifications. But usually, it is around the month of July. So, for example, for the financial year 2020-21 (Apr 2020 - Mar 2021),  the Form 16s were generated in July 2021.</p>
+        <p id="f3">For HRMS to generate Form 16 for your employees, please ensure that we are handling your 24Q filing. This is enabled by default for all organizations, and you can check it under Settings > TDS Filing Setup.</p>
+        <p id="f5">Hrms will automatically inform your employees by email when their Form 16s are generated.</p>
+        <h5 id="f6">Digital signing of Form 16</h5>
+        <p id="f7">By default, Hrms will upload Form 16s without any digital signature (since we do not have access to our customers' digital signatures). In case you would like your company's Form 16s to be digitally signed, please contact support; we will send you  the un-signed Form 16s, and you can send them to us after signing them with a tool like emSigner. Once we received the signed Form 16s, we will upload them for your employees.</p>
+        <p id="f8">Please ensure you maintain the filenames of the digitally signed Form 16, or else we will not be able to upload them to your account. </p>    
+         <center><button style="width:50%;height: auto;font-size: x-large;border: 2px solid whitesmoke;">
+            <div id="a">
+                <p id="section10" style="text-align: center;">Did this answer your question?</p>
+                <p><a class="ex1" style="text-decoration: none;color: black;"><center>😄 😶 😔</center></a> </p>
+            </div>
+        </button></center><br><br><br>  
+        
+    </form>
+    {% endblock main_content %}

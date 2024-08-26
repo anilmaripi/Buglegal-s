@@ -1,0 +1,305 @@
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+{% extends 'employ-template/base_template.html' %}
+
+
+{% block main_content %}
+<title>Claim For Reimbursement</title>
+<head>
+<style>
+  form{
+   width: 95%;
+  }
+  .form-manager{
+   box-shadow: 2px 3px 10px #999;
+   margin-left: 20px;
+   padding: 30px;
+   border-radius:10px;
+
+  }
+  .form-hr{
+   box-shadow: 2px 3px 10px #d1d7e0;
+   margin-left: 20px;
+   padding: 30px;
+   border-radius:10px;
+   background-color: #d1d7e0;
+  }
+  .col-manager button{
+   border-radius: 10px;
+   padding:10px;
+   background-color: #ffb833;
+   box-shadow: 3px 0 0 3px #cc8500;
+   border: none;
+   color:#005f66;
+
+  }
+  .col-manager{
+   margin-top: 30px;
+  }
+  .col-manager button:hover{
+   background-color: #a8cde6;
+   box-shadow: 3px 0 0 3px #000;
+   color:black;
+
+   
+  }
+  .col-hr button{
+   border-radius: 10px;
+   padding:10px;
+   background-color: #9878b7;
+   box-shadow: 3px 0 0 3px #9878b7;
+   border: none;
+   color: white;
+
+  }
+  .col-hr{
+   margin-top: 30px;
+  }
+  .col-hr button:hover{
+   background-color: #b69ccf;
+   box-shadow: 3px 0 0 3px #b69ccf;
+   color:white;
+
+  }
+
+  .hed-manager{
+   color:blue;
+   font-size: 36px;
+  }
+  label{
+   color:#666
+  }
+  .hed-hr{
+    color: black;
+    font-size: 36px;
+  }
+  .col-tm button{
+    border-radius: 10px;
+    padding:10px;
+    background-color: #ccc;
+    box-shadow: 3px 0 0 3px #bfbfbf;
+    border: none;
+    color:#000;
+ 
+   }
+   .col-tm{
+    margin-top: 30px;
+   }
+   .col-tm button:hover{
+    background-color: #4d67ab;
+    box-shadow: 3px 0 0 3px #3f558d;
+    color:#fff;
+ 
+    
+   }
+   .form-tm{
+    box-shadow: 2px 3px 10px #999;
+    margin-left: 20px;
+    padding: 30px;
+    border-radius:10px;
+ 
+   }
+   .hed-tm{
+    color:#ff7733;
+    font-size: 36px;
+   }
+ .hed-tl{
+  color: #000;
+ }
+ {% if mem_role == 'Employee' and mem_team_lead_ext == 1 %}
+ button{
+  background-color: rgb(234, 137, 137); 
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
+ }
+ {% endif %}
+ </style>
+
+    </head>
+    <div id="message">
+      {% if messages %}
+      {% for message in messages %}
+      {% if message.tags == 'error' %}
+      <div class="alert alert-danger" style="margin-top:20px;">{{message}}</div>
+      {% endif %}
+      {% if message.tags == 'success' %}
+      <div class="alert alert-success" style="margin-top:20px; background-color: green; color:whitesmoke;">{{message}}</div>
+      {% endif %}
+      {% endfor %}
+      {% endif %}
+    </div>
+    <script>
+      $("#message").show();
+      setTimeout(function(){
+          $("#message").hide();
+      },2000)
+      
+      
+    </script>
+
+    {% for i in md %}
+    {% if i.Reimbursements_Enabled == 'Yes' %} 
+    <div class="row">
+      <div class="col-md-8 col-sm-8 col-lg-8" >
+        <center>
+          <h3 class="{% if mem_role == 'HR' and mem_hroptions == 1 %}hed-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}hed-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}hed-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}hed-tm {% endif %}">Claim for Reimbursement</h3>
+
+        </center>
+    <br>
+    
+    <form action="{% url 'reimbursement_apply_view_save' %}" method="post" style="float: left;" enctype="multipart/form-data" class="{% if mem_role == 'HR' and mem_hroptions == 1 %}form-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}form-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}form-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}form-tm {% endif %}">
+      {% csrf_token %}
+    
+          <div class="form-group">
+            <label>Type Of Reimbursement *</label>
+            <select class="form-control custom-select" required name="typea">
+              <!-- <option selected disabled>----Select Type---</option> -->
+              <option selected disabled>----Select Type----</option>
+             {% for i in k3 %}
+             {% if i.reimbursement_type != "" and i.reimbursement_type != NULL  %}
+             {% if i.select_reimbursement == "Yes" %}
+    
+               <option value="{{i.reimbursement_type}}">{{i.reimbursement_type}}</option>
+               {% endif %}
+    
+               {% endif %}
+    
+               {% endfor %}
+             
+            </select> 
+            
+                
+                
+        </div>
+          <div class="form-group">
+            <label>Expense Date*</label>
+            <input type="date" name="date" max="9999-12-31" class="form-control" required>
+          </div>
+          <script>
+            var today = new Date().toISOString().split('T')[0];
+            document.getElementsByName("date")[0].setAttribute('max', today);
+          </script>
+    
+          <div class="form-group">
+            <label>Any Detail* </label>
+            <input type="text" class="form-control" name="detail" required>
+          </div>
+    
+          <div class="form-group">
+            <label>Amount*</label>
+            <input type="number" class="form-control" name="amount" required>
+          </div>
+          <script>
+            document.addEventListener("DOMContentLoaded", function () {
+            const amountInput = document.querySelector('input[name="amount"]');
+            amountInput.addEventListener("input", function () {
+            const inputValue = amountInput.value.trim();
+            
+            // Remove non-digit characters
+            const numericValue = inputValue.replace(/[^0-9]/g, "");
+
+            // Limit the input to 7 digits
+            const maxLength = 7;
+            const truncatedValue = numericValue.slice(0, maxLength);
+
+            // Update the input value
+            amountInput.value = truncatedValue;
+        });
+      });
+          </script>
+<!--     
+          <div class="form-group">
+            <label>Supporting Images Or Documents*</label>
+            <input type="file" class="form-control" name="image" accept=".jpg, .jpeg, .png, .gif, .doc, .docx, .pdf, .xls, .xlsx" style="background-color: #2d3354;border:none;color:#ffff"  required><br>
+            
+
+          </div> -->
+          <div class="form-group">
+            <label>Supporting Images Or Documents*</label>
+            <input type="file" class="form-control" name="image" id="file" style="background-color: #d7d7da; border: none; color: #000" multiple required><br>
+            <span id="file-size-error" style="color: red;"></span>
+        </div>
+        
+        <script>
+          //attaching "change" event to the file upload button
+document.getElementById("file").addEventListener("change", validateFile)
+
+function validateFile(){
+  const allowedExtensions =  ['jpg','jpeg','png','pdf'],
+        sizeLimit = 1000000; // 1 megabyte
+  
+  // destructuring file name and size from file object
+  const { name:fileName, size:fileSize } = this.files[0];
+  
+  /*
+  * if the filename is apple.png, we split the string to get ["apple","png"]
+  * then apply the pop() method to return the file extension (png)
+  *
+  */
+  const fileExtension = fileName.split(".").pop();
+  
+  /* 
+    check if the extension of the uploaded file is included 
+    in our array of allowed file extensions
+  */
+  if(!allowedExtensions.includes(fileExtension)){
+    alert("please upload only jpg, jpeg, pdf and png files only");
+    this.value = null;
+  }else if(fileSize > sizeLimit){
+    alert("file size too large")
+    this.value = null;
+  }
+}
+        </script>
+
+        <script>
+            // Get the file input element
+            const fileInput = document.querySelector('input[type="file"]');
+        
+            // Add an event listener to check the file size when a file is selected
+            fileInput.addEventListener('change', function () {
+                const maxFileSize = 5 * 1024 * 1024; // 5MB in bytes
+                const fileSize = this.files[0].size; // Size of the selected file
+        
+                if (fileSize > maxFileSize) {
+                    // Display an error message if the file size is too large
+                    document.getElementById('file-size-error').textContent = 'The file is too large. Allowed maximum size is 5MB';
+                    this.value = ''; // Clear the file input
+                } else {
+                    document.getElementById('file-size-error').textContent = ''; // Clear any previous error message
+                }
+            });
+        </script>
+    
+
+         
+    
+          <!-- <center>
+            <button type="submit" class="btn btn-primary btn-block" id="fetch_student">Request Reimbursement</button>
+          </center> -->
+          <div class="card-footer">
+            <input type="submit" class="btn btn-primary btn-block" id="fetch_student" value="Submit Reimbursement Request">
+          </div>
+  
+          <br>
+        </form>
+      </div> <br><br>
+     
+      <div class="col-md-4 col-lg-3 col-sm-4 {% if mem_role == 'HR' and mem_hroptions == 1 %}col-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}col-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}col-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}col-tm {% endif %}" >
+        <a href="{% url 'reg' %}">
+          <button >
+            <h5><b>View Past Reimbursement Requests</b></h5>
+            <h6>Review the progress of all your previous Reimbursement requests...</h6>
+          </button>
+        </a>
+      </div>
+    </div>
+    {% else %}
+  <h1>Reimbursement is disabled by admin</h1>
+  {% endif %}
+  {% endfor %}
+  {% endblock main_content %}
+    

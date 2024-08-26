@@ -1,0 +1,134 @@
+<!-- <html>
+    <head>
+  
+    </head>
+    <body>
+        <form method="post">{% csrf_token %}
+                <div class="accordion-body">
+                      <div class="col-md-4">
+                              <div class="form-group">
+                                  <label>FreeTrail Days:</label><br>
+                                  <input type="text" class="form-control" name="freedays" required>
+                      </div>
+                      </div>
+                      
+                      </div>
+                      <input type="submit">
+
+                    </form>
+    </body>
+</html> -->
+
+
+
+<!-- Used fabform.io form backend service --->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .contact-form {
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            width: 300px;
+            animation: fadeInUp 1s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .form-group textarea {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+        }
+
+        .form-group button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .form-group button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="contact-form">
+        <h2>Free Trail Days</h2>
+        <form  method="post">{% csrf_token %}
+            <div class="form-group">
+                <label for="name">FreeTrail:</label>
+                <input type="text" class="form-control" name="freedays" required>
+            </div>
+            <div class="form-group">
+                <label for="name">Monthly:</label>
+                <input type="text" class="form-control" name="monthly" required>
+            </div>
+            <div class="form-group">
+                <label for="name">Yearly:</label>
+                <input type="text" class="form-control" name="yearly" required>
+            </div>
+           
+            
+            <div class="form-group">
+                <button type="submit" onclick="alert('Added Successfully')" >Submit</button>
+            </div>
+        
+        </form>
+    </div>
+</body>
+</html>
+
+
+
+

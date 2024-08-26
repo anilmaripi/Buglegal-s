@@ -1,0 +1,682 @@
+
+
+{% extends 'employ-template/base_template.html' %}
+
+
+        {% block main_content %}
+       
+    <style>
+/* body {
+    height: 100%;
+    background: rgb(37, 37, 93);
+    font-family: "Lucida Console", "Courier New", monospace;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+} */
+
+.area {
+    margin-top: -100px;
+    height: auto;
+    padding-bottom: 1px;
+}
+
+h1 {
+    text-align: center;
+}
+
+h2 {
+    margin: 0;
+    color: white;
+}
+
+#multi-step-form-container {
+    margin-top: 5rem;
+    margin: 1rem;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.pl-0 {
+    padding-left: 0;
+}
+
+.button {
+    padding: 0.7rem 1.5rem;
+    border: 1px solid #4361ee;
+    background-color: #4361ee;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.submit-btn {
+    border: 1px solid #0e9594;
+    /* background-color: #0e9594; */
+    float: right;
+}
+
+.mt-3 {
+    margin-top: 2rem;
+}
+
+.d-none {
+    display: none;
+}
+
+.form-step {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    padding: 3rem;
+    background-color: #2f3b74;
+}
+.form-step-manager {
+    background-color: #fff6e6!important;
+
+}
+.form-step-tm {
+    background-color: #F6F5F2!important;
+
+}
+
+.font-normal {
+    font-weight: normal;
+    color:lightgreen !important
+}
+.font-normal:hover {
+    color:orange !important
+}
+.font-normal-manager {
+    font-weight: normal;
+    color:blue !important
+}
+.font-normal-manager:hover {
+    color:orange !important
+}
+
+
+.font-normal-tm {
+    font-weight: normal;
+    color:blue !important
+}
+.font-normal-tm:hover {
+    color:#000 !important
+}
+
+.mt-3 button:hover{
+    background-color: blue;
+}
+ul.form-stepper {
+    counter-reset: section;
+    margin-bottom: 3rem;
+}
+
+ul.form-stepper .form-stepper-circle {
+    position: relative;
+}
+
+ul.form-stepper .form-stepper-circle span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+}
+
+.form-stepper-horizontal {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+
+ul.form-stepper > li:not(:last-of-type) {
+    margin-bottom: 0.625rem;
+    -webkit-transition: margin-bottom 0.4s;
+    -o-transition: margin-bottom 0.4s;
+    transition: margin-bottom 0.4s;
+}
+
+.form-stepper-horizontal > li:not(:last-of-type) {
+    margin-bottom: 0 !important;
+}
+
+.form-stepper-horizontal li {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: start;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+}
+
+.form-stepper-horizontal li:not(:last-child):after {
+    position: relative;
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    height: 1px;
+    content: "";
+    top: 32%;
+}
+
+.form-stepper-horizontal li:after {
+    background-color: #fcfdfd;
+}
+
+.form-stepper-horizontal li.form-stepper-completed:after {
+    background-color: #0e9594;
+    height: 3px;
+}
+.form-stepper-horizontal li.form-stepper-unfinished:after {
+    background-color: #ccc;
+    height:3px;
+
+}
+.form-stepper-horizontal li.form-stepper-active:after {
+    background-color: orange;
+    height:3px;
+
+}
+.form-stepper-horizontal li:last-child {
+    flex: unset;
+}
+ul.form-stepper li a .form-stepper-circle {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    margin-right: 0;
+    line-height: 1.7rem;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.38);
+    border-radius: 50%;
+}
+
+/* .form-stepper .form-stepper-active .form-stepper-circle {
+    background-color: #4361ee !important;
+    color: #fff;
+} */
+.form-stepper .form-stepper-active .form-stepper-circle-manager {
+    background-color: orange !important;
+    color: #fff;
+}
+
+.form-stepper .form-stepper-active .form-stepper-circle-manager:hover {
+    background-color: #4361ee !important;
+    color: #fff !important;
+}
+.form-stepper .form-stepper-active .form-stepper-circle-tm {
+    background-color: orange !important;
+    color: #fff;
+}
+
+.form-stepper .form-stepper-active .form-stepper-circle-tm:hover {
+    background-color: orange !important;
+    color: #fff !important;
+}
+
+.form-stepper .form-stepper-active .label {
+    color: #163ce6 !important;
+}
+.form-stepper .form-stepper-active .label-manager {
+    color: orange !important;
+}
+.form-stepper .form-stepper-active:hover .label-manager {
+    color: #4361ee !important;
+}
+.form-stepper .form-stepper-active .label-tm {
+    color: orange !important;
+}
+.form-stepper .form-stepper-active:hover .label-tm {
+    color: orange !important;
+}
+
+
+.form-stepper .form-stepper-active .form-stepper-circle:hover {
+    background-color: #4361ee !important;
+    color: #fff !important;
+}
+
+.form-stepper .form-stepper-unfinished .form-stepper-circle {
+    background-color: #ccc;
+}
+
+.form-stepper .form-stepper-completed .form-stepper-circle {
+    background-color: #0e9594 !important;
+    color: #fff;
+}
+
+.form-stepper .form-stepper-completed .label {
+    color: #0e9594 !important;
+}
+
+.form-stepper .form-stepper-completed .form-stepper-circle:hover {
+    background-color: #0e9594 !important;
+    color: #fff !important;
+}
+
+.form-stepper .form-stepper-active span.text-muted {
+    color: #fff !important;
+}
+
+.form-stepper .form-stepper-completed span.text-muted {
+    color: #fff !important;
+}
+
+.form-stepper .label {
+    font-size: 1rem;
+    margin-top: 0.9rem;
+}
+
+.form-stepper a {
+    cursor: default;
+}
+
+#msform fieldset {
+    background: rgba(49, 49, 107, 0.366);
+    border: 0 none;
+    border-radius: 20px;
+    box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+    box-sizing: border-box;
+    position: relative;
+}
+
+/*Hide all except first fieldset*/
+#msform fieldset:not(:first-of-type) {
+    display: none;
+}
+
+form .s {
+    color: rgb(255, 255, 255);
+}
+
+form label {
+    color: #caccd5;
+}
+
+
+.form-step-hr{
+    background-color: #d1d7e0;
+    color: black;
+}
+.s-hr{
+    color: black !important;
+}
+</style>
+
+</head>
+
+<body>
+    <h1></h1>
+
+    <div id="multi-step-form-container">
+        <!-- Form Steps / Progress Bar -->
+        <ul class="form-stepper form-stepper-horizontal text-center mx-auto pl-0">
+            <!-- Step 1 -->
+            <li class="form-stepper-active text-center form-stepper-list" step="1">
+                <a class="mx-2">
+                    <span class="form-stepper-circle {% if mem_role == 'HR' and mem_hroptions == 1 %}form-stepper-circle-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}form-stepper-circle-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}form-stepper-circle-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}form-stepper-circle-tm {% endif %}">
+                        <span>1</span>
+                    </span>
+                    <div class="label {% if mem_role == 'HR' and mem_hroptions == 1 %}label-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}label-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}label-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}label-tm {% endif %}">Account Basic Details</div>
+
+                </a>
+            </li>
+            <!-- Step 2 -->
+            <li class="form-stepper-unfinished text-center form-stepper-list" step="2">
+                <a class="mx-2">
+                    <span class="form-stepper-circle {% if mem_role == 'HR' and mem_hroptions == 1 %}form-stepper-circle-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}form-stepper-circle-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}form-stepper-circle-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}form-stepper-circle-tm {% endif %} text-muted">
+                    <span>2</span>
+                    </span>
+                    <div class="label  {% if mem_role == 'HR' and mem_hroptions == 1 %}label-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}label-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}label-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}label-tm {% endif %} text-muted">Payment Information</div>
+
+                </a>
+            </li>
+            <!-- Step 3 -->
+            <li class="form-stepper-unfinished text-center form-stepper-list" step="3">
+                <a class="mx-2">
+                    <span class="form-stepper-circle {% if mem_role == 'HR' and mem_hroptions == 1 %}form-stepper-circle-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}form-stepper-circle-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}form-stepper-circle-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}form-stepper-circle-tm {% endif %} text-muted">
+                    <span>3</span>
+                    </span>
+                    <div class="label  {% if mem_role == 'HR' and mem_hroptions == 1 %}label-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}label-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}label-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}label-tm {% endif %} text-muted">Other Information</div>
+
+                </a>
+            </li>
+        </ul>
+        <!-- Step Wise Form Content -->
+
+        <form id="msform" class="msform fieldset" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <!-- Step 1 Content -->
+            <fieldset>
+                <section id="step-1" class="form-step {% if mem_role == 'HR' and mem_hroptions == 1 %}form-step-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}form-step-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}form-step-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}form-step-tm {% endif %}">
+
+                    <h2 class="font-normal {% if mem_role == 'HR' and mem_hroptions == 1 %}font-normal-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}font-normal-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}font-normal-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}font-normal-tm {% endif %}">Account Basic Details</h2>
+
+                    <!-- Step 1 input fields -->
+                    <div class="mt-3">
+                        <input type="text" name="firstname1" placeholder="First Name" class="form-control" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')" required /><br>
+                        <input type="text" name="lastname1" placeholder="Last Name" class="form-control" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')" required /><br>
+                        <!-- <input type="email" name="email1" placeholder="Email ID" class="form-control" required><br> -->
+                    </div>
+                    <div class="mt-3">
+                        <button class="button btn-navigate-form-step" type="button" step_number="2">Next</button>
+                    </div>
+                </section>
+                <!-- Step 2 Content, default hidden on page load. -->
+                <section id="step-2" class="form-step  {% if mem_role == 'HR' and mem_hroptions == 1 %}form-step-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}form-step-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}form-step-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}form-step-tm {% endif %} d-none">
+                    <h2 class="font-normal {% if mem_role == 'HR' and mem_hroptions == 1 %}font-normal-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}font-normal-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}font-normal-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}font-normal-tm {% endif %}">Payment Information</h2>
+
+                    <!-- Step 2 input fields -->
+                    <div class="mt-3">
+                        <input type="text" name="beneficiaryname" placeholder="Beneficiary Name" class="form-control" oninput="allowOnlyLettersAndSpaces(this)" required><br>
+
+                        <input type="number" name="acno" placeholder="Account Number" class="form-control" oninput="this.value = this.value.slice(0, 16)"  maxlength="17" required /><br>
+
+                        <input type="text" name="ifsecode" placeholder="IFSC Code" class="form-control" maxlength="11" oninput="convertToUppercase(this)" required /><br>
+
+                        <input type="text" name="pan" placeholder="Pancard Number" class="form-control" maxlength="10" oninput="validatePancardInput(this)" required /><br>
+                
+                                         
+
+                    </div>
+                    <div class="mt-3">
+                        <button class="button btn-navigate-form-step" type="button" step_number="1">Prev</button>
+                        <button class="button btn-navigate-form-step" type="button" step_number="3">Next</button>
+                    </div>
+                </section>
+                <!-- Step 3 Content, default hidden on page load. -->
+                <section id="step-3" class="form-step  {% if mem_role == 'HR' and mem_hroptions == 1 %}form-step-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}form-step-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}form-step-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}form-step-tm {% endif %} d-none">
+                    <h2 class="font-normal {% if mem_role == 'HR' and mem_hroptions == 1 %}font-normal-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}font-normal-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}font-normal-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}font-normal-tm {% endif %}">Personal Details</h2>
+
+                    <!-- Step 3 input fields -->
+                    <div class="mt-3">
+                        <!-- <input type="text" name="phno" placeholder="Phone Number" class="form-control"><br> -->
+                        <input type="number" name="phno" maxlength="10" oninput="this.value = this.value.slice(0, 10)" placeholder="Phone Number" class="form-control phonenumber" required /><br>
+                        <span class="perror-message text-danger"></span>                   
+                        <!-- <div>
+                            <label class="s"><b>Gender:</b></label>
+                            <label>MALE</label>
+                            <input type="radio" name="gender1" value="male">
+                            <label>FEMALE</label>
+                            <input type="radio" name="gender1" value="female"><br>
+                        </div> -->
+                        <div>
+                            <label  class="s {% if mem_role == 'HR' and mem_hroptions == 1 %}s-hr{% endif %}" ><b style="color: #ec5d5d;">Gender:</b></label>
+                            <select name="gender1" class="form-control" required>
+                                <option value="" selected disabled>Select The Gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                        </div>
+                        <br><label class="s  {% if mem_role == 'HR' and mem_hroptions == 1 %}s-hr{% endif %}"><b style="color: #ec5d5d;">Date of Birth:</b></label>
+                        <input type="date" name="dob" max="9999-12-31" placeholder="Date of Birth" class="form-control date" /><br>
+            
+
+                        <textarea name="address1" placeholder="Address" class="form-control"></textarea><br>
+                        <input type="text" name="heq" placeholder="Highest Educational Qualification" class="form-control" /><br>
+                        <!-- <input type="number" name="aadharno" placeholder="Aadhar Number" class="form-control" /><br> -->
+                        <input type="number" name="aadharno" placeholder="Aadhar Number" class="form-control" oninput="validateAadharNumber()" maxlength="12" /><br>
+                        <span id="aadhar-error" class="text-danger"></span><br>
+
+
+                        <!-- <input type="text" name="bloodgroup" placeholder="Blood Group" class="form-control" /><br> -->
+                        <label for="bloodgroup" class="s  {% if mem_role == 'HR' and mem_hroptions == 1 %}s-hr{% endif %}" style="color: #ec5d5d;">Blood Group</label>
+                        <select name="bloodgroup" id="bloodgroup" class="form-control" required>
+                            <option value="">Select Blood Group</option>
+                            <option value="A+">A+</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>
+                        </select><br>
+                        <div style="position: relative;">
+                            <label for="profile_pic" class="s  {% if mem_role == 'HR' and mem_hroptions == 1 %}s-hr{% endif %}" style="color: #ec5d5d;">Upload Profile Picture(upto 10kb only):</label><br>
+                            <input type="file" name="profile_pic" id="profile_pic_input" placeholder="upload your image" style="color: #0d0d0d;" />
+                            <p id="file_size_warning" style="color:white;padding-left:10px;display:none; position: absolute; top: calc(100% + 5px); left: 0; background-color: red; padding: 5px; z-index: 1;">Upload upto 10kb only</p>
+                        </div><br>
+
+                        <!-- <input type="file" name="profile_pic" placeholder="upload your image" /><br> -->
+                    </div>
+                    <div class="mt-3">
+                        <button class="button btn-navigate-form-step" type="button" step_number="2">Prev</button>
+                        <button class="button submit-btn" type="submit">Save</button>
+                    </div>
+                </section>
+            </fieldset>
+        </form>
+    </div>
+    <script>
+        function allowOnlyLettersAndSpaces(input) {
+            input.value = input.value.replace(/[^a-zA-Z\s]/g, ''); 
+        }
+    </script>
+    <script>
+        document.getElementById('profile_pic_input').addEventListener('change', function() {
+            const file = this.files[0];
+            if (file && file.size > 10240) { // 10kb in bytes
+                // Reset the file input field
+                this.value = '';
+                // Show the file size warning message
+                document.getElementById('file_size_warning').style.display = 'block';
+            } else {
+                // Hide the file size warning message if it's currently shown
+                document.getElementById('file_size_warning').style.display = 'none';
+            }
+        });
+    </script>
+
+    <script>
+        const navigateToFormStep = (stepNumber) => {
+            // Hide all form steps
+            document.querySelectorAll(".form-step").forEach((formStepElement) => {
+                formStepElement.classList.add("d-none");
+            });
+
+            // Mark all form steps as unfinished
+            document.querySelectorAll(".form-stepper-list").forEach((formStepHeader) => {
+                formStepHeader.classList.add("form-stepper-unfinished");
+                formStepHeader.classList.remove("form-stepper-active", "form-stepper-completed","form-stepper-completed-manager","form-stepper-completed-tm");
+            });
+
+            // Show the current form step (as passed to the function)
+            document.querySelector("#step-" + stepNumber).classList.remove("d-none");
+
+            // Select the form step circle (progress bar)
+            const formStepCircle = document.querySelector('li[step="' + stepNumber + '"]');
+
+            // Mark the current form step as active
+            formStepCircle.classList.remove("form-stepper-unfinished", "form-stepper-completed","form-stepper-completed-manager","form-stepper-completed-tm");
+            formStepCircle.classList.add("form-stepper-active");
+
+            // Loop through each form step circles
+            // This loop will continue up to the current step number
+            for (let index = 0; index < stepNumber; index++) {
+                // Select the form step circle (progress bar)
+                const formStepCircle = document.querySelector('li[step="' + index + '"]');
+
+                // Check if the element exists. If yes, then proceed
+                if (formStepCircle) {
+                    // Mark the form step as completed
+                    formStepCircle.classList.remove("form-stepper-unfinished", "form-stepper-active");
+                    formStepCircle.classList.add("form-stepper-completed","form-stepper-completed-manager","form-stepper-completed-tm");
+                }
+            }
+        };
+
+        // Function to validate the form before proceeding to the next step
+        const validateForm = () => {
+            const currentStep = document.querySelector('.form-step:not(.d-none)');
+            const requiredInputs = currentStep.querySelectorAll('input[required]');
+
+            for (let i = 0; i < requiredInputs.length; i++) {
+                if (requiredInputs[i].value.trim() === '') {
+                    //  alert('Please fill in all the required fields.');
+                    return false;
+                }
+            }
+
+            return true;
+        };
+
+
+        
+        // Select all form navigation buttons and add event listeners
+        document.querySelectorAll(".btn-navigate-form-step").forEach((formNavigationBtn) => {
+            formNavigationBtn.addEventListener("click", () => {
+                const stepNumber = parseInt(formNavigationBtn.getAttribute("step_number"));
+                if (validateForm()) {
+                    navigateToFormStep(stepNumber);
+                }
+            });
+        });
+
+
+        
+    </script>
+
+
+        
+    
+     
+        </script>
+    
+    </body>
+
+    <script>
+        function convertToUppercase(inputField) {
+          // Convert the input value to uppercase
+          inputField.value = inputField.value.toUpperCase();
+        }
+      </script>
+      <script>
+        function validatePancardInput(inputField) {
+            // Get the entered value
+            let inputValue = inputField.value;
+
+            // Remove spaces and special characters using a regular expression
+            let sanitizedValue = inputValue.replace(/[^a-zA-Z0-9]/g, '');
+
+            // Convert to uppercase
+            sanitizedValue = sanitizedValue.toUpperCase();
+
+            // Take only the first 10 digits
+            sanitizedValue = sanitizedValue.substring(0, 10);
+
+            // Update the input value with the sanitized value
+            inputField.value = sanitizedValue;
+        }
+    </script>
+    <script>
+        function convertToUppercase(inputField) {
+            // Get the entered value
+            let inputValue = inputField.value;
+
+            // Remove spaces and special characters using a regular expression
+            let sanitizedValue = inputValue.replace(/[^a-zA-Z0-9]/g, '');
+
+            // Convert to uppercase
+            sanitizedValue = sanitizedValue.toUpperCase();
+
+            // Take only the first 11 characters
+            sanitizedValue = sanitizedValue.substring(0, 11);
+
+            // Update the input value with the sanitized value
+            inputField.value = sanitizedValue;
+        }
+    </script>
+    <script>
+        function allowOnlyLetters(inputField) {
+            // Get the entered value
+            let inputValue = inputField.value;
+
+            // Remove digits and special characters using a regular expression
+            let sanitizedValue = inputValue.replace(/[^a-zA-Z]/g, '');
+
+            // Update the input value with the sanitized value
+            inputField.value = sanitizedValue;
+        }
+    </script>
+<script>
+    $(function() {
+        $(document).ready(function () { 
+var todaysDate = new Date(); 
+var year = todaysDate.getFullYear(); 
+var month = ("0" + (todaysDate.getMonth() + 1)).slice(-2); 
+var day = ("0" + todaysDate.getDate()).slice(-2); 
+var maxDate = year + "-" + month + "-" + day; 
+$('.date').attr('max', maxDate); 
+});
+
+});
+</script>
+<script>
+    $(document).ready(function(){     
+      $(".phonenumber").change(function () {      
+        var inputvalues = $(this).val();      
+        var regex = /[0-9]{10}$/;    
+        if(!regex.test(inputvalues)){      
+          $(".phonenumber").val("");    
+          $(".perror-message").text("Invalid Phone Number");
+          setTimeout(function(){
+            $(".perror-message").text("");
+          }, 3000); // 3000 milliseconds = 3 seconds    
+        } else {
+          $(".perror-message").text("");    
+        }    
+      });      
+    });
+        </script>
+    
+    <script>
+        function validateAadharNumber() {
+            const aadharNumberInput = document.getElementById('aadhar_number');
+            const aadharError = document.getElementById('aadhar-error');
+    
+            let aadhar_number = aadharNumberInput.value.replace(/\D/g, ''); // Remove non-numeric characters
+    
+            if (aadhar_number.length > 12) {
+                aadhar_number = aadhar_number.substring(0, 12); // Truncate to 12 digits
+                aadharNumberInput.value = aadhar_number; // Update the input value
+            }
+    
+            if (aadhar_number === '') {
+                aadharError.textContent = 'Aadhar number is required';
+                aadharNumberInput.classList.add('is-invalid');
+                return false;
+            } else if (aadhar_number.length !== 12) {
+                aadharError.textContent = 'Aadhar number must be exactly 12 digits';
+                aadharNumberInput.classList.add('is-invalid');
+                return false;
+            } else {
+                aadharError.textContent = '';
+                aadharNumberInput.classList.remove('is-invalid');
+                aadharNumberInput.classList.add('is-valid');
+                return true;
+            }
+        }
+    </script>
+
+
+    </html>
+    
+{% endblock main_content %} 
+

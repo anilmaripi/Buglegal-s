@@ -1,0 +1,419 @@
+{% extends 'admin-template/base_template.html' %}{% block main_content %}
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    <style>
+        body{
+            /* background-color: #1e2442; */
+            color:black;
+        }
+        tr,th,td{
+            padding: 3px;
+            color: black;
+        }
+        table{
+            width: 100%;   
+        }
+        th{
+            width: 40%;
+            /* text-align: right; */
+        }
+        /* td{
+            text-align: left;   
+        } */
+        h4{
+            text-align: right;
+            font-size:30px;
+        }
+        
+       .fnn{
+        width: fit-content;
+        height: fit-content;
+       }
+    </style>
+    <!-- <style>
+        @media (max-width: 768px) {
+            
+            table{
+            width:auto;   
+            }
+            th{
+            width: 100%;
+            /* text-align: right; */
+            }
+            .fnn{
+            width: fit-content;
+            height: fit-content;
+            }
+          }
+    </style> -->
+</head>
+<div id="message">
+    {% if messages %}
+    {% for message in messages %}
+    {% if message.tags == 'error' %}
+    <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+    {% endif %}
+    {% if message.tags == 'success' %}
+    <div class="alert alert-success" style="margin-top:20px;background-color:green;color: whitesmoke;">{{ message }}</div>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+    </div>
+    <script>
+        $("#message").show();
+        setTimeout(function() {
+            $("#message").hide();
+        }, 3000);
+    </script>
+<br>
+<h3 class="text-center text-dark">Admin Settings</h3>
+<div class="row">
+   
+<div class="col-md-2"></div>
+<div class="col-md-8">
+ 
+    <div class="row"> <div style="display:flex; align-items: center;justify-content: space-between;">                  
+        <h2 ><b style="flex:1;font-size: 25px;">Payroll Setup</b></h2>
+        <a  href="{% url 'update_payroll_setup'%}" style="text-decoration: none;"><b  class="btn btn-info ">Edit</b></a>
+    </div>  </div>
+ <div class="table">
+ <div class="table-responsive">
+    <table style="border-collapse: collapse;border: white;background: linear-gradient(rgb(239, 239, 247),rgb(238, 242, 244));" >
+        <tr >
+            <th>Payroll Enabled</th>
+            <td>{{p.payroll}}</td>
+        </tr>
+        {% if p.payroll == 'Yes' %}
+
+        <tr >
+            <th>Payroll Date</th><td>
+            
+            {% if p.payrolldate == '01'%}
+            1st of every month
+            {% elif p.payrolldate == '02' %}
+            2nd of every month
+            {% elif p.payrolldate == '03' %}
+            3rd of every month
+            {% elif p.payrolldate == '04' %}
+            4th of every month
+            {% elif p.payrolldate == '05' %}
+            5th of every month
+            {% elif p.payrolldate == '06' %}
+            6th of every month
+            {% elif p.payrolldate == '07' %}
+            7th of every month
+            {% elif p.payrolldate == '08' %}
+            8th of every month
+            {% elif p.payrolldate == '09' %}
+            9th of every month
+            {% elif p.payrolldate == '10' %}
+            10th of every month
+            {% elif p.payrolldate == '11' %}
+            11th of every month
+            {% elif p.payrolldate == '12' %}
+            12th of every month
+            {% elif p.payrolldate == '13' %}
+            13th of every month
+            {% elif p.payrolldate == '14' %}
+            14th of every month
+            {% elif p.payrolldate == '15' %}
+            15th of every month
+            {% elif p.payrolldate == '16' %}
+            16th of every month
+            {% elif p.payrolldate == '17' %}
+            17th of every month
+            {% elif p.payrolldate == '18' %}
+            18th of every month
+            {% elif p.payrolldate == '19' %}
+            19th of every month
+            {% elif p.payrolldate == '20' %}
+            20th of every month
+            {% elif p.payrolldate == '21' %}
+            21st of every month
+            {% elif p.payrolldate == '22' %}
+            22nd of every month
+            {% elif p.payrolldate == '23' %}
+            23rd of every month
+            {% elif p.payrolldate == '24' %}
+            24th of every month
+            {% elif p.payrolldate == '25' %}
+            25th of every month
+            {% elif p.payrolldate == '26' %}
+            26th of every month
+            {% elif p.payrolldate == '27' %}
+            27th of every month
+            {% elif p.payrolldate == '28' %}
+            28th of every month
+            {% elif p.payrolldate == '29' %}
+            29th of every month
+            {% elif p.payrolldate == '30' %}
+            30th of every month
+            {% elif p.payrolldate == '31' %}
+            31st of every month
+
+            {% else %}
+            {% endif %}
+
+            </td>
+        </tr>
+        <tr>
+            <th>Advance Salary Requests</th>
+            <td>{{p.advance_salary_request}}</td>
+        </tr>
+        <!-- <tr >
+            <th>Salary Structure type</th>
+            {% comment %} <td>{{p.advance_salary_request}}</td> {% endcomment %}
+                    <td >
+                    {% for x in k20 %}
+                    {% if x.select_salarycomponent == "Yes" %}
+                         {{ x.salarycomponent }} ,
+                    {% endif %}
+                    {% endfor %}
+                    <a style="margin-left: 30px;" href="{% url 'update_default_sal_structure' %}"><b class="btn btn-info btn-sm">Edit</b></a>
+
+                </td>  
+            
+        </tr> -->
+
+        <tr>
+            <th>Default Salary Structure</th>
+            <td>
+                <a style="margin-left: 0px;" href="{% url 'update_default_sal_str' %}"><b class="btn btn-info btn-sm">Edit</b></a>
+
+                {% for i in q %}
+                {{i.default_salary}}
+                {% endfor %}
+            </td>
+        </tr>
+        
+        {% endif %}
+        <tr>
+            <th>Advance Salary EMI Months</th>            <td >
+               {% for x in emi %}
+               
+                    {{ x.eminumber }}{% if x.eminumber == 1 %} month {% else %} months {% endif %} ,
+               {% endfor %}
+           <a style="margin-left: 0px;position:relative;" href="{% url 'emi_update' %}"><b class="btn btn-info btn-sm">Edit</b></a>
+           </td>
+            
+        </tr>
+        <tr>
+            <th>Cafeteria Allowances</th>
+            <td>           
+                <a style="margin-left: 0px;position:relative;" href="{% url 'cafateria_allowance_set' %}"><b class="btn btn-info btn-sm">Edit</b></a>
+                {% for i in cef_allow %}
+                {{i.check_field}}
+                {% endfor %}
+
+            </td>
+        </tr>
+
+    </table>
+    </div>
+ </div>
+    <!-- <br> -->
+   
+         <div style="display:flex; align-items: center;justify-content: space-between;">                  
+            <h2 ><b style="flex:1;font-size: 25px;">Employee Data</b></h2>
+            <a href="/employedata_edit"><b class="btn btn-info ">Edit</b></a>
+        </div> 
+        
+          <table style="border-collapse: collapse; border: white;background:linear-gradient(rgb(239, 239, 247),rgb(238, 242, 244));">
+            <tr  style="color: black;" class="border">
+                <th>Additional Info Requested</th>
+                
+                {% for i in k6 %}
+                <td style="word-wrap: break-word;">{{ i.employe_id_prefix }}</td>
+                {% endfor %}</tr>
+                <tr >
+                <th>Employ Id Length</th>
+
+                {% for i in k6 %}
+                <td style="word-wrap: break-word;">{{ i.employ_idlength }}</td>
+                {% endfor %}
+
+            </tr>
+            <br>
+            <tr >
+                <th>Employ Directory</th>
+
+                {% for i in k6 %}
+                <td style="word-wrap: break-word;">{{ i.employe_directory }}</td>
+                {% endfor %}
+
+            </tr>
+          
+            <tr>
+                <th style="padding:10px;">Extra Time Slots</th>
+               </tr>
+               <tr>
+                <th style="padding: 10px;">Duration (minutes)</th>
+                {% for slot in et %}
+                <td colspan="6" style="padding: 10px;">{{ slot.duration }}</td>
+                {% endfor %}
+               
+               </tr>
+               <tr>
+                <th style="padding: 10px;">Reason </th>
+                {% for slot in et %}
+                <td colspan="6" style="padding: 10px;">{{ slot.reason }}</td>
+                {% endfor %}
+               
+               </tr>
+               <tr>
+                <th style="padding: 10px;">Created At</th>
+                {% for slot in et %}
+                <td colspan="6" style="padding: 10px;">{{ slot.created_at }}</td>
+                {% endfor %}
+               <td colspan="6" style="padding:10px"> <a style="margin-left: 60px;" href="{% url 'extra_time' %}">
+                    <b class="btn btn-info btn-sm">Edit</b></a></td>
+               
+               </tr>
+               <tr>
+                <th style="padding: 10px;">Assigned extra time for employees</th>
+                {% for emp in employs %}
+                <td colspan="6" style="padding: 10px;">{{ emp.empid }}</td>
+                {% endfor %}
+               
+               </tr>
+               <tr>
+                <th style="padding: 10px;">Employee Name</th>
+                {% for emp in employs %}
+                <td colspan="6" style="padding: 10px;">{{ emp.first_name }} {{ emp.last_name }}</td>
+                {% endfor %}
+               
+               </tr>
+               <tr>
+                <th style="padding: 10px;">Extra Time</th>
+                {% for emp in employs %}
+                <td colspan="6" style="padding: 10px;">{{ emp.extra_time }} </td>
+                {% endfor %}
+               
+               </tr>
+              
+              
+                    <td colspan="6" style="padding:10px"><a style="margin-left:60px;" href="{% url 'assign_extra_time' %}"><b class="btn btn-info btn-sm">Edit</b></a></td>
+                   </tr>           
+   
+        </table>
+         <br>
+         <div style="display:flex; align-items: center;justify-content: space-between;">                  
+            <h2 ><b style="flex:1;font-size: 25px;">Holidays, Leaves and Attendance</b></h2>
+            <a  href="/update_leave"><b class="btn btn-info">Edit</b></a>
+        </div>
+        
+             <div class="table-responsive">
+                <table style="border-collapse: collapse;border: white;background: linear-gradient(rgb(238, 239, 247),rgb(238, 242, 244));" >
+                    <tr > 
+               <th style="padding: 10px; color: black;">Custom Holiday</th>
+                {% for i in k5 %} 
+               <td colspan="6" style="padding: 10px; color: black;">{{i.date}}{{i.reason}}{% endfor %}</td>
+                </tr>
+                <tr>
+                <th style="padding: 10px;">Types Of Leaves</th>
+                {% for i in kp %}
+                <td colspan="6" style="padding: 10px;">{{i.type}}
+               </td> 
+               {% endfor %} 
+               </tr>
+                <tr> 
+               <th style="padding: 10px; ">Holidays</th>
+                {% for i in kk %}
+                <td colspan="6" style="padding: 10px; ">{{i.publicholiday_date}} {{i.festival_name}}</td>
+                {% endfor %} 
+               </tr> 
+               <tr>
+                <th style="padding: 10px;">Track Shift Timings</th>
+                {% for i in shifttime %}
+                <td colspan="6" style="padding: 10px;">{{i.starting_time}}</td>
+                {% endfor %}
+                </tr>
+                <tr>
+                <th style="padding: 10px; ">Default Shift Timing</th>
+                {% for i in shifttime %}
+                <td colspan="6" style="padding: 10px; ">{{i.ending_time}}</td> 
+               {% endfor %}
+                </tr> 
+               </table>
+            </div>
+                <br>
+               <br>
+               <br>
+               <center>
+               <div class="col-md-8">
+               <div style="display:flex; align-items: center;justify-content: space-between;">                  
+                <h2 ><b style="flex:1;font-size: 25px;">Reimbursements Setup</b></h2>
+                <a  href="/reimbursement_update"><b class="btn btn-info">Edit</b></a>
+           </div>
+               </div>
+                     
+                            
+               <div class="col-md-8">
+                 <table style="border-collapse: collapse;border: white;background: linear-gradient(rgb(239, 239, 247),rgb(238, 242, 244));" >
+                    {% for i in k9 %}
+                     <tr style="height: 40px;"><th>Reimbursements Enabled</th><td>{{i.Reimbursements_Enabled}}</td></tr>
+                     {% if i.Reimbursements_Enabled == 'Yes' %}
+                     <tr ><th>Attachments Compulsory</th><td>{{i.Make_attachments_compulsory}}</td></tr>
+                     <tr ><th>Pay Reimbursements With Salary</th><td>{{i.Include_reimbursements_with_payroll}}</td></tr>
+                     {% endif %}
+                     {% endfor %}
+                 </table>
+               </div>
+               </center>
+                    <br>
+                    <center>
+                        <div class="col-md-8">
+                    <div style="display:flex; align-items: center;justify-content: space-between;">                  
+                        <h2 ><b style="flex:1;font-size: 25px;">Documents Setup</b></h2>
+                        <a  href="/update_document_setup1"><b class="btn btn-info ">Edit</b></a>
+                    </div>  
+                        </div>
+                                          
+<!-- <br> -->
+
+<div class="col-md-8">
+  <table style="border-collapse: collapse; border: none;background: linear-gradient(rgb(239, 239, 247),rgb(238, 242, 244));">
+    <tr style="height: 40px;">
+        <th >Compulsory Documents</th>
+        <td >
+        {% for i in k8 %}
+        {% if i.Enabled == "Yes" %}
+        {% if i.compulsory == "Yes" %}
+             {{ i.document_type }} ,
+        {% endif %}
+        {% endif %}
+        {% endfor %}
+    </td>
+    </tr>
+</div>
+</table>
+<div style="display:flex; align-items: center;justify-content: space-between;">                  
+    <h2 ><b style="flex:1;font-size: 25px;">Designation Setup</b></h2>
+    <a  href="/employ_designation_form"><b class="btn btn-info ">Edit</b></a>
+</div>
+<table style="border-collapse: collapse; border: none;background: linear-gradient(rgb(239, 239, 247),rgb(238, 242, 244));">
+    <tr style="height: 40px;">
+          <th >Designation For Employs</th>
+        <td >
+            {% for i in k23 %}
+            {% if i.Enabled == "Yes" %}
+                 {{ i.designation_name }} ,
+            {% endif %}
+            {% endfor %}
+        </td>
+    </tr>
+
+
+</table>
+</center>
+
+   <br>
+<br>
+</div>
+                <div class="col-md-2"></div>
+        </div>
+{% endblock main_content %}

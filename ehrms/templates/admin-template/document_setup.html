@@ -1,0 +1,185 @@
+{% extends 'admin-template/base_template.html'%}
+{% block main_content %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Document setup</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr@4.6.9/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.9/dist/flatpickr.min.js"></script>
+    <style>
+    
+       
+    
+        
+        body {
+            background-color: #1e2442;
+            color: white;
+            font-size: 16px;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Additional styles for mobile view */
+        @media screen and (max-width: 768px) {
+            /* Mobile styles here */
+        }
+
+        /* Add more of your custom CSS here */
+    </style>
+</head>
+<body>
+    <form method="POST">
+        {% csrf_token %}
+
+        <label style="font-size: 30px;">WE😍DEVELOPTREES</label><br><br>
+
+
+        <h>Documents Setup</h><br>
+        <label style="widht:60%; background-color:#323a5f;">
+          Xpayroll gives your employees and contractors the option of uploding documents like ID's,<br> contracts etc.   
+        </label><br><br>
+        <table style=" width:70%; color:white; border:none; padding:10px; font-size:30px;height:10%; ">
+            <label style="font-size:25px;">document_type</label>
+  
+            <thead  style="text-align:center; background-color:#323a5f; font-size:20px; height:40%;width:80%">
+                <tr>
+                    <th>Professional Documents</th> 
+                    <th>Degree</th>
+                    <th>Aadhaar</th>  
+                    <th>Tax Deductions SupportingDocuments</th>  
+                    <th>Employment Contract</th>
+                    <th>Previous Employment Documents</th>
+                    <th>Bank Account Details</th>
+                    <th>PAN CARD</th>  
+                    <th>SSC</th>    
+                </tr>
+            </thead>
+            
+            <tbody style="text-align:center; background-color:#242b4d; font-size:80%;">
+                <tr>
+                    <td><input type="checkbox" name="document_type" value="Professional Documents" class="ch" ></td>
+                    <td><input type="checkbox" name="document_type" value="Degree" class="ch" ></td>
+                    <td><input type="checkbox" name="document_type" value="Aadhaar" class="ch" ></td>
+
+                    <td><input type="checkbox" name="document_type" value="Tax Deductions SupportingDocuments" class="ch" ></td>
+                    <td><input type="checkbox" name="document_type" value="Employment Contract" class="ch" ></td>
+                    <td><input type="checkbox" name="document_type" value="Previous Employment Documents" class="ch" ></td>
+                    <td><input type="checkbox" name="document_type" value="Bank Account Details" class="ch" ></td>
+                    <td><input type="checkbox" name="document_type" value="PAN CARD" class="ch" ></td>
+                    <td><input type="checkbox" name="document_type" value="SSC" class="ch" ></td>
+
+                </tr>
+                
+            </tbody> 
+        </table><br><br>
+        
+
+
+          <table style=" width:50%; color:white; border:none; padding:10px; font-size:30px;height:10%; ">
+  
+            <thead  style="text-align:center; background-color:#323a5f; font-size:20px; height:40%;">
+                <tr>
+                    <th>compulsory</th>
+                    <th>Enabled</th>  
+                </tr>
+            </thead>
+            
+            <tbody style="text-align:center; background-color:#242b4d; font-size:80%;">
+                <tr>
+                    
+                        
+                    <td>
+                        <label class="checkbox" style="color: white;">
+                            <input type="checkbox" name="compulsory">
+                            <span class="label-visible">
+                              <span class="fake-checkbox"></span>
+                              </span>
+                          </label>
+                      </td>
+                      
+                      <td>
+                        <label class="checkbox" style="color: white;">
+                            <input type="checkbox" name="Enabled">
+                            <span class="label-visible">
+                              <span class="fake-checkbox"></span>
+                              </span>
+                          </label>
+                      </td>
+                </tr>
+                
+            </tbody> 
+        </table><br><br>
+
+
+        <h5>*indicates required fields </h5><br><br>
+
+        <center>
+            <input type="submit" class="btn btn-lg btn-info " value="continue">
+          </center>
+        
+
+    </form>
+    
+    <script>
+          document.addEventListener('DOMContentLoaded', function() {
+            const selectAllCheckboxes = document.querySelectorAll('.select-all-checkbox');
+            
+            selectAllCheckboxes.forEach(function(selectAllCheckbox) {
+              selectAllCheckbox.addEventListener('change', function() {
+                const row = this.closest('tr');
+                const rowCheckboxes = row.querySelectorAll('.row-checkbox');
+                
+                rowCheckboxes.forEach(function(rowCheckbox) {
+                  rowCheckbox.checked = selectAllCheckbox.checked;
+                });
+              });
+            });
+          });
+    </script> 
+        
+    <script>
+        const attendanceCheckbox = document.getElementById('attendanceCheckbox');
+        const attendanceEnabledInput = document.getElementById('attendanceEnabled');
+
+        attendanceCheckbox.addEventListener('change', function() {
+            if (attendanceCheckbox.checked) {
+                attendanceEnabledInput.value = 'yes';
+            } else {
+                attendanceEnabledInput.value = 'no';
+            }
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('.ch').click(function() {
+                var selectedValues = []; // Initialize an array to store selected values
+        
+                $('.ch:checked').each(function() {
+                    selectedValues.push($(this).val()); // Add the value to the array
+                });
+        
+                var txt = selectedValues.join(', '); // Join the array into a comma-separated string
+                $("#chl").text(txt); // Set the text content of the element with ID "chl"
+            });
+        });
+        </script>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    <br><br><br>
+</body>
+</html>
+
+{% endblock main_content %}

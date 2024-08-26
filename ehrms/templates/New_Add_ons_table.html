@@ -1,0 +1,102 @@
+{% extends 'admin-template/adminAdashboard.html' %}
+{% block main_content %}
+
+        <title>        
+            New_Add_ons_table
+        </title>
+        <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw==" crossorigin="anonymous" referrerpolicy="no-referrer" />  -->
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-...." crossorigin="anonymous" />
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+       
+
+<style>
+
+
+
+            table {
+                width:600px;
+                background: #fff;
+                padding: 2px;
+                border-radius: 8px;
+                box-shadow: 3px 3px 3px 3px #888888;
+            }   
+
+
+    table,tr,th,td{
+    border:2px solid black;
+    padding: 10px;
+
+}
+
+
+th {
+    background-color: rgb(248, 151, 25);
+    color: white;
+}
+h2{
+    margin-top:100px ;
+
+}
+
+tr:nth-child(even) {
+    background-color:rgb(214, 228, 245);
+    color: black;
+}
+tr:nth-child(odd) {
+    background-color: rgba(195, 195, 197, 0.973);
+    color: black;
+
+}
+
+tr{
+    background-color: white;
+    color: black;
+}
+
+a {
+    color: black;
+}
+
+h2{
+    color: rgb(3, 96, 133);
+}
+        </style>
+<body class="d-flex justify-content-center">
+      
+            <h2>New Add Ons </h2><br>
+            <h6><b>Note:</b>Only Amount Will Be Updated Here.</h6>
+       
+        <table class=" table-responsive">
+            <thead>
+                <tr>
+                    <b>
+                        <th>Plan type</th>
+                        <th>Name of the Feature</th>
+                        <th>Amount</th>
+                        <th colspan="2">Actions</th>
+                    </b>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in p %}
+                <tr>
+                    <td style="padding-left: 10px;">{{i.plantype.annual_price}}</td>
+                    <td style="padding-left: 10px;">{{i.name}}</td>
+                    <td style="text-align: center;">{{i.amount}}</td>
+                    <td style="text-align: center;"><a href="{% url 'addonsupdate' id=i.id %}"><i class="fas fa-edit" style="color: blue; margin-right: 20px;"></i></a></td>
+                    <td><a href="{% url 'Delete_New_Add_ons' addon_id=i.id %}"><i class="fas fa-trash-alt" style="color: red;"></i></a></td>
+                    
+
+
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+
+
+{% endblock main_content %}
+
+

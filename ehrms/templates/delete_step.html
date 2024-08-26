@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete Step</title>
+</head>
+<body>
+    <h2>Confirm Deletion of Step</h2>
+    <p>Are you sure you want to delete Step "{{ step.title }}"?</p>
+    
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Delete</button>
+    </form>
+</body>
+</html>

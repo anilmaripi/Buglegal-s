@@ -1,0 +1,29 @@
+{% extends 'employhelp/basehelp.html' %}
+   {% block main_content %}
+   <style>
+       h5{
+           font-size: medium;
+       }
+   </style>
+   
+<form>
+    <p id="ha1" style="font-size: xx-large;">As an employer, how does verification of proof of tax deductions work?</p1>
+    
+    <p>HRMS will automatically verify proof of tax deductions (or IT declaration) for all employees of customers who are on our pro plan, and who have the setting enabled under Settings Tax Deductions Setup  Let HRMS verify tax deductions.</p>
+
+    
+   <p>For such customers, HRMS will start sending out email reminders to all employees who have claimed tax deductions in the month of December. The email contains a summary of their declaration, along with a last date by which the employee must upload proofs. On a separate note, while HRMS does provide the functionality for employees to upload Form 12BB, this is not required by us and is only provided in case you want it for your own records.</p><br>
+
+    <p>Once the last date passes, the HRMS team will start approving/rejecting the proofs that have been uploaded. Once all the employees have been processed, we will automatically change the following setting under Settings  Tax Deductions Setup, It will be changed to calculate tax on the basis of approved proofs only -</p>
+   
+    <p>Once both these settings have been changed, it will be up to the organization's administrators to <a href="/setup_guide">approve any further changes</a> to your employees' tax deductions. Hrms will not process any further updates to proofs either. </p><br>
+    <p>As an employer, please encourage your employees to upload these proofs as soon as possible. Once the setting to calculate tax on the basis of proofs is enabled, most employees who have not uploaded proofs will see an increase in their TDS and this should not come as a surprise to them. Once TDS is deducted and paid, it is not possible to refund it to the employee later either.</p>
+           <center><button style="width:50%;height: auto;font-size: x-large;border: 2px solid whitesmoke;">
+            <div id="a">
+                <p id="section10" style="text-align: center;">Did this answer your question?</p>
+                <p><a class="ex1" style="text-decoration: none;color: black;"><center>😄 😶 😔</center></a> </p>
+            </div>
+        </button></center><br><br><br>  
+        
+    </form>
+    {% endblock main_content %}

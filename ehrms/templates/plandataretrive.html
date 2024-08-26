@@ -1,0 +1,126 @@
+{% extends 'admin-template/adminAdashboard.html' %}
+{% block main_content %}
+<html>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <head>
+
+        <style>
+   
+    
+            .table {
+                margin-top: 20px;
+                width: 760px !important; 
+                height: auto;
+                border-radius: 10px;
+                border: none;
+                border-collapse: separate;
+                border-spacing: 15px 50px;
+                
+            }
+            tr{
+                padding-bottom: 50px;
+            }
+            table td {
+                text-align: left;
+                border-color: none;
+                width: 300px;
+                color:black;
+                padding: 8px;
+                
+            }
+            table,td {
+                text-align: center;
+                color: black;
+                font-size: 20px;
+            }
+          
+            
+            table tr:nth-child(odd){background-color: white;}
+            table tr:hover {background-color:  #e9e7e7;}
+    
+            table tr:nth-child(even){background-color:white;}
+            table tr:hover {background-color:  #e9e7e7;}
+            
+             
+            th{
+                color:black;
+                padding: 6px;
+                font-size:20px;
+                background-color:white;
+                width: 300px;
+                text-align: left;
+    
+            }
+            
+            .gfg {
+                border-collapse:separate;
+                border-spacing:0 15px;
+            }
+    
+            h2{
+                color:black;
+                font-size: xx-large;
+                text-align: center;
+            }
+            td{
+            max-width: 200px; 
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        
+        button{
+            color:black;
+            background-color: #ECE1;
+            border-radius: 10px;
+
+        }
+   
+
+    
+    </style>
+        
+    </head>
+    <body>
+    <div class="container"><br><br><br>
+
+        <button type="button" ><a href="/plandatas/"  style="color:black;text-align: none;font-size: x-large;text-decoration: none;">Add new data</a></button><br><br>
+
+        <div class="container-fluid w-100" style="background-color:#c9c8c6;border-radius: 10px; "><br>
+
+            <h2><b>Plans Data List</b></h2>
+            <table class="gfg">
+                        <tr>
+                          <th>Basic Plan</th>
+                          <th>Gold Plan</th>
+                          <th>Platinum Plan</th>
+                          <th>Diamond Plan</th>
+                          <th colspan="2">Action</th>
+                     
+                        </tr>
+              {% for plan in plans %}
+              <tr>
+                  <td>{{ plan.type1 }}</td>
+                  <td>{{ plan.type2 }}</td>
+                  <td>{{ plan.type3 }}</td>
+                  <td>{{ plan.type4 }}</td>
+                  
+                    <td>
+                      <a href="{% url 'plandataupdate' pk=plan.pk %}" class="btn btn-sm btn-primary">Update</a>
+                    </td>
+                    <td>
+                      <a href="{% url 'plandatadelete' pk=plan.pk %}" class="btn btn-sm btn-danger">Delete</a>
+                    </td>
+              </tr>
+             {% endfor %}
+            </table>
+        </div>
+      </div>
+      
+      </body>
+      
+</html>
+
+
+{% endblock main_content %}

@@ -1,0 +1,73 @@
+{% extends 'admin-template/base_template.html' %}{% block main_content %}
+<a href="/admin_reg/">
+  <button class="vamsi" style="float: right;height: 150px;border:none; padding: 5px; margin-right: 20px;background-color:#1e2442;color:whitesmoke;text-align: left;"><h6>View Past Requests</h6>
+   See the status of all your past 
+   <br>
+   Reimbursiment requests..
+
+   </button></a>
+<h2 style="margin-left: 10px;color: whitesmoke;">Claim for Reimbursiment :</h2>
+<br>
+<br>
+<div class="row">
+  <div class="col-md-9">
+<form action="{% url 'admin_reimbursement_status_view_save' %}" method="post" style="width: 80%;float: left;color: whitesmoke;margin-left: 30px;">{% csrf_token %}
+
+
+  <div class="form-group">
+    <label>Type of Rembursiment *</label>
+    <select class="form-control" style="background-color: #2d3354;border:none;color:whitesmoke;" required name="typea">
+    {% for i in k %}
+      <option value="{{i.name}}">{{i.name}}</option>
+      {% endfor %}
+    
+    </select> 
+    
+        
+        
+</div>
+<br>
+<div class="form-group">
+    <label>Expense Date *</label>
+    <input type="date" name="date" class="form-control" style="background-color: #2d3354;border: none;color: whitesmoke;" required>
+</div>
+<br>
+<div class="form-group">
+    <label>Any Detail </label>
+    <input type="text" class="form-control" style="background-color: #2d3354;border:none;color: whitesmoke;" name="detail" required>
+</div>
+<br>
+<div class="form-group">
+    <label>Amount *</label>
+    <input type="number" class="form-control" style="background-color: #2d3354;border: none;color: whitesmoke;" name="amount" required >
+</div>
+<br>
+<div class="form-group">
+    <label>Supporting images or documents*</label><br><br>
+    <input type="file" class="form-control" style="background-color: #2d3354;border: none;color: whitesmoke;" name="image" required>
+</div>
+   <div class="form-group">
+      {% if messages %}
+        {% for message in messages %}
+        {% if message.tags == 'error' %}
+        <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+        {% endif %}
+        {% if message.tags == 'success' %}
+        <div class="alert alert-success" style="margin-top:20px;background-color:green;color: whitesmoke;">{{ message }}</div>
+        {% endif %}
+        {% endfor %}
+      {% endif %}
+    </div>
+
+<br>
+ <h6>* indicates required fields</h6>
+<br>
+
+  <button type="submit" class="btn btn-primary btn-block" >Request Reimbursiment</button>
+<br>
+<br>
+</form>
+  </div>
+  </div>
+
+{% endblock main_content %}

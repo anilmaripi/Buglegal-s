@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Recuitment_Update</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+        
+    </head>
+
+    <style>
+        .form-container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+        }
+        .form-container h2 {
+            text-align: center;
+        }
+        .form-container label {
+            display: block;
+            margin-bottom: 8px;
+            color: white;
+        }
+        .form-container input[type="text"],
+        .form-container input[type="email"],
+        .form-container input[type="number"],
+        .form-container input[type="file"],
+        .form-container textarea,
+        .form-container select {
+            width: calc(100% - 16px);
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+       
+        .form-container input[type="file"],
+       
+        .form-container select {
+            width: calc(100% - 16px);
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            color: white;
+        }
+        .form-container input[type="submit"] {
+            background-color: #5785e9;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .form-container input[type="submit"]:hover {
+            background-color: #4169e1;
+        }
+        body{
+            background-color: #1e2442;
+        }
+        h1{
+            color:white;
+            text-align: center;
+        }
+    </style>
+<body>
+    <h1>Update Recruitment</h1>
+    <div class="form-container">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="heading">Heading:</label>
+        <input type="text" name="heading" value="{{ recruitment.heading }}" required>
+        <br>
+        <label for="description1">Description 1:</label>
+        <textarea name="description1" required>{{ recruitment.description1 }}</textarea>
+        <br>
+        <label for="description2">Description 2:</label>
+        <textarea name="description2" required>{{ recruitment.description2 }}</textarea>
+        <br>
+        <label for="image">Image:</label>
+        <input type="file" name="image">
+        <br>
+        <input type="submit" value="Update">
+        
+    </form>
+    </div>
+</body>
+</html>

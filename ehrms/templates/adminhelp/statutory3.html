@@ -1,0 +1,37 @@
+{% extends 'adminhelp/basehelp.html' %}
+{% block main_content %}
+<style>
+    h5{
+        font-size: medium;
+    }
+</style>
+
+    <form>
+        <p id="ha1" style="font-size: xx-large;">When will HRMS pay my TDS/PF/ESI/PT dues?</p1>
+    
+    <p id="ta">Post Hrms execution, the first thing you should check is whether HRMS has made a deduction for any compliance. The best way to do this is to go to Reports Ledger.HRMS will display all compliance payments individually for all employees and contractors. If you do not see any entries here, then that would mean that HRMS has not made any such deductions. Please note that HRMS does not file nil returns.
+    </p><br>
+    
+    <p id="tb">Next, please check the Status column in the ledger report. If the status is Success, then the payment has already been made. If it is Pending, then the payment will happen soon.</p><br>
+    <p>Compliance payments schedule -</p><br>
+    
+        <h5 id="tg">1. TDS - TDS is paid by HRMS by the 7th of every following month. For example, for your September Hrms, HRMS will pay TDS by 7th October. Or if you make a contractor payment where the invoice date is 10 January, then the TDS will be paid by 7 February (if there is no invoice date, then the date of payment itself is used to calculate the TDS payment date). The only exception to this is for Hrms and payments done in the month of March. Instead of TDS being paid by 7 April, it will get paid by 30 April. This is as per current tax regulations and allows our customers to ensure that everything for that financial year is being closed properly.</h5>
+        
+       <h5 id="th"> 2. PF - Payment and filing will be done by the 15th of the following month.</h5>
+        
+       <h5 id="ti">3. ESI - Payment and filing will be done by the 15th of the following month.</h5>
+        
+       <h5 id="tj"> 4. PT - Payment and filing will be done by the 15th-31st of the following month (depending on the state).</h5>
+    <p id="td">Do note that HRMS will also sometimes make the payment before the due date. </p>
+    <p id="te">To ensure that your compliance payments are made by the due date, we request you  please ensure that you process your Hrms / complete contractor payments at least 12 hours before the deadline. </p>
+    <p id="tf">After a payment has been made, you can find the TDS challans under Reports > TDS. For PF, ESI, and PT, please check Reports > Provident Fund, ESI & Professional Tax.</p><br>
+    
+         <center><button style="width:50%;height: auto;font-size: x-large;border: 2px solid whitesmoke;">
+            <div id="a">
+                <p id="section10" style="text-align: center;">Did this answer your question?</p>
+                <p><a class="ex1" style="text-decoration: none;color: black;"><center>😄 😶 😔</center></a> </p>
+            </div>
+        </button></center><br><br><br>  
+        
+    </form>
+    {% endblock main_content %}

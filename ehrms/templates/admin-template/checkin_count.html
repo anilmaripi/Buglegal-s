@@ -1,0 +1,119 @@
+{% extends 'admin-template/base_template.html' %}     
+{% block main_content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Check-In Employees</title>
+    <style>
+        tr:nth-child(even) {background-color: rgb(245,249,250)}
+        tr:nth-child(odd) {background-color: rgb(215,215,247)}
+        .pagination {
+    margin: 20px 0;
+    text-align: center;
+}
+
+/* .pagination a, .pagination .current-page {
+    display: inline-block;
+    padding: 8px 12px;
+    text-decoration: none;
+    margin: 0 4px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+} */
+
+.pagination a, .pagination .current-page {
+    display: inline-block;
+    padding: 8px 12px;
+    text-decoration: none;
+    margin: 0 4px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    text-align: center;
+}
+.act{
+  /* background-color: orange; */
+  color: white;
+  height:43px;
+  width:43px;
+  border-radius: 20px;
+
+}
+
+    </style>
+</head>
+<body style="margin-top: 50px; background-color: white;">
+    <div style="color: white; overflow: hidden;">
+        <center>
+            <!-- <h1 style="background-color: #40445c;">Checkin Employees Data for {{ today_date }}</h1> -->
+            <h2 style="background-color: #1dccc9;color: white;">Check-In Employees Data for {{ today_date }}</h2>
+       
+            <table class="table">
+                <tr style="background-color: black; font-size: 20px;">
+                    <th>Employee ID</th>
+                    <th>Employee Name</th>
+                    <th>Shifts</th>
+                    <th>Status</th>
+                </tr>
+                {% for employee in employee_data %}
+                    <tr style="font-size: 18px;background: linear-gradient(rgb(233,233,243),rgb(208,210,211));">
+                        <td>{{ employee.empid }}</td>
+                        <td>{{ employee.first_name }}</td>
+                        <td>{{ employee.working12 }}</td>
+                        <td>{{ employee.status }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </center>
+    </div>
+    <!-- <div class="pagination" style="margin-left: 500px;color:white ;padding-left: 24px;" >
+        <span class="step-links">
+            {% if  employee_data.has_previous %}
+                <a href="?page=1">&laquo; First</a>
+                <a href="?page={{  employee_data.previous_page_number }}" class="prev">&#8249; << </a>
+            {% endif %}
+      
+            {% for page in  employee_data.paginator.page_range %}
+                <a href="?page={{ page }}" {% if page ==  employee_data.number %}class="active"{% endif %}>{{ page }}</a>
+            {% endfor %}
+      
+            {% if employee_data.has_next %}
+                {% if  employee_data.number !=  employee_data.paginator.num_pages %}
+                {% endif %}
+                <a href="?page={{  employee_data.paginator.num_pages }}">&raquo; >> </a>
+            {% endif %}
+        </span>
+      </div> -->
+
+      <div class="pagination" style="color:white; margin:20px auto;">
+        <span class="step-links">
+            {% if employee_data.has_previous %}
+                <a  href="?page=1">&laquo;<<</a>
+                <a   href="?page={{ employee_data.previous_page_number }}" class="prev"> < </a>
+            {% endif %}
+    
+
+            {% for i in employee_data.paginator.page_range %}
+            {% if employee_data.number == i %}
+            <button class="active act bg-info"><span>{{ i }} <span class="sr-only">(current)</span></span></button>
+            {% elif i > employee_data.number|add:'-3' and i < employee_data.number|add:'3' %}
+                <a  href="?page={{ i }}">{{ i }}</a>
+            {% endif %}
+            {% endfor %}
+
+           
+
+            {% if employee_data.has_next %}
+                {% if employee_data.number != employee_data.paginator.num_pages %}
+                {% endif %}
+                <a   href="?page={{ employee_data.next_page_number }}" class="prev">> </a>
+
+                <a  href="?page={{ employee_data.paginator.num_pages }}">>>&raquo; </a>
+            {% endif %}
+        </span>
+    </div>   
+
+</body>
+</html>
+{% endblock main_content %}

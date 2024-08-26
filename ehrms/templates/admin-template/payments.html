@@ -1,0 +1,133 @@
+{% extends 'admin-template/base_template.html' %}{% block main_content %}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+
+<br><br>
+
+<div class="row justify-content-center">
+  <div class="col-lg-8 col-12">
+    <h2>Update Payments and Compilance Setup</h2><br>
+
+<form method="post" action="{% url 'payments_update' %}"  enctype="multipart/form-data">{% csrf_token %}
+    <div style="background-color: #282f51; color: white; width: auto; height: auto; border:none;font-size: medium;text-align: justify;padding: 30px;margin-top: 20px;margin-bottom: 20px;">
+        Select which payments and filings you would like to handle for you. For the most automated and effortless experience, you should let us handle everything
+    </div>
+    
+   
+   
+      <div class="form-check">
+        <input type="checkbox" name="bankaccount" class="form-check-input">
+        <label class="form-check-label" style="color:white;"> Salary transfers to employees' bank accounts</label>
+      </div>
+      <br>
+      <div style="background-color: #282f51; color: white; width: auto; height: auto; border:none;font-size: medium;text-align: center;padding: 10px;margin-top: 20px;margin-bottom: 20px;">
+
+    <h4 style="color: white;">Preferred method for bank transfer</h4></div><br>
+    <select name="banktransfer" class="form-control" style="width: auto;height: auto;background-color: #2d3354;color: white;border: none;padding:10px;">
+        <option>Dynamic (Recommended)</option>
+        <option>Disabled</option>
+    </select><br>
+    <div style="background-color: #282f51; color: white; width: auto; height: auto; border:none;font-size: medium;text-align: justify;padding: 30px;margin-top: 20px;margin-bottom: 20px;">
+      While uses intelligent switching between modes - NEFT, IMPS and RTGS to provide a hassle-free experience
+    </div><br>
+    <div style="background-color: #282f51; color: white; width: auto; height: auto; border:none;font-size: medium;text-align: center;padding: 10px;margin-top: 20px;margin-bottom: 20px;">
+
+    <h4>Please choose your Compliance Payment settings </h4>
+    </div><br>
+    <div style="background-color: #282f51; color: white; width: auto; height: auto; border:none;font-size: medium;text-align: justify;padding: 30px;margin-top: 20px;margin-bottom: 20px;">
+      Please note that disabling the payment of TDS/PF/ESI/PT does not disable the deduction of the same in your employees' payslips.
+    </div><br>
+    <div class="form-check">
+      <label class="form-check-label" style="color:white">
+          <input type="checkbox" name="tds_payment"  {% if k.tds_payment == 'Yes' %}checked{% endif %}>
+          Salary TDS payments(if applicable)
+        </label>
+    </div>
+
+          
+    <br>
+    <div class="form-check">
+      <label class="form-check-label" style="color:white">
+          <input type="checkbox" name="tds_payment1"  {% if k.tds_payment1 == 'Yes' %}checked{% endif %}>
+          Non-Salary TDS payments(if applicable)
+        </label>
+    </div>
+    <br>
+    <div class="form-check">
+      <label class="form-check-label" style="color:white">
+          <input type="checkbox" name="pf_payment"  {% if k1.pf_payment == 'Yes' %}checked{% endif %}>
+          PF payments and filing (if applicable)
+        </label>
+    </div>
+    <br>
+    <div class="form-check">
+      <label class="form-check-label" style="color:white">
+          <input type="checkbox" name="esi_payment"  {% if k2.esi_payment == 'Yes' %}checked{% endif %}>
+          ESI payments and filling (if applicable)</label>
+    </div>
+     <br>
+     <div class="form-check">
+      <label class="form-check-label" style="color:white ; font-size: 18px;">
+          <input type="checkbox" name="pt_payment"  {% if k3.pt_payment == 'Yes' %}checked{% endif %}>
+          Professional Tax payments and filing (if applicable)
+        </label>
+    </div>
+    <br>
+        <div style="background-color: #282f51; color: white; width: auto; height: auto; border:none;font-size: medium;text-align: center;padding: 10px;margin-top: 20px;margin-bottom: 20px;">
+        <h4>  Please choose your PF settings.</h4>
+        </div><br>
+        <div class="form-check">
+          <label class="form-check-label" style="color:white">
+              <input type="checkbox" name="pf_setup"  {% if k1.pf_setup == 'Yes' %}checked{% endif %}>
+              Include employer contributon to PF in employee CTC
+            </label>
+        </div><br>
+  
+        <div class="form-check">
+          <label class="form-check-label" style="color:white">
+              <input type="checkbox" name="pf_setup1"  {% if k1.pf_setup1 == 'Yes' %}checked{% endif %}>
+              Include PF edil + admin charges in employee Collector
+            </label>
+        </div><br>
+        <div class="form-check">
+          <label class="form-check-label" style="color:white">
+              <input type="checkbox" name="pf_setup2"  {% if k1.pf_setup2 == 'Yes' %}checked{% endif %}>
+              Use only basic salary for calculating PF(warning!)
+            </label>
+        </div><br>
+        <div class="form-check">
+          <label class="form-check-label" style="color:white">
+              <input type="checkbox" name="pf_setup3"  {% if k1.pf_setup3 == 'Yes' %}checked{% endif %}>
+              Use PF limit of Rs 15,000 while calculating contributions
+            </label>
+        </div><br>
+  
+      <br>    
+    
+    <div style="background-color: #282f51; color: white; width: auto; height: auto; border:none;font-size: medium;text-align: center;padding: 10px;margin-top: 20px;margin-bottom: 20px;">
+     <h4> Please choose your ESI settings.</h4>
+    </div><br>
+    <div class="form-check">
+      <label class="form-check-label" style="color:white">
+          <input type="checkbox" name="esi_settings"  {% if k2.esi_settings == 'Yes' %}checked{% endif %}>
+          Include payroll additions and one-time payments to ESI wages
+        </div><br>
+    <div class="form-check">
+      <label class="form-check-label" style="color:white">
+          <input type="checkbox" name="esi_settings1"  {% if k2.esi_settings1 == 'Yes' %}checked{% endif %}>
+          Include employer contribution to ESI in employee CTC
+        </label>
+    </div>
+  <br>    
+    <b>* Indicates required fields</b>
+    <br>
+    <br>
+
+    <button type="submit" style="padding-left: 10px; height: 50px; width: 180px; background-color: #0079bf;">
+      <a href="setting/"><b style="color: white;">CONTINUE</b>
+    </button>
+</form>
+        </div></div>
+{% endblock main_content %}
+

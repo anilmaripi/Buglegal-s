@@ -1,0 +1,146 @@
+{% extends 'admin-template/base_template.html' %}
+
+{% block main_content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Records</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: white;
+}
+
+h2 {
+    color: #333;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table, td {
+    border: 2px solid #ddd;
+    padding: 10px;
+    text-align: center;
+    color: black;
+    background: linear-gradient(rgb(239,239,247),rgb(238, 243,244));
+}
+
+th {
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    font-size: 25px;
+    border: 2px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+.pagination a, .pagination .current-page {
+    display: inline-block;
+    padding: 8px 12px;
+    text-decoration: none;
+    margin: 0 4px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    transition: background-color 0.3s;
+    text-align: center;
+    color:blue;
+}
+.act{
+  /* background-color: orange; */
+  color: white;
+  height:43px;
+  width:43px;
+  border-radius: 20px;
+
+}
+/* 
+
+tr:hover {
+    background-color:black;
+} */
+    </style>
+</head>
+<body>
+    <form method="post">{% csrf_token %}
+    <div class="col">
+        <div class="form-group text-dark">
+          <label>Date:</label>
+          <input type="date" name="d1" style="width: 50%;" class="form-control">
+        </div>
+        <br>
+        <input type="submit" value="Search" class="btn btn-info">
+
+      </div>
+      </form>
+      <br>
+      <br>
+    
+    <h2>{{ employee_instance.first_name }} {{ employee_instance.last_name }} Records</h2>
+    <table >
+        <thead>
+            <tr>
+                <th>Login Time</th>
+                <th>Logout Time</th>
+                <th>Total Duration</th>
+                <!-- <th>Duration Since Last Logout (IDLE)</th> -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for record in records %}
+                <tr>
+                    <td>{{ record.login_time }}</td>
+                    <td>{{ record.logout_time }}</td>
+                    <td>
+                        {% if record.total_duration is not None %}
+                            {{ record.total_duration }}
+                        {% else %}
+                            Employee not logged out
+                        {% endif %}
+                    </td>
+                    <!-- <td>
+                        {% if record.duration_since_last_logout is not None %}
+                            
+
+                           {{ record.duration_since_last_logout }}
+                        {% else %}
+                            N/A
+                        {% endif %}
+                    </td> -->
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table> 
+    <div class="pagination" style="color:white; margin:20px auto;">
+        <span class="step-links">
+            {% if records.has_previous %}
+                <a  href="?page=1">&laquo;<<</a>
+                <a   href="?page={{ records.previous_page_number }}" class="prev"> < </a>
+            {% endif %}
+    
+    
+            {% for i in records.paginator.page_range %}
+            {% if records.number == i %}
+            <button class="active act bg-info"><span>{{ i }} <span class="sr-only">(current)</span></span></button>
+            {% elif i > records.number|add:'-3' and i < records.number|add:'3' %}
+                <a  href="?page={{ i }}">{{ i }}</a>
+            {% endif %}
+            {% endfor %}
+    
+           
+    
+            {% if records.has_next %}
+                {% if records.number != records.paginator.num_pages %}
+                {% endif %}
+                <a   href="?page={{ records.next_page_number }}" class="prev">> </a>
+    
+                <a  href="?page={{ records.paginator.num_pages }}">>>&raquo; </a>
+            {% endif %}
+        </span>
+    </div> 
+</body>
+</html>
+{% endblock main_content %}

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<style>
+
+
+.card1gr{
+
+background: rgb(107, 111, 172);
+
+background: linear-gradient(90deg, rgb(107, 111, 172) 0%, hsla(211, 100%, 28%, 1) 100%);
+
+background: -moz-linear-gradient(90deg, rgb(107, 111, 172) 0%, hsla(211, 100%, 28%, 1) 100%);
+
+background: -webkit-linear-gradient(90deg, rgb(107, 111, 172) 0%, hsla(211, 100%, 28%, 1) 100%);
+
+filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#000328", endColorstr="#00458E", GradientType=1 );
+
+}
+.card2gr{
+background: hsla(0, 100%, 67%, 1);
+
+background: linear-gradient(90deg, hsla(0, 100%, 89%, 1) 0%, hsla(0, 100%, 67%, 1) 50%);
+
+background: -moz-linear-gradient(90deg, hsla(0, 100%, 89%, 1) 0%, hsla(0, 100%, 67%, 1) 50%);
+
+background: -webkit-linear-gradient(90deg, hsla(0, 100%, 89%, 1) 0%, hsla(0, 100%, 67%, 1) 50%);
+
+filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#FF5858", endColorstr="#FFC8C8", GradientType=1 );
+}
+.card3gr{
+    background: hsla(167, 68%, 73%, 1);
+
+background: linear-gradient(90deg, hsla(167, 68%, 73%, 1) 0%, hsla(178, 59%, 48%, 1) 100%);
+
+background: -moz-linear-gradient(90deg, hsla(167, 68%, 73%, 1) 0%, hsla(178, 59%, 48%, 1) 100%);
+
+background: -webkit-linear-gradient(90deg, hsla(167, 68%, 73%, 1) 0%, hsla(178, 59%, 48%, 1) 100%);
+
+filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#8DE9D5", endColorstr="#32C4C0", GradientType=1 );
+}
+.card4gr{
+    background: hsla(38, 81%, 52%, 1);
+
+background: linear-gradient(90deg, hsla(62, 76%, 64%, 1) 0%, hsla(38, 81%, 52%, 1) 100%);
+
+background: -moz-linear-gradient(90deg, hsla(62, 76%, 64%, 1) 0%, hsla(38, 81%, 52%, 1) 100%);
+
+background: -webkit-linear-gradient(90deg, hsla(62, 76%, 64%, 1) 0%, hsla(38, 81%, 52%, 1) 100%);
+
+filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#E89D1F", endColorstr="#E4E95D", GradientType=1 );
+}
+    body {
+        background-color: #f8f9fa;
+        font-family: "Poppins", sans-serif;
+    }
+
+    .container {
+        margin-top: 10px;
+    }
+
+    .card {
+        font-size: 1em;
+        overflow: hidden;
+        padding: 0; 
+        border: none;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+        background-color: #fff;
+    }
+
+    .card img {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        margin: 20px auto;
+    }
+
+    .card-block {
+        padding: 20px;
+        
+    }
+
+    .card-title {
+        font-size: 1.25rem;
+        margin-bottom: 15px;
+        color: #333;
+    }
+
+    .card-text {
+        font-size: 1rem;
+        margin-bottom: 20px;
+        color: #666;
+    }
+
+    .count {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #000;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 10px;
+        background-color: #007bff;
+        border: none;
+        border-radius: 0.25rem;
+        color: white;
+        text-transform: uppercase;
+    }
+
+    .btn:hover {
+        background-color: #0056b3;
+    }
+
+    .card-light {
+        background-color: #e0e0e0;
+    }
+
+    .card-dark {
+        background-color: #33D9B2;
+    }
+
+    @media (max-width: 768px) {
+        .card img {
+            width: 50px;
+            height: 50px;
+        }
+
+        .card-block {
+            padding: 10px;
+        }
+    }
+</style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mt-2">
+                <div class="card card-dark card1gr">
+                    <div class="row align-items-center">
+                        <div class="col-4 text-center">
+                            <img src="/media/images/icons  (5).png" alt="Check-In">
+                        </div>
+                        <div class="col-8">
+                            <div class="card-block">
+                                <h5 class="card-title text-white">Check-In Employees <span class="count" style="color: white;"><br>{{b}}</span></h5>
+                                <a href="/checkin_countdata/" class="btn btn-primary">View More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mt-2">
+                <div class="card card-light card2gr">
+                    <div class="row align-items-center">
+                        <div class="col-4 text-center">
+                            <img src="/media/images/icons  (7).png" alt="Non Check-In">
+                        </div>
+                        <div class="col-8">
+                            <div class="card-block">
+                                <h5 class="card-title text-white">Non Check-In Employees <span class="count" style="color: white;"><br>{{d}}</span></h5>
+                                <a href="/employee_records/" class="btn btn-primary">View More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mt-2">
+                <div class="card card-light card3gr">
+                    <div class="row align-items-center">
+                        <div class="col-4 text-center">
+                            <img src="/media/images/icons  (6).png" alt="Total Employees">
+                        </div>
+                        <div class="col-8">
+                            <div class="card-block">
+                                <h5 class="card-title text-white">Total Employees  <span class="count" style="color: white;"><br>{{c}}</span></h5>
+                                <a href="/people_count/" class="btn btn-primary">View More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mt-2">
+                <div class="card card-light card4gr">
+                    <div class="row align-items-center">
+                        <div class="col-4 text-center">
+                            <img src="/media/images/icons  (9).png" alt="Leave Employees">
+                        </div>
+                        <div class="col-8">
+                            <div class="card-block">
+                                <h5 class="card-title text-white">Leave Employees <span class="count" style="color: white;"><br>{{ today_leave_applicants_count }}</span></h5>
+                                <a href="/employ_leave_view/" class="btn btn-primary">View More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="col-md-6 mt-2">
+                <div class="card card-light">
+                    <div class="row align-items-center">
+                        <div class="col-4 text-center">
+                            <img src="/media/images/images (3).jpg" alt="Payslips">
+                        </div>
+                        <div class="col-8">
+                            <div class="card-block">
+                                <h5 class="card-title">Payslips</h5>
+                                <a href="/admin_payslip_view/" class="btn btn-primary">View More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+</body>
+</html>

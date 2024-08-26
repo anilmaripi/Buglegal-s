@@ -1,0 +1,29 @@
+{% extends 'employhelp/basehelp.html' %}
+{% block main_content %}
+<style>
+    h5{
+        font-size: medium;
+    }
+</style>
+
+<form>
+    <p id="ha1" style="font-size: xx-large;">As an employer, how do I verify my employee's tax deductions?</p><br>
+    
+    <p id="ta">There are 2 parts to this - your employees' tax deductions declaration (which can be updated at any point of the year), and their associated proofs (usually updated around January).</p>
+    <p id="ha2" style="font-size: xx-large;">Approval process for tax deductions declaration</p>
+    
+    <p id="tb">This is applicable if under Settings  Tax Deductions Setup, the option for "Require admin approval for deductions updates" is enabled. If any of your employees change their declaration, then you will see a reminder on your dashboard which says "Please confirm these changes to your employee data". Please click on that link, and it will show you a list of changes which you can approve or reject. </p>
+    <p id="ha3" style="font-size: xx-large;">Approval process for tax deductions proofs</p>
+    <p id="tc">Please navigate to Reports  Tax Deductions, and you will see a report of all your employees and their tax deductions. Here, under "Proof Verification Status", check for employees where the status is "pending". You can click on the status for those employees, which will take you to their tax deductions declaration. </p><br>
+
+    <p id="td">On this page, you will see link(s) that say "Manage proofs" wherever the employee has uploaded a proof. Click on these links, and check for proofs where the status is "pending". For those, you can view the proof documents and approve/reject the proof accordingly.</p><br>
+    
+         <center><button style="width:50%;height: auto;font-size: x-large;border: 2px solid whitesmoke;">
+            <div id="a">
+                <p id="section10" style="text-align: center;">Did this answer your question?</p>
+                <p><a class="ex1" style="text-decoration: none;color: black;"><center>😄 😶 😔</center></a> </p>
+            </div>
+        </button></center><br><br><br>  
+        
+    </form>
+    {% endblock main_content %}

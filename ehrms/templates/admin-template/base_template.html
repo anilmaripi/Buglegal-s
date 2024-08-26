@@ -1,0 +1,1106 @@
+{% load static %}
+{% load notifications_tags %}
+
+<html>
+    <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+      <link rel="stylesheet" href="style.css">
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" rel="stylesheet"/> 
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"></script>
+       <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" type="text/css" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
+  <!-- Ionicons -->
+  <link rel="stylesheet" type="text/css"  href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Tempusdominus Bbootstrap 4 -->
+  <link rel="stylesheet" type="text/css"  href="{% static 'plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css' %}">
+  <!-- iCheck -->
+  <link rel="stylesheet" type="text/css"  href="{% static 'plugins/icheck-bootstrap/icheck-bootstrap.min.css' %}">
+  <!-- JQVMap -->
+  <link rel="stylesheet" type="text/css"  href="{% static 'plugins/jqvmap/jqvmap.min.css' %}">
+  <!-- Theme style -->
+  <link rel="stylesheet" type="text/css"  href="{% static 'dist/css/adminlte.min.css' %}">
+  <link rel="stylesheet" type="text/css"  href="{% static 'dist/css/baseadmin.css' %}">
+
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" type="text/css"  href="{% static 'plugins/overlayScrollbars/css/OverlayScrollbars.min.css' %}">
+  <!-- Daterange picker -->
+  <link rel="stylesheet" type="text/css"  href="{% static 'plugins/daterangepicker/daterangepicker.css' %}">
+  <!-- summernote -->
+  <link rel="stylesheet" type="text/css"  href="{% static 'plugins/summernote/summernote-bs4.css' %}">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css">
+    <!-- Volt CSS -->
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.5/css/buttons.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.5/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.print.min.js"></script>
+    <script src="/static/visuals/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/js/bootstrap-tooltip.js"></script>
+    <!-- <script src="/static/visuals/custom.js"></script> -->
+    <script src="/static/visuals/echarts.min.js"></script>
+    {% block myedit %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.10.2/viewer.js"
+        integrity="sha512-taR40V17AK2+3RjqzCYkczb0/hTHuQCid0kBs0I2g6DqkFjkTcAIpsa+4PzGuWcRica2AOZQmz4pNPj4InFR8A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.10.2/viewer.common.js"
+        integrity="sha512-kn4fARiLsrEj4/9vta8QR9+MmC40x+zuc7M+tihnyZk6hZrQkkxGaHrIGCYE6VZnIY/pOgLhDyqtOLtg/XenuQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.10.2/viewer.common.js"
+        integrity="sha512-kn4fARiLsrEj4/9vta8QR9+MmC40x+zuc7M+tihnyZk6hZrQkkxGaHrIGCYE6VZnIY/pOgLhDyqtOLtg/XenuQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.10.2/viewer.esm.js"
+        integrity="sha512-F+O/wYuPFPhKr+2lkkyK64aTUQD0FWytFO8LRxVnobX6rYcrUS7OPj+k5yk/mEe5SNZ3PbljhnjRNdnIM8yDqg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.10.2/viewer.css"
+        integrity="sha512-HGWrJz+Lr07phD0DNoLsSVwn3przno/eSLf1cGOrLzr6c7NUZROZJPhQdSPmLHNbsO0HP2UfUnpKTMiVxonEHw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <!--Lottie Js-->
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <script src="{% static 'notifications/notify.js' %}" type="text/javascript"></script>
+   {% endblock myedit %}
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" rel="stylesheet"/> 
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"></script>
+
+    {% register_notify_callbacks callbacks='fill_notification_list,fill_notification_badge' %}
+
+  {% block custom_css %}{% endblock custom_css %}
+  <style>
+     @import url('https://fonts.googleapis.com/css?family=Montserrat:400,600,700|Trade+Winds&display=swap');
+
+
+.listlist{
+  width: 500px;
+   padding: 0 !important;
+   margin: 0;
+   cursor: pointer;
+
+}
+.txtovrflw{
+  white-space: initial;
+
+  word-wrap: break-word;
+
+}
+    .main{
+      position: absolute;
+    }
+    .nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  background-color: #2c3531;
+  color: white;
+  padding: 10px;
+  border:none;
+}
+.navbar {
+  display: flex;
+  align-items: center;
+  width: 100vw;
+  background-color: var(--nav);
+  box-shadow: 0px 10px 10px 3px rgba(0, 0, 0, 0.3);
+  position: relative;
+  padding: 0px 70px;
+  color: #fff;
+}
+
+.toggle-menu1 {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.toggle-menu1.active .bar:nth-child(1),
+.toggle-menu1.active .bar:nth-child(3) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.toggle-menu1.active .bar:nth-child(2) {
+  opacity: 0;
+}
+
+.menu {
+  list-style: none;
+  display: flex;
+}
+
+.menu li {
+  margin: 0 10px;
+  position: relative;
+}
+.uer-icon{
+  cursor: pointer;
+}
+.menu li a {
+  text-decoration: none;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .toggle-menu1 {
+    display: flex;
+  }
+  
+  .menu {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    background-color: #333;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    z-index: 1;
+  }
+
+  .menu.active {
+    display: flex;
+  }
+}
+
+.sub-menu {
+  display: none;
+  list-style: none;
+  position: absolute;
+  background-color: #444;
+  top: 63px;
+  right:0px;
+  width: 200px;
+  z-index: 2;
+  transition: left 0.3s ease; 
+}
+
+.menu li:hover .sub-menu {
+  display: block;
+}
+
+.sub-menu li {
+  padding: 10px;
+}
+.fa-user-o {
+            cursor: pointer;
+        }
+
+        .sub-menu.active li {
+            display: block;
+        }
+
+.sub-menu li a {
+  text-decoration: none;
+  color: white;
+}
+.sub-menu.active {
+            left: -10px; /* Move submenu to the left when active */
+        }
+
+
+   
+  </style>
+  <style>
+    .sticky-fixed-container {
+  /* Styles for the container */
+  height: 1000px; /* Set a height to demonstrate scrolling */
+  position: relative;
+  background-color: #f2f2f2;
+}
+
+.sticky-element {
+  /* Default styles for the element */
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+}
+
+.sticky {
+  /* Styles for sticky positioning */
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.fixed {
+  /* Styles for fixed positioning */
+  position: fixed;
+  top: 50px; /* Adjust as needed */
+  left: 50px; /* Adjust as needed */
+  z-index: 100;
+  background-color: #fff;
+  border: 1px solid #ccc;
+}
+
+     .menu {
+    list-style: none;
+    padding: 0;
+    background-color: #333;
+    display: flex;
+  }
+  .menu li {
+    position: relative;
+  }
+  .menu a {
+    display: block;
+    padding: 10px 20px;
+    color: white;
+    text-decoration: none;
+  }
+  .sub-menu {
+    display: none;
+    position: absolute;
+    background-color: #444;
+    z-index: 1;
+    padding: 0%;
+    margin: 0%;
+  }
+  .sub-menu li {
+    width: 100%;
+    padding: 0px 0px 0px 28px;
+    margin: 0%;
+    background-color: #2c3531;
+  }
+  .menu li:hover .sub-menu {
+    display: block;
+    
+  }
+  .sub-menu li:hover{
+    background-color:rgba(222, 222, 231, 0.3);
+  }
+  @media screen and (max-width: 768px) {
+    .menu {
+      flex-direction: column;
+    }
+    .menu li {
+      position: static;
+    }
+    .sub-menu {
+      position: flex;
+      display: none;
+      margin-bottom: 5px;
+      left: 200px;
+    }
+    .menu li:hover .sub-menu {
+      display: none;
+      
+    }
+    .hidden {
+    display: none;
+}
+.hidden1{
+    display:block;
+}
+.item li{
+    padding-top: 15px ;
+    margin-left: 0;
+  }
+  h4{
+    font-size: medium;
+  }
+ul.item{
+    margin: 0px;
+    padding: 0px;
+}
+.user-text{
+  display: none;
+}
+.item2{
+  margin: 0;
+  padding: 0;
+}
+  }
+  .item li{
+    padding-top: 20px ;
+    margin-left: 30px;
+  }
+  .sub-menu li{
+    padding: 5px 2px 10px 10px;
+    margin: 0;
+  }
+  
+  </style>
+  <style>
+    .side-menu{
+      margin-top: 0px;
+    }
+    
+ul.menu-child li a{
+  font-size: 13px;
+  height: 30px;
+  padding: 10px;
+  padding-top: 10px;
+  padding-top: -10px;
+  margin-top: 10px;
+}
+
+.icon-badge-icon {
+  font-size: 30px;
+  position: relative;
+  
+}
+
+.icon-badge-notification {
+  /* background-color: red; */
+  font-size: 12px;
+  color: white;
+  text-align: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 35%;
+  position: relative;
+  top: -40px;
+  left: 26px;
+  background-color: red;
+}
+.main{
+  height: calc(100% - 64px);
+}
+@media (max-width: 768px) {
+  .side-menu{
+    top: 65px;
+  }
+}
+.sub-menu a{
+  color: #fff;
+}
+body{
+  font-family:"Poppins";
+  color:#fff;
+}
+.content {
+  margin-top: 0%;
+  background-color: #ffffff !important;  
+  height: calc(100% - 0px); 
+  margin-bottom: 0px;
+  overflow: auto;
+}
+
+
+.notification-list {
+        max-height: 300px; 
+        overflow-y: auto; 
+    }
+    .fixed-bottom-my{
+      position:fixed;
+      right:0;
+      bottom:0;
+      left:0;
+      
+    }
+    
+    .no-notifications {
+        padding: 10px;
+        text-align: center;
+        color: #000000; 
+    }
+    .menu-items{
+  overflow: auto;
+
+}
+/* Hide scrollbar for Chrome, Safari and Opera */
+.menu-items::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.menu-items {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+/* Hide scrollbar for Chrome, Safari and Opera */
+.content::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.content {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+  </style>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+      .sos-btn {
+          background-color: #fb0e1e;
+          color: #fff;
+          padding: 8px 15px;
+          border-radius: 5px;
+          text-decoration: none;
+          font-weight: bold;
+          transition: background-color 0.3s ease;
+          display: none; /* Hidden by default */
+      }
+
+      .sos-btn:hover {
+          background-color: #ff4837;
+      }
+
+      .blinking {
+          animation: blinkingText 2.2s infinite;
+      }
+
+      @keyframes blinkingText {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+  </style>
+  <script>
+      document.addEventListener('DOMContentLoaded', function() {
+          let sosButton = document.getElementById('sosBtn');
+          setInterval(checkForNewSOS, 5000); // Check for new SOS every 5 seconds
+
+          sosButton.addEventListener('click', function() {
+              window.location.href = '/sos-details/';
+          });
+
+          function checkForNewSOS() {
+              fetch('/fetch-sos-data/')
+                  .then(response => response.json())
+                  .then(data => {
+                      if (data.new_sos) {
+                          showSOSButton();
+                      }
+                  })
+                  .catch(error => {
+                      console.error('Error fetching SOS data:', error);
+                  });
+          }
+
+          function showSOSButton() {
+  sosButton.style.display = 'inline-block'; // Show the button
+  sosButton.style.backgroundColor = '#fb0e1e'; // Initial color
+  sosButton.style.color = '#fff'; // Text color
+
+  // Add blinking animation
+  sosButton.classList.add('blinking');
+
+  setTimeout(function() {
+      sosButton.classList.remove('blinking');
+      sosButton.style.backgroundColor = '#ff4837'; // Blinking color
+      sosButton.style.color = '#fff'; // Text color remains white
+      setTimeout(function() {
+          sosButton.style.display = 'none'; // Hide the button after blinking
+      }, 1000); // Blink for 1 second
+  }, 60000); // Blink for at least one minute
+}
+
+      });
+  </script>
+
+
+
+    </head>
+    <!-- <script type="text/javascript">
+      (function(d, m){
+          var kommunicateSettings = 
+              {"appId":"28443ffdae37c334c56ec67fbd3ecfb05","popupWidget":true,"automaticChatOpenOnNavigation":true};
+          var s = document.createElement("script"); s.type = "text/javascript"; s.async = true;
+          s.src = "https://widget.kommunicate.io/v2/kommunicate.app";
+          var h = document.getElementsByTagName("head")[0]; h.appendChild(s);
+          window.kommunicate = m; m._globals = kommunicateSettings;
+      })(document, window.kommunicate || {});
+  /* NOTE : Use web server to view HTML files as real-time update will not work if you directly open the HTML file in the browser. */
+  </script> -->
+    <body>
+        
+          <div class="nav-bar "  style="height: 63px; ">
+          
+            <ul class="item" style="list-style-type: none;  display: flex; justify-content:center; align-items: center;color: white;"><li><h4>{{organization}}</h4></li>
+              <li style="margin-left: 20px; "><button style="display: none;" id="sosBtn" class="btn sos-btn" disabled> <i class="fas fa-exclamation-triangle"></i>SOS</button></li>
+
+
+            </ul>
+
+              <ul class="item" style="list-style-type: none; margin: 3px 12px 0px 0px; display: flex;font-size: 25px;">
+              
+  
+                <li class="nav-item dropdown " style="  font-family: 'Montserrat'; " >
+                  <a href="#" class="notification nav-link  " id="navbarScrollingDropdown"   data-bs-toggle="dropdown" aria-expanded="false" style="margin-right:15px;">
+                      <i class="far fa-bell icon-badge-icon"></i>
+                      <div class="icon-badge-notification " id="unread_noti_count"></div>
+                    </a>
+                    <ul class="dropdown-menu text-wrap alert-primary    " aria-labelledby="navbarScrollingDropdown"  id="notify"  >
+                      <div id="notidesc" class="notification-list"  style="min-width: fit-content;">
+                      </div>
+                    
+                                   
+                                       
+                      <div class="dropdown-divider" >
+                      
+                      </div>
+                      <br>
+                
+                  <center>
+                    {% if  request.user.notifications.unread %}
+                    <form action="/mark_all_read/" method="post"  class="fixed-bottom-my" >
+                      {% csrf_token %}
+                    <input type="submit" class="btn btn-dark" value="Mark all as read">
+                  </form>
+                  {% endif %}
+                 </center>
+                    </ul>
+                    <script src="{% static 'jquery.min.js' %}"></script>
+                
+                    <script>
+                      $(document).ready(function() {
+                        function markNotificationAsRead(notificationId, verb, redirectUrl) {
+                        $.ajax({
+                            url: '/mark_as_read/' + notificationId + '/',
+                            method: 'POST',
+                            success: function(data) {
+                                if (data.success) {
+                                   
+                                    
+                                    
+                                    window.location.href = data.redirect_url;
+                                } else {
+                                    console.error('Failed to mark notification as read:', data.error);
+                                }
+                            }
+                        });
+                    }
+                
+                          function updateNotifications() {
+                              $.ajax({
+                                  url: '{% url "get_unread" %}',
+                                  success: function(data) {
+                                      $('#unread_noti_count').text(data.unread_count);
+                                      $('#notidesc').empty();
+                      
+                                if (data.notifications.length > 0) {
+                                    data.notifications.forEach(function(notification) {
+                                      var link = $('<form>').addClass('subform dropdown-item');
+                                          link.attr('method', 'POST');
+                                          link.attr('action', '#');
+                                          link.on('click', function() {
+                                              markNotificationAsRead(notification.id, notification.verb, notification.redirect_url);
+                                          });
+                                          var iconItem = $('<i>').addClass(
+                                                notification.verb === 'Payslip' ? 'fa fa-paper-plane' :
+                                                notification.verb === 'Reimbursement' ? 'fa fa-credit-card' :
+                                                notification.verb === 'Leave' ? 'fa fa-leaf' :  // Add icon class for 'Leave'
+                                                notification.verb === 'SOS trigger' ? 'fas fa-exclamation-triangle':
+                                                'fa fa-question'  // Default icon class if verb is not recognized
+                                            );
+                
+                                          // var iconItem = $('<i>').addClass(notification.verb === 'Payslip' ? 'fa fa-paper-plane' : 'fa fa-credit-card');
+                                          var strongItem = $('<strong>').text(notification.description);
+                                          var timeItem = $('<div>').text(notification.timestamp);
+                      
+                                          var diviconItem = $('<div>').addClass('col-md-1').append(iconItem);
+                                          var divstrongItem = $('<div>').addClass('col-md-10 txtovrflw').append(strongItem);
+                                          var divtimeItem = $('<div>').addClass('col-md-6').append(timeItem);
+                                          var divtimeItem2 = $('<div>').addClass('col-md-6');
+                      
+                                          var divafterlink = $('<div>').addClass('row alert-primary').append(diviconItem, divstrongItem, divtimeItem2, divtimeItem);
+                                          link.append(divafterlink);
+                                          
+                                          var divider_div = $('<div>').addClass('dropdown-divider');
+                                          var listItem = $('<li>').addClass('listlist').append(link);
+                      
+                                          $('#notidesc').append(listItem);
+                                    });
+                                } else {
+                                    // Display message when there are no notifications
+                                    $('#notidesc').append('<p class="no-notifications">No new Notifications</p>');
+                                }
+                                      data.notifications.forEach(function(notification) {
+                
+                                      });
+                                  }
+                              });
+                          }
+                      
+                          // Initial load
+                          updateNotifications();
+                      
+                          // Update on button click (you can replace 'buttonId' with the actual ID or class of your button)
+                          setInterval(updateNotifications, 5000);
+                      });
+                      </script>
+                
+                
+                
+                </li>
+            <li>
+                <a style="display: flex; margin-top: 4px; cursor: pointer;" ><i class="fas fa-user-circle fa-lg user-icon" style="margin-top: 5px;" aria-hidden="true"></i><div class="user-text"></div></a>
+                <ul class="sub-menu">
+                  <a href="{% url 'admin_profile' %}" style="color:white; margin-right: -15px;"><li> <i class="far fa-user"  aria-hidden="true"><span>Profile</span></i>
+                    </li></a>
+                    <a href="{% url 'admin_upload_photo' %}" style="color:white;"><li> <i class="far fa-user"  aria-hidden="true"><span>Upload Photo</span></i>
+                    </li></a>
+                    <a href="/admin_Password" style="color:white;"><li><i class="fas fa-sign-out-alt" aria-hidden="true" style="font-size: 24px;">Reset-Password</i>
+                    </li></a>
+                    <a href="/logout_user" style="color:white;"><li><i class="fas fa-sign-out-alt" aria-hidden="true">Logout</i>
+                    </li></a>
+                    
+                  </ul>
+              </li>
+           
+        
+        </ul>
+        
+            
+            <div id="menuToggle" class="toggle-menu ">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+              </div>
+     
+          </div>
+         
+          <div class="main">
+             
+            
+            <div id="sideMenu" class="side-menu" style="background-color: #0f5f5f;border: none;">
+              
+              <div class="mobile-search" style="margin-top: 10px;">
+                {% if a.logo %}
+                <img src="{{a.logo.url}}" width="200px" height="100px" onerror="this.style.display='none'" style="position:fixed;" > <br> <br>
+                {% else %}
+                {% endif %}
+
+    </div>
+    <div class="menu-items" >
+
+ 
+     
+
+<ul class="list-unstyled components" style="width:250px; height:fit-content;">
+      {% for i in s %}
+      <li>
+          <a  href="{{ i.url }}">
+              <i class="{{i.icon}}" aria-hidden="true" style="color: #fff;"></i>&nbsp;&nbsp;
+              <span class="nav-text" style="color: #fff;">
+                  {{i.name}}
+               </span>
+              
+          </a>
+        
+      </li>
+      {% endfor %}
+</ul>
+<ul class="list-unstyled components" style="width:250px; height:fit-content;">
+  {% if cef %}
+    {% for i in  cef_url %}
+    <li>
+        <a  href="{{ i.url }}">
+            <i class="{{i.icon}}" aria-hidden="true" style="color: #fff;"></i>&nbsp;&nbsp;
+            <span class="nav-text" style="color: #fff;">
+                {{i.name}}
+            </span>
+            
+        </a>
+      
+    </li>
+    {% endfor %}
+  {% endif %}
+</ul>
+
+      <!-- <h4 style="color: #fff;">Admin Options</h4> -->
+ 
+      <ul class="list-unstyled components">
+        {% for item in admin_drops %}
+           {% if item.subdrop.exists %}
+              <li style="height: fit-content; list-style: none;">
+                 <a style="color: white; font-size: 17px; width: fit-content; height: fit-content; display: inline;" class="menu-link" role="button" data-toggle="dropdown" href="#">
+                    {{ item.name }}
+                    <i class="fa fa-caret-down" aria-hidden="true"></i>
+                 </a>
+                 <ul class="menu-child" id="services-sub-nav" style="list-style: none; display: none;" aria-labelledby="navbarDropdown">
+                    {% for subdrop in item.subdrop.all %}
+                       {% if complan == "1" %}
+                       {% if addon %}
+                       {% if subdrop.show1 == 1 or subdrop.name in addon %}
+                          <li><a href="{{subdrop.url}}" style="width: fit-content;width: 130%;">{{ subdrop.name }}  </a></li>
+                          {% else %}
+                          {% endif %}
+                          {% else %}
+                          {% if subdrop.show1 == 1 %}
+                          <li><a href="{{subdrop.url}}" style="width: fit-content;width: 130%;">{{ subdrop.name }} </a></li>
+                          {% else %}
+                          {% endif %}
+                          {% endif %}
+                       {% elif complan == "2" %}
+                       {% if addon %}
+                       {% if subdrop.show2 == 1 or subdrop.name in addon %}
+                          <li><a href="{{subdrop.url}}">{{ subdrop.name }}</a></li>
+                          {% else %}
+                          {% endif %}  
+                          {% else %}
+                          {% if subdrop.show2 == 1 %}
+                          <li><a href="{{subdrop.url}}">{{ subdrop.name }}</a></li>
+                          {% else %}
+                          {% endif %} 
+                          {% endif %}  
+                          {% elif complan == "3" %}
+                          {% if addon %}
+                          {% if subdrop.show3 == 1 or subdrop.name in addon %}
+                          <li><a href="{{subdrop.url}}">{{ subdrop.name }}</a></li>
+                          {% else %}
+                          {% endif %} 
+                          {% else %}
+                          {% if subdrop.show3 == 1 %}
+                          <li><a href="{{subdrop.url}}">{{ subdrop.name }}</a></li>
+                          {% else %}
+                          {% endif %} 
+                          {% endif %}                 
+                                 {% else %}
+                          <li><a href="{{subdrop.url}}">{{ subdrop.name }}</a></li>
+                       {% endif %}
+
+                    {% endfor %}
+                 </ul>
+              </li>
+           {% else %}
+              <li style="height: fit-content; list-style: none;">
+                 <a style="font-size: 16px;" href="{{ item.url }}">{{ item.name }}</a>
+              </li>
+           {% endif %}
+        {% endfor %}
+     
+        {% for item in addon_drops %}
+           <li style="height: fit-content; list-style: none;">
+              <a href="{{ item.url }}">{{ item.name }}</a>
+           </li>
+        {% endfor %}
+     </ul>
+
+    
+     <!-- <h4 style="color: #fff;">Options</h4> -->
+     {% for admin_drop in projects_drops %}
+
+     {% if admin_drop.subdrop.exists %}
+     <li style="height:fit-content; list-style: none;">
+       <a style="color: white; font-size: 18px; width: fit-content; height: fit-content;" class="menu-link" role="button" data-toggle="dropdown" href="#">
+         {{ admin_drop.name }}
+           <i style="height: 0px; width: 30px; margin-bottom: 10px; margin-left: 30%; display: inline;" class="fa fa-caret-down" aria-hidden="true"></i>
+       </a>
+       <ul class="menu-child" id="services-sub-nav" style="list-style: none; display: none; width: fit-content; height: fit-content; display: inline;" aria-labelledby="navbarDropdown">
+         {% for subdrop in admin_drop.subdrop.all %}
+         {% if complan == "1" %}
+                       {% if subdrop.show1 == 1 %}
+                       <li><a href="{{subdrop.url}}">{{ subdrop.name }}</a></li>
+                       {% else %}
+                          {% endif %}
+                       {% elif complan == "2" %}
+                       {% if subdrop.show2 == 1 %}
+                       <li><a href="{{subdrop.url}}">{{ subdrop.name }}</a></li>
+                       {% else %}
+                          {% endif %}                       
+                          {% elif complan == "3" %}
+                          {% if subdrop.show3 == 1 %}
+                          <li><a href="{{subdrop.url}}">{{ subdrop.name }}</a></li>
+                          {% else %}
+                          {% endif %}                
+                                 {% else %}
+                                 <li><a href="{{subdrop.url}}">{{ subdrop.name }}</a></li>
+                                 {% endif %}
+             {% endfor %}
+       </ul>
+     </li>
+    {% else %}
+
+
+     
+    <li  style="height: 30px; list-style: none;margin-top: 25px;">
+        <a style="font-size: 18px;" href="{{admin_drop.url}}">{{ admin_drop.name }}</a>
+    </li>
+      
+   
+      {% endif %}
+    
+    {% endfor %} 
+  
+      </ul>
+   
+    </div>
+  </div>
+          
+            <div class="content" style="background-color: #1e2442; height: calc(100% - 0px); overflow: auto; margin-bottom: 0px;">
+                {% block main_content %}{% endblock main_content %}
+            {% block content %}
+              
+            {% endblock %}
+            </div>
+          
+          
+         
+            <style>
+              .list-unstyled.components li.active {
+    background-color: #000000;
+    border-radius: 5px;
+    padding: 2px;
+    width: 230px;
+    
+              }
+          </style> 
+<script>
+  window.onpageshow = function(event) {
+      if (event.persisted) {
+          window.location.reload();
+      }
+  };
+</script>
+    </body>
+    
+    <script>
+      // Function to toggle subnav dropdown
+      function toggleSubNav(element) {
+        var subNav = element.nextElementSibling;
+        if (subNav.style.display === "block") {
+          subNav.style.display = "none";
+        } else {
+          subNav.style.display = "block";
+        }
+      }
+    
+      // Add a click event listener to each menu item with a subnav
+      var menuLinks = document.querySelectorAll(".menu-link");
+      menuLinks.forEach(function (link) {
+        link.addEventListener("click", function (event) {
+          event.preventDefault(); // Prevent the default link behavior
+          toggleSubNav(link);
+        });
+      });
+    </script>
+    <script>
+    
+        function toggleResponsiveMenu() {
+            const menu = document.getElementById("responsiveMenu");
+            menu.classList.toggle("responsive");
+        }
+        
+        // Attach the event listener to the hamburger icon that triggers the responsive menu toggle
+        const toggleButton = document.getElementById("toggleButton");
+        toggleButton.addEventListener("click", toggleResponsiveMenu);
+        </script>
+    
+   
+      <script>
+
+        const subMenus = document.querySelectorAll('.sub-menu');
+      
+        subMenus.forEach(subMenu => {
+          subMenu.parentNode.addEventListener('click', () => {
+            subMenu.style.display = subMenu.style.display === 'block' ? 'none' : 'block';
+          });
+        });
+        document.addEventListener('click', function(event) {
+    const dropdown = document.querySelector('.sub-menu');
+    const userIcon = document.querySelector('.user-icon');
+
+    // Check if the clicked element is not the user icon or within the dropdown
+    if (!userIcon.contains(event.target) && !dropdown.contains(event.target)) {
+        dropdown.style.display = 'none';
+    }
+});
+      </script>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        const toggleMenu = document.getElementById("menuToggle");
+        const sideMenu = document.getElementById("sideMenu");
+        const content = document.querySelector(".content");
+        const bars = document.querySelectorAll(".bar");
+        const menuItems = document.querySelectorAll(".menu-items .item");
+    
+        toggleMenu.addEventListener("click", () => {
+          sideMenu.classList.toggle("resize");
+          content.classList.toggle("resize");
+          toggleMenu.classList.toggle("active");
+    
+          bars.forEach((bar) => {
+            bar.classList.add("anim-bar");
+            setTimeout(() => {
+              bar.classList.remove("anim-bar");
+            }, 1000);
+          });
+        });
+    
+        function closeSideMenu() {
+          sideMenu.classList.remove("resize");
+          content.classList.remove("resize");
+          toggleMenu.classList.remove("active");
+          bars.forEach(bar => bar.classList.remove("anim-bar"));
+        }
+    
+        // Event listener for menu item clicks
+        menuItems.forEach(function (item) {
+          item.addEventListener("click", function (event) {
+            event.preventDefault(); // Prevent the default link behavior
+    
+            menuItems.forEach(function (item) {
+              item.classList.remove("active");
+            });
+    
+            this.classList.add("active");
+          });
+        });
+    
+        // Function to handle initial and resize window width
+        function handleWindowResize() {
+          const newWindowWidth = $(window).width();
+          if (newWindowWidth < 481) {
+            
+            // For small screens
+            $(document).on("click", function(event) {
+              const target = event.target;
+              if (!sideMenu.contains(target) && target !== toggleMenu) {
+                closeSideMenu();
+              }
+            });
+          } else {
+            // For larger screens
+            $(document).off("click");
+            setTimeout(() => {
+          sideMenu.classList.add("resize");
+          content.classList.add("resize");
+          toggleMenu.classList.add("active");
+          bar.classList.add("anim-bar");
+
+          });
+          }
+        }
+    
+        handleWindowResize();
+    
+        $(window).resize(function() {
+          handleWindowResize();
+        });
+      });
+    </script>
+  <!-- <script>
+  $(document).ready(function() {
+      var currentUrl = window.location.pathname;
+  
+      $('.list-unstyled.components li a').each(function() {
+          var menuItemUrl = $(this).attr('href');
+          if (currentUrl.indexOf(menuItemUrl) === 0) {
+              $(this).closest('li').addClass('active');
+          }
+      });
+  });
+  </script> -->
+<script>
+  document.querySelector('.toggle-submenu').addEventListener('click', function (e) {
+      e.preventDefault(); // Prevent the link from navigating
+      const submenu = this.parentElement.querySelector('.sub-menu');
+      submenu.classList.toggle('active');
+  });
+</script>
+<script>
+  $(document).ready(function() {
+      var currentUrl = window.location.pathname;
+  
+      $('.list-unstyled.components li a').each(function() {
+          var menuItemUrl = $(this).attr('href');
+          if (currentUrl.indexOf(menuItemUrl) === 0) {
+              $(this).closest('li').addClass('active');
+          }
+      });
+  });
+  </script>
+
+
+
+<!-- <script>
+  function refreshPage() {
+      location.reload();
+  }
+
+window.addEventListener('pageshow', function(event) {
+var messagesExist = document.querySelector('.danger') || document.querySelector('.success');
+
+if (sessionStorage.getItem('refreshed')) {
+sessionStorage.removeItem('refreshed'); 
+}
+else if(messagesExist){
+setTimeout(refreshPage, 5000); 
+
+}
+else {
+sessionStorage.setItem('refreshed', 'true'); 
+refreshPage();
+}
+});
+</script> -->
+
+
+<!-- Core -->
+<!-- <script src="/static/html/vendor/@popperjs/core/dist/umd/popper-base.min.js"></script> -->
+<script src="/static/html/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<!-- Vendor JS -->
+<script src="/static/html/vendor/onscreen/dist/on-screen.umd.min.js"></script>
+
+<!-- Slider -->
+<script src="/static/html/vendor/nouislider/dist/nouislider.min.js"></script>
+
+<!-- Smooth scroll -->
+<script src="/static/html/vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
+
+<!-- Charts -->
+<script src="/static/html/vendor/chartist/dist/chartist.min.css"></script>
+<script src="/static/html/vendor/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
+
+<!-- Datepicker -->
+<script src="/static/html/vendor/vanillajs-datepicker/dist/js/datepicker.min.js"></script>
+
+<!-- Sweet Alerts 2 -->
+<script src="/static/html/vendor/sweetalert2/dist/sweetalert2.all.min.js"></script>
+
+<!-- Moment JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+
+<!-- Vanilla JS Datepicker -->
+<script src="/static/html/vendor/vanillajs-datepicker/dist/js/datepicker-full.min.js"></script>
+
+<!-- Notyf -->
+<script src="/static/html/vendor/notyf/notyf.min.js"></script>
+
+<!-- Simplebar -->
+<script src="/static/html/vendor/simplebar/dist/simplebar.min.js"></script>
+
+<!-- Volt JS -->
+<script src="/static/html/assets/js/volt.js"></script>
+
+
+{{ inline_view }}
+    </html>

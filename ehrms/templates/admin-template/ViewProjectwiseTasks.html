@@ -1,0 +1,921 @@
+{% extends 'admin-template/base_template.html' %}
+
+{% block main_content %}
+<head>
+  
+    <link rel="stylesheet" href=" https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+<style>
+    body {
+      background-color: #f9f9fa;
+    }
+    a:focus,
+    a:hover {
+      text-decoration: none;
+    }
+    
+    .teamcard {
+      border-width: 0;
+      border-radius: 0.25rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+      margin-bottom: 1rem;
+      word-wrap: break-word;
+      background-color: #fff;
+      border: 1px solid rgba(19, 24, 44, 0.125);
+      border-radius: 0.25rem;
+    }
+    
+    .list-item {
+      position: relative;
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-direction: column;
+      flex-direction: column;
+      min-width: 0;
+      word-wrap: break-word;
+    }
+    
+    .list-item.block .media {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+    
+    .flex {
+      -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+      flex: 1 1 auto;
+    }
+    
+    .userinfo {
+      height: 1.25rem;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      font-size: 12px;
+    }
+    
+    .list-row .list-item {
+      -ms-flex-direction: row;
+      flex-direction: row;
+      -ms-flex-align: center;
+      align-items: center;
+    }
+    
+    .list-item {
+      position: relative;
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-direction: column;
+      flex-direction: column;
+      min-width: 0;
+      word-wrap: break-word;
+    }
+    .dropzone-teams {
+      -webkit-touch-callout: none; /* iOS Safari */
+        -webkit-user-select: none; /* Safari */
+         -khtml-user-select: none; /* Konqueror HTML */
+           -moz-user-select: none; /* Old versions of Firefox */
+            -ms-user-select: none; /* Internet Explorer/Edge */
+                user-select: none; /* Non-prefixed version, currently */
+    }
+    
+    .list-row .list-item > * {
+      padding-left: 0.625rem;
+      padding-right: 0.625rem;
+    }
+    
+    /* .grid-trash {
+      width: auto;
+      background-color: #f5f2f2;
+      color: #999;
+      height: auto;
+      width: 800px;
+      border: 2px dashed #999;
+      text-align: center;
+      font-size: 80px;
+    }
+    .grid-trash-hover {
+      background-color: #f34541;
+      color: #fff;
+      border: 2px dashed #fff;
+    }
+    .drag-location {
+      border: 2px dashed #999;
+      background: #ede8e8;
+    } */
+
+    .fa-user-cog:hover {
+      color: #000;
+    }
+    
+    .addgroup, .adddivider {
+     cursor: pointer;
+    }
+    .addgroup:hover {
+      color: #198754;
+    }
+    
+    .team-handle {
+      cursor:all-scroll;
+    }
+    .chart-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .chart-container .chart {
+        width: 50%;
+        margin-right:20px; /* Adjust the width as needed */
+    }
+
+    .chart-container .image {
+        width: 50%; /* Adjust the width as needed */
+    }
+    .pie-chart__legend {
+            list-style-type: none;
+            padding: 0;
+        }
+        .pie-chart__legend li {
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            
+        }
+        .pie-chart__legend li em {
+            margin-left: 10px;
+        }
+
+    
+     body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            
+        }
+
+        h1 {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: #fff;
+        }
+        table, th, td {
+            border: 1px solid #333;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #333;
+            color: #fff;
+        }
+
+        canvas {
+            display: block;
+            margin: 20px auto;
+        }
+        body{
+          font-family: "Open Sans", Arial;
+          background: #EEE;
+          text-align: center;
+        }
+        .row{
+          flex-direction: row;
+        }
+  
+        em{
+         font-style: normal;
+        }
+        span{
+          float: right;
+        }
+
+
+        </style>
+              <h3 style="color: white;" class="h3 text-center">View Tasks</h3>
+           
+              <div class="page-content page-container py-5 px-5 "  id="page-content">
+                 <div class="row">
+                 <div class="card col-7 p-0 me-2 alert-danger" style="min-width:370px">
+                   <div class="card-header">
+                   <center> <b> Project Details</b></center>
+                   </div>
+     
+                   <div class="dropzone-teams overview card-body alert-danger">
+                     <div class="drag-team alert-success">
+                         <div class="row teamcard my-2 mx-2 pt-2 pb-1">
+                           <div class="col-md-4 my-auto text-center" style="font-weight: bold; font-size: 18px;">
+                             <div class="row">
+                               <div class="col-md-1"></div>
+                               <div class="col-md-9">Project Name</div>
+                             </div>
+                           </div>
+                           <div class="col-md-8 dropzone-users">
+                             <!-- USER 3 -->
+                             {% for project in project_details %}
+                             <div data-user="3" class="drag-user list list-row bg-white">
+                               <div class="list-item border mb-1">
+                                 <div class="text-muted" style="cursor:all-scroll; padding-right: 0!important"></div>
+                                 <div class="flex" style="text-align: middle;">{{ project.p_name }}<div class="item-except text-muted text-sm userinfo"></div>
+                                 </div>
+                                 <div class="no-wrap">
+     
+                                 </div>
+                               </div>
+                             </div>
+                            {% endfor %}
+                           </div>
+                         </div>
+                       </div>
+                     <div class="drag-team alert-danger">
+                         <div class="row teamcard my-2 mx-2 pt-2 pb-1">
+                           <div class="col-md-4 my-auto text-center" style="font-weight: bold; font-size: 18px;">
+                             <div class="row">
+                               <div class="col-md-1"></div>
+                               <div class="col-md-9">Project Deadline</div>
+                             </div>
+                           </div>
+                           <div class="col-md-8 dropzone-users">
+                             <!-- USER 3 -->
+                             {% for project in project_details %}
+                             <div data-user="3" class="drag-user list list-row bg-white">
+                               <div class="list-item border mb-1">
+                                 <div class="text-muted" style="cursor:all-scroll; padding-right: 0!important"></div>
+                                 <div class="flex" style="text-align: middle;">{{ project.project_deadline }}<div class="item-except text-muted text-sm userinfo"></div>
+                                 </div>
+                                 <div class="no-wrap">
+     
+                                 </div>
+                               </div>
+                             </div>
+                           </div>
+                         </div>
+                       </div>
+                     <!-- TEAM A -->
+                     <div class="drag-team alert-success">
+                       <div class="row teamcard my-2 mx-2 pt-2 pb-1">
+                         <div class="col-md-4 my-auto text-center" style="font-weight: bold; font-size: 18px;">
+                           <div class="row">
+                             <div class="col-md-1"></div>
+                             <div class="col-md-9">Project Manager</div>
+                           </div>
+                         </div>
+                         <div class="col-md-8 dropzone-users">
+                           <!-- USER 1 -->
+                           
+                           <div data-user="1" class="drag-user list list-row bg-white">
+                             <div class="list-item border mb-1">
+                               <div class="text-muted" style="cursor:all-scroll; padding-right: 0!important "></div>
+                               <div class="flex">
+                                 {{ project.project_manager }}
+                                 <div class="item-except text-muted text-sm userinfo">Manager
+                                   
+                                 </div>
+                               </div>
+                               
+                               {% endfor %}
+                               <!-- <div class=""><i class="mx-1 fas fa-truck-moving"></i><i class="mx-1 fas fa-microphone"></i><i class="mx-1 fas fa-user-secret"></i></div> -->
+                               <!-- <div class="no-wrap">
+                                 <div class="dropdown">
+                                   <a class="text-muted" href="#" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user-cog"></i></a>
+                                   <ul class="dropdown-menu" data-userid="1" aria-labelledby="user1">
+                                     <a class="dropdown-item" href="#" data-abc="true">See detail</a>
+                                     <a class="dropdown-item" data-abc="true">Download</a>
+                                     <a class="dropdown-item" data-abc="true">Edit</a>
+                                     <div class="dropdown-divider"></div>
+                                     <a class="remove-user dropdown-item" data-abc="true">Remove user</a>
+                                   </ul>
+                                 </div>
+                               </div> -->
+                             </div>
+                           </div>
+                           <!-- USER 2 -->
+                         
+                         </div>
+                       </div>
+                     </div>
+               
+                     <!-- TEAM B -->
+                     <div class="drag-team alert-danger">
+                      <div class="row teamcard my-2 mx-2 pt-2 pb-1">
+                     
+                      <div class="col-md-4 my-auto text-center" style="font-weight: bold; font-size: 18px;">
+                        <div class="row">
+                          <div class="col-md-1"></div>
+                          <div class="col-md-9">Team Leaders</div>
+                        </div>
+                      </div>
+                            <div class="col-md-8 dropzone-users">
+                                {% for team_member, total_score in team_member_scores %}
+                                    {% if team_member.is_team_lead %}
+                                        <div data-user="{{ team_member.id }}" class="drag-user list list-row bg-white">
+                                            <div class="list-item border mb-1">
+                                                <div class="text-muted" style="cursor: all-scroll; padding-right: 0!important"></div>
+                                                <b><span><img src="/media/badge.png" alt="" style="width: 40px; height: 40px;"></span></b>
+                                                <!-- Display team leader information here -->
+                                                <div class="flex">
+                                                    <span>(Team Leader)</span> <!-- You can customize this label -->
+                                                    {{ team_member.employee.first_name }} {{ team_member.employee.last_name }}
+                                                    <!-- Include more team leader details as needed -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                       </div>
+                       <div class="row teamcard my-2 mx-2 pt-2 pb-1">
+                        <!-- Team Members Column -->
+                        <div class="col-md-4 my-auto text-center" style="font-weight: bold; font-size: 18px;">
+                          <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-9">Team Members</div>
+                          </div>
+                        </div>
+                            <div class=" col-md-8 dropzone-users">
+                                {% for team_member, total_score in team_member_scores %}
+                                    {% if not team_member.is_team_lead %}
+                                        <div data-user="{{ team_member.id }}" class="drag-user list list-row bg-white">
+                                            <div class="list-item border mb-1">
+                                                <div class="text-muted" style="cursor: all-scroll; padding-right: 0!important"></div>
+                                                <div class="flex">
+                                                    {{ team_member.employee.first_name }} {{ team_member.employee.last_name }}
+                                                    <!-- Include more details for non-team leaders as needed -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                        </div>
+                      </div>
+                    </div>
+                    
+                     </div> 
+                
+                   </div> <!-- DROPZONE END -->
+                 </div>
+     
+                 <!-- <div class="card col-4 p-0 alert-success" style="min-width: 370px;">
+                   <div class="card-header">
+                    <center> <h5>Team members</h5></center>
+                   </div>
+                   <div class="dropzone-teams card-body alert-info" style="overflow: auto; max-height: 300px;">
+                     <div class="available-users dropzone-users alert-info">
+                       {% for team in team_members %}
+                     <div data-user="5" class="drag-user list list-row bg-white">
+                         <div class="list-item border mb-1">
+                           <div class="text-muted" style="cursor: all-scroll; padding-right: 0!important"></div>
+                           <b><div class="flex">{{ team.first_name }}</b>
+                             <div class="item-except text-muted text-sm userinfo">{{team.role}} {{team.empid}}</div>
+                           </div>
+                           <div class="no-wrap">
+                             <div class="dropdown">
+                                <a class="text-muted" href="#" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user-cog"></i></a>
+                               <ul class="dropdown-menu" data-userid="5" aria-labelledby="user5">
+                                 <div class="dropdown-divider"></div>
+                                     <a class="remove-user dropdown-item" data-abc="true">Remove user</a>
+                               </ul>
+                             </div>
+                           </div>
+                         </div>
+                         
+                       </div>
+                       {% endfor %}
+                     </div>
+                   </div> -->
+                   <!-- <div class="card col-7 p-0 alert-success" style="min-width: 370px;">
+                     <div class="card-header">
+                      <center> <h5>Team members</h5></center>
+                     </div>
+                     <div class="dropzone-teams card-body alert-info" style="overflow: auto; max-height: 300px;">
+                      <div class="available-users dropzone-users alert-info">
+                        
+                        {% for team_member, total_score in team_member_scores %}
+                      <div data-user="5" class="drag-user list list-row bg-white">
+                          <div class="list-item border mb-1" {% if team_member.is_team_lead %} style="background-color: #abe6cb;" {% endif %}>
+                            <div class="text-muted" style="cursor: all-scroll; padding-right: 0!important"></div>
+                            <b><span> {% if forloop.first %} <img src="/media/badge.png" alt="" style="width:40px;height: 40px;">  {% endif %} </span><div class="flex">   {{ team_member.employee.first_name }} {{ team_member.employee.last_name }}<span >{{ total_score }}</span></b>
+                              <div class="item-except text-muted text-sm userinfo">{% if team_member.is_team_lead %}(TL){% endif %}{{ team_member.employee.role }} {{ team_member.employee.empid }}</div>
+                            </div>
+                            <img src="{{team_member.employee.profile_pic}}" class=" img-circle" alt="" style="width: 55px;height: 50px;">
+
+                            <div class="no-wrap">
+                              <div class="dropdown">
+                                 <a class="text-muted" href="#" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user-cog"></i></a>
+                                <ul class="dropdown-menu" data-userid="5" aria-labelledby="user5">
+                                  <a class=" dropdown-item" href="/employee_record/{{team_member.employee_id}}">View Work Report</a>
+                                  <div class="dropdown-divider"></div>
+                                      <a class=" dropdown-item" data-abc="true" href="/delete_user/{{team_member.employee_id}}/{{team_member.project_id}}">Remove user</a>
+                                      <a href="/del-proj/{{employee_id}}" class="btn btn-danger">DELETE PROJECT</a> -->
+    
+                                <!-- </ul>
+                              </div>
+                            </div>
+                          </div>
+                          
+                        </div>
+                        {% endfor %}
+                       
+                      </div>
+                     </div> --> 
+                   
+               
+               
+               
+               
+                 </div>
+               <br><br>
+               
+<!--                
+               <div id="removeuser" class="modal fade" aria-hidden="true">
+                 <div class="modal-dialog">
+                   <div class="modal-content">
+                     <div class="modal-header"><h5>Remove user?</h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
+                     <div class="modal-body">Are you sure you want to remove userid <span id="modal-userid"></span> from this team?</div>
+                       <div class="modal-footer">
+                           <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Cancel</button>
+                           <button type="button" class="conf-remove btn btn-success" data-removeuser="">Remove user</button>
+                       </div>
+                   </div>
+                 </div>
+               </div> -->
+
+         </body>
+
+    <script>
+$(function(){ $('[data-toggle="tooltip"]').tooltip() }) // ENABLE TOOLTIP FUNCTION
+
+// SORT TEAMS
+$(".dropzone-teams, .div-grp").sortable({
+  placeholder: "drag-location",
+  handle: ".team-handle",
+  start: function (e, ui) {
+    ui.placeholder.height(ui.helper.outerHeight());
+  }
+});
+
+// SORT USERS
+$(".dropzone-users").sortable({
+  connectWith: ".dropzone-users",
+  handle: ".user-handle",
+  placeholder: "drag-location",
+  start: function (e, ui) {
+    ui.placeholder.height(ui.helper.outerHeight());
+  }
+});
+
+// TRASH TEAM AND/OR USER
+$("#trash").droppable({
+  accept: ".drag-team, .div-grp",
+  hoverClass: "grid-trash-hover ",
+  drop: function (event, ui) {
+    ui.draggable.remove();
+  }
+});
+
+// BUTTON: CREATE NEW TEAM
+$(document).on('click', '.addgroup', function () {
+  $(".dropzone-teams.overview").append($('#copygroup').html());
+  $('.dropzone-users').sortable({connectWith: '.dropzone-users'});
+  $('.dropzone-teams').sortable({connectWith: '.drag-location'});
+});
+
+// BUTTON: CREATE NEW DIVIDER
+$(document).on('click', '.adddivider', function () {
+  $(".dropzone-teams.overview").append('<div class="div-grp border-bottom bg-white pt-2 mx-2 mb-2"><h4><i class="team-handle fas fa-users mr-2"></i> Divider</h4></div>');
+  $('.dropzone-users').sortable({connectWith: '.dropzone-users'});
+  $('.dropzone-teams').sortable({connectWith: '.drag-location'});
+});
+
+
+// OPTION MENU: REMOVE USER FROM TEAM
+$(document).on('click', '.remove-user', function () {
+  let userid = $(this).closest('ul').attr('data-userid');
+  $('#modal-userid').html(userid);
+  $('.conf-remove').attr('data-removeuser', userid);
+  $('#removeuser').modal('toggle');
+});
+
+// CONFIRM REMOVE USER
+$(document).on('click', '.conf-remove', function () {
+  let userid = $(this).attr('data-removeuser');
+  let user_html = $('div[data-user="'+ userid +'"]');
+  user_html.remove();
+  $('.available-users').append(user_html);
+  $('#removeuser').modal('toggle');
+});
+
+$(document).on('click', '.remove-user', function () {
+  // Display a confirmation dialog
+  let confirmRemove = confirm("Are you sure you want to remove this user?");
+
+  // If the user confirms, proceed with removal
+  if (confirmRemove) {
+    console.log("Outer Remove user button clicked.");
+
+    // Get the userid from the parent element with data-user attribute
+    let userid = $(this).closest('[data-user]').data('user');
+    console.log("User ID:", userid);
+
+    // Remove the user element
+    $(this).closest('[data-user]').remove();
+  }
+});
+
+    </script>
+<!-- <div class="row align-items-center d-flex  justify-content-center">
+    <div class="col-12 mb-4">
+      
+        <div style="background-color: #242b4d;" class="card border-light shadow-sm components-section align-items-center d-flex  justify-content-center">
+            <div class="card-body align-items-center d-flex justify-content-center">
+              
+                 
+              <div>
+                <h3 style="color: white;">Project Performance</h3>
+                <p><span id="completionRate"></span></p>
+              </div>
+           </div>
+          
+
+           <div class="page-content page-container py-5 px-5" id="page-content">
+            <div class="row">
+              
+                <div class="chart-container col-md-12">
+                    <div class="chart">
+                        <canvas id="pieChart" width="250" height="250"></canvas>
+                        <div class="pie-chart__pie">
+                            <ul class="pie-chart__legend">
+                                <li style="border-left: 1.25em solid green;">
+                                    <em style="color: white;" id="completedLabel">Tasks Completed &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10</em>
+                                </li>
+                                <li style="border-left: 1.25em solid orange;">
+                                    <em style="color: white;" id="pendingLabel">Tasks Pending &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5</em>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                
+                <div class="image ">
+                  <lottie-player src="https://assets6.lottiefiles.com/packages/lf20_ikfeh6cd.json" background="transparent"
+                      speed="1"  loop autoplay>
+                  </lottie-player>
+              </div>
+            </div>
+            </div>
+        </div>
+                  
+              -->
+<script>
+    {% for project in project_details %}
+
+               
+  var completionRate = parseFloat('{{ project.calculate_project_performance.completion_rate }}');
+  {% endfor %}
+  var pendingTasks = {{ task_pending }};
+  var completedTasks = {{ task_completed }};
+  var totalTasks = completedTasks + pendingTasks;
+
+  document.getElementById('completedLabel').innerText = `Task Completed ${completedTasks}`;
+  document.getElementById('pendingLabel').innerText = `Task Pending ${pendingTasks}`;
+
+  var ctx = document.getElementById('pieChart').getContext('2d');
+  var data = {
+      labels: ['Task Completed', 'Task Pending'],
+      datasets: [{
+          data: [completedTasks, pendingTasks],
+          backgroundColor: ['green', 'orange'],
+      }]
+  };
+
+  // Add a label in the center for completion rate
+  var centerLabel = {
+      text: completionRate.toFixed(2) + '%',
+      color: 'black', // Set the color you prefer
+      fontSize: 30, // Set the font size you prefer
+      x: ctx.canvas.width / 2,
+      y: ctx.canvas.height / 2,
+      align: 'center',
+      anchor: 'center',
+  };
+
+  var pieChart = new Chart(ctx, {
+      type: 'doughnut',
+      data: data,
+      options: {
+          responsive: false,
+          width: 250,
+          height: 250,
+          plugins: {
+              legend: {
+                  display: false
+              },
+              tooltip: {
+                  callbacks: {
+                      label: function (context) {
+                          var label = data.labels[context.dataIndex];
+                          var value = data.datasets[context.datasetIndex].data[context.dataIndex];
+                          var total = data.datasets[context.datasetIndex].data.reduce(function (previousValue, currentValue) {
+                              return previousValue + currentValue;
+                          });
+                          var percentage = ((value / total) * 100).toFixed(2) + "%";
+                          return label + ': ' + value + ' (' + percentage + ')';
+                      }
+                  }
+              }
+          }
+      },
+      plugins: [{
+          beforeDraw: function (chart) {
+              // Display the center label
+              var ctx = chart.ctx;
+              ctx.save();
+              ctx.textAlign = centerLabel.align;
+              ctx.textBaseline = centerLabel.anchor;
+              ctx.font = centerLabel.fontSize + 'px Arial';
+              ctx.fillStyle = centerLabel.color;
+              ctx.fillText(centerLabel.text, centerLabel.x, centerLabel.y);
+              ctx.restore();
+          }
+      }]
+  });
+</script>
+
+
+    <!-- // Add numbers on the background colors of each segment
+    var centerX = ctx.canvas.width / 2;
+    var centerY = ctx.canvas.height / 2;
+    var radius = Math.min(centerX, centerY);
+    var fontSize = 14;
+
+    ctx.font = fontSize + 'px Arial';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+
+    data.datasets[0].data.forEach(function (value, dataIndex) {
+        var startAngle = pieChart.getDatasetMeta(0).data[dataIndex].startAngle;
+        var endAngle = pieChart.getDatasetMeta(0).data[dataIndex].endAngle;
+        var midAngle = startAngle + (endAngle - startAngle) / 2;
+        var x = centerX + Math.cos(midAngle) * (radius / 1.5);
+        var y = centerY + Math.sin(midAngle) * (radius / 1.5);
+        var backgroundColor = data.datasets[0].backgroundColor[dataIndex];
+
+        // Draw the background color
+        ctx.fillStyle = backgroundColor;
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, radius, startAngle, endAngle);
+        ctx.lineTo(centerX, centerY);
+        ctx.closePath();
+        ctx.fill();
+
+        // Draw the number on the background color
+        ctx.fillStyle = '#fff'; // Set text color to white
+        ctx.fillText(value, x, y);
+    });
+ -->
+
+
+
+    
+    </div>
+    
+
+              
+                        <!-- <lottie-player src="https://assets6.lottiefiles.com/packages/lf20_ikfeh6cd.json"
+                            background="transparent" speed="1" style="width: 400px; height: 300px;margin-left:40%;" loop autoplay>
+                        </lottie-player> -->
+
+                        
+
+                  
+                    <!-- <div class="container">
+                        <div class="row" style="width:35%;">
+                           
+                            </div>
+                            </div>
+                           
+                            <div class="row">
+                              <center>
+                                <form action="" method="get">
+                                    <button class="btn btn-primary" style="width: 200px;" type="submit" value="total" name="t_status">Total Tasks ({{ task_total }})</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <button class="btn btn-success" style="width: 200px;" type="submit" value="completed" name="t_status">Completed Tasks ({{ task_completed }})</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <button class="btn btn-secondary" style="width: 200px;" type="submit" value="in-progress" name="t_status">Pending Tasks ({{ task_pending }})</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </form>
+                            </center> -->
+                                <!-- <div class="col-lg-4 mb-2">
+                                   
+                                    <div class="card" style="border-radius: 18px;">
+                                        <div class="card-body" style="border-radius: 18px;">
+                                            <h3 class="text-center">Total Tasks: {{task_total}}</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 mb-2">
+                                    <div class="card" style="border-radius: 18px;">
+                                        <div class="card-body" style="border-radius: 18px;">
+                                            <h3 class="text-center">Completed Tasks: {{task_completed}}</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 mb-2">
+                                    <div class="card" style="border-radius: 18px;">
+                                        <div class="card-body" style="border-radius: 18px;">
+                                            <h3 class="text-center">Pending Tasks: {{task_pending}}</h3>
+                                        </div>
+                                    </div>
+                                </div> -->
+                                <!-- {% for pid in project_details %}
+                                <a href="/create-task/{{pid.id}}/" class="btn btn-warning  float-end btn-lg w-25 mt-md-2 " ><i class="fa fa-edit">Create New Task </i></a>
+                                {% endfor %}
+                            </div>
+                                <br /> -->
+
+
+
+  
+<!-- <div class="row">
+  {% if task_details %}
+ {% for task_info in task_data %}
+ <div class="col-lg-6 mb-2" >
+  <div class="card border-1 shadow p-4" >
+      <div
+          class="card-header d-flex align-items-center justify-content-between border-0 p-0 mb-2">
+          <h3 class="h3 mb-0">{{task_info.task.t_name|upper}}</h3>
+      </div>
+      <div class="card-body p-0">
+          <p>{{task_info.task.t_desc}}</p>
+
+          <h4 class="fs-6 fw-normal mt-4"><b>Project:</b>
+              {{task_info.task.p_id.p_name|upper}}</h4>
+          <h4 class="fs-6 fw-normal mt-4"><b>Board:</b>
+              {{task_info.task.b_id.b_name|upper}}</h4>
+
+          <h4 class="fs-6 fw-normal mt-4" ><b>Assigned:</b>
+              {{task_info.task.e_id.last_name|upper}}&nbsp;{{task_info.task.e_id.first_name|upper}}</h4>
+          <h4 class="fs-6 fw-normal mt-4"><b>Priority:</b>
+              {% if task_info.task.t_priority == "High" %}
+              <span class="badge bg-danger">High</span>
+              {% elif task_info.task.t_priority == "Medium" %}
+              <span class="badge bg-warning">Medium</span>
+              {% elif task_info.task.t_priority == "Low" %}
+              <span class="badge bg-info">Low</span>
+              {% endif %}
+          </h4>
+          <h5 class="fs-6 fw-normal mt-4"><b>Assigned Date:</b>
+              {{task_info.task.t_assign_date}}
+          </h5>
+          <h5 class="fs-6 fw-normal mt-4"><b>Deadline Date:</b>
+              {{ task_info.task.t_deadline_date}}
+          </h5>
+        
+              <h5 class="fs-6 fw-normal mt-4"><b>Remaining Time:  </b>
+                <span id="countdown_{{ task_info.task.id }}" {% if task_info.task.t_status == 'completed' %}class="text-muted"{% endif %}> {{task_info.remaining_time}}</span>
+                 </h5>
+              <h5 class="fs-6 fw-normal mt-4"><b>Task Status:</b>
+                {{task_info.task.t_status.upper}}
+            </h5>
+            {% if task_info.task.t_status == 'completed' %}
+            <h5 class="fs-6 fw-normal mt-4"><b>Completed Date:</b>
+               {{ task_info.task.t_update_date }}
+            </h5>
+
+            <p> <b>Performance Score: </b>{{task_info.task_score}} Points</p>
+                                        
+            {% if task_info.excess_points %}
+            <div class="progress">
+                <div class="progress-bar bg-success"
+                     role="progressbar" 
+                     style="width: 100%;"
+                      aria-valuenow="{{ task_info.task.calculate_task_score }}"
+                       aria-valuemin="0"
+                        aria-valuemax="10"></div>
+            </div>
+            {% elif task_info.neg_points %}
+            <div class="progress">
+                <div class="progress-bar bg-danger" role="progressbar" style="width: 100%;" aria-valuenow="{{ task_info.task.calculate_task_score }}" aria-valuemin="0" aria-valuemax="10"></div>
+            </div>
+            {% else %}
+            <div class="progress">
+                <div class="progress-bar bg-warning"
+                     role="progressbar" 
+                     style="width: {{ task_info.progress_percentage }}%;"
+                      aria-valuenow="{{ task_info.task.calculate_task_score }}"
+                       aria-valuemin="0"
+                        aria-valuemax="10"></div>
+            </div>
+            {% endif %}
+            
+            <sub>
+                <sup>
+                    <div class="float-end font-weight-bolder">
+                        {% if task_info.excess_points %}
+                        <h6 class="link-success">+{{ task_info.excess_points }} XP</h6>
+                        {% elif task_info.neg_points  %}
+                        <h6 class="link-danger">-{{ task_info.neg_points }}</h6>
+                        {% endif %}
+                    </div>
+                </sup>
+            </sub>
+            {% endif %}
+            {% if task_info.task.t_status != "completed" %}
+
+            {% endif %}
+              
+          <a href="/update-task/{{task_info.task.id}}" class="btn btn-warning">UPDATE</a>
+          <a href="/delete-task/{{task_info.task.id}}" class="btn btn-danger">DELETE</a>
+      </div>
+      
+  </div>
+ </div>
+ {% endfor %}
+ {% endif %} -->
+<br>
+<!-- Your HTML content -->
+<!-- Your HTML content -->
+
+{% block scripts %}
+{% for project in task_data %}
+<script>
+var assignDate_{{ project.task.id }} = new Date('{{ project.task.t_assign_date|date:"F d, Y H:i:s" }}').getTime();
+var deadline_{{ project.task.id }} = new Date('{{ project.task.t_deadline_date|date:"F d, Y H:i:s" }}').getTime();
+var now_{{ project.task.id }} = new Date().getTime();
+
+if (assignDate_{{ project.task.id }} <= now_{{ project.task.id }} && deadline_{{ project.task.id }} >= now_{{ project.task.id }}) {
+    var x_{{ project.task.id }} = setInterval(function() {
+        var now_{{ project.task.id }} = new Date().getTime();
+        var distance_{{ project.task.id }} = deadline_{{ project.task.id }} - now_{{ project.task.id }};
+
+        var days_{{ project.task.id }} = Math.floor(distance_{{ project.task.id }} / (1000 * 60 * 60 * 24));
+        var hours_{{ project.task.id }} = Math.floor((distance_{{ project.task.id }} % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes_{{ project.task.id }} = Math.floor((distance_{{ project.task.id }} % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds_{{ project.task.id }} = Math.floor((distance_{{ project.task.id }} % (1000 * 60)) / 1000);
+
+        document.getElementById('countdown_{{ project.task.id }}').innerHTML = days_{{ project.task.id }} + 'd ' + hours_{{ project.task.id }} + 'h ' + minutes_{{ project.task.id }} + 'm ' + seconds_{{ project.task.id }} + 's ';
+
+        if (distance_{{ project.task.id }} < 0) {
+            clearInterval(x_{{ project.task.id }});
+            document.getElementById('countdown_{{ project.task.id }}').innerHTML = 'Task expired';
+        }
+    }, 1000);
+} else if (assignDate_{{ project.task.id }} > now_{{ project.task.id }}) {
+    document.getElementById('countdown_{{ project.task.id }}').innerHTML = 'Task not yet started';
+} else {
+    document.getElementById('countdown_{{ project.task.id }}').innerHTML = 'Task expired';
+}
+</script>
+{% endfor %}
+{% endblock %}
+
+
+
+  <script>
+    function deleteUser(employeeId) {
+        // Send an AJAX DELETE request to delete the user
+        $.ajax({
+            url: `/delete-user/${employeeId}/`,  // Replace with your actual URL
+            type: 'DELETE',
+            success: function(response) {
+                // Handle the success response, e.g., hide the deleted user from the page
+                if (response.message) {
+                    // Hide the deleted user element
+                    $(`#user-${employeeId}`).hide();
+                } else {
+                    // Handle any other success logic
+                }
+            },
+            error: function(xhr, status, error) {
+                // Handle errors, e.g., show an alert
+                alert('Error deleting user: ' + error);
+            }
+        });
+    }
+  </script>
+  
+ 
+
+
+
+{% endblock main_content %}

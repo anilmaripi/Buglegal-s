@@ -1,0 +1,386 @@
+
+
+{% extends 'employ-template/base_template.html' %}
+
+{% block main_content %}
+<!--<h2>Update Project</h2>
+<form method="POST">
+    {% csrf_token %}
+    <label for="p_name">Project Name:</label>
+    <input type="text" name="p_name" value="{{ project.p_name }}"><br>
+
+    <label for="p_desc">Project Description:</label>
+    <textarea name="p_desc">{{ project.p_desc }}</textarea><br>
+
+    <label for="manager_name">Project Manager:</label>
+    <input type="text" name="manager_name" value="{{ project.project_manager }}"><br>
+
+    <label for="status">Project Status:</label>
+    <input type="text" name="status" value="{{ project.status }}"><br>
+
+    <label for="project_deadline_date">Project Deadline Date:</label>
+    <input type="date" name="project_deadline_date" value="{{ project.project_deadline|date:'Y-m-d' }}"><br>
+
+    <input type="submit" value="Update">
+</form>-->
+
+
+<style>
+#selected-employees-list li {
+    display: inline-block;
+    margin-right: 10px; /* Optional: Add margin between list items */
+    flex: 1;
+    row-gap: 50px;
+    padding-left: 30px; /* Add left padding to each list item */
+}
+
+#selected-employees-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(530px, 1fr)); /* Adjust column width as needed */
+    gap: 15px; /* Adjust the gap as needed */
+}
+
+.grid-item {
+    border: 1px solid #ccc; /* Optional: Add a border to grid items */
+    padding: 10px; /* Optional: Add padding to grid items */
+}
+
+#selected-employees-list .grid-item:nth-child(odd) {
+    padding-left: 50px; /* Adjust the left padding as needed */
+} 
+/* Style the select box container */
+#employee-select {
+  width: 100%;
+  max-width: 1200px; /* Adjust the width as needed */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f8f8f8;
+  font-size: 16px;
+  color: #333;
+}
+
+/* Style the options within the select box */
+#employee-select option {
+  padding: 5px;
+  background-color: #fff; /* Background color for unselected options */
+  color: #333;
+}
+
+/* Style selected options */
+#employee-select option:checked {
+  background-color: #3498db; /* Background color for selected options */
+  color: #fff;
+}
+
+/* Style the hover effect for options */
+#employee-select option:hover {
+  background-color: #f0f0f0; /* Background color on hover */
+  cursor: pointer;
+}
+
+/* Remove default select box styles */
+#employee-select::-ms-expand {
+  display: none;
+}
+
+/* Style the dropdown arrow icon (if supported) */
+#employee-select::after {
+  content: '\25BC'; /* Unicode character for a downward arrow */
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+
+
+</style>
+<style>
+    /* Style for the container div */
+    .employee-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    /* Style for each employee item */
+    .employee-item {
+        width: 19%; /* Set to 10% for 10 members per row, plus some spacing */
+        margin-bottom: 10px;
+        text-align: center;
+    }
+</style>
+<div class="row align-items-center d-flex justify-content-center">
+    <div class="col-12 mb-4">
+        <div class="card border-light shadow-sm components-section align-items-center d-flex justify-content-center">
+            <div class="card-body align-items-center d-flex justify-content-center">
+                <div class="row mb-4">
+                    <div class="col-lg-12 col-sm-16">
+                        <div class="col-lg-12 col-sm-16">
+                            <h3 class="h3 text-center">Update Project</h3>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            <div class="mb-4">
+                                <div class="form-group">
+                                    <label class="h6" for="exampleFormControlTextarea1">Project Name:</label>
+                                    <input type="text" class="form-control" name="p_name" value="{{ project.p_name }}">
+                                </div>
+                                <div class="form-group">
+                                    <label class="h6" for="exampleFormControlTextarea1">Project Description:</label>
+                                    <textarea name="p_desc" class="form-control" rows="6" required>{{ project.p_desc }}</textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label class="h6" for="exampleFormControlTextarea1">Project Manager:</label>
+                                    <input type="text" class="form-control" name="manager_name" value="{{ project.project_manager }}">
+                                </div>
+
+
+
+
+
+
+                                <!-- Add a unique class to the team leader select element -->
+<div class="form-group">
+    <label class="h6" for="exampleFormControlTextarea1">Project Team Lead:</label>
+    <select name="team_lead" class="form-control team-leader-select">
+        <option value="">Select Team Leader</option>
+        {% for teamlead in teams %}
+            <option value="{{ teamlead.id }}" {% if teamlead.id == team_leader_info.team_id %} selected {% endif %}>
+                {{ teamlead.first_name }} {{ teamlead.last_name }}
+            </option>
+        {% endfor %}
+    </select>
+</div>
+
+<h2>Select Team Members</h2>
+<div class="employee-container">
+    {% for i in teams %}
+        <!-- Add a unique class to the checkboxes and a data attribute to store the team leader's ID -->
+        <div class="employee-item team-member" data-team-leader="{{ i.id }}">
+            <input type="checkbox" class="team-member-checkbox" name="selected_employees[]" value="{{ i.id }}">
+            {{ i.first_name }} {{ i.last_name }}
+        </div>
+    {% endfor %}
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".team-leader-select").on("change", function () {
+            // Get the selected team leader's value
+            var selectedLeaderId = $(this).val();
+            
+            // Show all team members
+            $(".team-member").show();
+
+            if (selectedLeaderId) {
+                // Iterate through the team member checkboxes
+                $(".team-member-checkbox").each(function () {
+                    var teamLeaderId = $(this).parent().data("team-leader");
+
+                    if (teamLeaderId == selectedLeaderId) {
+                        // Hide the corresponding team member
+                        $(this).parent().hide();
+                    }
+                });
+            }
+        });
+    });
+</script>
+
+
+                                    
+                                        
+
+
+
+
+
+
+
+
+
+
+
+                                <div class="form-group">
+                                    <label for="board-name">Project Status</label>
+                                    <select name="status" class="custom-select my-1 mr-sm-2" required>
+                                        <option value="completed" {% if project.status == "completed" %} selected {% endif %}>Completed</option>
+                                        <option value="ongoing" {% if project.status == "ongoing" %} selected {% endif %}>Ongoing</option>
+                                        <option value="featured" {% if project.status == "featured" %} selected {% endif %}>Featured</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="task-name">Project Deadline Date</label>
+                                    <input type="date" name="project_deadline_date" value="{{ project.project_deadline|date:'Y-m-d' }}" class="form-control" id="date" required>
+                                </div>
+
+                                <input type="submit" class="btn btn-primary" value="Update">
+                            </div>
+                        </form>
+
+
+                        <h2>Selected Team Members</h2>
+                       
+                             <div  class="employee-container" >
+                               
+                               {% for team_member in team_members %}
+                          
+                                 <div class="employee-item" >
+                                   <div class="text-muted" style="cursor: all-scroll;"></div>
+                                   <b><div class="flex" ><h4 style="padding-top: 20px;padding-left: 20px;">{{ team_member.employee.first_name }} {{ team_member.employee.last_name }}</h4></b>
+
+                                    <a class="btn btn-danger"  href="/delete_user/{{team_member.employee_id}}/{{team_member.project_id}}">Remove user</a>
+                                   </div>
+                                   
+                                             
+           
+                                     </div>    
+                                   {% endfor %}
+
+                      
+                      
+                        </div>
+                      
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+                                <script>
+                                    const teamLeadSelect = document.getElementById('team_lead_select');
+                                    const teamLeadNameElement = document.getElementById('team_lead_name');
+                                    const teamLeadIdElement = document.getElementById('team_lead_id');
+                                
+                                    teamLeadSelect.addEventListener('change', () => {
+                                        const selectedOption = teamLeadSelect.options[teamLeadSelect.selectedIndex];
+                                
+                                        // Update the displayed team lead data
+                                        if (selectedOption) {
+                                            const teamLeadName = selectedOption.textContent.trim();
+                                            const teamLeadId = selectedOption.value;
+                                
+                                            teamLeadNameElement.textContent = teamLeadName;
+                                            teamLeadIdElement.textContent = teamLeadId;
+                                
+                                            // Add more logic to display other team lead data as needed
+                                        } else {
+                                            // Clear the displayed team lead data if no option is selected
+                                            teamLeadNameElement.textContent = '';
+                                            teamLeadIdElement.textContent = '';
+                                        }
+                                    });
+                                </script>
+
+
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const employeeSelect = document.getElementById("employee-select");
+        const selectedEmployees = [];
+        const selectedEmployeesList = document.getElementById("selected-employees-list");
+        const hiddenInputContainer = document.getElementById("hidden-input-container");
+
+        // Function to remove an employee from the selected list
+        function removeEmployee(employeeId) {
+            const listItem = document.querySelector(`li[data-employee-id="${employeeId}"]`);
+            if (listItem) {
+                listItem.remove();
+            }
+        }
+
+        // Function to move an employee back to the original list
+        function moveEmployeeBack(employeeId) {
+            const option = document.querySelector(`#employee-select option[value="${employeeId}"]`);
+            if (option) {
+                option.style.display = ""; // Show the option
+            }
+            selectedEmployees.splice(selectedEmployees.indexOf(employeeId), 1); // Remove from selectedEmployees array
+        }
+
+        employeeSelect.addEventListener("change", function () {
+            const selectedOptions = Array.from(this.selectedOptions);
+
+            selectedOptions.forEach(function (option) {
+                const employeeId = option.value;
+                const employeeName = option.textContent;
+                const employeeEmpId = option.getAttribute("data-emp-id");
+                const employeeRole = option.getAttribute("data-role");
+
+                const listItem = document.createElement("li");
+                listItem.dataset.employeeId = employeeId;
+                listItem.innerHTML = `- Employee ID: ${employeeEmpId} - Name: ${employeeName} - Role: ${employeeRole} <button class="remove-item btn btn-danger">Remove</button>`;
+
+                listItem.querySelector(".remove-item").addEventListener("click", function () {
+                    removeEmployee(employeeId);
+                    option.selected = false; // Unselect the option in the <select>
+                    moveEmployeeBack(employeeId); // Move employee back to the original list
+                });
+
+                selectedEmployeesList.append(listItem);
+                option.style.display = "none";
+                // Append the selected employee ID to the hidden input field for form submission
+                var hiddenInput = `<input type="hidden" name="selected_employees[]" value="${employeeId}">`;
+                hiddenInputContainer.innerHTML += hiddenInput;
+                selectedEmployees.push(employeeId);
+            });
+        });
+
+        // Event delegation for the "Remove" button
+        selectedEmployeesList.addEventListener("click", function (event) {
+            if (event.target.classList.contains("remove-item")) {
+                const listItem = event.target.parentElement;
+                const employeeId = listItem.dataset.employeeId;
+                removeEmployee(employeeId);
+                moveEmployeeBack(employeeId);
+                listItem.remove();
+            }
+        });
+    });
+</script>
+
+
+
+ 
+                     <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const teamLeadSelect = document.getElementById("team_lead_select");
+        const employeeSelect = document.getElementById("employee-select");
+
+        // Function to hide the selected team lead in the team_members dropdown
+        function hideSelectedTeamLead() {
+            const selectedTeamLeadId = teamLeadSelect.value;
+
+            Array.from(employeeSelect.options).forEach(function (option) {
+                if (option.value === selectedTeamLeadId) {
+                    option.style.display = "none";
+                } else {
+                    option.style.display = "";
+                }
+            });
+        }
+
+        // Initial call to hide/show the selected team lead
+        hideSelectedTeamLead();
+
+        // Event listener for team lead selection change
+        teamLeadSelect.addEventListener("change", hideSelectedTeamLead);
+    });
+</script>
+<!-- Calendly badge widget begin -->
+<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+<script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+<script type="text/javascript">window.onload = function() { Calendly.initBadgeWidget({ url: 'https://calendly.com/ssvdpavankumar16/30min', text: 'Schedule time with me', color: '#0069ff', textColor: '#ffffff', branding: true }); }</script>
+<!-- Calendly badge widget end -->
+{% endblock main_content %}

@@ -1,0 +1,290 @@
+{% extends 'admin-template/base_template.html' %}
+
+
+
+{% block main_content %}
+<style>
+      tr:nth-child(even) {background-color: #242b4d}
+tr:nth-child(odd) {background-color: #2d3354}
+</style>
+<br><br><br>
+<div class="row" style="padding: 0; margin: 0%;width:100%">
+
+    
+<div class="modal" id="myModal" style="color: rgb(240, 242, 245);">
+    <div class="modal-dialog bg-white">
+      <div class="modal-content">
+  
+        
+        <div class="modal-body" style="background-color: #2d3354; color: white;">
+          <button type="button"   class="btn-close" data-bs-dismiss="modal" ></button>
+          <br>
+          <br>
+          
+              <h3>Download Tax Deductions Reports</h3>
+              <br>
+              
+          <div class="form-group">
+              <label>Select Format</label><br>
+          <button onclick="showDiv('button1');hideDiv('button2');"style="width:200px;background-color: #3c436d;color:white"><i class="fa fa-file-text" aria-hidden="true"></i>&nbsp; CSV Report</button>
+          <button  onclick="showDiv('button2');hideDiv('button1');" style="width:250px;background-color: #3c436d;color: whitesmoke;"><i class="fa fa-paperclip" aria-hidden="true"></i>&nbsp;Tax Deduction Report</button>
+          </div>
+          <form method="post" id="button1">{% csrf_token %}
+              <div class="form-group">
+                  <label>Financial Year</label><br>
+                  <select class="form-control" >
+                      <option>2023-2024</option>
+                      
+                  </select>
+              </div>
+              <br>
+          
+             
+              
+              
+              <div class="form-group">
+                  <label>Employe Status</label><br>
+                  <select class="form-control">
+                      <option>All</option>
+                      <option>Approved</option>
+                      <option>Pending</option>
+                      <option>Rejected</option>
+                  </select>
+              </div>
+              
+          <h6 style="padding:10px;">File download can take upto 20 minutes.We will email<br>
+          the files to you at {{user.email}}.
+          </h6>
+          <br>
+          <button type="button" class="btn btn-primary" onclick="tableToCSV()"> Download CSV</button>
+          <!-- <button class="btn btn-primary" style="padding:10px">Download</button> -->
+          </form>
+          <form method="post" id="button2" style="display: none;">{% csrf_token %}
+              <div class="form-group">
+                  <label>Financial Year</label><br>
+                  <select class="form-control">
+                      <option>2023-2024</option>
+                      
+                  </select>
+              </div>
+              
+              <br>
+      
+              <div style="display: flex; flex-direction: row;">
+                  
+                <div class="form-group">
+                    <label>Employe Status</label><br>
+                    <select class="form-control" style="width: 450px;">
+                        <option>All</option>
+                        <option>Approved</option>
+                        <option>Pending</option>
+                        <option>Rejected</option>
+                    </select>
+                </div>
+              </div>
+             
+             
+          <h6 style="padding:10px;">File download can take upto 20 minutes.We will email<br>
+          the files to you at {{user.email}}.
+          </h6>
+          <br>
+          <!-- <button class="btn btn-primary" style="padding:10px">Download</button> -->
+          <a class="btn btn-primary" href="{% url 'pdf_report_create' %}">Download PDF</a>
+
+          </form>
+          </div>
+ 
+    </div>
+  
+
+  
+  </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-lg-6">
+    <label>Financial Year</label>&nbsp;
+     <select class="form-control"  style="width: 200px; text-align: center;">
+        <option>2023-2024</option>
+        
+    </select>
+</div>
+<div class="col-lg-6">
+<button type="button"  style="height: 40px;background-color: #2d3354;color: whitesmoke;"  data-bs-toggle="modal" data-bs-target="#myModal">
+    <i class="fa fa-download" aria-hidden="true">&nbsp;Export</i>
+    
+  </button>
+</div>
+
+</div><br><br>
+   
+
+
+
+
+         <div class="row">
+        <div class="col-12">
+          <div >
+            <div class="card-header">
+              <h3 class="card-title">Employe Tax Deduction Report</h3>
+
+              
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body table-responsive p-0">
+              <table id="myTable" class="table table-hover text-nowrap" >
+                <thead>
+
+        
+            
+            <tr style="background-color: 1f2336;">
+
+                <th >Employ ID</th>
+                <th >Name</th>
+                <th >New Regime</th>
+                <th >Proof Validation Status</th>
+                <th >Rent</th>
+                <th >80C</th>
+                <th >80CCD</th>
+                <th>80D</th>
+                <th >80DD</th>
+                <th >80E</th>
+                <th >80EEA</th>
+                <th >80EEB</th>
+                <th >80G</th>
+                <th >80U</th>
+                <th >80DDB</th>
+                <th >80TTA</th>
+                <th >80TTB</th>
+                <th >SECTION 24</th>
+                <th >80EE</th>
+                
+                <th >Form 12BB</th>
+               
+                
+            </tr>
+            <tr>{% for p in tax %}
+                <td >{{p.employ.empid}}</td>
+                <td>{{p.employ.first_name}}.{{p.employ.last_name}}</td>
+                <td>New</td>
+                <td>--NA--</td>
+                <td>{{p.Current_Monthly_Rent}}</td>
+                <td>{{p.Section_80C}}</td>
+                <td>{{p.Section_80CCD}}</td>
+                <td>{{p.Section_80D}}</td>
+                <td>{{p.Section_80DD}}</td>
+                <td>{{p.Section_80E}}</td>
+                <td>{{p.Section_80EEA}}</td>
+                <td>{{p.Section_80EEB}}</td>
+                <td>{{p.Section_80G}}</td>
+                <td>{{p.Section_80U}}</td>
+                <td>{{p.Section_80DDB}}</td>
+                <td>{{p.Section_80TTA}}</td>
+                <td>{{p.Section_80TTB}}</td>
+                <td>0</td>
+                <td>0</td>
+                
+                <td>0</td>
+                
+                
+                
+            </tr>
+            
+            {% endfor %}
+        
+                </thead>
+    </table>
+</div></div></div></div></div><br><br><br>
+
+
+<script type="text/javascript">
+    function showDiv(buttonId) {
+        var div = document.getElementById(buttonId);
+        if (div.style.display === "none") {
+            div.style.display = "block";
+        } else {
+            div.style.display = "none";
+        }
+    }
+
+    function hideDiv(buttonId) {
+        var div = document.getElementById(buttonId);
+        div.style.display = "none";
+    }
+
+
+
+
+
+    
+        function tableToCSV() {
+ 
+            // Variable to store the final csv data
+            var csv_data = [];
+ 
+            // Get each row data
+            var rows = document.getElementsByTagName('tr');
+            for (var i = 0; i < rows.length; i++) {
+ 
+                // Get each column data
+                var cols = rows[i].querySelectorAll('td,th');
+ 
+                // Stores each csv row data
+                var csvrow = [];
+                for (var j = 0; j < cols.length; j++) {
+ 
+                    // Get the text data of each cell
+                    // of a row and push it to csvrow
+                    csvrow.push(cols[j].innerHTML);
+                }
+ 
+                // Combine each column value with comma
+                csv_data.push(csvrow.join(","));
+            }
+ 
+            // Combine each row data with new line character
+            csv_data = csv_data.join('\n');
+ 
+            // Call this function to download csv file 
+            downloadCSVFile(csv_data);
+ 
+        }
+ 
+        function downloadCSVFile(csv_data) {
+ 
+            // Create CSV file object and feed
+            // our csv_data into it
+            CSVFile = new Blob([csv_data], {
+                type: "text/csv"
+            });
+ 
+            // Create to temporary link to initiate
+            // download process
+            var temp_link = document.createElement('a');
+ 
+            // Download csv file
+            temp_link.download = "GfG.csv";
+            var url = window.URL.createObjectURL(CSVFile);
+            temp_link.href = url;
+ 
+            // This link should not be displayed
+            temp_link.style.display = "none";
+            document.body.appendChild(temp_link);
+ 
+            // Automatically click the link to
+            // trigger download
+            temp_link.click();
+            document.body.removeChild(temp_link);
+        }
+    
+
+   
+</script>
+
+
+
+{% endblock main_content %}
+
+{% block custom_js %}
+
+{% endblock custom_js %}

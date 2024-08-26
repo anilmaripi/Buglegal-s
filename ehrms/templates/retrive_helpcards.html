@@ -1,0 +1,172 @@
+{% extends 'admin-template/adminAdashboard.html' %}
+{% block main_content %}
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-...." crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+       
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-...." crossorigin="anonymous" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <title>Help Cards Content</title>
+
+
+    <style>
+        body{
+            background-color: white;
+        }
+   
+    
+        .table {
+            /* margin-top: 20px; */
+            width: 1040px !important; 
+            border-radius: 10px;
+            border: none;
+            border-spacing:0 5px;
+            border-collapse:separate;
+            
+
+            
+            
+        }
+        /* tr{
+            padding-bottom: 10px;
+        } */
+        table td {
+            text-align: center;
+            border-color: none;
+            width: 300px;
+            color:black;
+            
+        }
+       
+      
+        
+        table tr:nth-child(odd){background-color: white;}
+        table tr:hover {background-color:  #e9e7e7}
+
+        table tr:nth-child(even){background-color:white;}
+        table tr:hover {background-color: #e9e7e7}
+        
+         
+        th{
+            color:black;
+            padding: 6px;
+            font-size:20px;
+            background-color:white;
+            width: 300px;
+            text-align: center;
+
+        }
+        
+     
+        h2{
+            color:black;
+            font-size: xx-large;
+            text-align: center;
+        }
+
+        td{
+            max-width: 200px; 
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        button{
+            color:black;
+            background-color: #ECE1;
+            border-radius: 10px;
+        
+
+        }
+        .container-fluid{
+            height: auto;
+            width: auto;
+        }
+        
+
+</style>
+
+<body>
+<br><br>
+
+<button type="button" ><a href="{% url 'insert_documents' %}" style="color:black;font-size: x-large; text-decoration: none;">Add new data</a></button><br><br>
+
+<h2><b>Documents & Signatures Card Questions</b></h2>
+
+<div class="container-fluid " style="background-color:#c9c8c6;border-radius: 20px;"><br>
+
+
+<table  class="table table-responsive"  >
+    <tr>
+        <th>Question </th>
+        <th>Answer_Url</th>
+        <th>Link</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    {% for i in d3 %}
+    <tr>
+        <td>{{ i.qns }}</td>
+        <td>
+            <a href="{% url 'retrive_documents' %}"><i i class="fas fa-info-circle" style="color:black;" ></i></a>
+        </td>
+        <td>{{ i.link }}</td>
+        <td>
+            <a href="{% url 'edit_documents' i.id %}"><i class="fas fa-edit" style="color:black;" ></i></a>
+        </td>
+        <td>
+                <a href="{% url 'delete_documents' i.id %}"> <i class="fas fa-trash-alt" style="color:red;"></i></a>
+        </td>
+    </tr>
+    {% endfor %}
+</table><br>
+
+</div>
+<br><br><br><br><br>
+<button type="button" ><a href="{% url 'insert_organization' %}" style="color:black;font-size: x-large; text-decoration: none;">Add new Question</a></button><br><br>
+
+<h2><b>Organization and Monitor Logs Card Questions</b></h2>
+
+<div class="container-fluid " style="background-color:#c9c8c6;border-radius: 20px;"><br>
+
+
+<table  class="table table-responsive"  >
+    <tr>
+        <th>Question </th>
+        <th>Answer_Url</th>
+        <th>Link</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    {% for i in o3 %}
+    <tr>
+        <td>{{ i.qns }}</td>
+        <td>
+            <a href="{% url 'retrive_organization' %}"><i i class="fas fa-info-circle" style="color:black;" ></i></a>
+        </td>
+        <td>{{ i.link }}</td>
+        <td>
+            <a href="{% url 'edit_organization' i.id %}"><i class="fas fa-edit" style="color:black;" ></i></a>
+        </td>
+        <td>
+                <a href="{% url 'delete_organization' i.id %}"> <i class="fas fa-trash-alt" style="color:red;"></i></a>
+        </td>
+    </tr>
+    {% endfor %}
+</table><br>
+
+</div>
+
+
+</div>
+</body>
+{% endblock main_content %}

@@ -1,0 +1,46 @@
+{% extends 'adminhelp/basehelp.html' %}
+{% block main_content %}
+<style>
+    h3{
+        font-size: 25px;
+    }
+    h5{
+        font-size: medium;
+    }
+</style>
+    <form>
+        <p id="ha1" style="font-size: xx-large;">Why does putting in a deduction lead to a custom salary structure being removed?</p>
+        <p id="e">This will usually affect an employee who falls under ESI and PF. Consider an employee with the following custom salary structure -</p>
+    <center><table border="2px">
+       
+       <tr><th>Basic Salary</th><td>  8000</td></tr>
+       <tr><th>HRA</th><td>4000</td></tr>
+       <tr><th>Special Allowance</th><td>4000</td></tr>
+       <tr><th>Employer ESI Contribution</th><td>520</td></tr>
+       <tr><th>Employer PF Contribution</th><td>1440</td></tr>
+       <tr><th>Gross Monthly Earnings</th><td>17960</td></tr>
+    </table></center><br>
+    <h3 id="p">Now, let's say we need to put a deduction of Rs 5000 to this month's Hrms. The gross pay, thus, needs to be 17960-5000 = 12960.</h3>
+    <p id="p1">How do we accomplish this? A simple way to think about it would be to just remove Rs 5000 from the regular components like special allowance, HRA, and basic salary -</p>
+    <center><table border="2px">
+        <tr><th>Basic Salary</th><td>5500 (8000-2500)</td></tr>
+        <tr><th>HRA</th><td>2750 (4000-1250)</td></tr>
+        <tr><th>Special Allowance</th><td>2750 (4000-1250)</td></tr>
+        <tr><th>Employer ESI Contribution</th><td>520</td></tr>
+        <tr><th>Employer PF Contribution</th><td>1440</td></tr>
+        <tr><th>Gross Monthly Earnings</th><td>12960</td></tr>
+    </table></center><br>
+    <p id="q">However, if we do this, then our ESI and PF employer contributions will be incorrect since these are calculated as a percentage of other components (to see how PF and ESI are calculated, please refer to our FAQs here and here).</p> 
+    <p id="q1">What needs to be done is that all the components need to be lowered just enough that with the updated PF and ESI values, the gross pay comes out correct. </p>
+    <p id="q2">On top of this, there can be added complications of unknown or missing components as well. Overall, this is a problem that cannot be reliably solved using pure math.</p>
+    <p id="q3">Hence, in such cases, Hrms removed the custom salary structure and assigned a new structure which that back-calculates from the required gross pay.</p><br>
+    
+           <center><button style="width:50%;height: auto;font-size: x-large;border: 2px solid whitesmoke;">
+            <div id="a">
+                <p id="section10" style="text-align: center;">Did this answer your question?</p>
+                <p><a class="ex1" style="text-decoration: none;color: black;"><center>😄 😶 😔</center></a> </p>
+            </div>
+        </button></center><br><br><br>  
+        
+    </form>
+    {% endblock main_content %}

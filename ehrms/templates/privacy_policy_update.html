@@ -1,0 +1,106 @@
+{% extends 'admin-template/adminAdashboard.html' %}
+{% block main_content %}
+
+<html>
+    <head>
+        <title>dataupdate</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
+        <style>
+            body {
+                background-color: #dadddf;
+                padding-top: 50px; 
+            }
+    
+            form {
+                max-width: 500px;
+                margin: 0 auto; 
+                background-color: #fff; 
+                padding: 20px; 
+                border-radius: 10px; 
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+            }
+    
+            .form-group {
+                margin-bottom: 20px; 
+            }
+    
+            label {
+                font-weight: bold; 
+            }
+    
+            input[type="text"] {
+                width: 100%; 
+                box-sizing: border-box; 
+            }
+    
+           
+            button {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+        </style>
+    </head>
+    
+    <body>
+        <form method="POST" action="/privacy_policy_update/{{k.id}}"  enctype="multipart/form-data" style="width:500px">{% csrf_token %}
+            
+            <div class="form-group">
+                <label>SubTitle</label>
+                <input type="text" name="subtitle" class="form-control" value="{{k.subtitle}}"> 
+            </div> 
+            
+            <div class="form-group">
+                <label>Title</label>
+                <input type="text" name="title" class="form-control" value="{{k.title}}"> 
+            </div> 
+            
+                    
+            <div class="form-group">
+                <label>Content</label>
+                <input type="text" name="content" class="form-control" value="{{k.content}}"> 
+            </div>
+            
+            <div class="form-group">
+                <label>Point1</label>
+                <input type="text" name="point1" class="form-control" value="{{k.point1}}"> 
+            </div>
+            
+            <div class="form-group">
+                <label>Point2</label>
+                <input type="text" name="point2" class="form-control" value="{{k.point2}}"> 
+            </div>
+            
+            <div class="form-group">
+                <label>Point3</label>
+                <input type="text" name="point3" class="form-control" value="{{k.point3}}"> 
+            </div>
+            
+            <div class="form-group">
+                <label>Point4</label>
+                <input type="text" name="point4" class="form-control" value="{{k.point4}}"> 
+            </div>
+            <div class="form-group">
+                <label>Content1</label>
+                <input type="text" name="content1" class="form-control" value="{{k.content1}}"> 
+            </div>
+
+            <div class="form-group ">
+                <button type="submit"  value="Submit">Save</button>
+            </div>        
+        </form>                     
+    </body>
+</html>
+{% endblock main_content %}

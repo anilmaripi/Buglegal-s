@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete Question?</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        p {
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        form {
+            text-align: center;
+        }
+
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #e74c3c;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #c0392b;
+        }
+
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body><br><br>
+    <div class="container">
+        <h2>Delete The Question?</h2>
+        <p>Are you sure you want to delete the following data?</p>
+        <p>ID: {{ data.sno }}</p>
+        <p>Card Title: {{ data.cardtitle }}</p>
+        <p>Question:{{data.qns}}</p>
+        <p>Answer Link:{{data.link}}</p>
+        
+
+        
+
+
+
+        <form method="post">
+            {% csrf_token %}
+            <input type="submit" value="Delete">
+        </form>
+
+        <p><a href="/card9list/">Cancel</a></p>
+    </div>
+</body>
+</html>

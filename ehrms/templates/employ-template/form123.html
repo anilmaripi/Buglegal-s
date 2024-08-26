@@ -1,0 +1,197 @@
+{% extends 'employ-template/base_template.html' %}
+{% block main_content %}
+    <title>Create New Task</title>
+    <style>
+        .card-manager{
+                box-shadow: 2px 3px 10px #999;
+                padding: 20px;
+                border-radius: 10px;
+
+        }
+        .hed-manager{
+            color:blue;
+            font-size: 36px;
+            margin-bottom: 20px;
+            text-align: center;
+            }
+
+    </style>
+
+    <div id="message">
+        {% if messages %}
+        {% for message in messages %}
+        {% if message.tags == 'error' %}
+        <div class="alert alert-danger" style="margin-top:20px;">{{message}}</div>
+        {% endif %}
+        {% if message.tags == 'success' %}
+        <div class="alert alert-success" style="margin-top:20px;background-color:green;color: whitesmoke;">{{message}}</div>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+        </div>
+        <script>
+            $('#message').show()
+            setTimeout(function(){
+                $('#message').hide()
+            },5000)
+        </script>
+
+        
+    <div class="row align-items-center d-flex justify-content-center">
+        <div class="col-10 mb-4">
+            <h3 class="{% if mem_role == 'HR' and mem_hroptions == 1 %}hed-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}hed-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}hed-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}hed-tm {% endif %}">Create New Task</h3>
+
+            <div class="card-body  {% if mem_role == 'HR' and mem_hroptions == 1 %}card-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}card-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}card-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}card-tm {% endif %}">
+                <!--Start: Projects List-->
+                <label for="project-name" style="color: black;">Select the Project Name:</label>
+                <br>
+                <form id="project-name-links">
+                    {% for project in projects %}
+                    <label style="color: black;">
+                        <input type="radio" name="project" value="/get_team_lead1/{{project.p_name}}">
+                        {{project.p_name}}
+                        &nbsp;
+                    </label>
+                    {% endfor %}
+                </form>
+                
+                <script>
+                    document.getElementById('project-name-links').addEventListener('change', function(event) {
+                        var selectedValue = event.target.value;
+                        if (selectedValue) {
+                            window.location.href = selectedValue;
+                        }
+                    });
+                </script>
+                <!--End: Projects List-->
+            
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <!-- <label for="project-name" style="color: black;">Project Name:</label> -->
+                        
+                        {% for project in unique_projects %}                            
+                        <input type="text" class="form-control mb-4"  value="{{project.p_name}}" disabled>
+                        <input type="text" class="form-control mb-4"  value="{{project.id}}" name="p_name" style="display: none;">
+                        {% endfor %}   
+                    </div>
+                    <div class="form-group" id="fieldContainer">
+                        <label style="color:black;">Task Name:</label>
+                        <input type="text" name="task_name[]" class="form-control mb-4" placeholder="Enter The Task Name" required>
+                        
+                    </div>
+                    <div class="form-group" id="fieldContainer">
+                        <label style="color:black;">Description:</label>
+                        <textarea name="description" class="form-control mb-4" placeholder="Enter The Description" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="team-lead" style="color: black;">Team Lead:</label>
+                        <select name="l_name" class="custom-select my-1 mr-sm-2" id="team_lead" required>
+                            <option selected disabled value="">Select</option>
+                            {% for i in  team_lead %}
+                            <option value="{{i.employee.id}}">{{i.employee.first_name}}{{i.employee.last_name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Create Task</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+        
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+        $('#p_id').on('change', function() {
+            var project_id = $(this).val();
+            if (project_id !== '0') {
+                $.ajax({
+                    url: `/get_team_lead1/${project_id}/`,
+                    method: 'GET',
+                    dataType: 'json',
+                    success: function(data) {
+                        var teamMembersSelect = $('#e_id');
+                        var teamLeadSelect = $('#team_lead');
+                        teamMembersSelect.empty();
+                        teamLeadSelect.empty();
+                        teamMembersSelect.append('<option value="" selected disabled>Select</option>');
+                        teamLeadSelect.append('<option value="" selected disabled>Select</option>');
+                        data.team_members.forEach(function(member) {
+                            teamMembersSelect.append(`<option value="${member.id}">${member.name}</option>`);
+                            if (member.name.includes('Team Lead:')) {
+                                teamLeadSelect.append(`<option value="${member.id}">${member.name}</option>`);
+                            }
+                        });
+                        teamLeadSelect.prop('disabled', false);
+                    },
+                    error: function() {
+                        console.log('Error fetching team members');
+                    }
+                });
+            } else {
+                // Reset the team members and team lead dropdowns when no project is selected
+                var teamMembersSelect = $('#e_id');
+                var teamLeadSelect = $('#team_lead');
+                teamMembersSelect.empty();
+                teamLeadSelect.empty();
+                teamMembersSelect.append('<option value="" selected disabled>Select</option>');
+                teamLeadSelect.append('<option value="" selected disabled>Select</option>');
+                teamLeadSelect.prop('disabled', true);
+            }
+        });
+    });
+    </script>
+
+    <script>
+        // Function to add a new task input field
+        function addTaskField() {
+            const fieldContainer = document.getElementById('fieldContainer');
+
+            // Create label for the new task name input
+            const nameLabel = document.createElement('label');
+            nameLabel.textContent = 'Task Name: '; // Set the label text as needed
+            nameLabel.style.fontWeight = 'bold'; // Make the label bold
+            nameLabel.style.color = 'black'; // Set label color to black
+
+            // Create task input field
+            const newTaskInput = document.createElement('input');
+            newTaskInput.type = 'text';
+            newTaskInput.name = 'task_name[]'; // Use an array for multiple task names
+            newTaskInput.className = 'form-control mb-3'; // Add margin bottom
+            newTaskInput.placeholder = 'Enter The Task Name';
+            newTaskInput.required = true;
+
+            // Create delete button
+            const deleteButton = document.createElement('button');
+            deleteButton.type = 'button';
+            deleteButton.className = 'btn btn-danger float-right mb-3'; // Float to the right
+            deleteButton.textContent = 'Delete';
+            deleteButton.style.fontSize = 'small';
+            deleteButton.onclick = function() {
+                // Remove task name, date input, and delete button upon clicking delete
+                fieldContainer.removeChild(nameLabel);
+                fieldContainer.removeChild(newTaskInput);
+                fieldContainer.removeChild(deleteButton);
+
+                // Remove line breaks if they exist
+                const brElements = fieldContainer.getElementsByTagName('br');
+                for (let i = 0; i < brElements.length; i++) {
+                    fieldContainer.removeChild(brElements[i]);
+                }
+            };
+
+            // Append elements to the field container
+            fieldContainer.appendChild(nameLabel);
+            fieldContainer.appendChild(newTaskInput);
+            fieldContainer.appendChild(deleteButton);
+
+            // Add line break for separation
+            const br = document.createElement('br');
+            fieldContainer.appendChild(br);
+        }
+    </script>                         
+{% endblock main_content %}

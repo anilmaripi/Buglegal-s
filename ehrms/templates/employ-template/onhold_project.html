@@ -1,0 +1,41 @@
+{% extends 'employ-template/base_template.html' %}
+{% block main_content %}
+<title>Projects List</title>
+<style>
+    .hed-manager{
+        color:blue;
+        font-size: 36px;
+        margin-bottom: 20px;
+       }
+    .table-manager th{
+        background-color: black;
+        color: #fff;
+        text-align: center;
+    }
+    .table-manager tr:nth-child(even){
+        background-color: #b3b3b3;
+        color: #000;
+        text-align: center;
+    }
+    .table-manager tr:nth-child(odd){
+        background-color: #ccc;
+        color: #000;
+        text-align: center;
+    }
+
+
+    .table-manager{
+            width: 70%;
+    }
+</style>
+<div class="row d-flex justify-content-center">
+    <center>
+
+        <h3 class="{% if mem_role == 'HR' and mem_hroptions == 1 %}hed-hr{% elif mem_role == 'Project Manager' and mem_projectmanagerop == 1 %}hed-manager{% elif mem_role == 'Employee' and mem_team_lead_ext == 1 %}hed-tl{% elif mem_role == 'Employee' and mem_team_lead_ext == 0 %}hed-tm {% endif %}">Projects List</h3>
+
+      </center>
+
+      <h6 style="color:#000">On Hold the project</h6>
+{% endblock main_content %}
+
+

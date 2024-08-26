@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Project Management List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h2 {
+            color: #007bff;
+            text-align: center;
+            
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        img {
+            max-width: 100px;
+            max-height: 100px;
+        }
+
+        a {
+            display: inline-block;
+            text-decoration: none;
+            padding: 6px 12px;
+            margin-right: 5px;
+            color: #007bff;
+            border: 1px solid #007bff;
+            border-radius: 4px;
+        }
+
+        a:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Project Management List</h2>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Image</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for project in projects2 %}
+        <tr>
+            <td>{{ project.title }}</td>
+            <td>{{ project.discription }}</td>
+            <td><img src="{{ project.image.url }}" alt="{{ project.title }}"></td>
+            <td>
+                <a href="{% url 'projectmanagement3_update' pk=project.pk %}">Edit</a>
+                <a href="{% url 'projectmanagement3_delete' pk=project.pk %}">Delete</a>
+            </td> 
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+</body>
+</html>

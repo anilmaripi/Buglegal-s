@@ -1,0 +1,111 @@
+{% extends 'adminhelp/basehelp.html' %}
+{% block main_content %}
+<style>
+    h5,h6{
+        font-size: larger;
+    }
+</style>
+<form>
+    <p id="ha1" style="font-size: xx-large;">Slack App for Hrms - A Guide</p>
+    <p id="g">A quick and handy reference for Hrms's Slack app</p>
+    <h5 id="g2">Hey there 👋 </h5>
+    <h5 id="g3" >A lot of organizations who use Hrms also use workspace tools like Slack, and MS Teams amongst others.</h5>
+    <h6 id="g4">We also realized that a lot of common actions taken by the employee and the admin require them to log in to the dashboard to do these common tasks.</h6>
+    <h6 id="g5">So we thought why not merge both? 🤷  And voila! 🤩<h6> 
+    <h6 id="g6">The Developtrees Hrms Slack App brings the functionality of Hrms right within Slack so your team doesn't need to continuously log in to do routine tasks.</h6>
+    <h6 id="g7">We've rolled out the first version of the app which enables the following from within Slack</h6>
+        
+    <p id="g9">1.<b>Leave</b>: Employees can apply for leaves and get notified of leave status; Admins <b>and managers can approve/reject leaves</b><ul> <li>Command - <b>/apply-leave</b> </li></ul></p>
+    <p id="g10">2.Who's on leave: Employees and the team can check their team members who are on leave for the next 5 days.
+    <ul>
+        <li>
+            Command - <b>/on-leave</b>
+        </li>
+    </ul>
+    </p>
+    <p id="g11">3.Check your leave balance instantly
+    <ul>
+        <li>
+            Command - <b>/leave-balance</b>
+        </li>
+    </ul>
+    </p>
+    <p id="g12">4.<b>Reimbursements:</b> Employees can apply for reimbursements and get notified of the status; Admins and managers can approve/reject reimbursements
+            <ul>
+                <li> 
+                Command - <b>/reimburse</b>
+                </li>
+            </ul>
+
+        </p>
+        <p id="g13">5.<b>Employees can View payslips</b> directly on Slack without the need to login into the system.
+            <ul>
+                <li>
+                    Command - <b>/payslip</b>
+                </li>
+            </ul>
+
+        </p>
+        <p id="g14">6.Employees get quick access to the organization’s <b>upcoming holiday list</b>
+            <ul>
+                <li> 
+                  Command - <b>/holiday</b>
+
+                </li>
+            </ul>
+        </p>
+        <p id="g15">7.<b>Attendance:</b> Organizations that use Hrms for attendance now have it even easier. Employees can check in and check out right from Slack with the help of simple commands.
+            <ul>
+                <li> 
+                    Commands - <b>/check-in and /check-out</b>
+                </li>
+            </ul>
+        </p><br><br>
+        <h2 id="g16">Video guide to the app</h2>
+        <p id="g17">Here's a quick video walkthrough for you to setup the Hrms App on your Slack workspace and get started on the same.</p>
+        <h5 id="g18">The guide in the text is below 👇🏼</h5>
+        <h2 id="h14">Admin's Guidance</h2>
+        <p id="g19">The admin has the most important role to play! They have the power to integrate the Slack app into your workspace</p>
+        <br><p id="g20"><b>How to integrate with Slack?</b></p>
+        <p id="g21">The Slack integration can only be enabled by your organization's Slack Admin</p>
+        <p id="g22">1.Go to the <b>Admin Options > Settings</b></p>
+        <p id="g23">2.Select the <b>Edit</b> option for <b>Integrations > Slack</b> (this is towards the end of the page)</p>
+        <p id="g24">3.Click the <b>'Connect to Slack'</b> button. You will be redirected to a Slack permissions page.</p>
+        <p id="g25">4.Make sure you have the correct workspace selected on the upper right-hand side and click <b>'Allow'.</b></p>
+        <p id="g26">5.Done! 🎉</p><br>
+        <p id="g27"><b>What's Next?</b></p>
+        <p id="g28">1.Notify your team that you've installed the App for them to start using it </p><p id="g40">2.Sit back and relax ⛱️</p>
+        <p id="g29"><i>PS -Your Hrms admin and Slack admin may be different. Do check if you have the right<br> permissions to install the app.</i></p><br>
+        <h3 id="g30"><b>Team Guide</b></h3>
+        <p id="g31">After the admin installs the app, your team needs to set up their account and they can start using it.</p><br>
+        <h3 id="g32">Setting up their account</h3><br>
+        <ul>
+            <li>Once the admin installs the app, the next step is for your team to connect their Slack accounts with Hrms
+
+            </li>
+            <li>
+                This is a very simple process
+            </li>
+        <p id="g36">1.Your team needs to type in Hrms within Slack and it will ask them to connect their account. This is required for us to identify the member on Slack and connect to the Hrms account</p>
+
+       <p id="g37">2.Hit Connect and get redirected to Hrms to log in and connect their account.</p>
+            
+          <p id="g38">  3.Done! 🎉 
+            
+            </p>
+
+            <li>Once this is complete, your team gets access to the app and can start using it for leaves, reimbursements, holidays,  and payslips
+
+            </li>
+        </ul><br>
+
+
+        <center><button style="width:50%;height: auto;font-size: x-large;border: 2px solid whitesmoke;">
+            <div id="a">
+                <p id="section10" style="text-align: center;">Did this answer your question?</p>
+                <p><a class="ex1" style="text-decoration: none;color: black;"><center>😄 😶 😔</center></a> </p>
+            </div>
+        </button></center><br><br><br>  
+        
+    </form>
+    {% endblock main_content %}

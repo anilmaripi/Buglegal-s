@@ -1,0 +1,271 @@
+{% extends 'admin-template/base_template.html' %}
+{% block main_content %}
+
+   <style>
+
+#check{
+width: 18px;
+height: 18px;
+}
+.form-check-label{
+  font-size: larger;
+}
+    h3{
+      color: white;
+    }
+   </style>
+<div class="container" style="width: 75%;height: auto;">
+  <div class="row justify-content-center" style="margin-top: 100px;">
+      <div class="col-lg-12 " >
+
+
+        <div class="col-lg-12" style="margin-left: 20%;">
+        <a href="/tds/">
+
+          <button style="background-color:white;color: black;width: 12%;border:none;font-size:x-large;">TDS</button>            </a>
+    
+        <a href="/pr_tax/">
+            <button style="background-color:#2d3354;color: white;;border:none;font-size: x-large;">PROFESSIONAL TAX</button>
+            </a>
+    
+        <a href="/pf/">
+            <button style="background-color:#2d3354;color: white;width: 12%;border:none;font-size: x-large;">PF</button>
+            </a>
+    
+        <a href="/esic/">
+            <button style="background-color:#2d3354;color: white;width: 14%;border:none;font-size: x-large;">ESIC</button>
+            </a>
+        </div><br>
+        
+        <div class="col-lg-12">
+        
+      <form method="post" enctype="multipart/form-data" style="width:100%;margin: auto;height:fit-content;">{% csrf_token %}
+       <div style="background-color: #2d3354;height:28%;padding: 4%"><br>
+        <h4 style="color: white;text-align: justify;">Don't have compliance details? Invite your Chatered Accountant</h4><br>
+        <input style="float: right;margin-right: 20px;background-color: #2d3354;color: blue;border:none;" type="submit" value="INVITE NOW">
+
+        <h6 style="color: white;text-align: justify;font-size: 16px">Invite your chatered accountant to setup your tax and get TRACES..</h6>
+
+        
+       </div>
+        <br>
+        <br>
+<br>   
+
+    <h3>TDS Payment</h3>
+    
+     <h6 style="padding:20px;background-color: #2d3354;color: white;text-align: justify;padding: 4%;font-size: 18px;">Please note that the disabling the payment of TDS does not disable the deduction of the same in your employee's payslips.
+    </h6><br>
+    {% for i in a1 %}
+    <div class="form-check">
+      <label class="form-check-label" style="color:white">
+          <input type="checkbox" name="tds_payment" id="tds_payment_check" {% if i.tds_payment == 'Yes' %}checked{% endif %}>
+          Salary TDS payments(if applicable)
+        </label>
+    </div>
+    <br>
+    <div class="form-check">
+      <label class="form-check-label" style="color:white">
+          <input type="checkbox" name="tds_payment1" {% if i.tds_payment1 == 'Yes' %}checked{% endif %}>
+          Non-Salary TDS payments(if applicable)
+        </label>
+    </div>
+
+
+    
+    <br>
+    <div id="tds_check">
+    <h3>Company TAN *</h3>
+    <div style="display: flex; flex-direction: column;">
+      <input type="text" name="verify_tan" placeholder="enter company TAN" style="padding: 10px;border:none;background-color:#3a446f;color: white;width: 300px;"><br>
+    <div style="font-size: 18px; height: 50px;border-top: none;padding: 15px;background-color: #2d3354;color: white;">
+    You can verify your TAN <a href="https://eportal.incometax.gov.in/iec/foservices/#/pre-login/knowYourTAN">here..</a>
+    </div>
+    </div>
+    <br><br>
+    <h3>TDS Filling Setup</h3>
+    <div style="font-size: 18px;height:auto;width:auto;background-color: #2d3354;color: white;padding: 4%;text-align: justify;">
+    If you automatically file your TDS returns at the every quarter!Here are a few things to note:<br>
+    <br>
+    1. If your payroll is being run by us for an entire quarter,you should definetly let us file your 24Q returns.However,if there have been salary TDS deductions in this quarter from outside so, we recommend that you file your returns manually this one time.<br>
+    <br>
+    2. For 26Q,have been file your returns if you are making all your non-salary payments (to contractors,vendors,etc.) through us.<br>
+    <br>
+    3. If you will not be able to generate Form 16s for your employees unless the TDS retirns are being filed by us.
+    <br>
+    
+    
+    
+    </div>
+    <br>
+
+    <div class="form-check">
+      <label class="form-check-label" style="color:white">
+          <input type="checkbox" name="tds_filling_setup" {% if i.tds_filling_setup == 'Yes' %}checked{% endif %}>
+          Automatically file 24Q
+      </label>
+    </div><br>
+
+    <div class="form-check">
+      <label class="form-check-label" style="color:white">
+          <input type="checkbox" name="tds_filling_setup1" {% if i.tds_filling_setup1 == 'Yes' %}checked{% endif %}>
+          Start 24Q filling form
+        </label>
+    </div>
+    
+    <br>
+    <select style="font-size: 18px;width: 300px;background-color: #2d3354;color: white;border:none;" name="filling_form" class="form-control">
+    <option>Immediately</option>
+    <option>after some time</option>
+    </select>
+    <br>
+    <div class="form-check">
+      <label class="form-check-label" style="color:white">
+          <input type="checkbox" name="tds_filling_setup2" {% if i.tds_filling_setup2 == 'Yes' %}checked{% endif %}>
+          Automatically file 26Q
+        </label>
+    </div>
+
+    <br>
+    <h3>IT Portal credentials (Required for TDS filling)</h3>
+    <div style="font-size: 18px;height:auto;width:auto;background-color: #242b4d;color: white;text-align: justify;padding: 4%">
+    For automate fillings of your TDS ,you must provide us with your Income Tax Portal login credentials at the earliest.
+    <br><br><h5>Important Note</h5><br>
+    <ul>
+        <li>The UserID entered needs to be your TAN.</li>
+        <li>Please ensure you have registered under the "Tax Deductor and Collector" category correctly using the <a href="https://www.incometax.gov.in/iec/foportal/help/register-for-efiling-tax-deductor-and-collector">linked steps.</a>
+        </li>
+    
+    </ul>
+    </div>
+    <br>
+    <br>
+    <table border="2" style="border-collapse: collapse;border:none;"  class="input-box">
+    <tr style="background-color:#2d3354;">
+        <th style="padding: 10px;color: white;" >User ID</th>
+        <th style="padding: 10px; color: white;">Password</th>
+    </tr>
+    <tr>
+        <td><input type="text" name="userid" value="{{i.userid}}"  placeholder="Enter your company TAN-number" style="padding: 10px;border:none;background-color: #3a446f;color: white;"  class="input-box"></td>
+        <td><input type="password"  name="password" value="{{i.password}}"  id="password" class="input-box" style="padding: 10px;border:none;background-color:#3a446f;color: white;"></td>
+    </tr>
+    </table><br>
+    <h6 style="color: white;font-size: 18px"><i>You can update the IT Portal credentials later as well</i></h6>
+    <br>
+    <h3>TRACES</h3>
+    <div style="font-size: 18px;height:auto;width:auto;background-color: #242b4d;color: white;text-align: justify;padding: 4%">
+      Your company's <a href="//www.tdscpc.gov.in/app/login.xhtml">TRACES</a> login is required to file TDS returns,corrections,and to download Form 16/16A data.
+    </div>
+    <br>
+    <table border="2" style="border-collapse: collapse;border:none;"class="input-box">
+    <tr style="background-color:#2d3354;">
+        <th style="padding: 10px;color: white;">Username</th>
+        <th style="padding: 10px;color: white;">Password</th>
+    </tr>
+    <tr>
+        <td><input type="text" style="padding: 10px;border:none;background-color:#3a446f;color: white;" name="username" value="{{i.username}}" class="input-box"></td>
+        <td><input type="password" id="password1" style="padding: 10px;border:none;background-color:#3a446f;color: white;" name="password1" value="{{i.password1}}" class="input-box"></td>
+    </tr>
+    </table>
+    {% endfor %}
+    <br>
+    <button type="button" class="btn "onclick="togglePassword()"style="padding: 5px;background-color: rgb(107, 107, 150);color: white;font-size: larger;">Click here to Show Password</button>
+
+    <br>
+  </div>
+  <br>
+    <input type="submit"  style="width:150px;padding: 10px;border:none;background-color: rgb(119, 132, 158);color: rgb(247, 244, 244);" value="Save & Next">
+    
+    </form>
+
+  </div>
+</div>
+<script>
+  function togglePassword() {
+    var passwordInput = document.getElementById("password");
+    if (passwordInput.type === "password") {
+      passwordInput.type = "text";
+    } else {
+      passwordInput.type = "password";
+    }
+    var passwordInput = document.getElementById("password1");
+    if (passwordInput.type === "password") {
+      passwordInput.type = "text";
+    } else {
+      passwordInput.type = "password";
+    }
+
+  }
+
+  </script>
+    <script>
+      // Get the tds_payment checkbox and the tds_check div
+      const tdsPaymentCheckbox = document.getElementById('tds_payment_check');
+
+
+      const tdsCheckDiv = document.getElementById('tds_check');
+    
+      // Function to show or hide the tds_check div based on the checkbox state
+      function toggleTDSCheckVisibility() {
+        if (tdsPaymentCheckbox.checked) {
+          tdsCheckDiv.style.display = 'block';
+        }
+        else {
+          tdsCheckDiv.style.display = 'none';
+        }
+      }
+    
+      // Add an event listener to the tds_payment checkbox to call the toggleTDSCheckVisibility function
+      tdsPaymentCheckbox.addEventListener('change', toggleTDSCheckVisibility);
+    
+      // Call the function initially to set the initial visibility based on the checkbox state
+      toggleTDSCheckVisibility();
+
+
+
+
+    </script>
+  
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const verify_tanInput = document.querySelector('input[name="verify_tan"]');
+
+        function validateInput(inputField) {
+            let inputValue = inputField.value.trim();
+
+            const capitalLettersAndNumbersRegex = /^[A-Z0-9]*$/;
+
+            if (inputValue.length > 10) {
+                inputValue = inputValue.substring(0, 10);
+            }
+
+            if (!capitalLettersAndNumbersRegex.test(inputValue)) {
+                inputValue = inputValue.replace(/[^A-Z0-9]/g, "");
+            }
+
+            inputField.value = inputValue;
+        }
+
+        verify_tanInput.addEventListener("input", function () {
+            validateInput(verify_tanInput);
+        });
+
+        
+    });
+</script>
+
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const userIdInput = document.querySelector('input[name="userid"]');
+    userIdInput.addEventListener('input', function () {
+      let inputValue = userIdInput.value.toUpperCase().replace(/[^A-Z0-9]/g, ''); 
+      userIdInput.value = inputValue;
+    });
+  });
+</script>
+
+</div></div>
+    
+    {% endblock main_content %}

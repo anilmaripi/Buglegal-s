@@ -1,0 +1,45 @@
+{% extends 'admin-template/base_template.html' %}
+{% load mathfilters %}
+{% load humanize %}
+
+{% block page_title %}
+    <!-- Your page title here -->
+{% endblock page_title %}
+
+{% block main_content %}
+
+<div class="row">
+    <div class="col-lg-12"><br><br>
+        <h4>Update Status</h4>
+        <table class="table">
+            <tr>
+                <th>Project Title</th>
+                <th>Status</th>
+                <th>Project Status</th>
+            </tr>
+            <form method="post" id="form"> {% csrf_token %}
+                {% for i in projectm %}
+                <tr>
+                    <td>{{ i.project_name }}</td>
+                    <td>
+                        
+                        <select name="status-{{ i.id }}">
+                            <option>on going</option>
+                            <option >Complete</option>
+                            <option >Incomplete</option>
+                            {% comment %} <option value="2">on going</option> {% endcomment %}
+                        </select>
+                        <input type="hidden" name="project_id" value="{{ i.id }}">
+                    </td>
+                    <td>{{i.status }}</td>
+                </tr>
+                {% endfor %}
+                <button type="submit" id="sub">Update Status</button>
+            </form>
+        </table>
+            </div>
+</div>
+{% endblock main_content %}
+
+
+

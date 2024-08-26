@@ -1,0 +1,213 @@
+{% extends 'admin-template/base_template.html' %}
+
+{% block main_content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Complaints List</title>
+    <style>
+        h1 {
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        form {
+            display: inline;
+        }
+
+        input[type="submit"] {
+            padding: 5px 10px;
+            background-color: #f44336;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #d32f2f;
+        }
+
+        .description-content {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 300px;
+            cursor: pointer;
+        }
+
+        .expanded {
+            white-space: normal;
+            overflow: visible;
+            text-overflow: initial;
+        }
+
+        .view-more {
+            color: #007bff;
+            cursor: pointer;
+        }
+        .pagination {
+    margin: 20px 0;
+    text-align: center;
+}
+
+/* .pagination a, .pagination .current-page {
+    display: inline-block;
+    padding: 8px 12px;
+    text-decoration: none;
+    margin: 0 4px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+} */
+
+.pagination a, .pagination .current-page {
+    display: inline-block;
+    padding: 8px 12px;
+    text-decoration: none;
+    margin: 0 4px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    transition: background-color 0.3s;
+    text-align: center;
+}
+.act{
+  /* background-color: orange; */
+  color: white;
+  height:43px;
+  width:43px;
+  border-radius: 20px;
+
+}
+
+    </style>
+    <script>
+        function toggleDescription(index) {
+            var descriptionContent = document.getElementById('description_' + index);
+            var fullDescription = document.getElementById('description_full_' + index);
+            var viewMoreLink = document.getElementById('view_more_' + index);
+
+            if (descriptionContent.classList.contains('expanded')) {
+                descriptionContent.classList.remove('expanded');
+                fullDescription.style.display = 'none';
+                descriptionContent.style.display = 'inline';
+                viewMoreLink.textContent = 'View More';
+            } else {
+                descriptionContent.classList.add('expanded');
+                fullDescription.style.display = 'inline';
+                descriptionContent.style.display = 'none';
+                viewMoreLink.textContent = 'View Less';
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <form method="post">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-5">
+            <h1>Complaints List</h1>
+            </div>
+        <div class="form-group col-4" style="margin-top:20px ;">
+            <input type="text" class="form-control" placeholder="Search for name and id" name="search">
+        </div>
+        <div class="col-3" style="margin-top:20px ;">
+        <button type="submit" class="btn btn-success">Search</button>
+    </div>
+</div>
+    </form>
+<div class="container">
+    <table>
+        <tr>
+            <th style="color: #333;">Employee Id</th>
+            <th style="color: #333;">Name</th>
+            <th style="color: #333;">Email</th>
+            <th style="color: #333;">Description</th>
+            <th style="color: #333;">Correction</th>
+            <th style="color: #333;">Action</th>
+        </tr>
+        {% for complaint in complaints %}
+        <tr style="background-color:#b5c6e0;">
+            <td style="color: black;">{{ complaint.employ_id }}</td>
+            <td style="color: black;">{{ complaint.name }}</td>
+            <td style="color: black;">{{ complaint.email }}</td>
+            <td style="color: black;">
+                <div>
+                    <p class="description-content" id="description_{{ forloop.counter0 }}" onclick="toggleDescription({{ forloop.counter0 }})">
+                        {{ complaint.description | truncatechars:10 }}
+                        {% if complaint.description|length > 10 %}
+                            <span id="view_more_{{ forloop.counter0 }}" class="view-more">View More</span>
+                        {% endif %}
+                    </p>
+
+                    <p class="expanded description-content" id="description_full_{{ forloop.counter0 }}" style="display:none;">
+                        {{ complaint.description }}
+                        {% if complaint.description|length > 10 %}
+                            <span class="view-more" onclick="toggleDescription({{ forloop.counter0 }})">View Less</span>
+                        {% endif %}
+                    </p>
+                    
+                </div>
+            </td>
+            
+            
+            <td style="color: black;">{{ complaint.correction }}</td>
+
+            <td>
+                <form action="{% url 'delete_complaint' complaint.id %}" method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="Delete">
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <div class="pagination" style="color:white; margin:20px auto;">
+        <span class="step-links">
+            {% if complaints.has_previous %}
+                <a  href="?page=1">&laquo;<<</a>
+                <a   href="?page={{ complaints.previous_page_number }}" class="prev"> < </a>
+            {% endif %}
+      
+      
+            {% for i in complaints.paginator.page_range %}
+            {% if complaints.number == i %}
+            <button class="active act bg-info"><span>{{ i }} <span class="sr-only">(current)</span></span></button>
+            {% elif i > complaints.number|add:'-3' and i < complaints.number|add:'3' %}
+                <a  href="?page={{ i }}">{{ i }}</a>
+            {% endif %}
+            {% endfor %}
+      
+           
+      
+            {% if complaints.has_next %}
+                {% if complaints.number != complaints.paginator.num_pages %}
+                {% endif %}
+                <a   href="?page={{ complaints.next_page_number }}" class="prev">> </a>
+      
+                <a  href="?page={{ complaints.paginator.num_pages }}">>>&raquo; </a>
+            {% endif %}
+        </span>
+      </div>
+</div>
+
+
+</body>
+</html>
+{% endblock main_content %}
+

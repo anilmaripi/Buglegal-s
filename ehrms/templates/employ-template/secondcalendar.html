@@ -1,0 +1,280 @@
+{% extends 'employ-template/base_template.html' %}
+
+{% block main_content %}
+<style>
+    .calendar {
+  width: 99%;
+  margin: auto;
+  font-size: 13px;
+  background-color: #1e2442;
+
+}
+
+.calendar tr{
+  border: 1px solid #393f5c;
+}
+
+.calendar th {
+  padding: 10px;
+  text-align: center;
+  font-size: 18px;
+  color:azure;
+}
+
+.calendar td {
+  width: 50px;
+  height: 50px;
+  padding: 20px 0px 0px 5px;
+  color:aliceblue;
+  text-align: center;
+  background-color: #282f51;
+  font-size: 18px;
+  
+}
+.calendar td:hover{
+  color:rgb(89, 137, 226);
+  
+}
+.calendar td::select{
+  background-color: gray;
+}
+
+.month {
+  font-size: 25px;
+}
+
+.date {
+  font-size: 16px;
+}
+
+
+a {
+  color: #17a2b8;
+}
+.left {
+  float: left;
+}
+.center {
+  float: center;
+}
+
+.right {
+  float: right;
+}
+
+.btn {
+  outline: none;
+  color:white;
+  background-color: transparent;
+  box-shadow: 0 0 0 0;
+}
+
+.clearfix {
+  margin-top: 20px;
+  text-align: center;
+  background-color: #1e2442;
+  flex-grow: 1;
+  height: 40px;
+  border: none;
+  
+}
+.check{
+  background-color: #282f51;
+  padding:25px;
+  display:row;
+  flex-direction: row;
+  justify-content: center;
+}
+.levb{
+  background-color: #282f51;
+  color:white;
+  padding:25px;
+  display:row;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+}
+td.datepresent{
+  color: rgb(0, 0, 0);
+  background-color: rgba(246, 230, 0, 0.311);
+}
+td.datepresent1{
+  color: green;
+  background-color: rgba(229, 255, 0, 0.451);
+}
+span.datepresent1{
+  color: rgb(95, 255, 3);
+  
+}
+.area{
+	padding: 10px;
+	height: auto;
+}
+.check_notify{
+  background-color: green;
+  color:white;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  pointer-events: all !important;
+}
+
+
+
+  </style>
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %} style="background-color: green;color: whitesmoke;padding: 10px;list-style-type: none;width: 70%;">{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+    <div class="col-md-2"></div>
+    <div class="col-md-12">
+      <h1 style="color:white;">Leave & Attendance</h1>
+      <div class="row">
+        <div class="col-md-9">
+      <div  class="check">
+        <div class="row justify-content-between">
+        <div sytle="flex-direction:column;">
+        <h2 style="color:white; font-size:24px;">Mark attendance for today(<span id="date"></span>)</h2>
+        <p style="color:white; font-size:16px;">You can mark your attendance for today. For any other day, please use the edit option below.</p>
+      </div>
+      {% if is_weekoff_today %}
+      
+        <div class="col">
+          
+          <form method="post" id="checkInForm" enctype="multipart/form-data">
+            {% csrf_token %}
+            <button class="btn btn-info startTracking" id="checkInButton" name="vk"  type="submit" style="color: white;border: none; background-color: #4358c2;"disabled >Check In</button>
+          </form><br>
+
+  
+          <form method="post" id="checkOutForm" enctype="multipart/form-data">
+            {% csrf_token %}
+            <button class="btn btn-info stopAndSave" id="checkOutButton" name="vk1"  type="submit" style="color: white;border: none; background-color: #4358c2" >Check Out</button>
+          </form>
+        </div>
+        {% else %}
+        <div class="col">
+       
+          <form method="post" id="checkInForm" enctype="multipart/form-data">
+            {% csrf_token %}
+            <button class="btn btn-info startTracking" id="checkInButton" name="vk"  type="submit" style="color: white;border: none; background-color: #4358c2;"{% if check_in or not can_check_in %} disabled {% endif %} >Check In</button>
+            {% if check_in %}
+            <div class="hidden-message text-warning " id="alreadycheckin" >You have already Checked In today</div>
+            {% elif not can_check_in %}
+            <div class="hidden-message text-danger " id="checkindisabled">You are too early or too late to check in</div>
+            {% endif %}
+          </form><br>
+
+          
+          
+  
+          <form method="post" id="checkOutForm" enctype="multipart/form-data">
+            {% csrf_token %}
+            <button class="btn btn-info stopAndSave" id="checkOutButton" name="vk1" type="submit" style="color: white;border: none; background-color: #4358c2" {% if not check_in or  check_out %} disabled {% endif %}  >Check Out</button>
+            {% if not check_in %}
+            <div class="hidden-message2 text-danger" id="checkoutdisabled">You have to Check In first</div>
+            {% elif check_out %}
+                <div class="hidden-message2 text-warning" id="alreadycheckout">You have already Checked Out today</div>
+            {% endif %}
+          </form>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+
+        <script>
+            $(document).ready(function () {
+                // Show/hide messages on button hover
+                $('#checkInButton').hover(
+                    function () {
+                        $('.hidden-message').hide(); // Hide all messages
+                        {% if check_in %}
+                            $('#alreadycheckin').show();
+                        {% elif  not can_check_in %}
+                            $('#checkindisabled').show();
+                        {% endif %}
+                    },
+                    function () {
+                        $('.hidden-message').hide(); // Hide all messages on mouseout
+                    }
+                );
+                $('#checkOutButton').hover(
+                    function () {
+                        $('.hidden-message2').hide(); // Hide all messages
+                        {% if not check_in %}
+                            $('#checkoutdisabled').show();
+                        {% elif check_in %}
+                            $('#alreadycheckout').show();
+                        {% endif %}
+                    },
+                    function () {
+                        $('.hidden-message2').hide(); // Hide all messages on mouseout
+                    }
+                );
+        
+        
+        
+        
+        
+            });
+        </script>
+        {% endif %}
+      </div>
+    </div>  
+      </div>
+    <div class="col-md-3 levb">
+      {% if employlevsheetcausel %}
+      <b>{{employlevsheetcausel.type}} &nbsp;&nbsp;&nbsp;: &nbsp;&nbsp;{{ employlevsheetcausel.defaultleave}}/{{usedcausel}}</b> <br> <br> 
+      {% else %}
+      {% endif %}
+      {% if employlevsheetmedical %}
+    <b>{{employlevsheetmedical.type}} &nbsp;: &nbsp;&nbsp;{{employlevsheetmedical.defaultleave }}/{{usedmedical}}</b> <br> <br>
+    {% else %}
+    {% endif %}
+    {% if employlevsheetearned %}
+    <b>{{employlevsheetearned.type}} &nbsp;&nbsp;&nbsp;: &nbsp;&nbsp;{{ employlevsheetearned.defaultleave }}/{{usedearned}}</b> <br> <br>
+    {% else %}
+    {% endif %}
+    </div>  
+      </div> 
+        <script>
+        n =  new Date();
+        y = n.getFullYear();
+        m = n.getMonth() + 1;
+        d = n.getDate();
+        document.getElementById("date").innerHTML = d + "/" + m + "/" + y;
+        </script>
+ 
+
+   <form method="post" enctype="multipart/form-data">
+       {% csrf_token %}
+       {{ screenshotform }}
+   </form>
+        
+<div class="clearfix">
+	<a class="btn btn-info left" href="{% url 'ehrms:calendar' %}?{{ prev_month }}" style="margin-left: 8px;"><span></span>Prev</a>
+	<a class="btn btn-info center" href="{% url 'ehrms:calendar' %}?{{ get_date }}"> Today </a>
+	<a class="btn btn-info right" href="{% url 'ehrms:calendar' %}?{{ next_month }}" style="margin-right: 10px;"> Next>> </a>
+</div>
+</div>
+
+
+
+<div class="TFtable">
+  {{ calendar }}
+</div>
+
+
+
+
+
+
+
+{% endblock main_content %}
+
+

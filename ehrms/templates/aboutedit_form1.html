@@ -1,0 +1,104 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input[type="text"], 
+        .form-group textarea {
+            width: calc(100% - 20px);
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .form-group textarea {
+            height: 100px;
+        }
+        .form-group button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .form-group button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Edit Form</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="subhead3">Subhead 3:</label>
+                <input type="text" id="subhead3" name="subhead3" value="{{ instance.subhead3 }}">
+            </div>
+            <div class="form-group">
+                <label for="point6">Point 6:</label>
+                <input type="text" id="point6" name="point6" value="{{ instance.point6 }}">
+            </div>
+            <div class="form-group">
+                <label for="point7">Point 7:</label>
+                <input type="text" id="point7" name="point7" value="{{ instance.point7 }}">
+            </div>
+            <div class="form-group">
+                <label for="point11">Point 11:</label>
+                <input type="text" id="point11" name="point11" value="{{ instance.point11 }}">
+            </div>
+            <div class="form-group">
+                <label for="subhead4">Subhead 4:</label>
+                <input type="text" id="subhead4" name="subhead4" value="{{ instance.subhead4 }}">
+            </div>
+            <div class="form-group">
+                <label for="des2">Description 2:</label>
+                <textarea id="des2" name="des2">{{ instance.des2 }}</textarea>
+            </div>
+            <div class="form-group">
+                <label for="point8">Point 8:</label>
+                <input type="text" id="point8" name="point8" value="{{ instance.point8 }}">
+            </div>
+            <div class="form-group">
+                <label for="point9">Point 9:</label>
+                <input type="text" id="point9" name="point9" value="{{ instance.point9 }}">
+            </div>
+            <div class="form-group">
+                <label for="point10">Point 10:</label>
+                <input type="text" id="point10" name="point10" value="{{ instance.point10 }}">
+            </div>
+            <div class="form-group">
+                <button type="submit">Save</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

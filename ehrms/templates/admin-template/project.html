@@ -1,0 +1,135 @@
+{% extends 'admin-template/base_template.html' %}
+{% block main_content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Project Management</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+            color: #333;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        .pagination {
+            margin: 20px auto;
+            text-align: center;
+        }
+        .pagination a, .pagination button {
+            display: inline-block;
+            padding: 8px 16px;
+            text-decoration: none;
+            color: black;
+            border: 1px solid #ddd;
+            margin: 0 4px;
+            cursor: pointer;
+            background-color: #fff;
+        }
+        .pagination a:hover, .pagination button:hover {
+            background-color: #f2f2f2;
+        }
+        .pagination .active {
+            background-color: #007bff;
+            color: white;
+            border: 1px solid #007bff;
+        }
+    </style>
+</head>
+<body>
+    <form method="post" id="deleteForm">
+        {% csrf_token %}
+        <h4>Project Management</h4>
+        <table class="table border">
+            <thead>
+                <tr>
+                    <th>Select</th>
+                    <th>Project Name</th>
+                    <th>Project Manager Name</th>
+                    <th>Project Description</th>
+                    <th>Edit</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for project1 in projects1 %}
+                <tr>
+                    <td>
+                        <input type="checkbox" name="projects_to_delete" value="{{ project1.id }}">
+                    </td>
+                    <td>{{ project1.project_name }}</td>
+                    <td>{{ project1.admin_id.first_name }}.{{ project1.admin_id.last_name }}</td>
+                    <td>{{ project1.project_dec }}</td>
+                    <td><a href="/update_emp/{{ project1.project_name }}" class="btn btn-primary">Edit</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Pagination links -->
+
+        <!-- Form buttons -->
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-danger" name="action" value="delete" id="deleteButton">Delete Selected Projects</button>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <button type="submit" name="action" value="onhold" class="btn btn-warning">On Hold Projects</button>
+                </div>
+            </div>
+        </div>
+        <div class="pagination" style="color:white; margin:20px auto;">
+            <span class="step-links">
+                {% if projects1.has_previous %}
+                    <a  href="?page=1" style="border-radius: 20px;" class="bg-info">&laquo;<<</a>
+                    <a   href="?page={{ projects1.previous_page_number }}" class="prev bg-info" style="border-radius: 20px;"> < </a>
+                {% endif %}
+        
+        
+                {% for j in projects1.paginator.page_range %}
+                {% if projects1.number == j %}
+                <button class="active act bg-info" style="border-radius: 20px;"><span>{{ j }} <span class="sr-only">(current)</span></span></button>
+                {% elif j > projects1.number|add:'-3' and j < projects1.number|add:'3' %}
+                    <a  href="?page={{ j }}" style="border-radius: 20px;"  class="bg-info">{{ j }}</a>
+                {% endif %}
+                {% endfor %}
+        
+               
+        
+                {% if projects1.has_next %}
+                    {% if projects1.number != projects1.paginator.num_pages %}
+                    {% endif %}
+                    <a   href="?page={{ projects1.next_page_number }}" class="prev bg-info" style="border-radius: 20px;">> </a>
+        
+                    <a  href="?page={{ projects1.paginator.num_pages }}" style="border-radius: 20px;"  class="bg-info">>>&raquo; </a>
+                {% endif %}
+            </span>
+        </div>
+
+    </form>
+    <script>
+        document.getElementById('select-all').addEventListener('change', function() {
+            var checkboxes = document.querySelectorAll('input[name="projects_to_delete"]');
+            for (var checkbox of checkboxes) {
+                checkbox.checked = this.checked;
+            }
+        });
+    </script>
+</body>
+</html>
+{% endblock main_content %}

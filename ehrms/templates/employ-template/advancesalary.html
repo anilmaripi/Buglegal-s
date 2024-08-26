@@ -1,0 +1,220 @@
+{% block main_content %}
+<html>
+    <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+
+
+        <style>
+          body{
+              
+              background-color: #1E2442;
+              text-align:left;
+        
+          
+          }
+         
+          h1,h2,h3,h4,h5,h6{
+              color:white;
+              margin-top: 4px;
+          }
+          
+          tr:nth-child(even){
+              background-color:#2D3354;
+          }
+          tr:nth-child(odd){
+              background-color:#242B4D;
+          }
+          table{
+              border-collapse: collapse;
+              color: white;
+              width: 100%;
+              border:1px  solid #ffff;
+
+          }
+          table{
+              table-layout: auto;
+          }
+          th,td{
+              font-size: 20px;
+              padding:15px;
+          }
+
+
+* {
+box-sizing: border-box;
+}
+
+/* Create two equal columns that floats next to each other */
+.column {
+float: left;
+width: 75%;
+padding: 10px;
+ /* Should be removed. Only for demonstration */
+}
+.column1 {
+  float: right;
+  width: 25%;
+  padding: 10px;
+   /* Should be removed. Only for demonstration */
+  }
+
+/* Clear floats after the columns */
+.row:after {
+content: "";
+display: table;
+clear: both;
+}
+
+  th,td{
+    color:#fff
+  }
+
+
+  .pagination {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.pagination a, .pagination .current-page {
+    display: inline-block;
+    padding: 8px 12px;
+    text-decoration: none;
+    margin: 0 4px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+</style>
+</head>
+<body>
+
+<div class="row">
+<div class="col-lg-12" >
+  <h2>Advance Salary</h2>
+  
+<h4>Pending Payments</h4>
+<br>
+<div class="table">
+  <table class="table">
+      <tr>
+          <th>Employ ID</th>
+          <th>Employ Name</th>
+         
+          <th>EMI</th>
+          <th>Reason</th>
+          <th>Amount</th>
+          <th>Request</th>
+         
+      </tr>
+      {% for leave in emp_req %}
+      <tr>
+          <td>{{ leave.employ.empid }}</td>
+          <td>{{ leave.employ.first_name }}{{ leave.employ.last_name }}</td>
+        
+          
+          <td>{{ leave.emi }}</td>
+          <td>{{ leave.reason }}</td>
+          <td>{{ leave.amount }}</td>
+          
+       
+          
+          <td>
+              {% if leave.request_status == 0 %}
+              <a href="{% url 'advance_salary_status_approve' leave_id=leave.id %}" class="btn btn-success" >Approve</a>
+              <a class="btn btn-danger" href="{% url 'advance_salary_status_disapprove' leave_id=leave.id %}" >Disapprove</a>
+              {% elif leave.request_status == 1  %}
+               <button class="btn btn-warning" disabled="disabled" data-toggle="modal" data-target="#reply_modal">Approved</button>
+              {% else %}
+              <button class="btn btn-danger" disabled="disabled" data-toggle="modal" data-target="#reply_modal">Disapproved</button>
+              {% endif %}
+          </td>
+
+
+          
+      </tr>
+      {% endfor %}
+  </table>
+
+
+
+  <div class="pagination" style="margin-left: 610px; color: white; padding-left: 24px;">
+    <span class="step-links">
+        {% if leaves.has_previous %}
+            <a href="?page=1">&laquo; First</a>
+            <a href="?page={{ leaves.previous_page_number }}" class="prev">&#8249; << </a>
+        {% endif %}
+
+        {% for page in leaves.paginator.page_range %}
+            <a href="?page={{ page }}" {% if page == leaves.number %}class="active"{% endif %}>{{ page }}</a>
+        {% endfor %}
+
+        {% if leaves.has_next %}
+            <a href="?page={{ leaves.next_page_number }}" class="next">Next &rsaquo;</a>
+            <a href="?page={{ leaves.paginator.num_pages }}">&raquo; Last</a>
+        {% endif %}
+    </span>
+</div>
+<script>
+  $(document).ready(function () {
+      $("#name-search, #date-search").on("keyup change", function () {
+          var nameValue = $("#name-search").val().toLowerCase();
+          var dateValue = $("#date-search").val();
+
+          $("#myTable tbody tr").filter(function () {
+              var nameMatch = $(this).text().toLowerCase().indexOf(nameValue) > -1;
+              var dateCell = $(this).find("td:eq(4)").text(); // Index 4 corresponds to the Date column
+              var dateMatch = dateValue === "" || dateCell === dateValue;
+
+              $(this).toggle(nameMatch && dateMatch);
+          });
+      });
+  });
+</script>
+
+
+</div>
+
+<br>
+<br>
+
+    <style>
+      .dropdown-menu {
+  background-color: #fff; /* set background color */
+  border: 1px solid #ccc; /* set border */
+  padding: 10px; /* set padding */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* set box shadow */
+}
+
+.dropdown-item {
+  color:orange; /* set text color */
+  font-size: 16px; /* set font size */
+  padding: 5px 10px; /* set padding */
+}
+    </style>
+    <style>
+      #about-sub-nav, #services-sub-nav {
+        display: none;
+      }
+    </style>
+    
+    <script>
+      function toggleSubNav(element) {
+        var subNav = element.nextElementSibling;
+        if (subNav.style.display === "block") {
+          subNav.style.display = "none";
+        } else {
+          subNav.style.display = "block";
+        }
+      }
+    </script>
+
+</div>
+</div>
+ {% endblock main_content %}
+   

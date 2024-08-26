@@ -1,0 +1,110 @@
+<html>
+    <head>
+        <title>curdoperations</title>
+    </head>
+    <body>
+        <h3>KYC Details</h3>
+
+        <button><a href="/pvt_pub_form/">add kyc details</a></button><br><br>
+
+        <h4>pvt_pub_data</h4>
+        {% for i in k %}
+        <table border="2">
+        <tr>    
+            <th>certificate</th>
+            <th>cmpny_pancard</th>
+            <th>cheque</th>
+            <th>owner_pancard</th>
+            <th>id_proof</th>
+            <th>gst</th>
+            
+        </tr>
+            <tr>
+            <td><img src="/media/{{i.certificate}}" width="200px" height="150px"></td>
+            <td><img src="/media/{{i.cmpny_pancard}}"  width="200px" height="150px"></td>
+            <td><img src="/media/{{i.cheque}}"  width="200px" height="150px"></td>
+            <td><img src="/media/{{i.owner_pancard}}"  width="200px" height="150px"></td>
+            <td><img src="/media/{{i.id_proof}}"  width="200px" height="150px"></td>
+            <td><img src="/media/{{i.gst}}"  width="200px" height="150px"></td>
+           
+        </tr>
+        </table>
+        {% endfor %} <br>
+
+
+        <!-- <button><a href="/sole_proprietorship_form/">add kyc details</a></button><br><br> -->
+        <h4>sole-proprietorship_data</h4>
+        {% for i in k1 %}
+        <table border="2">
+        <tr>    
+            <th>gst_certificate</th>
+            <th>cancelled_cheque</th>
+            <th>owner_pancard1</th>
+            <th>idproof</th>
+            <th>GST</th>
+            
+        </tr>
+            <tr>
+            <td><img src="/media/{{i.gst_certificate}}" width="200px" height="150px"></td>
+            <td><img src="/media/{{i.cancelled_cheque}}"  width="200px" height="150px"></td>
+            <td><img src="/media/{{i.owner_pancard1}}"  width="200px" height="150px"></td>
+            <td><img src="/media/{{i.idproof}}"  width="200px" height="150px"></td>
+            <td><img src="/media/{{i.GST}}"  width="200px" height="150px"></td>
+        
+        </tr>
+        </table>
+        {% endfor %} <br>
+
+        <!-- <button><a href="/partnership_form/">add kyc details</a></button><br><br> -->
+        <h4>partnership_data</h4>
+        {% for i in k2 %}
+        <table border="2">
+        <tr>    
+            <th>shop_license</th>
+            <th>cmpny_pan</th>
+            <th>cheque1</th>
+            <th>owner_pan</th>
+            <th>id_proof1</th>
+            <th>gst1</th>
+            
+        </tr>
+            <tr>
+            <td><img src="/media/{{i.shop_license}}" width="200px" height="150px"></td>
+            <td><img src="/media/{{i.cmpny_pan}}"  width="200px" height="150px"></td>
+            <td><img src="/media/{{i.cheque1}}"  width="200px" height="150px"></td>
+            <td><img src="/media/{{i.owner_pan}}"  width="200px" height="150px"></td>
+            <td><img src="/media/{{i.id_proof1}}"  width="200px" height="150px"></td>
+            <td><img src="/media/{{i.gst1}}"  width="200px" height="150px"></td>
+     
+        </tr>
+        </table>
+        {% endfor %} <br>
+        
+
+        <!-- <button><a href="/trust_ngo_form/">add kyc details</a></button><br><br> -->
+        <h4>trust_ngo_data</h4>
+        {% for i in k3 %}
+        <table border="2">
+        <tr>    
+            <th>shop_license1</th>
+            <th>cmpny_pan1</th>
+            <th>cheque2</th>
+            <th>owner_pan1</th>
+            <th>id_proof2</th>
+            <th>gst2</th>
+          
+        </tr>
+            <tr>
+            <td><img src="/media/{{i.shop_license1}}" width="200px" height="150px"></td>
+            <td><img src="/media/{{i.cmpny_pan1}}"  width="200px" height="150px"></td>
+            <td><img src="/media/{{i.cheque2}}"  width="200px" height="150px"></td>
+            <td><img src="/media/{{i.owner_pan1}}"  width="200px" height="150px"></td>
+            <td><img src="/media/{{i.id_proof2}}"  width="200px" height="150px"></td>
+            <td><img src="/media/{{i.gst2}}"  width="200px" height="150px"></td>
+       
+        </tr>
+        </table>
+        {% endfor %}
+
+    </body>
+</html>

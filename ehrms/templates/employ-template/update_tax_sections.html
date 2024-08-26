@@ -1,0 +1,234 @@
+{% extends 'employ-template/base_template.html' %}{% block main_content %}
+<html>
+    <head>
+        <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
+    </head>
+    <body>
+        <form method="post" enctype="multipart/form-data" action="/update_tax_sections/{{k.id}}" style=" width: 100%; height: auto; margin: auto; padding: 10px; border-radius: 15px; ">{% csrf_token %}
+            <h3 style="color: white;">Section 80 Deductions</h3><br><br>
+            <section style="background-color:  rgb(41, 49, 94);padding: 20px;">
+            <div class="row">
+                <div class="col-9">
+                    <h5 style="color: #cecfd2;font-size: 20px;">Investments Under Section 80C</h5><br>
+                    <div style="color: #97989b;">(Max <i class="fa-sharp fa-solid fa-indian-rupee-sign" style="font-size: 14px;"></i> 1,50,000) investments in ELSS funds, PPF, FD, ULIP, etc. Do not include EPF/VPF contributions.</div><br>
+                    <a href="#"><b>More information</b></a><br><br>
+                    <div style="color:rgb(46, 237, 247);width:auto;padding-top:1% ;font-size: 20px;">
+                        <input type="file" id="imageInput" style="display: none;" name="Section_80C_proof" value="{{k.Section_80C_proof}}">
+                        <label for="imageInput" style="cursor: pointer;">
+                            <i class="fas fa-upload"></i> Upload images
+                        </label>
+                    </div>
+                    </div>
+                <div class="col-3">
+                    <label style="color: #cecfd2;font-size: 20px;">Amount</label><br><br>
+                    <input type="number" name="Section_80C" value="{{k.Section_80C}}" required style="background-color:  #585d7a;width: 100%;height: 50px;color:white;font-size: 20px;padding-left:10px;">
+                </div>
+            </div>
+            </section><br><br>
+            <section style="background-color:  rgb(41, 49, 94);padding: 20px;">
+                <div class="row">
+                    <div class="col-9">
+                        <h5 style="color: #cecfd2;font-size: 20px;">Investments Under Section 80D</h5><br>
+                        <div style="color: #97989b;">(Max  <i class="fa-sharp fa-solid fa-indian-rupee-sign" style="font-size: 14px;"></i> 75,000) Expenses towards medical insurance,preventive heaith checkup and other medical expenses.</div><br>
+                        <a href="#"><b >More information</b></a><br><br>
+                        <div style="color:rgb(46, 237, 247);width:auto;padding-top:1% ;font-size: 20px;">
+                            <input type="file" id="imageInput1" style="display: none;" name="Section_80D_proof" value="{{k.Section_80D_proof}}">
+                            <label for="imageInput1" style="cursor: pointer;">
+                                <i class="fas fa-upload"></i> Upload images
+                            </label>
+                        </div>
+                            </div>
+                    <div class="col-3">
+                        <label style="color: #cecfd2;font-size: 20px;">Amount</label><br><br>
+                        <input type="number" name="Section_80D" value="{{k.Section_80D}}" required style="background-color:  #585d7a;width: 100%;height: 50px;color:white;font-size: 20px;padding-left:10px;">
+                    </div>
+                </div>
+                </section>
+                <br><br>
+                <section style="background-color:  rgb(41, 49, 94);padding: 20px;">
+                    <div class="row">
+                        <div class="col-9">
+                            <h5 style="color: #cecfd2;font-size: 20px;">Investments Under Section 80CCD1BS</h5><br>
+                            <div style="color: #97989b;">(Max  <i class="fa-sharp fa-solid fa-indian-rupee-sign" style="font-size: 14px;"></i> 50,000) Self contribution in NPS.</div><br>
+                            <a href="#"><b>More information</b></a><br><br>
+                            <div style="color:rgb(46, 237, 247);width:auto;padding-top:1% ;font-size: 20px;">
+                                <input type="file" id="imageInput2" style="display: none;" name="Section_80CCD1BS_proof" value="{{k.Section_80CCD1BS_proof}}">
+                                <label for="imageInput2" style="cursor: pointer;">
+                                    <i class="fas fa-upload"></i> Upload images
+                                </label>
+                            </div>
+                                    </div>
+                        <div class="col-3">
+                            <label style="color: #cecfd2;font-size: 20px;">Amount</label><br><br>
+                            <input type="number" name="Section_80CCD" value="{{k.Section_80CCD}}" required style="background-color:  #585d7a;width: 100%;height: 50px;color:white;font-size: 20px;padding-left:10px;">
+                        </div>
+                    </div>
+                    </section>
+                    <br><br>
+                    <section style="background-color:  rgb(41, 49, 94);padding: 20px;">
+                    <div class="row">
+                        <div class="col-9">
+                            <h5 style="color: #cecfd2;font-size: 20px;">Investments Under Section 80DD</h5><br>
+                            <div style="color: #97989b;">Deductions for rehabilitation of handicapped dependent relative. Max <i class="fa-sharp fa-solid fa-indian-rupee-sign" style="font-size: 14px;"></i> 75,000 for 40% - 80% disability. and <i class="fa-sharp fa-solid fa-indian-rupee-sign" style="font-size: 14px;"></i> 1,25,000 for > 80% disability.</div><br>
+                            <a href="#"><b>More information</b></a><br><br>
+                            <div style="color:rgb(46, 237, 247);width:auto;padding-top:1% ;font-size: 20px;">
+                                <input type="file" id="imageInput3" style="display: none;" name="Section_80DD_proof" value="{{k.Section_80DD_proof}}">
+                                <label for="imageInput3" style="cursor: pointer;">
+                                    <i class="fas fa-upload"></i> Upload images
+                                </label>
+                            </div>
+                                    </div>
+                        <div class="col-3">
+                            <label style="color: #cecfd2;font-size: 20px;">Amount</label><br><br>
+                            <input type="number" name="Section_80DD" value="{{k.Section_80DD}}" required style="background-color:  #585d7a;width: 100%;height: 50px;color:white;font-size: 20px;padding-left:10px;">
+                        </div>
+                    </div>
+                    </section>
+                    <br><br>
+                    <section style="background-color:  rgb(41, 49, 94);padding: 20px;">
+                    <div class="row">
+                        <div class="col-9">
+                            <h5 style="color: #cecfd2;font-size: 20px;">Investments Under Section 80E</h5><br>
+                            <div style="color: #97989b;">Interest on Education Loan.</div><br>
+                            <a href="#"><b>More information</b></a><br><br>
+                            <div style="color:rgb(46, 237, 247);width:auto; padding-top:1% ;font-size: 20px;">
+                                <input type="file" id="imageInput4" style="display: none;" name="Section_80E_proof" value="{{k.Section_80E_proof}}">
+                                <label for="imageInput4" style="cursor: pointer;">
+                                    <i class="fas fa-upload"></i> Upload images
+                                </label>
+                            </div>
+                                    </div>
+                        <div class="col-3">
+                            <label style="color: #cecfd2;font-size: 20px;">Amount</label><br><br>
+                            <input type="number" name="Section_80E" value="{{k.Section_80E}}" required style="background-color:  #585d7a;width: 100%;height: 50px;color:white;font-size: 20px;padding-left:10px;">
+                        </div>
+                    </div>
+                    </section>
+                    <br><br>
+                    <section style="background-color:  rgb(41, 49, 94);padding: 20px;">
+                    <div class="row">
+                        <div class="col-9">
+                            <h5 style="color: #cecfd2;font-size: 20px;">Investments Under Section 80G</h5><br>
+                            <div style="color: #97989b;text-align: justify;">contributions made to certain relief funds and charitible institutions can be claimed as a deduction. All donations are not treated equally under income Tax Act. Donations to certain funds and institutions qualify for 100%  or 50% deduction without any qualifying limit.</div><br>
+                            <a href="#"><b>More information</b></a><br><br>
+                            <div style="color:rgb(46, 237, 247);width:auto; padding-top:1% ;font-size: 20px;">
+                                <input type="file" id="imageInput5" style="display: none;" name="Section_80G_proof" value="{{k.Section_80G_proof}}">
+                                <label for="imageInput5" style="cursor: pointer;">
+                                    <i class="fas fa-upload"></i> Upload images
+                                </label>
+                            </div>
+                                    </div>
+                        
+                        <div class="col-3">
+                            <label style="color: #cecfd2;font-size: 20px;">Amount</label><br><br>
+                            <input type="number" name="Section_80G" value="{{k.Section_80G}}" required style="background-color:  #585d7a;width: 100%;height: 50px;color:white;font-size: 20px;padding-left:10px;">
+                        </div>
+                    </div>
+                    </section>
+
+                    <br><br>
+                    <section style="background-color:  rgb(41, 49, 94);padding: 20px;">
+                    <div class="row">
+                        <div class="col-9">
+                            <h5 style="color: #cecfd2;font-size: 20px;">Investments Under Section 80U</h5><br>
+                            <div style="color: #97989b;">Deduction for individuals with certain disabilities. Max <i class="fa-sharp fa-solid fa-indian-rupee-sign" style="font-size: 14px;"></i> 75,000 for people with disabilities, and  <i class="fa-sharp fa-solid fa-indian-rupee-sign" style="font-size: 14px;"></i> 1,25,000 for people with severe disability </div><br>
+                            <a href="#"><b>More information</b></a><br><br>
+                            <div style="color:rgb(46, 237, 247);width:auto;padding-top:1% ;font-size: 20px;">
+                                <input type="file" id="imageInput6" style="display: none;" name="Section_80U_proof" value="{{k.Section_80U_proof}}">
+                                <label for="imageInput6" style="cursor: pointer;">
+                                    <i class="fas fa-upload"></i> Upload images
+                                </label>
+                            </div>
+                                    </div>
+                        <div class="col-3">
+                            <label style="color: #cecfd2;font-size: 20px;">Amount</label><br><br>
+                            <input type="number" name="Section_80U" value="{{k.Section_80U}}" required style="background-color:  #585d7a;width: 100%;height: 50px;color:white;font-size: 20px;padding-left:10px;">
+                        </div>
+                    </div>
+                    </section>
+                    <br><br>
+                    <section style="background-color:  rgb(41, 49, 94);padding: 20px;">
+                    <div class="row">
+                        <div class="col-9">
+                            <h5 style="color: #cecfd2;font-size: 20px;">Investments Under Section 80EEB</h5><br>
+                            <div style="color: #97989b;">(Max <i class="fa-sharp fa-solid fa-indian-rupee-sign" style="font-size: 14px;"></i> 1,50,000) interest on loan taken for the purchase of electric vehicle.</div><br>
+                            <a href="#"><b>More information</b></a><br><br>
+                            <div style="color:rgb(46, 237, 247);width:auto;padding-top:1% ;font-size: 20px;">
+                                <input type="file" id="imageInput7" style="display: none;" name="Section_80EEB_proof" value="{{k.Section_80EEB_proof}}">
+                                <label for="imageInput7" style="cursor: pointer;">
+                                    <i class="fas fa-upload"></i> Upload images
+                                </label>
+                            </div>
+                                    </div>
+                        <div class="col-3">
+                            <label style="color: #cecfd2;font-size: 20px;">Amount</label><br><br>
+                            <input type="number" name="Section_80EEB" value="{{k.Section_80EEB}}" required style="background-color:  #585d7a;width: 100%;height: 50px;color:white;font-size: 20px;padding-left:10px;">
+                        </div>
+                    </div>
+                    </section>
+                    <br><br>
+                    <section style="background-color:  rgb(41, 49, 94);padding: 20px;">
+                    <div class="row">
+                        <div class="col-9">
+                            <h5 style="color: #cecfd2;font-size: 20px;">Investments Under Section 80DDB</h5><br>
+                            <div style="color: #97989b;text-align: justify;">Expenditure incurred for medical treatment,training etc. for specified diseases for self/dependents (parents,spouse,children and siblings) (<i class="fa-sharp fa-solid fa-indian-rupee-sign" style="font-size: 14px;"></i>40,000) if Assessee or the Dependent is below 60 years. (<i class="fa-sharp fa-solid fa-indian-rupee-sign" style="font-size: 14px;"></i> 1,00,000) if Assessee or the Dependent is above 60 years.</div><br>
+                            <a href="#"><b>More information</b></a><br><br>
+                            <div style="color:rgb(46, 237, 247);width:auto;padding-top:1% ;font-size: 20px;">
+                                <input type="file" id="imageInput8" style="display: none;" name="Section_80DDB_proof" value="{{k.Section_80DDB_proof}}">
+                                <label for="imageInput8" style="cursor: pointer;">
+                                    <i class="fas fa-upload"></i> Upload images
+                                </label>
+                            </div>
+                                    </div>
+                        <div class="col-3">
+                            <label style="color: #cecfd2;font-size: 20px;">Amount</label><br><br>
+                            <input type="number" name="Section_80DDB"  value="{{k.Section_80DDB}}" required style="background-color:  #585d7a;width: 100%;height: 50px;color:white;font-size: 20px;padding-left:10px;">
+                        </div>
+                    </div>
+                    </section>
+                    <br><br>
+                    <section style="background-color:  rgb(41, 49, 94);padding: 20px;">
+                    <div class="row">
+                        <div class="col-9">
+                            <h5 style="color: #cecfd2;font-size: 20px;">Investments Under Section 80TTA</h5><br>
+                            <div style="color: #97989b;text-align: justify;">(Max <i class="fa-sharp fa-solid fa-indian-rupee-sign" style="font-size: 14px;"></i> 10,000) income earned from interest on savings made in the bank. co-operative society or post office. Not applicable for interest earned from fixed. Recurring or time deposits or for taxpayers above the age 60 years.</div><br>
+                            <a href="#"><b>More information</b></a><br><br>
+                            <div style="color:rgb(46, 237, 247);width:auto;padding-top:1% ;font-size: 20px;">
+                                <input type="file" id="imageInput9" style="display: none;" name="Section_80TTA_proof" value="{{k.Section_80TTA_proof}}">
+                                <label for="imageInput9" style="cursor: pointer;">
+                                    <i class="fas fa-upload"></i> Upload images
+                                </label>
+                            </div>
+                                    </div>
+                        <div class="col-3">
+                            <label style="color: #cecfd2;font-size: 20px;">Amount</label><br><br>
+                            <input type="number" name="Section_80TTA" value="{{k.Section_80TTA}}" required style="background-color:  #585d7a;width: 100%;height: 50px;color:white;font-size: 20px;padding-left:10px;">
+                        </div>
+                    </div>
+                    </section>
+                    <br><br>
+                    <section style="background-color:  rgb(41, 49, 94);padding: 20px;">
+                    <div class="row">
+                        <div class="col-9">
+                            <h5 style="color: #cecfd2;font-size: 20px;">Investments Under Section 80TTB</h5><br>
+                            <div style="color: #97989b; text-align: justify;">(Max <i class="fa-sharp fa-solid fa-indian-rupee-sign" style="font-size: 14px;"></i> 50,000) Applicable only to senior citizens (Age 60 and above) an income earned from interest on all kinds of deposits</div><br>
+                            <a href="#"><b>More information</b></a><br><br>
+                            <div style="color:rgb(46, 237, 247);width:auto;padding-top:1% ;font-size: 20px;">
+                                <input type="file" id="imageInput10" style="display: none;" name="Section_80TTB_proof" value="{{k.Section_80TTB_proof}}">
+                                <label for="imageInput10" style="cursor: pointer;">
+                                    <i class="fas fa-upload"></i> Upload images
+                                </label>
+                            </div>
+                                    </div>
+                        <div class="col-3">
+                            <label style="color: #cecfd2;font-size: 20px;">Amount</label><br><br>
+                            <input type="number" name="Section_80TTB" value="{{k.Section_80TTB}}" required style="background-color:  #585d7a;width: 100%;height: 50px;color:white;font-size: 20px;padding-left:10px;">
+                        </div>
+                    </div>
+                    </section><br><br>
+                    <center><input type="submit" class="btn btn-lg" style="background-color: rgb(90, 90, 143);color: white;"></center><br>
+
+        </form>
+    </body>
+</html>
+{% endblock main_content %}

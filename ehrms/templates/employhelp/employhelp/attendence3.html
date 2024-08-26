@@ -1,0 +1,26 @@
+{% extends 'employhelp/basehelp.html' %}
+{% block main_content %}
+<style>
+    h5{
+        font-size: medium;
+    }
+</style>
+<form>
+    <p id="p">All collections > Other Modules > Holidays,Leaves& Attendance ></p>
+    <p id="ha1" style="font-size: xx-large;">CAMS biometric device troubleshooting guidence</p>
+    <p id="g1">If your CAMS biometric device has issues like not being able to synchronize check-in data with XPayroll, or not displaying all your employees/contractors, then please try the following -</p>
+    <p id="g">1.Most of the time, the device has lost Internet connectivity which needs to be restored. To check this,please log into the CAMS portal and check the <b>"device status"</b> tab (you can follow the instructions <a href="">here</a>).On this page, check the device status (shown by a green dot),and the <b>"last device connection time"</b>.If the device is online, the last connected time will be within the past couple of minutes. If the device appears offline, or the last connected time is not in the past couple of minutes, please check the device's Internet connectivity.</p>
+    <p id="g3">2.If  the  device is online, please go the<b>"device management"</b> tab,click on the <b>"manage"</b> icon, and check the auth token. The auth token should be the same as what you see under <b>Integrations > CAMS > Manage </b>on XPayroll. </p>
+    <p id="g2">3.Check your callback URL. It should have this value - <a href="">https://payroll.razorpay.com/api/camsunitv3</a></p>
+    <p id="g7">4.If all of the above has been verified, please try pushing all your employee to the device. To do so, on the CAMS integration page, please click on the "re-sync" button. This process can take up to 1 hour. Please remember that you<b> must not </b>add your employees to the device manually. They have to be pushed by XPayroll.</p>
+    <p id="g6">5.If your employees have been pushed to the device, please register their biometrics on the device, and try a test checkin. The attendance data should get updates within 1 minute on XPayroll.</p> 
+    <p id="g5">6. If none of the above works, please email us at <a href="">xpayroll@razorpay.com</a> and we will help you out.</p>  <br>  
+    <center><button style="width:50%;height: auto;font-size: x-large;border: 2px solid whitesmoke;">
+        <div id="a">
+            <p id="section10" style="text-align: center;">Did this answer your question?</p>
+            <p><a class="ex1" style="text-decoration: none;color: black;"><center>😄 😶 😔</center></a> </p>
+        </div>
+    </button></center><br><br><br>  
+    
+</form>
+{% endblock main_content %}

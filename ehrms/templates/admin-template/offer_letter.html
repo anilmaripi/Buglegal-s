@@ -1,0 +1,170 @@
+{% extends "admin-template/base_template.html" %}
+{% block main_content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Generate Offer Letter</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .form-container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .form-container label {
+            display: block;
+            margin-bottom: 10px;
+            color: black;
+        }
+        .form-container input[type="text"],
+        .form-container input[type="email"],
+        .form-container input[type="date"],
+        .form-container select {
+            width: 100%;
+            padding: 5px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .form-container input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .form-container input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .form-container .dynamic-fields-container {
+            margin-bottom: 20px;
+        }
+        .form-container .dynamic-fields-container .dynamic-field {
+            margin-bottom: 10px;
+            display: flex;
+            gap: 10px;
+        }
+        .form-container .dynamic-fields-container .dynamic-field input[type="text"] {
+            flex: 1;
+        }
+        .form-container .add-button {
+            background-color: #007BFF;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+        .form-container .add-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <h2 style="text-align: center;">Generate Offer Letter</h2>
+
+    <div class="form-container">
+        <form  id="offer-letter-form" method="post">
+            {% csrf_token %}
+            <label for="qualified_applicant">Select Qualified Applicant:</label>
+            <select id="qualified_applicant" name="qualified_applicant" required>
+                <option value="" disabled selected>Select Applicant</option>
+                {% for applicant in qualified_applicants %}
+                    <option value="{{ applicant.id }}" data-email="{{ applicant.email }}">{{ applicant.full_name }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="position">Position:</label>
+            <input type="text" id="position" name="position" required>
+
+            <label for="salary">Package: Should be taken in LPA</label>
+            <input type="text" id="salary" name="salary" required>
+
+            <label for="offer_letter_release_date">Offer Letter Release Date:</label>
+            <input type="date" id="offer_letter_release_date" name="offer_letter_release_date" required>
+
+            <label for="joining_date">Joining Date:</label>
+            <input type="date" id="joining_date" name="joining_date" required>
+
+            <label for="acceptance_date">Acceptance Date:</label>
+            <input type="date" id="acceptance_date" name="acceptance_date" required>
+
+           
+            <div class="dynamic-fields-container" id="dynamic-fields-container">
+                <h3 style="color: black;">Additional Details</h3>
+                <button type="button" class="add-button" id="add-field-button">Add More</button>
+                <div class="dynamic-field">
+                    <input type="text" name="titles[]" placeholder="Title" required>
+                    <input type="text" name="descriptions[]" placeholder="Description" required>
+                </div>
+            </div>
+
+            <input type="submit" value="Generate Offer Letter">
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('add-field-button').addEventListener('click', function() {
+            var newFieldDiv = document.createElement('div');
+            newFieldDiv.className = 'dynamic-field';
+
+            var newTitleInput = document.createElement('input');
+            newTitleInput.type = 'text';
+            newTitleInput.name = 'titles[]';
+            newTitleInput.placeholder = 'Title';
+            newTitleInput.required = true;
+
+            var newDescriptionInput = document.createElement('input');
+            newDescriptionInput.type = 'text';
+            newDescriptionInput.name = 'descriptions[]';
+            newDescriptionInput.placeholder = 'Description';
+            newDescriptionInput.required = true;
+
+            newFieldDiv.appendChild(newTitleInput);
+            newFieldDiv.appendChild(newDescriptionInput);
+
+            document.getElementById('dynamic-fields-container').appendChild(newFieldDiv);
+        });
+
+        document.getElementById('offer-letter-form').addEventListener('submit', function(event) {
+            setTimeout(function() {
+                document.getElementById('offer-letter-form').reset();
+            }, 1000); 
+        });
+    </script>
+   
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var qualifiedApplicantSelect = document.getElementById('qualified_applicant');
+            var emailInput = document.getElementById('email');
+        
+            qualifiedApplicantSelect.addEventListener('change', function() {
+                var selectedOption = qualifiedApplicantSelect.options[qualifiedApplicantSelect.selectedIndex];
+                var selectedEmail = selectedOption.getAttribute('data-email');
+                
+                emailInput.value = selectedEmail;
+            });
+        });
+    </script>
+    
+
+</body>
+</html>
+{% endblock main_content %}

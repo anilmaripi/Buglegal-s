@@ -1,0 +1,228 @@
+{% extends 'hod_template/home_content.html' %}
+{% block page_title %}
+
+{% endblock page_title %}
+{% block main_content %}
+
+<html>
+<head>
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+    <title>salary</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
+  <style>
+        body{
+            background-color: #242b4d;
+            color: whitesmoke;
+            overflow: scroll;
+        }
+        button{
+          color:white
+        }
+  </style>
+  <style>
+   /* Styles for mobile view */
+   @media only screen and (max-width: 600px) {
+     /* Adjust font size and padding for smaller screens */
+     body {
+       font-size: 14px;
+       padding: 10px;
+     }
+   
+     /* Adjust button size and padding for smaller screens */
+     button {
+       font-size: 14px;
+       padding: 2px 6px;
+     }
+   
+     /* Adjust input size and padding for smaller screens */
+     input[type="text"], input[type="submit"] {
+       font-size: 14px;
+       padding: 5px;
+     }
+   
+     /* Adjust heading size for smaller screens */
+     h2, h3, h4, h5, h6 {
+       font-size: 15px;
+     }
+   
+     /* Adjust margin and padding for smaller screens */
+    .container {
+       margin: 0 auto;
+       padding: 10px;
+     }
+   
+     /* Adjust margin and padding for smaller screens */
+     form {
+       margin: 0 auto;
+       padding: 10px;
+     }
+   
+     /* Adjust margin and padding for smaller screens */
+     h6 {
+       margin: 0 auto;
+       padding: 10px;
+     }
+   }
+
+   tr:nth-child(even) {
+  background-color: #717274;
+  width: 100%;
+}
+
+.freeze-table{
+  z-index: 50;
+}
+
+.header-main__container {
+    flex-grow: 1;
+    -ms-flex-align: center;
+    align-items: center;
+    height: 100%;
+    display: flex;
+    flex-basis: auto;
+}
+
+.header-main__list-item {
+    display: inline;
+    cursor: pointer;
+    font-size: 95%;
+    color: var(--gfg-title-color);
+    font-weight: 600;
+    position: relative;
+}
+
+.dashboard {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 20px;
+}
+
+
+   </style>
+
+
+</head>
+<body>
+    <div class="area" style="margin-left:25px;background-color:#0a1e80;">
+
+        <h6 style="margin-left: 10px;margin-top: 15px;">People</h6>
+        <div>  
+    <div class="card-tools">
+        <div class="input-group input-group-sm" style="width: 70%;margin-top: 20px;margin-left: 20px;">
+          <input type="text" id="myInput" onclick="submit" onkeyup="myFunction()" name="table_search" class="form-control float-right" placeholder="Search employee name and empid">
+
+          <div class="input-group-append">
+            <button type="submit" class="btn btn-default" style="color:white;background-color: aquamarine; margin-left: 5px;"><i class="fas fa-search"></i>search</button>
+          </div>
+        </div>
+      </div>
+    </div><br>
+
+    <div class="header" style="height: 5.5%;">
+      <h6 style="margin-left: 150px; color:white;">*Names of People with missing information shown in gray</h1> 
+        <div class="progress-container">
+          <div class="progress-bar" id="myBar"></div>
+        </div> 
+      </div>
+    
+    <br>
+    <form method="post" enctype="multipart/form-data" style="width: 70%; margin-left: 20px;" action="{% url 'manage_employ' %}" method="get">
+      {% csrf_token %}
+      <div class="row">
+          <div class="col">
+            <button style="background-color:#2d324f; margin-left: 2px;"  id="btnShowAll">All Count ({{ total_employees_count }})</button>
+          </div>
+          <div class="col">
+              <!-- <button style="background-color:#2d324f" onclick="redirectToEmploys()" id="employeesBtn">EMPLOYEES()</button> -->
+              <button style="background-color:#2d324f"id="btnShowEmployees">Employees ({{ emp }})</button>
+          </div>
+          <div class="col">
+              <button style="background-color:#2d324f" id="btnShowContract">Contract Employees ({{ con }})</button>
+          </div>
+          <div class="col">
+              <button style="background-color:#2d324f" id="dismissedBtn">DISMISSED()</button>
+          </div>
+      </div>
+      
+
+  </form>
+  
+      <div style="width: 90%; overflow-x: scroll; height: 30%; margin-bottom: 20%;" class="card-body table-responsive p-0" >
+       <table id="myTable"  style="width: 90%;" class="table table-hover text-nowrap">
+        <thead>
+          <tr>
+            
+            <th>Active Status</th>
+            <th>First Name</th>
+            <th>Role</th>
+          </tr>
+        </thead>
+          <tbody  >
+            {% for i in students %}
+              <tr data-employee-role="{{ i.role }}">
+                <td>{{ user.is_active }}</td>
+                <td><a href="{% url 'edit_people_admin' std=employ.admin.id %}" class="btn btn-success">{{ i.admin.first_name }}</a></td>
+                <td>{{ i.role }}</td>
+              </tr>
+            {% endfor %}
+            </tbody>
+     </table>
+    </div>
+    
+    </form>
+  </div>
+  <script>
+    // Get the buttons
+    const btnShowAll = document.getElementById('btnShowAll');
+    const btnShowEmployees = document.getElementById('btnShowEmployees');
+    const btnShowContract = document.getElementById('btnShowContract');
+
+    // Get all the rows in the table
+    const rows = document.querySelectorAll('#myTable tr');
+
+    // Function to show/hide rows based on the selected button
+    function toggleRows(showRows) {
+        rows.forEach(row => {
+            const role = row.dataset.employeeRole;
+            if (showRows === 'all' || (showRows === 'employees' && role === 'TRAINEE ENGINEER') || (showRows === 'contract' && role === 'Java')) {
+                row.style.display = 'table-row';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    }
+
+    // Add click event listeners to buttons
+    btnShowAll.addEventListener('click', () => toggleRows('all'));
+    btnShowEmployees.addEventListener('click', () => toggleRows('employees'));
+    btnShowContract.addEventListener('click', () => toggleRows('contract'));
+</script>
+<nav class="main-menu">
+  <ul>
+      {% for i in s %}
+      <li>
+          <a href="{{i.url}}">
+              <i class="{{i.icon}}" aria-hidden="true"></i>
+              <span class="nav-text">
+                  {{i.name}}
+               </span>
+              
+          </a>
+        
+      </li>
+      
+      {% endfor %}
+      
+  </ul>
+</nav>
+</body>
+</html>
+{% endblock main_content %}

@@ -1,0 +1,89 @@
+{% extends 'admin-template/base_template.html' %}
+{% block main_content %}
+<div class="row align-items-center d-flex  justify-content-center">
+    <div class="col-12 mb-4">
+        <div class="card border-light shadow-sm components-section align-items-center d-flex  justify-content-center">
+            <div class="card-body align-items-center d-flex justify-content-center">
+                <div class="row mb-4">
+                    <div class="col-lg-12 col-sm-16">
+                        <h3 class="h3 text-center">Task Detailes</h3>
+                    </div>
+                    <form method="post">{% csrf_token %}
+                    <div class="card-body">
+
+                            <div class="form-group">
+                                <label for="project-name">Project Name:</label>
+                                <select name="p_id" class="custom-select my-1 mr-sm-2" id="p_id">
+                                    <option value="0" selected>Select</option>
+                                    {% for project in projects %}
+                                        <option  value="{{project.id}}">{{project.p_name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="task-name">Employee Name:</label>
+                                <select name="e_id" class="custom-select my-1 mr-sm-2" id="e_id">
+                                    <option value="0" selected>Select</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label  for="task">Task:</label>
+
+                                <input type="text" name="task" class="form-control" placeholder="Name of the Task"
+                                    required>
+                            </div>
+
+                            <div class="form-group">
+                                <label  for="performance">Performance:</label>
+
+                                <input type="text" name="performance" class="form-control" placeholder="performance score"
+                                    required>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary">submit</button>
+                            </div>
+
+                        </form>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+   $(document).ready(function () {
+    $('#p_id').on('change', function() {
+        var project_id = $(this).val();
+        if (project_id !== '0') {
+            $.ajax({
+                url: `/get_team_members/${project_id}/`,
+                method: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    var teamMembersSelect = $('#e_id');
+                    teamMembersSelect.empty(); // Clear previous options
+                    teamMembersSelect.append('<option value="0" selected>Select</option>');
+                    data.team_members.forEach(function(member) {
+                        teamMembersSelect.append(`<option value="${member.id}">${member.name}</option>`);
+                    });
+                },
+                error: function() {
+                    console.log('Error fetching team members');
+                }
+            });
+        } else {
+            // Reset the team members dropdown when no project is selected
+            var teamMembersSelect = $('#e_id');
+            teamMembersSelect.empty();
+            teamMembersSelect.append('<option value="0" selected>Select</option>');
+        }
+    });
+});
+
+</script>
+{% endblock main_content %}

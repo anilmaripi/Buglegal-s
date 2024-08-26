@@ -1,0 +1,31 @@
+{% extends 'employhelp/basehelp.html' %}
+{% block main_content %}
+<style>
+    h5{
+        font-size: medium;
+    }
+</style>
+
+
+<form>
+    <p  id="ha1" style="font-size: xx-large;">Does HRMS automatically deduct professional tax?</p>
+    
+    <p id="ta">First, please check Company Details > Provident Fund / ESIC / Professional Tax. If professional tax is disabled there, then no PT will be deducted by HRMS for any employee.<p>
+    
+    <p id="tb">If PT has been enabled in the setting above, then HRMS will automatically deduct PT for employees in your "home state" (the state which you have entered as your company address under Company Details), assuming PT is applicable for that state. For any employees who are not in the home state, PT will not be automatically deducted. </p>
+    <p>For an employee that is not in the home state, you have multiple options -</p>
+    
+    <p  id="tc">1.If you are registered for PT in that employee's state, then you can enable PT by going to that employee's profile from the People page, and editing the Provident Fund, Professional Tax & ESI section.</p>
+
+     <p id="te"> 2.If you are not registered for PT in that employee's state, then you can either move the  employee's location to your home state in HRMS (which will result in PT being enabled for them), or leave things as-is, in which case no PT will be deducted for them.</p><br>
+    <p  id="td">To check whether PT is being deducted for your employees or not, please check Reports > Salary Register.</p><br>
+
+        <center><button style="width:50%;height: auto;font-size: x-large;border: 2px solid whitesmoke;">
+            <div id="a">
+                <p id="section10" style="text-align: center;">Did this answer your question?</p>
+                <p><a class="ex1" style="text-decoration: none;color: black;"><center>😄 😶 😔</center></a> </p>
+            </div>
+        </button></center><br><br><br>  
+        
+    </form>
+    {% endblock main_content %}

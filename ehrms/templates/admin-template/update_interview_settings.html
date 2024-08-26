@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update Interview Settings</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+form {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+input[type="url"],
+input[type="datetime-local"],
+button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+input[type="url"]:focus,
+input[type="datetime-local"]:focus,
+button:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+    </style>
+</head>
+<body>
+   <!-- Update Popup -->
+<div id="updatePopup" class="popup">
+    <div class="popup-content">
+        <h2>Update Interview Settings</h2>
+        <form method="post" action="{% url 'update_interview_settings' interview_setting.id %}" id="updateForm">
+            {% csrf_token %}
+            <label for="update_google_meet_link">Google Meet Link:</label>
+            <input type="url" id="update_google_meet_link" name="google_meet_link" value="{{ interview_setting.google_meet_link }}" required><br><br>
+            <label for="update_interview_time">Interview Time:</label>
+            <input type="datetime-local" id="update_interview_time" name="interview_time" value="{{ interview_setting.interview_time|date:'Y-m-d\TH:i' }}" required><br><br>
+            <div class="popup-buttons">
+                <button type="submit" class="btn btn-primary">Update</button>
+                <button type="button" onclick="closePopup('updatePopup')" class="btn btn-secondary">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

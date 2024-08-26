@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>productivity3</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 20px;
+        }
+        h2 {
+            color: #007bff;
+            text-align: center;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #007bff;
+            color: #fff;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        a {
+            text-decoration: none;
+            color: #007bff;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<h2>productivity3</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Title1</th>
+            <th>Image</th>
+            <th>Discription1</th>
+            <th>Title2</th>
+            <th>Discription2</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for project in projects3 %}
+        <tr>
+            <td>{{ project.title1 }}</td>
+            <td>{{ project.image }}</td>
+            <td>{{ project.discription1 }}</td>
+            <td>{{ project.title2 }}</td>
+            <td>{{ project.discription2 }}</td>
+            <td>
+                <a href="{% url 'productivity4_update' pk=project.pk %}">Edit</a> |
+                <a href="{% url 'productivity4_delete' pk=project.pk %}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+</body>
+</html>

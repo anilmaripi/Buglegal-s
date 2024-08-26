@@ -1,0 +1,157 @@
+
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css">-->
+  <link rel="stylesheet" type="text/css" href="{'% static 'cal/css/styles.css' %}"> 
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+
+  <title>Django Calendar App</title>
+  <style>
+    .calendar {
+  width: 99%;
+  margin: auto;
+  font-size: 13px;
+  background-color: rgb(148, 148, 206);
+
+}
+
+.calendar tr{
+  border: 1px solid rgb(53, 55, 185);
+}
+
+.calendar th {
+  padding: 10px;
+  text-align: center;
+  font-size: 18px;
+  color:azure;
+  background-color: rgb(46, 46, 112);
+}
+
+.calendar td {
+  width: 50px;
+  height: 50px;
+  padding: 20px 0px 0px 5px;
+  color:aliceblue;
+  text-align: center;
+  background-color: rgb(82, 113, 139);
+  font-size: 18px;
+}
+.calendar td:hover{
+  color:rgb(89, 137, 226);
+  
+}
+.calendar td::select{
+  background-color: gray;
+}
+
+.month {
+  font-size: 25px;
+}
+
+.date {
+  font-size: 16px;
+}
+.calendar
+ul {
+  height: 100%;
+  text-align: center;
+}
+
+a {
+  color: #17a2b8;
+}
+.left {
+  float: left;
+}
+.center {
+  float: center;
+}
+
+.right {
+  float: right;
+}
+
+.btn {
+  outline: none;
+  color:white;
+  background-color: transparent;
+  box-shadow: 0 0 0 0;
+}
+
+.clearfix {
+  margin-top: 15px;
+  text-align: center;
+  background-color: rgb(82, 113, 139);
+  flex-grow: 1;
+  
+  
+}
+.check{
+  background-color: rgb(79, 59, 126);
+  padding:25px;
+  display:row;
+  flex-direction: row;
+  justify-content: center;
+}
+
+  </style>
+  
+</head>
+<body class="bg-info">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+          <h1 style="color:white;">Leave & Attendence</h1>
+          
+          <div class="check">
+            <div class="row justify-content-between">
+            <div sytle="flex-direction:column;">
+            <h2 style="color:white; font-size:24px;">Mark attendence for today(<span id="date"></span>)</h2>
+            <p style="color:white; font-size:14px;">You can mark your attendance for today. For any other day, please use the edit option below.</p>
+          </div>
+            <div class="col">
+              <form method="post" id="i">
+                {% csrf_token %}
+                <button name="vk"  type="submit" {% if message %}disabled{% endif %}>Check In</button>
+   </form>
+  
+  <form method="post" >
+                {% csrf_token %}
+                <button name="vk1" type="submit" {% if messages %}disabled{% endif %}>Check out</button>
+            </form>
+            </div>
+          </div>
+          </div>
+        
+          
+            <script>
+            n =  new Date();
+            y = n.getFullYear();
+            m = n.getMonth() + 1;
+            d = n.getDate();
+            document.getElementById("date").innerHTML = d + "/" + m + "/" + y;
+            </script>
+           
+            
+    {% block content %}
+    
+  {% endblock %}
+</div>
+<div class="col-md-2"></div>
+
+</div>   
+     
+</body>
+
+</html>
+
+{{ inline_view }}
+<!-- {% include "atendtable.html" %} -->

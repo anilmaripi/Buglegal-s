@@ -1,0 +1,901 @@
+{% extends "admin-template/base_template.html" %}
+{% block main_content %}
+<style>
+  table{
+    width: 100%;
+  }
+  th{
+    background-color: black;
+  }
+  tr,th,td{
+            padding: 20px;
+            color: white;
+        }
+  tbody tr:nth-child(even) {
+    background-color: rgb(239,239,247); /* Even row color */
+  }
+
+  tbody tr:nth-child(odd) {
+    background-color: rgb(238,242,244); /* Odd row color */
+  }
+  ::placeholder {
+  color:white;
+  opacity: 0.5; /* Firefox */
+  font-size: 14px;
+}
+
+::-ms-input-placeholder { /* Edge 12-18 */
+  color: white;
+  font-size: 14px;
+  opacity: 0.5;
+
+}
+
+</style>
+<div class="container">
+<div class="row ">
+    <div class="col-lg-2"></div>
+      <div class="col-lg-8">
+
+        <div id="message">
+          {% if messages %}
+          {% for message in messages %}
+          {% if message.tags == 'error' %}
+          <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+          {% endif %}
+          {% if message.tags == 'success' %}
+          <div class="alert alert-success" style="margin-top:20px;background-color:green;color: whitesmoke;">{{ message }}</div>
+          {% endif %}
+          {% endfor %}
+          {% endif %}
+          </div>
+          <script>
+              $("#message").show();
+              setTimeout(function() {
+                  $("#message").hide();
+              }, 5000);
+          </script>
+
+<form method="post"  style="margin-top: 100px;height: auto;">
+  {% csrf_token %}
+   
+    <h2>Default Salary Structure</h2><br>
+    <div style="background-color:black; color:white;text-align:justify;padding: 30px;">
+      1. You can customize the default salary structure for employee<br>
+      2. Employer contributions to PF and ESI (if applicable) are applied after the salary has been bifurcated into the components at the ratio defined. Hence,the final salary structure can have a slightly different ratio.
+    </div>
+    <br>    
+    <br>
+    <div class="form-check" id="advanceSalaryCheckboxDiv">
+      <label class="form-check-label" style="color:black;">
+        <input type="checkbox" name="default_salary" class="form-check-input" id="defaultSalaryCheckbox"
+        {% if l and l.default_salary == 'Enabled' %} checked {% endif %}>
+        IF You Use Default Salary Structure      
+      </label>
+    </div>
+          <br>
+
+          <div id="defaultSalaryTable">
+            <div class="table-responsive">
+            <table>
+      <thead>
+      <tr >
+        <th>Salary Component</th>
+        <th>% of CTC</th>
+        <th>Percentage or Fixed ?</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in ptax_data %}
+      <tr>
+          <td>{{ item.salarycomponent }}</td>
+          <td>{{ item.percentageofCTC }}%</td>
+          <td>{{ item.percentageorfixed }}</td>
+        
+      </tr>
+      {% endfor %}
+
+  </tbody>
+</table>
+</div>
+<br><br>
+<div class="form-control" style="background-color:#282f51; color:white; width:auto; height:auto; border:none;">
+  <label style="width:auto;">If you are using flexible benefits, you can specify whether they are taxable or not, if you have not explicitly approved exemption for them.</label>
+</div>
+<br>
+<div class="form-check">
+
+  <input type="checkbox" name="FBP_allowances" class="form-check-input">
+  <label class="form-check-label" style="color:white;">
+    Consider FBP allowances to be taxable by default
+  </label>
+</div>
+
+<br><br>
+<h6>*indicates required fields</h6>
+<br>
+<button type="submit" style="padding-left: 10px; height: 50px; width: 180px; background-color: #0079bf;">
+<b style="color: white;">CONTINUE</b>
+</button>
+
+</div>
+
+  <br>
+  <div id="customSalaryTable">
+    <div style="background-color:black; color:white;text-align:justify;padding: 30px;">
+      1. To Remove any predefined component, enter "0" as the percentage/amount.<br>
+      2. Fixed amounts should be entered as per monthly salary.<br>
+      3. If the sum of components doesn't match with monthly pay, the difference amount will be adjusted from these components-LTA,HRA,Special Allowances,Basic(Where LTA has the highest priority and Basichas the lowest priority.)
+    </div>
+    <br><br>
+    <h2>Update Default Salary Structure</h2>
+    <form method="post" style="margin-bottom: 20px;">
+        {% csrf_token %}
+        <table>
+          <thead>
+              <tr>
+                  <th>Salary Component</th>
+                  <th>% of CTC</th>
+                  <th>Percentage or Fixed ?</th>
+                
+              </tr>
+          </thead>
+          <tbody>
+            {% if saly %}
+            {% for i in saly %}
+              <tr>
+                  <td>
+                    <input type="text" name="salarycomponent" value="{{i.salarycomponent}}" style="width:150px;padding: 5px;background-color: #5d6d9c;color: white;" readonly>
+                  </td>
+                  <td><input type="number" name="percentageofCTC"value="{{i.percentageofCTC}}" placeholder="Amount"  style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;"></td>
+                  <td><select name="percentageorfixed" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;" required>
+                    <option selected disabled>Please Select Option</option>
+                    {% if i.percentageorfixed %}
+                    <option value="Percentage" selected>Percentage</option>
+                    {% else %}
+                    <option value="Percentage">Percentage</option>
+                    {% endif %}
+                  </select></td>
+                  <input type="hidden" name="salaryid" value="1">
+                </tr>
+                {% endfor %}
+                {% else %}
+                <tr>
+                  <td>
+                    <input type="text" name="salarycomponent" placeholder="Custom Allowance" style="width:150px;padding: 5px;background-color: #5d6d9c;color: white;">
+                  </td>
+                  <td><input type="number" name="percentageofCTC"placeholder="Amount" placeholder="Amount"  style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;"></td>
+                  <td>
+                    <select name="percentageorfixed" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;">
+                      <option value="" selected disabled>Please Select Option</option>
+                      <option value="Percentage">Percentage</option>
+                    </select>
+                  </td>
+                  <input type="hidden" name="salaryid" value="1">
+                </tr>
+                {% endif %}
+                {% if saly2 %}
+                {% for i in saly2 %}
+              <tr>
+                <td> <input type="text" name="salarycomponent"placeholder="Custom Allowance" value="{{i.salarycomponent}}" style="width:150px;padding: 5px;background-color: #5d6d9c;color: white;">
+                </td>
+                <td><input type="number" name="percentageofCTC"placeholder="Amount" value="{{i.percentageofCTC}}" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;"></td>
+                <td>
+                  <select name="percentageorfixed"style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;" >
+                    <option selected disabled>Please Select Option</option>
+                    {% if i.percentageorfixed %}
+                    <option value="Percentage" selected>Percentage</option>
+                    {% else %}
+                    <option value="Percentage">Percentage</option>
+                    {% endif %}
+                  </select>
+                </td>
+                <input type="hidden" name="salaryid" value="2">
+            </tr>
+            {% endfor %}
+            {% else %}
+            <tr>
+              <td> <input type="text" name="salarycomponent"placeholder="Custom Allowance" style="width:150px;padding: 5px;background-color: #5d6d9c;color: white;">
+              </td>
+              <td><input type="number" name="percentageofCTC"placeholder="Amount" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;"></td>
+              <td><select name="percentageorfixed" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;">
+                <option selected disabled>Please Select Option</option>
+                <option value="Percentage">Percentage</option>
+              </select>
+              </td>
+              <input type="hidden" name="salaryid" value="2">
+          </tr>
+            {% endif %}
+            {% if saly3 %}
+            {% for i in saly3 %}
+            <tr>
+              <td> <input type="text" name="salarycomponent"placeholder="Custom Allowance" value="{{i.salarycomponent}}" style="width:150px;padding: 5px;background-color: #5d6d9c;color: white;">
+              </td>
+              <td><input type="number" name="percentageofCTC"placeholder="Amount" value="{{i.percentageofCTC}}" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;"></td>
+              <td>
+              <select name="percentageorfixed" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;">
+                <option selected disabled>Please Select Option</option>
+                {% if i.percentageorfixed %}
+                <option value="Percentage" selected>Percentage</option>
+                {% else %}
+                <option value="Percentage">Percentage</option>
+                {% endif %}
+              </select>
+              </td>
+              <input type="hidden" name="salaryid" value="3">
+          </tr>
+          {% endfor %}
+            {% else %}
+            <tr>
+              <td>
+                <input type="text" name="salarycomponent" placeholder="Custom Allowance" style="width:150px;padding: 5px;background-color: #5d6d9c;color: white;">
+              </td>
+              <td><input type="number" name="percentageofCTC"placeholder="Amount" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;"></td>
+              <td>
+              <select name="percentageorfixed" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;">
+                <option selected disabled>Please Select Option</option>
+                <option value="Percentage">Percentage</option>
+              </select>
+              </td>
+              <input type="hidden" name="salaryid" value="3">
+          </tr>
+          {% endif %}
+          {% if saly4 %}
+          {% for i in saly4 %}
+          <tr>
+            <td> <input type="text" name="salarycomponent"placeholder="Custom Allowance" value="{{i.salarycomponent}}" style="width:150px;padding: 5px;background-color: #5d6d9c;color: white;">
+            </td>
+            <td><input type="number" name="percentageofCTC"placeholder="Amount" value="{{i.percentageofCTC}}" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;"></td>
+            <td>
+                <select name="percentageorfixed" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;">
+                <option selected disabled>Please Select Option</option>
+                {% if i.percentageorfixed %}
+                <option value="Percentage" selected>Percentage</option>
+                {% else %}
+                <option value="Percentage">Percentage</option>
+                {% endif %}
+              </select>  
+            </td>
+            <input type="hidden" name="salaryid" value="4">
+        </tr>
+        {% endfor %}
+          {% else %}
+          <tr>
+            <td>
+              <input type="text" name="salarycomponent"placeholder="Custom Allowance" style="width:150px;padding: 5px;background-color: #5d6d9c;color: white;">
+            </td>
+            <td><input type="number" name="percentageofCTC"placeholder="Amount" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;"></td>
+            <td>
+            <select name="percentageorfixed" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;">
+              <option selected disabled>Please Select Option</option>
+              <option value="Percentage">Percentage</option>
+            </select>
+            </td>
+            <input type="hidden" name="salaryid" value="4">
+        </tr>
+        {% endif %}
+        {% if saly5 %}
+        {% for i in saly5 %}
+        <tr>
+          <td> <input type="text" name="salarycomponent"placeholder="Custom Allowance" value="{{i.salarycomponent}}" style="width:150px;padding: 5px;background-color: #5d6d9c;color: white;">
+          </td>
+          <td><input type="number" name="percentageofCTC"placeholder="Amount" value="{{i.percentageofCTC}}" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;"></td>
+          <td>
+            <select name="percentageorfixed" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;">
+              <option selected disabled>Please Select Option</option>
+              {% if i.percentageorfixed %}
+              <option value="Percentage" selected>Percentage</option>
+              {% else %}
+              <option value="Percentage">Percentage</option>
+              {% endif %}
+            </select>
+          </td>
+          <input type="hidden" name="salaryid" value="5">
+      </tr>
+        {% endfor %}
+        {% else %}
+        <tr>
+          <td>
+            <input type="text" name="salarycomponent" placeholder="Custom Allowance" style="width:150px;padding: 5px;background-color: #5d6d9c;color: white;">
+          </td>
+          <td><input type="number" name="percentageofCTC"placeholder="Amount" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;"></td>
+          <td>
+            <select name="percentageorfixed" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;">
+              <option selected disabled>Please Select Option</option>
+              <option value="Percentage">Percentage</option>
+            </select>
+          </td>
+          <input type="hidden" name="salaryid" value="5">
+      </tr>
+      {% endif %}
+      {% if saly6 %}
+      {% for i in saly6 %}
+      <tr>
+        <td> <input type="text" name="salarycomponent"placeholder="Custom Allowance" value="{{i.salarycomponent}}" style="width:150px;padding: 5px;background-color: #5d6d9c;color: white;">
+        </td>
+        <td><input type="number" name="percentageofCTC"placeholder="Amount" value="{{i.percentageofCTC}}" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;"></td>
+        <td>
+          <select name="percentageorfixed" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;">
+            <option selected disabled>Please Select Option</option>
+            {% if i.percentageorfixed %}
+            <option value="Percentage" selected>Percentage</option>
+            {% else %}
+            <option value="Percentage">Percentage</option>
+            {% endif %}
+          </select>
+        </td>       
+        <input type="hidden" name="salaryid" value="6">
+    </tr>
+      {% endfor %}
+      {% else %}
+      <tr>
+        <td>
+          <input type="text" name="salarycomponent" placeholder="Custom Allowance" style="width:150px;padding: 5px;background-color: #5d6d9c;color: white;">
+        </td>
+        <td><input type="number" name="percentageofCTC"placeholder="Amount" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;"></td>
+        <td>
+          <select name="percentageorfixed" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;">
+            <option selected disabled>Please Select Option</option>
+            <option value="Percentage">Percentage</option>
+          </select>
+        </td>
+        <input type="hidden" name="salaryid" value="6">
+    </tr>
+    {% endif %}
+    {% if saly7 %}
+    {% for i in sal7 %}
+    <tr>
+      <td> <input type="text" name="salarycomponent"placeholder="Custom Allowance" value="{{i.salarycomponent}}" style="width:150px;padding: 5px;background-color: #5d6d9c;color: white;">
+      </td>
+      <td><input type="number" name="percentageofCTC"placeholder="Amount" value="{{i.percentageofCTC}}" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;"></td>
+      <td>
+        <select name="percentageorfixed" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;">
+          <option selected disabled>Please Select Option</option>
+          {% if i.percentageorfixed %}
+          <option value="Percentage" selected>Percentage</option>
+          {% else %}
+          <option value="Percentage">Percentage</option>
+          {% endif %}
+        </select>
+      </td>
+      <input type="hidden" name="salaryid" value="7">
+  </tr>
+    {% endfor %}
+    {% else %}
+    <tr>
+      <td>
+        <input type="text" name="salarycomponent" placeholder="Custom Allowance"  style="width:150px;padding: 5px;background-color: #5d6d9c;color: white;">
+      </td>
+      <td><input type="number" name="percentageofCTC"placeholder="Amount" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;"></td>
+      <td>
+        <select name="percentageorfixed" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;">
+          <option selected disabled>Please Select Option</option>
+          <option value="Percentage">Percentage</option>
+        </select>
+      </td>
+      <input type="hidden" name="salaryid" value="7">
+  </tr>
+  {% endif %}
+  {% if saly8 %}
+  {% for i in saly8 %}
+  <tr>
+    <td> <input type="text" name="salarycomponent"placeholder="Custom Allowance" value="{{i.salarycomponent}}" style="width:150px;padding: 5px;background-color: #5d6d9c;color: white;">
+    </td>
+    <td><input type="number" name="percentageofCTC"placeholder="Amount" value="{{i.percentageofCTC}}" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;"></td>
+    <td>
+      <select name="percentageorfixed" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;">
+        <option selected disabled>Please Select Option</option>
+        {% if i.percentageorfixed %}
+        <option value="Percentage" selected>Percentage</option>
+        {% else %}
+        <option value="Percentage">Percentage</option>
+        {% endif %}
+      </select>
+    </td>
+    <input type="hidden" name="salaryid" value="8">
+</tr>
+  
+  {% endfor %}
+  {% else %}
+  <tr>
+    <td>
+      <input type="text" name="salarycomponent" placeholder="Custom Allowance" style="width:150px;padding: 5px;background-color: #5d6d9c;color: white;">
+    </td>
+    <td><input type="number" name="percentageofCTC"placeholder="Amount" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;"></td>
+    <td>
+      <select name="percentageorfixed" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;">
+        <option selected disabled>Please Select Option</option>
+        <option value="Percentage">Percentage</option>
+      </select>
+    </td>
+    <input type="hidden" name="salaryid" value="8">
+</tr>
+{% endif %}
+{% if saly9 %}
+{% for i in saly9 %}
+<tr>
+  <td> <input type="text" name="salarycomponent"placeholder="Custom Allowance" value="{{i.salarycomponent}}" style="width:150px;padding: 5px;background-color: #5d6d9c;color: white;">
+  </td>
+  <td><input type="number" name="percentageofCTC"placeholder="Amount" value="{{i.percentageofCTC}}" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;"></td>
+  <td>
+    <select name="percentageorfixed" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;">
+      <option selected disabled>Please Select Option</option>
+      {% if i.percentageorfixed %}
+      <option value="Percentage" selected >Percentage</option>
+      {% else %}
+      <option value="Percentage">Percentage</option>
+      {% endif %}
+    </select>
+  </td>
+  <input type="hidden" name="salaryid" value="9">
+</tr>
+{% endfor %}
+{% else %}
+<tr>
+  <td>
+    <input type="text" name="salarycomponent" placeholder="Custom Allowance" style="width:150px;padding: 5px;background-color: #5d6d9c;color: white;">
+  </td>
+  <td><input type="number" name="percentageofCTC"placeholder="Amount" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;"></td>
+  <td>
+    <select name="percentageorfixed" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;">
+      <option selected disabled>Please Select Option</option>
+      <option value="Percentage">Percentage</option>
+    </select>
+  </td>
+  <input type="hidden" name="salaryid" value="9">
+</tr>
+{% endif %}
+{% if saly10 %}
+{% for i in saly10 %}
+<tr>
+<td> <input type="text" name="salarycomponent"placeholder="Custom Allowance" value="{{i.salarycomponent}}" style="width:150px;padding: 5px;background-color: #5d6d9c;color: white;">
+</td>
+<td><input type="number" name="percentageofCTC"placeholder="Amount" value="{{i.percentageofCTC}}" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;"></td>
+<td>
+  <select name="percentageorfixed" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;">
+    <option selected disabled>Please Select Option</option>
+    {% if i.percentageorfixed %}
+    <option value="Percentage"selected>Percentage</option>
+    {% else %}
+    <option value="Percentage" selected>Percentage</option>
+    {% endif %}
+  </select>
+</td>
+<input type="hidden" name="salaryid" value="10">
+</tr>
+{% endfor %}
+{% else %}
+<tr>
+<td>
+  <input type="text" name="salarycomponent" placeholder="Custom Allowance" style="width:150px;padding: 5px;background-color: #5d6d9c;color:white">
+</td>
+<td><input type="number" name="percentageofCTC"placeholder="Amount" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;"></td>
+<td>
+  <select name="percentageorfixed" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;">
+    <option selected disabled>Please Select Option</option>
+    <option value="Percentage">Percentage</option>
+  </select>
+</td>
+<input type="hidden" name="salaryid" value="10">
+</tr>
+{% endif %}
+{% if saly11 %}
+{% for i in saly11 %}
+<tr>
+<td> <input type="text" name="salarycomponent"placeholder="Custom Allowance" value="{{i.salarycomponent}}" style="width:150px;padding: 5px;background-color: #5d6d9c;color: white;">
+</td>
+<td><input type="number" name="percentageofCTC"placeholder="Amount" value="{{i.percentageofCTC}}" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;"></td>
+<td>
+  <select name="percentageorfixed" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;">
+    <option selected disabled>Please Select Option</option>
+    {% if i.percentageorfixed %}
+    <option value="Percentage" selected>Percentage</option>
+    {% else %}
+    <option value="Percentage">Percentage</option>
+    {% endif %}
+  </select>
+</td>
+<input type="hidden" name="salaryid" value="11">
+</tr>
+{% endfor %}
+{% else %}
+<tr>
+<td>
+  <input type="text" name="salarycomponent" placeholder="Custom Allowance" style="width: 150px;padding: 5px;background-color: #5d6d9c;color: white;">
+</td>
+<td><input type="number" name="percentageofCTC"placeholder="Amount" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;"></td>
+<td>
+  <select name="percentageorfixed" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;">
+    <option selected disabled>Please Select Option</option>
+    <option value="Percentage">Percentage</option>
+  </select>
+</td>
+<input type="hidden" name="salaryid" value="11">
+</tr>
+{% endif %}
+{% if saly12 %}
+{% for i in saly12 %}
+<tr>
+<td> <input type="text" name="salarycomponent"placeholder="Custom Allowance" value="{{i.salarycomponent}}" style="width:150px;padding: 5px;background-color: #5d6d9c;color: white;">
+</td>
+<td><input type="number" name="percentageofCTC"placeholder="Amount" value="{{i.percentageofCTC}}" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;"></td>
+<td>
+  <select name="percentageorfixed" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;">
+    <option selected disabled>Please Select Option</option>
+    {% if i.percentageorfixed %}
+    <option value="Percentage" selected>Percentage</option>
+    {% else %}
+    <option value="Percentage">Percentage</option>
+    {% endif %}
+  </select>
+</td>
+<td><input type="text" name="Taxable" value="{{i.Taxable}}" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;"></td>
+<input type="hidden" name="salaryid" value="12">
+</tr>
+{% endfor %}
+<tr>
+<td>
+  <input type="text" name="salarycomponent" placeholder="Custom Allowance" style="width:150px;padding: 5px;background-color: #5d6d9c;color: white;">
+</td>
+<td><input type="number" name="percentageofCTC"placeholder="Amount" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;"></td>
+<td>
+  <select name="percentageorfixed" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;">
+    <option selected disabled>Please Select Option</option>
+    <option value="Percentage">Percentage</option>
+  </select>
+</td>
+<input type="hidden" name="salaryid" value="12">
+</tr>
+{% endif %}
+          </tbody>
+      </table><br>
+        <button type="submit" style="padding-left: 10px; height: 50px; width: 180px; background-color: #0079bf;">
+            <b style="color: white;">UPDATE ALL</b>
+        </button>
+    </form>
+    <br>
+    <br>
+    <br>
+
+    <h2>Deductions</h2>
+    <form method="post" action="/salary_deduct/">
+        {% csrf_token %}
+        <table>
+          <thead>
+            <tr>
+                <th>Salary Component</th>
+                <th>% of CTC</th>
+                <th>Percentage or Fixed ?</th>
+            </tr>
+        </thead>
+        <thead style="background: linear-gradient(rgb(238,242,244),rgb(239,239,247));">
+          
+          {% if ded1 %}
+          {% for i in ded1 %}
+          <tr>
+            <td>
+              <input type="text" name="deductcomponent" placeholder="Deduct Component" value="{{i.deductcomponent}}"  style="width:150px;padding: 5px;background-color: #5d6d9c;color: white;">
+            </td>
+            <td><input type="number" name="percentageofdctc"placeholder="Amount" value="{{i.percentageofdctc}}" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;"></td>
+            <td>
+            <select name="percentageordfixed" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;">
+              <option selected disabled>Please Select Option</option>
+              {% if i.percentageordfixed == "Percentage" %}
+              <option value="Percentage" selected>Percentage</option>
+              {% else %}
+              <option value="Percentage">Percentage</option>
+              {% endif %}
+              
+              {% if i.percentageordfixed == "Fixed" %}
+              <option value="Fixed" selected>Fixed</option>
+              {% else %}
+              <option value="Fixed">Fixed</option>
+              {% endif %}
+            </select>
+            </td>
+            <input type="hidden" name="deductid" value="1">
+            </tr>
+            {% endfor %}
+            {% else %}
+            <tr>
+              <td>
+                <input type="text" name="deductcomponent" placeholder="Deduct Component" style="width:150px;padding: 5px;background-color: #5d6d9c;color: white;">
+              </td>
+              <td><input type="number" name="percentageofdctc"placeholder="Amount" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;"></td>
+              <td>              
+                <select name="percentageordfixed" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;">
+                <option selected disabled>Please Select Option</option>
+                <option value="Percentage">Percentage</option>
+                <option value="Fixed">Fixed</option>
+              </select>
+            </td>
+              <input type="hidden" name="deductid" value="1">
+              </tr>
+            {% endif %}
+            {% if ded2 %}
+            {% for i in ded2 %}
+            <tr>
+              <td>
+                <input type="text" name="deductcomponent" placeholder="Deduct Component" value="{{i.deductcomponent}}"  style="width:150px;padding: 5px;background-color: #5d6d9c;color: white;">
+              </td>
+              <td><input type="number" name="percentageofdctc"placeholder="Amount" value="{{i.percentageofdctc}}" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;"></td>
+              <td>              
+                <select name="percentageordfixed" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;">
+                <option selected disabled>Please Select Option</option>
+                {% if i.percentageordfixed == "Percentage" %}
+                <option value="Percentage" selected>Percentage</option>
+                {% else %}
+                <option value="Percentage">Percentage</option>
+                {% endif %}
+                {% if i.percentageordfixed == "Fixed" %}
+                <option value="Fixed" selected>Fixed</option>
+                {% else %}
+                <option value="Fixed">Fixed</option>
+                {% endif %}
+              </select>
+            </td>
+              <input type="hidden" name="deductid" value="2">
+              </tr>
+            {% endfor %}
+            {% else %}
+            <tr>
+              <td>
+                <input type="text" name="deductcomponent" placeholder="Deduct Component" style="width:150px;padding: 5px;background-color: #5d6d9c;color: white;">
+              </td>
+              <td><input type="number" name="percentageofdctc"placeholder="Amount" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;"></td>
+              <td>              
+                <select name="percentageordfixed" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;">
+                <option selected disabled>Please Select Option</option>
+                <option value="Percentage">Percentage</option>
+                <option value="Fixed">Fixed</option>
+              </select>
+            </td> 
+            <input type="hidden" name="deductid" value="2">
+              </tr>
+              {% endif %}
+              {% if ded3 %}
+              {% for i in ded3 %}
+              <tr>
+                <td>
+                  <input type="text" name="deductcomponent" placeholder="Deduct Component" value="{{i.deductcomponent}}"  style="width:150px;padding: 5px;background-color: #5d6d9c;color: white;">
+                </td>
+                <td><input type="number" name="percentageofdctc"placeholder="Amount" value="{{i.percentageofdctc}}" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;"></td>
+                <td>              
+                  <select name="percentageordfixed" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;">
+                  <option selected disabled>Please Select Option</option>
+                  {% if i.percentageordfixed == "Percentage" %}
+                  <option value="Percentage" selected>Percentage</option>
+                  {% else %}
+                  <option value="Percentage">Percentage</option>
+                  {% endif %}
+                  {% if i.percentageordfixed == "Fixed" %}
+                  <option value="Fixed" selected>Fixed</option>
+                  {% else %}
+                  <option value="Fixed">Fixed</option>
+                  {% endif %}
+                </select>
+              </td> 
+              <input type="hidden" name="deductid" value="3">
+                </tr>
+              {% endfor %}
+              <tr>
+                <td>
+                  <input type="text" name="deductcomponent" placeholder="Deduct Component" style="width:150px;padding: 5px;background-color: #5d6d9c;color: white;">
+                </td>
+                <td><input type="number" name="percentageofdctc"placeholder="Amount" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;"></td>
+                <td>              
+                  <select name="percentageordfixed" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;">
+                  <option selected disabled>Please Select Option</option>
+                  <option value="Percentage">Percentage</option>
+                  <option value="Fixed">Fixed</option>
+                </select>
+              </td> 
+              <input type="hidden" name="deductid" value="3">
+                </tr>
+                {% endif %}
+                {% if ded4 %}
+                {% for i in ded4 %}
+                <tr>
+                  <td>
+                    <input type="text" name="deductcomponent" placeholder="Deduct Component" value="{{i.deductcomponent}}"  style="width:150px;padding: 5px;background-color: #5d6d9c;color: white;">
+                  </td>
+                  <td><input type="number" name="percentageofdctc"placeholder="Amount" value="{{i.percentageofdctc}}" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;"></td>
+                  <td>              
+                    <select name="percentageordfixed" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;">
+                    <option selected disabled>Please Select Option</option>
+                    {% if i.percentageordfixed == "Percentage" %}
+                    <option value="Percentage" selected>Percentage</option>
+                    {% else %}
+                    <option value="Percentage">Percentage</option>
+                    {% endif %}
+                    {% if i.percentageordfixed == "Fixed" %}
+                    <option value="Fixed" selected>Fixed</option>
+                    {% else %}
+                    <option value="Fixed">Fixed</option>
+                    {% endif %}
+                  </select>
+                </td> 
+                <input type="hidden" name="deductid" value="4">
+                  </tr>
+                {% endfor %}
+                {% else %}
+                <tr>
+                  <td>
+                    <input type="text" name="deductcomponent" placeholder="Deduct Component" style="width:150px;padding: 5px;background-color: #5d6d9c;color: white;">
+                  </td>
+                  <td><input type="number" name="percentageofdctc"placeholder="Amount" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;"></td>
+                  <td>              
+                    <select name="percentageordfixed" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;">
+                    <option selected disabled>Please Select Option</option>
+                    <option value="Percentage">Percentage</option>
+                    <option value="Fixed">Fixed</option>
+                  </select>
+                </td> 
+                <input type="hidden" name="deductid" value="4">
+                  </tr>
+                  {% endif %}
+                  {% if ded5 %}
+                  {% for i in ded5 %}
+                  <tr>
+                    <td>
+                      <input type="text" name="deductcomponent" placeholder="Deduct Component" value="{{i.deductcomponent}}"  style="width:150px;padding: 5px;background-color: #5d6d9c;color: white;">
+                    </td>
+                    <td><input type="number" name="percentageofdctc"placeholder="Amount" value="{{i.percentageofdctc}}" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;"></td>
+                    <td>              
+                      <select name="percentageordfixed" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;">
+                      <option selected disabled>Please Select Option</option>
+                      {% if i.percentageordfixed == "Percentage" %}
+                      <option value="Percentage" selected>Percentage</option>
+                      {% else %}
+                      <option value="Percentage">Percentage</option>
+                      {% endif %}
+                      {% if i.percentageordfixed == "Fixed" %}
+                      <option value="Fixed" selected>Fixed</option>
+                      {% else %}
+                      <option value="Fixed">Fixed</option>
+                      {% endif %}
+                    </select>
+                  </td> 
+                  <input type="hidden" name="deductid" value="5">
+                    </tr>
+                  {% endfor %}
+                  {% else %}
+                  <tr>
+                    <td>
+                      <input type="text" name="deductcomponent" placeholder="Deduct Component" style="width:150px;padding: 5px;background-color: #5d6d9c;color: white;">
+                    </td>
+                    <td><input type="number" name="percentageofdctc"placeholder="Amount" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;"></td>
+                    <td>              
+                      <select name="percentageordfixed" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;">
+                      <option selected disabled>Please Select Option</option>
+                      <option value="Percentage">Percentage</option>
+                      <option value="Fixed">Fixed</option>
+                    </select>
+                  </td> 
+                  <input type="hidden" name="deductid" value="5">
+                    </tr>
+                    {% endif %}
+                    {% if ded6 %}
+                    {% for i in ded6 %}
+                    <tr>
+                      <td>
+                        <input type="text" name="deductcomponent" placeholder="Deduct Component" value="{{i.deductcomponent}}"  style="width:150px;padding: 5px;background-color: #5d6d9c;color: white;">
+                      </td>
+                      <td><input type="number" name="percentageofdctc"placeholder="Amount" value="{{i.percentageofdctc}}" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;"></td>
+                      <td>              
+                        <select name="percentageordfixed" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;">
+                        <option selected disabled>Please Select Option</option>
+                        {% if i.percentageordfixed == "Percentage" %}
+                        <option value="Percentage" selected>Percentage</option>
+                        {% else %}
+                        <option value="Percentage">Percentage</option>
+                        {% endif %}
+                        {% if i.percentageordfixed == "Fixed" %}
+                        <option value="Fixed" selected>Fixed</option>
+                        {% else %}
+                        <option value="Fixed">Fixed</option>
+                        {% endif %}
+                      </select>
+                    </td>  
+                    <input type="hidden" name="deductid" value="6">
+                      </tr>
+                    {% endfor %}
+                    {% else %}
+                    <tr>
+                      <td>
+                        <input type="text" name="deductcomponent" placeholder="Deduct Component" style="width:150px;padding: 5px;background-color: #5d6d9c;color: white;">
+                      </td>
+                      <td><input type="number" name="percentageofdctc"placeholder="Amount" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;"></td>
+                      <td>              
+                        <select name="percentageordfixed" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;">
+                        <option selected disabled>Please Select Option</option>
+                        <option value="Percentage">Percentage</option>
+                        <option value="Fixed">Fixed</option>
+                      </select>
+                    </td> 
+                     <input type="hidden" name="deductid" value="6">
+                      </tr>
+                      {% endif %}
+                      {% if ded7 %}
+                      {% for i in ded7 %}
+                      <tr>
+                        <td>
+                          <input type="text" name="deductcomponent" placeholder="Deduct Component" value="{{i.deductcomponent}}"  style="width:150px;padding: 5px;background-color: #5d6d9c;color: white;">
+                        </td>
+                        <td><input type="number" name="percentageofdctc"placeholder="Amount" value="{{i.percentageofdctc}}" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;"></td>
+                        <td>              
+                          <select name="percentageordfixed" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;">
+                          <option selected disabled>Please Select Option</option>
+                          {% if i.percentageorfixed == "Percentage" %}
+                          <option value="Percentage" selected>Percentage</option>
+                          {% else %}
+                          <option value="Percentage">Percentage</option>
+                          {% endif %}
+                          {% if i.percentageorfixed == "Fixed" %}
+                          <option value="Fixed" selected>Fixed</option>
+                          {% else %}
+                          <option value="Fixed">Fixed</option>
+                          {% endif %}
+                        </select>
+                      </td>                        
+                       <input type="hidden" name="deductid" value="7">
+                        </tr>
+
+                      {% endfor %}
+                      {% else %}
+                      <tr>
+                        <td>
+                          <input type="text" name="deductcomponent" placeholder="Deduct Component" style="width:150px;padding: 5px;background-color: #5d6d9c;color: white;">
+                        </td>
+                        <td><input type="number" name="percentageofdctc"placeholder="Amount" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;"></td>
+                        <td>              
+                          <select name="percentageordfixed" style="width:100px;padding: 5px;background-color: #5d6d9c;color: white;">
+                          <option selected disabled>Please Select Option</option>
+                          <option value="Percentage">Percentage</option>
+                          <option value="Fixed">Fixed</option>
+                        </select>
+                      </td> 
+                      
+                    <input type="hidden" name="deductid" value="7">
+                        </tr>
+                        {% endif %}
+        </thead>
+        </table>
+        <button type="submit" style="padding-left: 10px; height: 50px; width: 180px; background-color: #0079bf;">
+          <b style="color: white;">UPDATE</b>
+      </button>
+</form>
+
+  </div>
+</div>
+<div class="col-lg-2"></div>
+</div>
+</div>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+      // Get references to the checkbox and the div elements
+      const defaultSalaryCheckbox = document.getElementById("defaultSalaryCheckbox");
+      const defaultSalaryTable = document.getElementById("defaultSalaryTable");
+      const customSalaryTable = document.getElementById("customSalaryTable");
+
+      // Function to toggle visibility based on checkbox state
+      function toggleDivVisibility() {
+          if (defaultSalaryCheckbox.checked) {
+              defaultSalaryTable.style.display = "block";
+              customSalaryTable.style.display = "none";
+          } else {
+              defaultSalaryTable.style.display = "none";
+              customSalaryTable.style.display = "block";
+          }
+      }
+
+      // Initial visibility state
+      toggleDivVisibility();
+
+      // Add an event listener to the checkbox
+      defaultSalaryCheckbox.addEventListener("change", toggleDivVisibility);
+  });
+</script>
+
+    {% endblock main_content %}

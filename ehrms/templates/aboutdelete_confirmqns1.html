@@ -1,0 +1,54 @@
+<style>
+    .form-container {
+        margin-top: 20px; /* Adjust spacing as needed */
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+        max-width: 300px; /* Adjust width as needed */
+    }
+
+    .form-container button {
+        margin-right: 10px; /* Adjust spacing between buttons */
+    }
+
+    button[type="submit"] {
+        background-color: #4CAF50; /* Green background */
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    button[type="submit"]:hover {
+        background-color: #45a049; /* Darker green on hover */
+    }
+
+    button.cancel {
+        background-color: #ccc; /* Light gray background */
+        color: #333;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    button.cancel:hover {
+        background-color: #bbb; /* Darker gray on hover */
+    }
+</style>
+
+<div class="form-container">
+    <p>Are you sure you want to delete?</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit">Delete</button>
+        <a href="http://127.0.0.1:8000/abouttime_qns1/">
+            <button type="button" class="cancel">Cancel</button>
+        </a>
+    </form>
+</div>

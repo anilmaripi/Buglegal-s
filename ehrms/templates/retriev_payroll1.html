@@ -1,0 +1,159 @@
+{% extends 'navbar.html' %}
+{% block main_content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&display=swap");
+        
+        html {
+          font-family: "Merriweather", serif;
+          font-size: 1rem;
+          line-height: 1.6rem;
+        }
+       
+       body{
+        font-family: "Poppins", sans-serif;
+            color: #000;
+            box-sizing: border-box;
+            background-image: url("{% static 'assets/images/backg5.jpg' %}");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin: 0; 
+            padding: 0;
+            text-transform: capitalize;
+       }
+       #gridsetting1{
+        display: flex;
+        flex-direction: row;
+        
+      }
+      .helpnav1{
+        margin-top: 25px;
+        padding: 15px;
+        margin-right: 10px;
+        width: 400px;
+        border: 1px solid black;
+        background-color: white;
+        border-top-left-radius: 100px;
+        margin-left: 1%;
+        height: fit-content;
+        position:inherit;
+}
+        .container3{
+          padding: 2rem;
+          max-width: 50rem;
+          margin: 0 auto;
+          border: 0.5px solid black; 
+          border-radius: 15px;
+          background-color: whitesmoke;
+          margin-bottom: 5%;
+          margin-top: 95px;
+          margin-left: 50px;
+
+        }
+        .container3:hover{
+          border: 1px solid;
+          border-color: black;
+          transform: scale(1.05);
+          transition: transform 0.3s ease-in-out;
+          box-shadow: 1px 1px 2px black;
+        }
+        h3 {
+          line-height: 3.5rem;
+          font-weight: 900;
+          text-transform: capitalize;
+        }
+        .cntbtn1{
+            background-color: whitesmoke;
+            border: 2px solid;
+            size: 30px 30px;
+            padding: 7px;
+
+}
+
+.cntbtn1:hover{
+            background-color: skyblue;
+}
+.faq1 li {
+            margin-bottom: 10px;
+            margin-left: 5%;
+            list-style-type: lower-alpha; /* Set list style type to lower-alpha */
+        }
+
+.faq1 li::marker{ 
+  font-weight: bold;
+}
+/*terms and conditons*/
+.termend{
+    margin-top: 35px !important;
+    font-weight: bold !important;
+    font-size: 20px !important;
+}
+.termend:hover{
+    color: rgb(0, 0, 0) !important;
+    
+}
+
+        </style>
+</head>
+<body>
+</br></br></br></br></br>
+    <div id="gridsetting1">
+        <div class="helpnav1">{% include "help_sidebar.html" %}</div>
+ <div>       
+
+    <div class="container3 fadeInRight wow" data-wow-duration="4s">
+        <div class="contain" >
+         
+        <h4></h4><br>
+        
+
+        {% for p in pay1 %}
+        <h3>{{p.maintitle}}</h3>
+       <h5>{{p.title}}</h5>
+       <p1>{{ p.des }}</p1>
+
+     <ol class="faq1">
+
+         {% for allstep in p.steps %}
+             <li style="margin-bottom: 10px; margin-left:5%; list-style-type:lower-alpha;">{{ allstep }}</li>
+         {% endfor %}
+     </ol>
+ {% endfor %}
+
+        </div>
+      
+</div><br><br><br>
+<div class=" fadeInUp wow"  data-wow-duration="3s" data-wow-delay="0.5s"> <center class="mt-2" style="font-size: 20px; font-weight: bold; "><h2>If you need help ! Contact Us</h2></center>        
+    <center><p style="color: black; margin-top: 2px; font-size: 12px; font-weight: bold;">Looking for more... We are there to help Please Click below to know more.</p></center> 
+    <center class="mb-2"><a class="cntbtn1" style="border-width: 2px;  border-color: skyblue; border-radius: 15px; font-size: 15px; font-weight: bold;  text-decoration: none; margin-bottom: 15px; margin-top: 25px; color: #000; padding: 7px; "  href="{% url 'contact'  %}">Contact Us</a></center>
+    <!-- <center ><img src="{% static 'assets/images/help2-transformed.jpeg' %}" style="height: 350px; width:95%; margin-top: 10px;"></center>   -->
+  </div>
+  
+  </div>
+</div>
+</body>
+</html>
+{% endblock main_content %}
+
+
+
+
+
+
+
+
+

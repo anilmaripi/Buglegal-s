@@ -1,0 +1,319 @@
+{% extends 'navbar.html' %}
+{% block main_content %}
+{% load static %}
+<title>Payroll</title>
+         <style>
+             .btnn{
+            background-color: #6b58fd;
+            border: none;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 18px;
+            text-decoration: none;
+            color:#fff ;
+            font-weight: 700;
+        }
+        .btnn:hover{
+            color:#fff;
+            background-color:  #4c35fd
+            ;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+        }
+
+        .mhcard {
+            border: 1px solid #ddd;
+            border-radius: 18px;
+            width: 100%;
+            max-width:1200px;
+            padding: 20px;
+            margin: 20px;
+            font-family: Arial, sans-serif;
+            transition: transform 0.3s;
+            display: inline-block;
+        }
+
+        /* .mhcard-img {
+            width: 100%;
+            border-radius: 18px;
+            
+        } */
+
+        .flexbox {
+            display: flex;
+            justify-content: center;
+        }
+
+        .mhcard-hovered {
+            transform: scale(1.05);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .mhcard-hovered-more {
+            transform: scale(1.05);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .use-case-card-hovered {
+            transform: scale(1.05);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .flexbox {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .use-case-card1 {
+
+            border: 1px solid #ddd;
+            border-radius: 18px;
+            width: 600px;
+            padding: 20px;
+            margin: 10px;
+            font-family: Arial, sans-serif;
+            transition: transform 0.3s;
+        }
+        h2, h3, h4, h6, p {
+color: #000 !important;
+
+}
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+
+            .mhcard {
+                max-width: 100%;
+                margin: 10px 0;
+            }
+
+
+            .flexbox {
+                flex-direction: column;
+                align-items: center;
+            }
+           
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+
+            .mhcard {
+                max-width: 100%;
+                margin: 10px 0;
+            }
+
+            .flexbox {
+                flex-direction: column;
+                align-items: center;
+            }
+            .tc,
+            h2,
+            h3,
+            h4,
+            h6,
+            p {
+                text-align: center;
+            }
+
+            /* img {
+                max-width: 100%;
+                height: auto;
+            } */
+
+            hr {
+                margin: 20px 0;
+            }
+          
+
+            .navbar-nav .nav-item .nav-link {
+            color: #3058de !important;
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        .navbar-nav .nav-item .nav-link:hover {
+            color: #1403b0 !important;
+            transform: scale(1.1);
+        }
+
+        }
+
+        .navbar-nav .nav-item .nav-link {
+            color: #3058de !important;
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        .navbar-nav .nav-item .nav-link:hover {
+            color: #1403b0 !important;
+            transform: scale(1.1);
+        }
+        .dropdown-menu .dropdown-item:hover {
+            background-color: #9830de; 
+            color: #fff; 
+             transform: scale(1.02);
+            transition: color 0.3s, transform 0.3s;
+        }
+      
+
+        .appbutton{
+            font-size: 20px;
+        }
+        .abc{
+    width:100%;
+    height:300px;
+    border-radius:18px;
+    }
+    .bcd{
+        width:100%;
+        height:450px;
+        border-radius:18px;
+    }
+
+    </style>
+</head>
+<body>
+    {% load static %}
+   <br><br> 
+   
+
+
+   {% for i in k %}
+
+    <div class="container-fluid w-100" style="padding-top:30px;">
+
+        <div class="container " style="padding-top:30px;">
+            <div class="mhcard mhcard-usecases" onmouseover="hoverCardMore(this)" onmouseout="unhoverCardMore(this)">
+                <center class="img-fluid mhcard-img fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s" ><img src="{{i.image1.url}}"  class="bcd" alt="employee;" ></center>
+
+       </div> 
+       </div>
+
+        
+   
+   
+{% endfor %} 
+<div class="container">
+     <div class="flexbox">
+        {% for j in k2 %}
+
+       
+
+        <div class="mhcard mhcard-usecases mhcard-img fadeInUp top-image wow"data-wow-duration="1s"data-wow-delay="0.3s"onmouseover="hoverCardMore(this)" onmouseout="unhoverCardMore(this)">
+            <h5> <b>{{j.title2}}</b></h5>
+
+
+
+            <p style="text-align:justify;">{{j.description2}}</p>
+        </div>
+
+
+
+        {% endfor %}
+    </div>
+</div>
+</div>
+    <br>
+    <section>
+        <div class="container">
+            
+            {% for l in d %}
+               
+                       
+                                        <div class="mhcard mhcard-usecases"  class="mhcard-img fadeInUp top-image wow"data-wow-duration="1s"data-wow-delay="0.3s" onmouseover="hoverCardMore(this)" onmouseout="unhoverCardMore(this)">
+                                            <div class="row d-flex justify" style="margin-top: 60px;">
+                                                {% if forloop.counter|divisibleby:2 %}
+                                                <div class="col-md-6">
+                                                <h3 style="text-align: center;"><b>{{l.title1}}</b></h3><br>
+                        
+                                                    <p style="text-align: justify;"><b class="mhcard-img fadeInUp top-image wow"data-wow-duration="1s"data-wow-delay="0.3s">{{l.description1}}</b></p>
+                                                </div>
+                                                
+                                                <div class="col-md-6">
+
+                                                    <img src="{{l.image1.url}}" class="abc" class="mhcard-img fadeInUp top-image wow"data-wow-duration="1s"data-wow-delay="0.3s" class="mhcard-img" alt="">
+                                                </div>
+                                                {% else %}
+                                                <div class="col-md-6">
+
+                                                    <img src="{{l.image1.url}}" class="abc" class="mhcard-img fadeInUp top-image wow"data-wow-duration="1s"data-wow-delay="0.3s" class="mhcard-img" alt="">
+                                                </div><br><br>
+                                                <div class="col-md-6">
+                                                    <h3 style="text-align: center;" ><b>{{l.title1}}</b></h3><br>
+                            
+                                                        
+                                                        <p style="text-align: justify;"><b class="mhcard-img fadeInUp top-image wow"data-wow-duration="1s"data-wow-delay="0.3s" >{{l.description1}}</b></p>
+                                                </div>
+                                                {% endif %}
+                                            </div>
+                                            <div class="row">
+                                                {% if forloop.counter|divisibleby:2 %}
+                                                <div class="col-md-6 fadeInUp top-image wow"data-wow-duration="1.2s"data-wow-delay="0.5s">
+                                                <a href="/subscription/" class="button btnn">Start Free trail</a>
+                                                <div style="font-size: 13px;color: #74829a;padding-left:8px;padding-right: 0px;margin-top: 15px;">No credit card required</div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                </div>
+                                                {% else %}
+                                                <div class="col-md-6">
+                                                </div>
+                                                <div class="col-md-6 fadeInUp top-image wow "data-wow-duration="1.2s"data-wow-delay="0.5s" >
+                                                    <a href="/subscription/" class="button btnn">Start Free trail</a>
+                                                    <div style="font-size: 13px;color: #74829a;padding-left:8px;padding-right: 0px;margin-top: 15px;">No credit card required</div>
+                                                </div>
+                                                {% endif %}
+                                            </div>
+
+                                        </div>
+                
+
+                        {% endfor %}
+                    
+           
+        </div>
+        
+        
+    </section> 
+    
+
+
+    
+
+    <script>
+         
+        function hoverCard(card) {
+            card.style.transform = 'scale(1.05)';
+            card.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.3)';
+        }
+    
+        function unhoverCard(card) {
+            card.style.transform = 'scale(1)';
+            card.style.boxShadow = 'none';
+        }
+        function hoverCardMore(card) {
+            card.classList.add('mhcard-hovered-more');
+        }
+    
+        function unhoverCardMore(card) {
+            card.classList.remove('mhcard-hovered-more');
+        }
+        function hoverUseCaseCard(card) {
+            card.classList.add('use-case-card-hovered');
+        }
+    
+        function unhoverUseCaseCard(card) {
+            card.classList.remove('use-case-card-hovered');
+        }
+    </script>
+</div>
+</div>
+</body>
+
+{% endblock main_content %}

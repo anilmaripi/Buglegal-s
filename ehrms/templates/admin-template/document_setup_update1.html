@@ -1,0 +1,108 @@
+{% extends 'admin-template/base_template.html'%}
+{% block main_content %}
+    <style>
+                tbody tr:nth-child(even) {
+            background-color: rgb(239, 239, 247); /* Even row color */
+        }
+
+        tbody tr:nth-child(odd) {
+            background-color: rgb(220, 225, 227); /* Odd row color */
+        }
+        th,td{
+            padding: 20px;
+        }
+
+    </style>
+<br>
+{% if messages %}
+{% for message in messages %}
+{% if message.tags == 'error' %}
+<div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+{% endif %}
+{% if message.tags == 'success' %}
+<div class="alert alert-success" style="margin-top:20px;background-color:green;color: whitesmoke;">{{ message }}</div>
+{% endif %}
+{% endfor %}
+{% endif %}
+<br><br>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-8">
+                <form method="POST" action="{% url 'update_document_setup1' %}">{% csrf_token %}
+
+
+
+                    <h2>Documents Setup</h2><br>
+                    <div style="width:auto; height: auto;background-color:black;color: white;padding: 30px;font-size: 16px;" >
+                      If you want to Update or Delete your employees uploding documents like ID's by hear.   
+                    </div><br><br>
+            
+            <div class="table-responsive">
+                    <table style=" width: 100%; border:none; ">
+              
+                        <thead  style="background-color:black;color: white;font-size: 20px;height: 50px;">
+                            <tr>
+                                <th >Document Type</th> 
+                                <th >Compulsory?</th>
+                                <th >Enabled</th>  
+                            </tr>
+                        </thead>
+                        
+                        <tbody style=" background-color:#242b4d;color: white;font-size: 18px;height: 50px;">
+                            {% for r in k %}
+                            {% if r.document_type != "" and r.document_type != NULL  %}
+                            <tr>
+                                <td>{{r.document_type}}</td>
+                                <td><input type="checkbox" name="compulsory_{{ r.id }}" {% if r.compulsory == 'Yes' %}checked{% endif %}></td> 
+                                <td><input type="checkbox" name="Enabled_{{ r.id }}" {% if r.Enabled == 'Yes'%}checked{% endif %}>            
+                                    <a href="{% url 'delete_document_setup1' r.id %}">
+                                    <i class="fa fa-trash" aria-hidden="true" style="padding-left: 100px;">
+                                    </i></a></td>  
+                            </tr>
+                            {% endif %}
+                            {% endfor %}
+                                            
+                            
+                            
+                            
+                            
+                            <tr>
+                                <td><button type="button" id="addButton" class="btn btn-info" onclick="addRow()" style="width: 80px; height: 50px;">Add</button></td>
+                            </t>
+                            
+                        </tbody> 
+                    </table></div><br>
+                    <h6 style="color: black; ">*indicates required fields </h6><br><br>
+            
+                    <button type="submit" style="padding-left: 10px; height: 50PX; width: 180px;background-color: #0079bf;">
+                        <b style="color: white;">CONTINUE</b>
+                      </button>
+                                
+            
+                </form>
+                <script> 
+                function addRow() {
+                    var table = document.querySelector("table tbody");
+                    var newRow = table.insertRow(table.rows.length);
+                    var documentTypeCell = newRow.insertCell(0);
+                    var compulsoryCell = newRow.insertCell(1);
+                    var enabledCell = newRow.insertCell(2);     
+                    documentTypeCell.innerHTML = '<input type="checkboc" name="document_type">';
+                    compulsoryCell.innerHTML = '<input type="checkbox" name="compulsory">';
+                    enabledCell.innerHTML = '<input type="checkbox" name="Enabled" >';
+                    document.getElementById("addButton").disabled="true"
+                }
+            </script>
+
+            
+            </div>
+            <div class="col-2"></div>
+
+        </div>
+    </div>
+    
+
+
+{% endblock main_content %}

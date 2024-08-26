@@ -1,0 +1,108 @@
+{% extends 'employ-template/base_template.html' %}
+{% block main_content %}
+<title>Gate Pass</title>
+<style>
+    tr,td{
+        color: #000;
+    }
+</style>
+<div id="message">
+    {% if messages %}
+    {% for message in messages %}
+    {% if message.tags == 'error' %}
+    <div class="alert alert-danger" style="margin-top:20px;">{{message}}</div>
+    {% endif %}
+    {% if message.tags == 'success' %}
+    <div class="alert alert-success" style="margin-top:20px; background-color: green; color:whitesmoke;">{{message}}</div>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+  </div>
+  <script>
+    $("#message").show();
+    setTimeout(function(){
+        $("#message").hide();
+    },2000)
+    
+  
+    
+  </script>
+  
+<form method="post">
+    {% csrf_token %}
+    <div class="container">
+
+    
+    <div class="row">
+        <div class="col-10">
+            <input type="text" name="se" class="form-control" placeholder="Enter Employee Id" >
+        </div>
+        
+  
+    <div class="col-2">
+        <button type="submit" class="btn btn-primary" >Search</button>
+    </div>  
+    <br><br>
+</div>
+</div>
+</form>
+<table class="table table-striped table-animated table-hover">
+    <thead class="text-center">
+        <tr>
+            <th>EmployeeID</th>
+            <th>EmployeeName</th>
+            <th>EmailID</th>
+            <th>ContactNo</th>
+            <th>Designation</th>
+            <th>Apply Date & Duration</th>
+            <th>Accepting Date & Time</th>
+            <th>Capturing Date & Time</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for i in k %}
+        <tr>
+            <td>{{ i.employid }}</td>
+            <td>{{ i.employname }}</td>
+            <td>{{i.email}}</td>
+            <td>{{i.contactno}}</td>
+            <td>{{i.designation}}</td>
+            <td>{{ i.applydate }} {{i.starttime}} To {{i.endtime}}</td>
+            <td>{{ i.approvedate }}</td>
+            <td>{{ i.created_at }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="8" style="color: red;">There is no gatepass requests.....</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<div class="pagination" style="color:white; margin:20px auto;">
+    <span class="step-links">
+        {% if k.has_previous %}
+            <a  href="?page=1" class="btn btn-info" style="border-radius: 20px;">&laquo;<<</a>
+            <a   href="?page={{ k.previous_page_number }}" class="prev btn btn-info" style="border-radius: 20px;"> < </a>
+        {% endif %}
+
+
+        {% for i in k.paginator.page_range %}
+        {% if k.number == i %}
+        <button class="active act bg-info btn btn-info" style="border-radius: 20px;"><span>{{ i }} <span class="sr-only btn btn-info" style="border-radius: 20px;">(current)</span></span></button>
+        {% elif i > k.number|add:'-3' and i < k.number|add:'3' %}
+            <a  href="?page={{ i }}" class="btn btn-info" style="border-radius: 20px;">{{ i }}</a>
+        {% endif %}
+        {% endfor %}
+
+       
+
+        {% if k.has_next %}
+            {% if k.number != k.paginator.num_pages %}
+            {% endif %}
+            <a   href="?page={{ k.next_page_number }}" class="prev btn btn-info" style="border-radius: 20px;">> </a>
+
+            <a  href="?page={{ k.paginator.num_pages }}" class="btn btn-info" style="border-radius: 20px;">>>&raquo; </a>
+        {% endif %}
+    </span>
+</div>   
+{% endblock main_content %}

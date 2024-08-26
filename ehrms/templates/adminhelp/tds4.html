@@ -1,0 +1,30 @@
+{% extends 'adminhelp/basehelp.html' %}
+{% block main_content %}
+<style>
+    h5{
+        font-size: medium;
+    }
+</style>
+
+<form>
+    <p id="ha1" style="font-size: xx-large;">Can my organization postpone its tax deductions verification?</p1><br><br>
+    
+    <p id="ta">While HRMS verifies all IT declarations in January, some organizations might prefer to do this later. We do not recommend this, since a change (usually a reduction) in an employee's declaration leads to an increase in their TDS, and we would ideally like to spread this over a few months of payroll.. </p><br>
+    
+    <p id="tb">If you do want to request a delay in your verifications, please follow these steps -.</p>
+
+    <p id="tc">1. Go to Settings > Tax Deductions Setup, and disable HRMS verification of tax deductions. This will ensure that we exclude you from the regular cycle of verifications.</p>
+
+       <p id="td"> 2. When you're ready for verifications, switch this option back on and write an email to support. Please note that we will do this on a "best efforts basis" and we do not guarantee it.</p>
+    
+    
+    
+    <center><button style="width:50%;height: auto;font-size: x-large;border: 2px solid whitesmoke;">
+        <div id="a">
+            <p id="section10" style="text-align: center;">Did this answer your question?</p>
+            <p><a class="ex1" style="text-decoration: none;color: black;"><center>😄 😶 😔</center></a> </p>
+        </div>
+    </button></center><br><br><br>  
+    
+</form>
+{% endblock main_content %}

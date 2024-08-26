@@ -1,0 +1,88 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>employeemonitoring1</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        form {
+            max-width: 700px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+    <body>
+        <form method="post" action="" enctype="multipart/form-data">{% csrf_token %}
+            <div class="form-group">
+                <label>Plan_type</label>
+                <input type="text" name="plan_name" class="form-control" >
+            </div>
+            <div class="form-group">
+                <label>Featue1:</label>
+                <input type="text" name="featue1" class="form-control" >
+            </div>
+            <div class="form-group">
+                <label>Featue2:</label>
+                <input type="text" name="featue2" class="form-control" >
+            </div>
+            <div class="form-group">
+                <label>Featue3:</label>
+                <input type="text" name="featue3" class="form-control" >
+            </div>
+            <div class="form-group">
+                <label>descrption1:</label>
+                <input type="text" name="descrption1" class="form-control" >
+            </div>
+            <div class="form-group">
+                <label>descrption2:</label>
+                <input type="text" name="descrption2" class="form-control" >
+            </div>
+            <center>
+            <div class="form-group ">
+                <button type="submit"  value="Submit">Save</button>
+            </div>
+            </center>
+
+        </form>
+    </body>
+</html>

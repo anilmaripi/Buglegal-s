@@ -1,0 +1,63 @@
+{% extends 'admin-template/base_template.html' %}     
+{% block main_content %}
+<html>
+  <style>
+     tr:nth-child(even) {background-color: #242b4d}
+       tr:nth-child(odd) {background-color: #2d3354}
+      
+  </style>
+    </head>
+    
+  <body>
+  
+              <h4 class="card-title" style="color:orange;"><b>Employ Apply for Reimbursement :</b></h4>
+            
+           
+              <div class="table">
+                  <table class="table">
+                      <tr>
+                          <th>ID</th>
+                          <th>Date</th>
+                          <th>Requested on</th>
+                          <th>Type</th>
+                          <th>Reason</th>
+                          <th>Amount</th>
+                          <th>Attachments</th>
+                          <th>Action</th>
+                      </tr>
+                      {% for leave in leaves %}
+                      <tr>
+                          <td>{{ leave.id }}</td>
+                          <td>{{leave.date}}</td>
+                          <td>{{leave.date}}</td>
+                          <td>{{leave.typea}}</td>
+                          <td>{{leave.detail}}</td>
+                          <td>{{leave.amount}}</td>
+                        <td>
+                           <a href="/media/{{leave.image}}" height="100px" width="150px" class="notification">
+                           <span><i class="fa fa-paperclip" aria-hidden="true"></i></span>
+                          <span class="badge">1</span>
+                          </a>
+                       </td>
+                          <td>
+                              {% if leave.reimbursement_status == 0 %}
+                              <a href="{% url 'reimbursement_approve_status' leave_id=leave.id %}" class="btn btn-success" >Approve</a>
+                              <a class="btn btn-danger" href="{% url 'reimbursement_disapprove_status' leave_id=leave.id %}" >Disapprove</a>
+                              {% elif leave.reimbursement_status == 1  %}
+                               <button class="btn btn-warning" disabled="disabled" data-toggle="modal" data-target="#reply_modal">Approved</button>
+                              {% else %}
+                              <button class="btn btn-danger" disabled="disabled" data-toggle="modal" data-target="#reply_modal">Disapproved</button>
+                              {% endif %}
+                          </td>
+
+                      </tr>
+                      {% endfor %}
+                  </table>
+              </div>
+
+
+  </div>
+  
+  </body>
+  {% endblock main_content %}
+                                                                                                                                                                                                                                                                                                                                                                                                                                       

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TimeAttendance1</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h2 {
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        a {
+            text-decoration: none;
+            color: #007bff;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h2>TimeAttendance1</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Title1</th>
+                <th>Image1</th>
+                <th>Discription1</th>
+                <th>Image2</th>
+                <th>Title2</th>
+                <th>Discription2</th>
+                <th>Title3</th>
+                <th>Discription3</th>
+                <th>Discription4</th>
+                <th>Image3</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for project in projects %}
+            <tr>
+                <td>{{ project.title1 }}</td>
+                <td><img src="{{ project.image1.url }}" alt="#"></td>
+                <td>{{ project.discription1 }}</td>
+                <td><img src="{{ project.image2.url }}" alt="#"></td>
+                <td>{{ project.title2 }}</td>
+                <td>{{ project.discription2 }}</td>
+                <td>{{ project.title3 }}</td>
+                <td>{{ project.discription3 }}</td>
+                <td>{{ project.discription4 }}</td>
+                <td><img src="{{ project.image3.url }}" alt="#"></td>
+                <td>
+                    <a href="{% url 'timeattendance1_update' pk=project.pk %}">Edit</a>
+                </td>
+                <td>
+                    <a href="{% url 'timeattendance1_delete' pk=project.pk %}">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</body>
+</html>

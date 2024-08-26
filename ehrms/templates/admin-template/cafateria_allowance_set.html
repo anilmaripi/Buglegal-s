@@ -1,0 +1,93 @@
+{% extends 'admin-template/base_template.html' %}
+{% block main_content %}
+<style>
+  .form-check-a {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    margin-top: 100px;
+    margin-bottom: 20px;
+    background-color: #ccc;
+  }
+  .label {
+    color: black;
+    font-size: 20px;
+    font-weight: 500;
+  }
+</style>
+
+<div class="row">
+  <div class="col-lg-1 col-md-1 col-sm-1"></div>
+  <div class="col-lg-10 col-md-10 col-sm-10">
+    <form method="post" enctype="multipart/form-data" id="cafeteriaForm"> {% csrf_token %}
+    <div class="form-check-a">
+      <label class="form-check-label">
+        <input type="checkbox" name="check_field" class="form-check-input" id="cafeteriaCheckbox" onchange="toggleCafeteriaSection(this)"{% if k and k.check_field == 'Enabled' %} checked {% endif %}>
+        If you have provided or updated the cafeteria allowance for all employees/month, please check this box.
+      </label>
+    </div>
+    <div id="ceft" style="display: none;">
+      <h2>Cafeteria Allowance</h2>
+      {% if cef %}
+        {% for i in cef %}
+          <div class="form-group">
+            <label for="amount" class="label">Enter The Amount</label>
+            <input type="text" name="amount" value="{{ i.amount }}" max="9999" placeholder="Provide a specific amount for cafeteria allowance" style="background-color: #000; color: white; width: 100%; padding: 10px;">
+          </div>
+          <div class="form-group">
+            <label for="noofcoupons" class="label">Enter The No.of Coupons</label>
+            <input type="text" name="noofcoupons" value="{{ i.noofcoupons }}" max="999"  placeholder="Provide a specific number for generate coupons" style="background-color: #000; color: white; width: 100%; padding: 10px;">
+          </div>
+        {% endfor %}
+      {% else %}
+        <div class="form-group">
+          <label for="amount" class="label">Enter The Amount</label>
+          <input type="text" name="amount"  max="9999" placeholder="Provide a specific amount for cafeteria allowance" style="background-color: #000; color: white; width: 100%; padding: 10px;">
+        </div>
+        <div class="form-group">
+          <label for="noofcoupons" class="label">Enter The No.of Coupons</label>
+          <input type="text" name="noofcoupons" max="999"  placeholder="Provide a specific number for generate coupons" style="background-color: #000; color: white; width: 100%; padding: 10px;">
+        </div>
+      {% endif %}
+    </div>
+    <button type="submit" style="padding-left: 10px; height: 50px; width: 180px; background-color: #0079bf;">
+      <b style="color: white;">UPDATE</b>
+    </button>
+    </form>
+  </div>
+  <div class="col-lg-1 col-md-1 col-sm-1"></div>
+</div>
+
+<script>
+  function toggleCafeteriaSection(checkbox) {
+    var cafeteriaSection = document.getElementById('ceft');
+    if (checkbox.checked) {
+      cafeteriaSection.style.display = 'block';
+    } else {
+      cafeteriaSection.style.display = 'none';
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var checkbox = document.getElementById('cafeteriaCheckbox');
+    if (checkbox.checked) {
+      toggleCafeteriaSection(checkbox);
+    }
+
+    document.getElementById('cafeteriaForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      var checkbox = document.getElementById('cafeteriaCheckbox');
+      if (checkbox.checked) {
+        if (confirm('If you want to enable the cafeteria allowance ?')) {
+          this.submit();
+        }
+      } else {
+        if (confirm('If you want to disable the cafeteria allowance ?')) {
+          this.submit();
+        }
+      }
+    });
+  });
+</script>
+
+{% endblock main_content %}
+

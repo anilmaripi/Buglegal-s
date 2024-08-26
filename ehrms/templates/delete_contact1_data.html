@@ -1,0 +1,15 @@
+<!-- delete_contact1_data.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete Contact1 Data</title>
+</head>
+<body>
+    <h1>Delete Contact1 Data</h1>
+    <p>Are you sure you want to delete "{{ data.title1 }}"?</p>
+    <form method="post">
+        {% csrf_token %}
+        <input type="submit" value="Confirm Delete">
+    </form>
+</body>
+</html>

@@ -1,0 +1,128 @@
+{% extends 'employ-template/base_template.html' %}
+
+{% block main_content %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<style>
+    p{
+        color: black;
+    }
+  
+/* 
+    input[value="completed"]::before {
+        content: "{{ completed_count }}"; 
+      
+    } */
+
+    input[value="completed"]::before {
+    content: attr(data-count); 
+
+}
+
+</style>
+<div class="row align-items-center d-flex  justify-content-center">
+    <div class="col-12 mb-4">
+        <div class="card border-light shadow-sm components-section align-items-center d-flex  justify-content-center">
+            <div class="card-body align-items-center d-flex justify-content-center">
+                <div class="row mb-4">
+
+                    <div class="col-lg-12 col-sm-16">
+                        <h3 class="h3 text-center">View Projects</h3>
+                    </div>
+
+                    <center>
+                        <form action="" method="get">
+                            
+                            <button class="btn btn-success" style="width: 200px;" type="submit" value="completed" name="status">  Completed&nbsp; ({{completed_count}})</button>&nbsp;&nbsp;&nbsp;
+                            <button class="btn btn-secondary"style="width:200px;" type="submit" value="ongoing" name="status">  ongoing&nbsp; ({{ongoing_count}})</button>&nbsp;&nbsp;&nbsp;
+                            <button class="btn btn-primary"style="width:200px;" type="submit" value="featured" name="status">  featured&nbsp; ({{featured_count}})</button>&nbsp;&nbsp;&nbsp;
+                        </form>
+                    </center>
+
+                    {% if projects %}
+                    <center>
+                        <lottie-player src="https://assets6.lottiefiles.com/packages/lf20_ikfeh6cd.json"
+                            background="transparent" speed="1" style="width: 400px; height: 300px;" loop autoplay>
+                        </lottie-player>
+                    </center>
+                    
+                    
+                        <div class="project-container">
+
+                        <div class="row">
+                            {% for pr in projects %}
+                            <div class="col-lg-6 mb-2">
+                                <div class="card" style="border-radius: 18px;">
+                                    <div class="card-body" style="border-radius: 18px;">
+                                        <h3 class="text-center">{{pr.p_name}}</h3>
+                                        <br />
+                                        <p style="color: black;" class="text-center">{{pr.p_desc}}</p>
+
+                                        <!-- <h6>{{pr.status}}</h6> -->
+                                        <center>
+                                            <a href="/team_lead_projectwise_tasks/{{pr.id}}" class="btn btn-primary">View</a>
+
+                                            
+                                        </center>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            <br />
+                        </div>
+                    </div>
+                    {% else %}
+
+                    
+<script>
+    $(document).ready(function () {
+        // Function to load projects based on status
+        function read_proj(status) {
+            $.ajax({
+                url: '/team_lead_read_proj/',
+                method: 'GET',
+                data: { status: status },
+                success: function (data) {
+                    $('.project-container').html(data);
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+
+        // Attach click event handlers to the filter buttons
+        $('.filter-btn').click(function () {
+            var status = $(this).data('status');
+            read_proj(status);
+        });
+
+        // Load completed projects by default
+        read_proj('completed');
+    });
+</script>
+
+                    
+                    <div class="col-lg-12 col-sm-16">
+                        <center>
+                            <lottie-player src="https://assets7.lottiefiles.com/datafiles/vhvOcuUkH41HdrL/data.json"
+                                background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay>
+                            </lottie-player>
+                        </center>
+                        <h3 class="h3 text-center">
+                            No Records Found!
+                        </h3>
+                     
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Calendly badge widget begin -->
+<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+<script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+<script type="text/javascript">window.onload = function() { Calendly.initBadgeWidget({ url: 'https://calendly.com/ssvdpavankumar16/30min', text: 'Schedule time with me', color: '#0069ff', textColor: '#ffffff', branding: true }); }</script>
+<!-- Calendly badge widget end -->
+{% endblock main_content %}
+  

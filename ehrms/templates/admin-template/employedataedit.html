@@ -1,0 +1,408 @@
+{% extends 'admin-template/base_template.html' %}{% block main_content %}
+
+<html>
+    <head>
+        <title></title>
+    </head>
+    <style>
+        body{
+            background-color: black;
+            color:white;
+            /* overflow: scroll; */
+            font-size: larger;
+
+        }
+        .checkbox {
+  position: relative;
+  margin: 20px 0;
+}
+.checkbox { display: block; }
+
+.checkbox input {
+  position: absolute;
+  margin: 5px;
+  padding: 0;
+  /* for mobile accessibility (iOS Label Bug) */
+  visibility: hidden;
+}
+.checkbox .label-visible {
+  margin-left: 2em;
+  margin-bottom: 0;
+}
+
+.fake-checkbox{
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  border: 1px solid slategray;
+  background-color: white;
+}
+.fake-checkbox:after {
+  content: "";
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  background: navy;
+  transform: translateX(-50%) translateY(-50%);
+}
+.form-check-lable{
+  color: black;
+}
+input[type="checkbox"]:checked + span .fake-checkbox:after { display: block; }
+
+    </style>
+    <br><br><br>
+    {% if messages %}
+    {% for message in messages %}
+    {% if message.tags == 'error' %}
+    <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+    {% endif %}
+    {% if message.tags == 'success' %}
+    <div class="alert alert-success" style="margin-top:20px;background-color:green;color: whitesmoke;">{{ message }}</div>
+    {% endif %}
+    {% endfor %}
+  {% endif %}
+
+    <body>
+      <h3 class="text-dark text-center">Employee Data</h3> <br> <br>
+        <form method="POST"> {% csrf_token %}
+            <div class="form-group text-dark">
+                <label>Employee ID Prefix(optional)</label><br><br>
+                <input type="text" name="employe_id_prefix" class="form-control" value="{{k5.employe_id_prefix}}" style="background-color:black; width:50%; height:8%;border:none; color:white;">
+            </div> <br>  
+        
+              <div class="form-group">
+                <label style="color: black;">Employee ID Length *</label><br><br>
+                <input type="text" name="employ_idlength" class="form-control" value="{{k5.employ_idlength}}" style="background-color:black; width:50%; height:8%;border:none; color:white;" required><br>
+                <table style=" width:50%; height:8%; color:black; border:none;">
+                    <tbody style="text-align:left; background-color:#27d9e6;">
+                        <tr>
+                            <td style="padding: 20px;">Desired length of the employee ID, including the Prefix. Enter 0 for minimum length</td>
+                        </tr>
+                    </tbody>    
+                </table>
+            </div>
+
+            <div class="form-check">
+                <!-- <input class="form-check-input" type="checkbox"  name="field_d_data">
+                <label class="form-check-label">
+                    Enable employee director for all employee
+                </label> -->
+              </div><br><br>
+              <!-- <div class="form-group">
+                <label>payslip configuration</label><br><br>
+                <table style=" width:50%; height:8%; color:whitesmoke; border:none;">
+                    <tbody style="text-align:left; background-color:#2d3354;">
+                        <tr>
+                            <td>you can choose to show or hide this information in employee's payslips</td>
+                        </tr>
+                    </tbody>    
+                </table>
+            </div><br><br>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                <label class="form-check-label" for="flexCheckDefault">
+                  Show employee ID in payslips
+                </label>
+              </div><br><br>
+
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                <label class="form-check-label" for="flexCheckDefault">
+                  Show company brand name in payslips
+                </label>
+              </div><br><br>
+ -->
+              <!-- <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                <label class="form-check-label" for="flexCheckDefault">
+                  Show company address in payslip
+                </label>
+              </div><br><br> -->
+
+              <div class="form-group">
+                <label style="color: black;">Optional Employee Data</label><br><br>
+                <table style=" width:50%; height:8%; color:black; border:none;">
+                    <tbody style="text-align:left; background-color:#27d9e6;">
+                        <tr>
+                            <td style="padding:20px;">If you would like to gather additional data for your employees. Please select from the options given below</td>
+                        </tr>
+                    </tbody>    
+                </table>
+            </div><br><br>
+
+
+          
+            <!-- <label>additionalinfo</label><br> -->
+            <div class="form-check text-dark" >
+              {% if half.Personalphonenumber1 == "1" %}
+                <input class="form-check-input" type="checkbox" value="1"  name="Personalphonenumber1" class="ch" checked>
+                {% else %}
+                <input class="form-check-input" type="checkbox" value="1"  name="Personalphonenumber1" class="ch" >
+                {% endif %}
+                <label class="form-check-label">
+                    Personal Phone Number
+                </label>
+              </div><br><br>
+
+              <div class="form-check text-dark">
+                {% if half.PersonalEmailAddress1 == "1" %}
+                <input class="form-check-input" type="checkbox" value="1"  name="PersonalEmailAddress1" class="ch" checked>
+                {% else %}
+                <input class="form-check-input" type="checkbox" value="1"  name="PersonalEmailAddress1" class="ch" >
+                {% endif %}
+                <label class="form-check-label">
+                    Personal Email Address
+                </label>
+              </div><br><br>
+              <div class="form-check text-dark">
+                {% if half.FathersName1 == "1" %}
+                <input class="form-check-input" type="checkbox" value="1"  name="FathersName1" class="ch" checked>
+                {% else %}
+                <input class="form-check-input" type="checkbox" value="1"  name="FathersName1" class="ch" >
+                {% endif %}
+                <label class="form-check-label">
+                    Father's Name
+                </label>
+              </div><br><br>
+
+              <div class="form-check text-dark">
+                {% if half.FathersDOB1 == "1" %}
+                <input class="form-check-input" type="checkbox" value="1"  name="FathersDOB1" class="ch" checked>
+                {% else %}
+                <input class="form-check-input" type="checkbox" value="1"  name="FathersDOB1" class="ch" >
+                {% endif %}
+                <label class="form-check-label">
+                    Father's DOB
+                </label>
+              </div><br><br>
+              <div class="form-check text-dark">
+                {% if half.MothersName1 == "1" %}
+                <input class="form-check-input" type="checkbox" value="1"  name="MothersName1" class="ch" checked>
+                {% else %}
+                <input class="form-check-input" type="checkbox" value="1"  name="MothersName1" class="ch" >
+                {% endif %}
+                <label class="form-check-label">
+                    Mother's Name
+                </label>
+              </div><br><br>
+            
+              <div class="form-check text-dark">
+                {% if half.MothersDOB1 == "1" %}
+                <input class="form-check-input" type="checkbox" value="1"  name="MothersDOB1" class="ch" checked>
+                {% else %}
+                <input class="form-check-input" type="checkbox" value="1"  name="MothersDOB1" class="ch" >
+                {% endif %}
+                <label class="form-check-label">
+                    Mother's DOB
+                </label>
+              </div><br><br>
+           
+              <div class="form-check text-dark">
+                {% if half.Childdetails1 == "1" %}
+                <input class="form-check-input" type="checkbox" value="1"  name="Childdetails1" class="ch" checked>
+                {% else %}
+                <input class="form-check-input" type="checkbox" value="1"  name="Childdetails1" class="ch" >
+                {% endif %}
+                <label class="form-check-label">
+                    Child Details(1)
+                </label>
+              </div><br><br>
+              
+              <div class="form-check text-dark">
+                {% if half.Childdetails2 == "1" %}
+                <input class="form-check-input" type="checkbox" value="1"  name="Childdetails2" class="ch" checked>
+                {% else %}
+                <input class="form-check-input" type="checkbox" value="1"  name="Childdetails2" class="ch" >
+                {% endif %}
+                <label class="form-check-label">
+                    Child Details(2)
+                </label>
+              </div><br><br>
+              <div class="form-check text-dark">
+                {% if half.TemporaryAddress1 == "1" %}
+                <input class="form-check-input" type="checkbox" value="1"  name="TemporaryAddress1" class="ch" checked>
+                {% else %}
+                <input class="form-check-input" type="checkbox" value="1"  name="TemporaryAddress1" class="ch" >
+                {% endif %}
+                <label class="form-check-label">
+                    Temporary Address
+                </label>
+              </div><br><br>
+           
+              <div class="form-check text-dark">
+                {% if half.HighestEducatonalQualification1 == "1" %}
+                <input class="form-check-input" type="checkbox" value="1"  name="HighestEducatonalQualification1" class="ch" checked>
+                {% else %}
+                <input class="form-check-input" type="checkbox" value="1"  name="HighestEducatonalQualification1" class="ch" >
+                {% endif %}
+                <label class="form-check-label">
+                    Highest Educatonal Qualification
+                </label>
+              </div><br><br>
+           
+              <div class="form-check text-dark">
+                {% if half.Addharnumber1 == "1" %}
+                <input class="form-check-input" type="checkbox" value="1"  name="Addharnumber1" class="ch" checked>
+                {% else %}
+                <input class="form-check-input" type="checkbox" value="1"  name="Addharnumber1" class="ch" >
+                {% endif %}
+                <label class="form-check-label">
+                    Aadhar Number
+                </label>
+              </div><br><br>
+              <div class="form-check text-dark">
+                {% if half.maritalstatus1 == "1" %}
+                <input class="form-check-input" type="checkbox" value="1"  name="maritalstatus1" class="ch" checked>
+                {% else %}
+                <input class="form-check-input" type="checkbox" value="1"  name="maritalstatus1" class="ch" >
+                {% endif %}
+                <label class="form-check-label">
+                    Marital status
+                </label>
+              </div><br><br>
+              <div class="form-check text-dark">
+                {% if half.workexperiance1 == "1" %}
+                <input class="form-check-input" type="checkbox" value="1"  name="workexperiance1" class="ch" checked>
+                {% else %}
+                <input class="form-check-input" type="checkbox" value="1"  name="workexperiance1" class="ch" >
+                {% endif %}
+                <label class="form-check-label">
+                    Work Experience
+                </label>
+              </div><br><br>
+              <div class="form-check text-dark">
+                {% if half.previousemploye1 == "1" %}
+                <input class="form-check-input" type="checkbox" value="1"  name="previousemploye1" class="ch" checked>
+                {% else %}
+                <input class="form-check-input" type="checkbox" value="1"  name="previousemploye1" class="ch" >
+                {% endif %}
+                <label class="form-check-label">
+                    Previous Employe
+                </label>
+              </div><br><br>
+              <div class="form-check text-dark">
+                {% if half.previousdesignation1 == "1" %}
+                <input class="form-check-input" type="checkbox" value="1"  name="previousdesignation1" class="ch" checked>
+                {% else %}
+                <input class="form-check-input" type="checkbox" value="1"  name="previousdesignation1" class="ch" >
+                {% endif %}
+                <label class="form-check-label">
+                    Previous Designation
+                </label>
+              </div><br><br>
+            
+              <div class="form-check text-dark">
+                {% if half.Marriageannivarsary1 == "1" %}
+                <input class="form-check-input" type="checkbox" value="1"  name="Marriageannivarsary1" class="ch" checked>
+                {% else %}
+                <input class="form-check-input" type="checkbox" value="1"  name="Marriageannivarsary1" class="ch" >
+                {% endif %}
+                <label class="form-check-label">
+                    Marriage Annivarsary
+                </label>
+              </div><br><br>
+              <div class="form-check text-dark">
+                {% if half.emergencycontactname1 == "1" %}
+                <input class="form-check-input" type="checkbox" value="1"  name="emergencycontactname1" class="ch" checked>
+                {% else %}
+                <input class="form-check-input" type="checkbox" value="1"  name="emergencycontactname1" class="ch" >
+                {% endif %}
+                <label class="form-check-label">
+                    Emergency Contact Name
+                </label>
+              </div><br><br>
+              <div class="form-check text-dark">
+                {% if half.emergencycontactnumber1 == "1" %}
+                <input class="form-check-input" type="checkbox" value="1"  name="emergencycontactnumber1" class="ch" checked>
+                {% else %}
+                <input class="form-check-input" type="checkbox" value="1"  name="emergencycontactnumber1" class="ch" >
+                {% endif %}
+                <label class="form-check-label">
+                    Emergency Contact Number
+                </label>
+              </div><br><br>
+              <div class="form-check text-dark">
+                {% if half.emergencycontactrelation1 == "1" %}
+                <input class="form-check-input" type="checkbox" value="1"  name="emergencycontactrelation1" class="ch" checked>
+                {% else %}
+                <input class="form-check-input" type="checkbox" value="1"  name="emergencycontactrelation1" class="ch" >
+                {% endif %}
+                <label class="form-check-label">
+                    Emergency Contact Relation
+                </label>
+              </div><br><br>
+           
+              <div class="form-check text-dark">
+                {% if half.bloodgroup1 == "1" %}
+                <input class="form-check-input" type="checkbox" value="1"  name="bloodgroup1" class="ch" checked>
+                {% else %}
+                <input class="form-check-input" type="checkbox" value="1"  name="bloodgroup1" class="ch" >
+                {% endif %}
+                <label class="form-check-label">
+                    Blood Group
+                </label>
+              </div><br><br>
+              <div class="form-check text-dark">
+                {% if half.nationality == "1" %}
+                <input class="form-check-input" type="checkbox" value="1"  name="nationality" class="ch" checked>
+                {% else %}
+                <input class="form-check-input" type="checkbox" value="1"  name="nationality" class="ch" >
+                {% endif %}
+                <label class="form-check-label">
+                    Nationality
+                </label>
+              </div><br><br>
+           
+              <!-- <div class="form-group">
+                <table style=" width:50%; height:8%; color:white; border:none;">
+                    <tbody style="text-align:left; background-color:#2d3354;">
+                        <tr>
+                            <td>you can also enter customer fields</td>
+                        </tr>
+                    </tbody>    
+                </table><br>
+                <input type="text" value="custom field1" class="form-control" style="background-color:#2D3354; width:50%; height:8%;border:none; color:white;"><br><br>
+                <input type="text" value="custom field2" class="form-control" style="background-color:#2D3354; width:50%; height:8%;border:none; color:white;"><br><br>
+                <input type="text" value="custom field3" class="form-control" style="background-color:#2D3354; width:50%; height:8%;border:none; color:white;"><br><br>
+                <input type="text" value="custom field4" class="form-control" style="background-color:#2D3354; width:50%; height:8%;border:none; color:white;"><br>
+             </div> <br> <br> -->
+
+             <div style="color: black;">
+                *indicates required fields
+             </div><br><br>
+             <button type="submit" style="padding-left: 10px; height: 50PX; width: 180px;background-color: #0079bf;">
+                <a href="/setting"><b style="color: white;">CONTINUE</b></a>
+              </button>
+        </form> 
+        <script>
+          $(document).ready(function () {
+              $('.ch').change(function () {
+                  var selectedValues = [];
+                  $('.ch:checked').each(function () {
+                      selectedValues.push($(this).val());
+                  });
+                  $('#chl').val(selectedValues.join(', ')); // Display selected values in the input field
+              });
+          });
+      </script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const employe_id_prefixInput = document.querySelector('input[name="employe_id_prefix"]');
+    employe_id_prefixInput.addEventListener('input', function () {
+      let inputValue = employe_id_prefixInput.value.toUpperCase().replace(/[^A-Z0-9]/g, ''); 
+      employe_id_prefixInput.value = inputValue;
+    });
+  });
+</script>
+      </body>
+</html>
+{% endblock main_content %}

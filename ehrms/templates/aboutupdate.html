@@ -1,0 +1,365 @@
+
+{% extends 'admin-template/adminAdashboard.html' %}
+{% block main_content %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <style>
+   
+   .dropdown-menu .dropdown-item:hover {
+            background-color: #9830de; 
+            color: #fff; 
+             transform: scale(1.02);
+            transition: color 0.3s, transform 0.3s;
+        }
+
+.section-heading {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+
+.row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.col-lg-6 {
+  flex: 0 0 50%;
+  max-width: 50%;
+  padding: 10px;
+}
+.appbutton{
+            font-size: 20px;
+        }
+
+@media (max-width: 768px) {
+  .col-lg-6 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+} 
+
+    </style>
+
+<style>
+
+p{
+
+font-size: large;
+color:black;
+
+
+}
+.fnn {
+  font-size: 15px;
+  font-family: Arial, sans-serif; /* Change this line to specify your desired font style */
+  text-align: justify;
+  display: flex;
+  align-items: center;
+}
+.mcon{
+  height: fit-content
+}
+@media (max-width: 768px){
+.fnn{
+    word-spacing: -0.19em;
+    letter-spacing: -0.04em;
+    }
+}
+
+.mhcard {
+  border: 1px solid #ddd;
+  border-radius: 18px;
+  width: 100%;
+  max-width:1200px;
+  padding: 20px;
+  margin: 20px;
+  font-family: Arial, sans-serif;
+  transition: transform 0.3s;
+  display: inline-block;
+}
+
+.mhcard-hovered {
+transform: scale(1.05);  
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);  
+}
+
+.mhcard-hovered-more {
+transform: scale(1.05);
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+.use-case-card-hovered {
+transform: scale(1.05);
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+
+.card-img-top {
+  width: 100%;
+  height: 250px;
+}
+#car{
+  font-family: Arial, Helvetica, sans-serif;
+  
+  text-align: center;
+  font-weight: bold;
+}
+#car1{
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  text-align: justify;
+}
+
+</style>
+
+   
+  </head> 
+ 
+<body>
+
+  <br><br><br><br>
+  <div class="container-fluid">
+    <div class="row d-flex justify-content-center border w-100">
+
+
+<!-- <h1 style="text-align: center;">Introduction</h1> -->
+<h3 id="car">Introduction</h3>
+ <div class="container" >
+  <!-- <h1 style="text-align: center;">Introduction</h1> -->
+  <div class="mhcard mhcard-usecases" onmouseover="hoverCardMore(this)" onmouseout="unhoverCardMore(this)"class="w-100">
+
+<div class="row mhcard-img fadeInUp wow w-100 h-50" data-wow-duration="1s" data-wow-delay="0.3s">
+    <div class="col-lg-6 d-flex justify-content-center">
+      {% for i in k %}
+      <!-- <p class="fnn">{{i.content}}</p> -->
+      <p id="car1">{{i.content}}</p>
+    </div>
+    <div class="col-lg-6 d-flex justify-content-center">
+      <img src="{{i.images.url}}" class="card-img-top" alt=""> 
+      {% endfor %}
+
+    </div>
+</div>
+</div>
+</div>
+<br>
+
+<!-- <h1 style="text-align: center;">Buglegal Application</h1> -->
+<h3 id="car">Buglegal Application</h3>
+<div class="container">
+  <div class="mhcard mhcard-usecases" onmouseover="hoverCardMore(this)" onmouseout="unhoverCardMore(this)"class="w-100">
+
+<div class="row mhcard-img fadeInUp wow w-100 h-50" data-wow-duration="1s" data-wow-delay="0.3s">
+ <div class="col-lg-6 d-flex justify-content-center">
+   {% for i in k %}
+ {%if i.images5 %}
+   <img style="border-radius: 5px;" class="card-img-top" src="{{i.images5.url}}" alt=""> 
+   {% endif %}
+ </div>
+   <div class="col-lg-6 d-flex justify-content-center">
+     <p class="fnn" >{{i.content44}}</p>
+    
+     
+     {% endfor %}
+
+   </div>   </div>
+
+</div>
+</div>
+<br>
+
+<!-- <h1 style="text-align: center;">Customized Admin</h1> -->
+<h3 id="car">Customized Admin</h3>
+<div class="container" >
+  <div class="mhcard mhcard-usecases" onmouseover="hoverCardMore(this)" onmouseout="unhoverCardMore(this)"class="w-100">
+
+<div class="row mhcard-img fadeInUp wow w-100 h-50" data-wow-duration="1s" data-wow-delay="0.3s">
+ 
+
+   <div class="col-lg-6 d-flex justify-content-center">
+    {% for i in k %}
+     <p class="fnn">{{i.content55}}</p>
+    
+     
+
+   </div>
+   <div class="col-lg-6 d-flex justify-content-center">
+    {%if i.images6 %}
+    <img style="border-radius: 5px;" class="card-img-top" src="{{i.images6.url}}" alt=""> 
+    {% endif %}
+    {% endfor %}
+  </div>
+</div></div>
+</div>
+<br>
+
+<!-- <h1 style="text-align: center;">Screen Monitoring</h1> -->
+<h3 id="car">Screen Monitoring</h3>
+<div class="container" >
+  <div class="mhcard mhcard-usecases" onmouseover="hoverCardMore(this)" onmouseout="unhoverCardMore(this)"class="w-100">
+
+<div class="row mhcard-img fadeInUp wow w-100 h-50" data-wow-duration="1s" data-wow-delay="0.3s">
+ <div class="col-md-6 d-flex justify-content-center mcon">
+   {% for i in k %}
+   {%if i.images7 %}
+   <img style="border-radius: 5px;"  class="card-img-top" src="{{i.images7.url}}" alt=""> 
+   {% endif %}
+ </div>
+
+   <div class="col-lg-6 d-flex justify-content-center">
+     <!-- <p class="fnn">{{i.content6}}</p> -->
+     <p class="fnn"  style="margin-top: -10px;">{{i.content6}}</p>
+
+     
+     {% endfor %}
+
+   </div>
+</div>
+</div></div>
+<br>
+
+<!-- <h1 style="text-align: center;">Employee Performance</h1> -->
+<h3 id="car">Employee Performance</h3>
+<div class="container" >
+  <div class="mhcard mhcard-usecases" onmouseover="hoverCardMore(this)" onmouseout="unhoverCardMore(this)"class="w-100">
+
+<div class="row mhcard-img fadeInUp wow w-100 h-50" data-wow-duration="1s" data-wow-delay="0.3s">
+
+
+   <div class="col-lg-6 d-flex justify-content-center">
+    {% for i in k %}
+     <p class="fnn">{{i.content7}}</p>
+    
+     
+
+   </div>
+   <div class="col-lg-6 d-flex justify-content-center">
+    {%if i.images8 %}
+    <img class="card-img-top" src="{{i.images8.url}}" alt=""> 
+    {% endif %}
+    {% endfor %}
+  </div>
+</div>
+</div>
+</div>
+
+  <!-- <h1 style="text-align: center;">Our Vision</h1> -->
+  <h3 id="car">Our Vision</h3>
+   <div class="container" >
+    <div class="mhcard mhcard-usecases" onmouseover="hoverCardMore(this)" onmouseout="unhoverCardMore(this)"class="w-100">
+
+  <div class="row mhcard-img fadeInUp wow w-100 h-50" data-wow-duration="1s" data-wow-delay="0.3s">
+    <div class="col-lg-6 d-flex justify-content-center">
+      {% for i in k %}
+    
+      <img style="border-radius: 5px;" class="card-img-top" src="{{i.images1.url}}" alt=""> 
+      
+    </div>
+  
+      <div class="col-lg-6 d-flex justify-content-center">
+        <p class="fnn" style="margin-top: -20px;">{{i.content1}}</p>
+        {% endfor %}
+  
+      </div>
+  </div>
+  </div></div>
+  <br>
+
+  
+    <!-- <h1 style="text-align: center;">Our Mision</h1> -->
+    <h3 id="car">Our Mission</h3>
+     <div class="container" >
+      <div class="mhcard mhcard-usecases" onmouseover="hoverCardMore(this)" onmouseout="unhoverCardMore(this)"class="w-100">
+
+    <div class="row mhcard-img fadeInUp wow w-100 h-50" data-wow-duration="1s" data-wow-delay="0.3s">
+      
+    
+        <div class="col-lg-6 d-flex justify-content-center">
+          {% for i in k %}
+          <p class="fnn">{{i.content2}}</p>
+        
+          
+    
+        </div>
+        <div class="col-lg-6 d-flex justify-content-center">
+        
+          <img style="border-radius: 5px;" class="card-img-top" src="{{i.images2.url}}" alt=""> 
+          {% endfor %}
+        </div>
+    </div>
+    </div></div>
+    <br>
+      <!-- <h1 style="text-align: center;">Technologies</h1> -->
+      <h3 id="car">Technologies</h3>
+       <div class="container" >
+        <div class="mhcard mhcard-usecases" onmouseover="hoverCardMore(this)" onmouseout="unhoverCardMore(this)"class="w-100">
+
+      <div class="row mhcard-img fadeInUp wow w-100 h-50" data-wow-duration="1s" data-wow-delay="0.3s">
+        <div class="col-lg-6 d-flex justify-content-center">
+          {% for i in k %}
+        
+          <img style="border-radius: 5px;" class="card-img-top" src="{{i.images3.url}}" alt=""> 
+          
+        </div>
+      
+          <div class="col-lg-6">
+<div style="margin-top: 20px;">
+  
+            <p class="fnn">🔸&nbsp;&nbsp;{{i.c4}}</p>
+            <p class="fnn">🔸&nbsp;&nbsp;{{i.c5}}</p>
+            <p class="fnn">🔸&nbsp;&nbsp;{{i.c6}}</p>
+            <p class="fnn">🔸&nbsp;&nbsp;{{i.c7}}</p>
+            <p class="fnn">🔸&nbsp;&nbsp;{{i.c8}}</p>
+            <p class="fnn">🔸&nbsp;&nbsp;{{i.c9}}</p>
+          </div>
+            {% endfor %}
+      
+          </div>
+      </div>
+      </div></div>
+
+        <!-- <h1 style="text-align: center;">Our Location</h1> -->
+        <h3 id="car">Our Location</h3>
+         <div class="container" >
+          <div class="mhcard mhcard-usecases" onmouseover="hoverCardMore(this)" onmouseout="unhoverCardMore(this)"class="w-100">
+
+        <div class="row mhcard-img fadeInUp wow w-100 h-50" data-wow-duration="1s" data-wow-delay="0.3s">
+          
+        
+            <div class="col-lg-6">
+              {% for i in k %}
+              <p class="fnn" style="font-weight: bold;">{{i.content3}}</p>
+              <p class="fnn">{{i.c1}}</p>
+              <p class="fnn">{{i.c2}}</p>
+              <p class="fnn">{{i.c3}}</p>
+              <p class="fnn">{{i.c}}</p> 
+            </div>
+            <div class="col-lg-6 d-flex justify-content-center">
+            
+              <img style="border-radius: 5px;" class="card-img-top" src="{{i.images4.url}}" alt=""> 
+                            {% endfor %}
+
+            </div></div>
+        </div>
+        </div>
+      </div>
+    </div>
+        <script>
+ 
+          function hoverCardMore(card) {
+              card.classList.add('mhcard-hovered-more');
+          }
+      
+          function unhoverCardMore(card) {
+              card.classList.remove('mhcard-hovered-more');
+          }
+          
+      </script>
+      </body>
+{% endblock main_content %}

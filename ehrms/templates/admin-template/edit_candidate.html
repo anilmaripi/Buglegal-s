@@ -1,0 +1,144 @@
+{% extends 'admin-template/base_template.html' %}
+{% block main_content %}
+
+<html>
+<head>
+    <title>Edit Candidate</title>
+    <style>
+        .form-container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+        }
+        .form-container h2 {
+            text-align: center;
+        }
+        .form-container label {
+            display: block;
+            margin-bottom: 8px;
+            
+        }
+        .form-container input[type="text"],
+        .form-container input[type="email"],
+        .form-container input[type="number"],
+        .form-container input[type="file"],
+        .form-container textarea,
+        .form-container select {
+            width: calc(100% - 16px);
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        .form-container input[type="submit"] {
+            background-color: #5785e9;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .form-container input[type="submit"]:hover {
+            background-color: #4169e1;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Edit Candidate Details</h2>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            {% if candidate.image %}
+            <img src="{{ candidate.image.url }}" height="40%" alt="Current Image">
+            {% endif %}
+
+            <label for="first_name">First Name:</label>
+            <input type="text" id="first_name" name="first_name" value="{{ candidate.first_name }}" required>
+            
+            <label for="last_name">Last Name:</label>
+            <input type="text" id="last_name" name="last_name" value="{{ candidate.Last_name }}" required>
+            
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" value="{{ candidate.email }}" required>
+            
+            <label for="official_mail">Official Mail:</label>
+            <input type="email" id="official_mail" name="official_mail" value="{{ candidate.Official_mail }}" required>
+            
+            <label for="contactno">Phone Number:</label>
+            <input type="text" id="contactno" name="contactno" value="{{ candidate.contactno }}" required>
+            
+            <label for="job_role">Job Role:</label>
+            <input type="text" id="job_role" name="job_role" value="{{ candidate.job_role }}" required>
+            
+            <label for="address">Address:</label>
+            <textarea id="address" name="address" rows="4" required>{{ candidate.address }}</textarea>
+            
+            <label for="image">Image:</label>
+            <input type="file" id="image" name="image" value="{{ candidate.image }}">
+        
+            <label for="street">Street:</label>
+            <input type="text" id="street" name="street" value="{{ candidate.street }}" required>
+            
+            <label for="state">State:</label>
+            <input type="text" id="state" name="state" value="{{ candidate.state }}" required>
+            
+            <label for="country">Country:</label>
+            <input type="text" id="country" name="country" value="{{ candidate.country }}" required>
+            
+            <label for="city">City:</label>
+            <input type="text" id="city" name="city" value="{{ candidate.city }}" required>
+            
+            <label for="pincode">Pincode:</label>
+            <input type="number" id="pincode" name="pincode" value="{{ candidate.Pincode }}" required>
+            
+            <label for="experience">Experience:</label>
+            <input type="text" id="experience" name="experience" value="{{ candidate.Experience }}" required>
+            
+            <label for="current_salary">Current Salary:</label>
+            <input type="number" id="current_salary" name="current_salary" value="{{ candidate.current_salary }}" required>
+            
+            <label for="source_of_hire">Source of Hire:</label>
+            <input type="text" id="source_of_hire" name="source_of_hire" value="{{ candidate.source_of_hire }}" required>
+            
+            <label for="skills">Skills:</label>
+            <input type="text" id="skills" name="skills" value="{{ candidate.skills }}" required>
+            
+            <label for="nationality">Nationality:</label>
+            <input type="text" id="nationality" name="nationality" value="{{ candidate.Nationality }}">
+            
+            <label for="aadhar_no">Aadhar Number:</label>
+            <input type="text" id="aadhar_no" name="aadhar_no" value="{{ candidate.AadharNo }}">
+            
+            <label for="pan_no">PAN Number:</label>
+            <input type="text" id="pan_no" name="pan_no" value="{{ candidate.PanNo }}">
+            
+            <label for="dob">Date of Birth:</label>
+            <input type="date" id="dob" name="dob" value="{{ candidate.dob|date:'Y-m-d' }}">
+            
+            <label for="gender">Gender:</label>
+            <select id="gender" name="gender">
+                <option value="Male" {% if candidate.gender == "Male" %} selected {% endif %}>Male</option>
+                <option value="Female" {% if candidate.gender == "Female" %} selected {% endif %}>Female</option>
+                <option value="Other" {% if candidate.gender == "Other" %} selected {% endif %}>Other</option>
+            </select>
+            
+            <label for="offer_letter">Offer Letter:</label>
+            <input type="file" id="offer_letter" name="offer_letter">
+           
+            <br><br>
+            <input type="submit" value="Save Changes">
+        </form>
+        
+    </div>
+</body>
+</html>
+
+{% endblock main_content %}

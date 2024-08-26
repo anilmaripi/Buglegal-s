@@ -1,0 +1,112 @@
+{% extends 'employ-template/base_template.html' %}
+
+{% block main_content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timer Page</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+            padding-top: 50px;
+        }
+        h1 {
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+        #timer {
+            font-size: 40px;
+            color: #dc3545;
+            margin-bottom: 30px;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+        .btn-danger {
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+        .btn-danger:hover {
+            background-color: #c82333;
+            border-color: #bd2130;
+        }
+    </style>
+    <script>
+       document.addEventListener('DOMContentLoaded', function() {
+    let timerElement = document.getElementById('timer');
+    let continueBtn = document.getElementById('continueBtn');
+    let cancelBtn = document.getElementById('cancelBtn');
+    let timer = 10;
+
+    let countdown = setInterval(function() {
+        if (timer > 0) {
+            timer--;
+            timerElement.textContent = timer;
+        } else {
+            clearInterval(countdown);
+            sendSOS();
+        }
+    }, 1000);
+
+    continueBtn.addEventListener('click', function() {
+        clearInterval(countdown);
+        sendSOS();
+    });
+
+    cancelBtn.addEventListener('click', function() {
+        clearInterval(countdown);
+        timerElement.textContent = 'Cancelled';
+    });
+
+    function sendSOS() {
+        fetch('/sos-trigger/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: JSON.stringify({ 'user_id': '{{ request.user.id }}' })
+        }).then(response => response.json())
+          .then(data => {
+              if (data.success) {
+                  alert('SOS Triggered');
+              } else {
+                  alert('Failed to trigger SOS: ' + data.error);
+              }
+          }).catch(error => {
+              alert('Failed to trigger SOS: ' + error);
+          });
+    }
+});
+
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Timer Page</h1>
+        <h3 style="color:white; font-weight: bold; font-family:'Times New Roman', Times, serif">A timer will start for 10 seconds.</h3>
+        <p id="timer" style="margin-left: 35%;">10</p>
+        <button class="btn btn-success" id="continueBtn">Continue</button>
+        <button class="btn btn-danger" id="cancelBtn">Cancel</button>
+    </div>
+</body>
+</html>
+{% endblock main_content %}

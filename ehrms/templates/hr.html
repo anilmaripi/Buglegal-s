@@ -1,0 +1,46 @@
+{% extends 'admin-template/base_template.html' %}
+
+{% block page_title %}
+{% endblock page_title %}
+
+{% block main_content %}
+
+<p id="sa">select role*</p>
+<select id="select-form" style="width: 500px;height: 45px;"> 
+    <option>select role</option>
+    <option value="employadd" onclick="showForm('employadd')">employ</option>
+    <option value="hradd" onclick="showForm('hradd')">Hr</option>
+   </select>
+  <br><br>
+
+  <form id="employadd" method="post" enctype="multipart/form-data" action="/add_employ_save/" style="display: none;">{% csrf_token %}
+   
+
+    <input type="submit" value="SAVE DRAFT" style="border: 2px solid #393f5c;background-color: #8795da;">
+
+</form>
+
+
+
+    <form id="hradd" method="post" enctype="multipart/form-data" action="/add_employ_save/" style="display: none;">{% csrf_token %}
+   
+        <input type="submit" value="SAVE DRAFT" style="border: 2px solid #393f5c;background-color: #8795da;">
+
+    </form>
+   
+   <script>
+        const selectForm = document.getElementById('select-form');
+        const forms = document.getElementsByTagName('form');
+      
+        selectForm.addEventListener('change', function() {
+          const selectedForm = this.value;
+          for (let i = 0; i < forms.length; i++) {
+            if (forms[i].id === selectedForm) {
+              forms[i].style.display = 'block';
+            } else {
+              forms[i].style.display = 'none';
+            }
+          }
+        });
+      </script>
+{% endblock main_content %}

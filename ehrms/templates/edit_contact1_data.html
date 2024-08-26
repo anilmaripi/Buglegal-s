@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Contact1 Data</title>
+</head>
+<body>
+    <h1>Edit Contact1 Data</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="heading">heading:</label>
+        <input type="text" name="heading" value="{{ data.heading }}" ><br>
+        <label for="icon">icon:</label>
+        <input type="text" name="icon" value="{{ data.icon }}"><br>
+
+        <label for="title1">Title1:</label>
+        <input type="text" name="title1" value="{{ data.title1 }}"><br>
+        
+        <label for="start_time">Start Time:</label>
+        <input type="time" name="start_time" value="{{ data.start_time }}"><br>
+        
+        <label for="end_time">End Time:</label>
+        <input type="time" name="end_time" value="{{ data.end_time }}"><br>
+        
+        <label for="phone">Phone:</label>
+        <input type="number" name="phone" value="{{ data.phone }}"><br>
+
+        <label for="discription">discription:</label>
+        <input type="text" name="discription" value="{{ data.discription }}"><br>
+
+        <label for="title2">Title2:</label>
+        <input type="text" name="title2" value="{{ data.title2 }}"><br>
+        
+        <label for="email">Email:</label>
+        <input type="email" name="email" value="{{ data.email }}"><br>
+
+        <label for="icon1">icon1:</label>
+        <input type="text" name="icon1" value="{{ data.icon1 }}"><br>
+
+        <label for="title3">Title3:</label>
+        <input type="text" name="title3" value="{{ data.title3 }}"><br>
+
+        <label for="discription1">discription1:</label>
+        <input type="text" name="discription1" value="{{ data.discription1 }}"><br>
+
+        <label for="icon1">icon2:</label>
+        <input type="text" name="icon2" value="{{ data.icon2 }}"><br>        
+        <input type="submit" value="Save Changes">
+    </form>
+</body>
+</html>

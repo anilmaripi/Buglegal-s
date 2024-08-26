@@ -1,0 +1,43 @@
+{% extends 'admin-template/base_template.html' %}
+{% block main_content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Project Manager</title>
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <h3 class="text-center"><u>Update Project Manager</u></h3>
+        <br>
+        <form action="/update_emp1/{{ emps.project_name }}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="project_name">Project Name:</label>
+                <input type="text" id="project_name" name="project_name" class="form-control" value="{{ emps.project_name }}">
+            </div>
+            <div class="form-group">
+                <label for="project_dec">Project Description:</label>
+                <input type="text" id="project_dec" name="project_dec" class="form-control" value="{{ emps.project_dec }}">
+            </div>
+            <div class="form-group">
+                <label for="admin_id">Select Project Manager:</label>
+                <select name="admin_id" id="admin_id" class="form-control">
+                    {% for employee in creat %}
+                        <option value="{{ employee.id }}" {% if employee.id == emps.admin_id_id %}selected{% endif %}>{{ employee.first_name }} {{ employee.last_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-info btn-block">Update</button>
+        </form>
+    </div>
+
+    <!-- Bootstrap JS (optional) - If you need JS functionalities -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+</body>
+</html>
+{% endblock main_content %}

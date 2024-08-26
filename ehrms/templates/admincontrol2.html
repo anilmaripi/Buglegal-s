@@ -1,0 +1,225 @@
+
+{% extends 'admin-template/adminAdashboard.html' %}
+{% block main_content %}
+{% comment %} <html>
+    <head>
+        <title>Gold Plan Access</title>
+        <style>
+            body {
+  text-transform: uppercase;
+}
+        </style>
+
+    </head>
+    <body>
+         <br> <br>
+        <h2>Plan-2</h2>
+        <form method="post">
+            {% csrf_token %}
+            {% for i in adnav %}
+            {{i.name}}
+            <input type="checkbox" name="admin_show_{{ i.id }}" value="1" {% if i.show2 %}checked{% endif %}>  <br> <br>
+            {% endfor %}
+            {% for instance in shou %}
+                {{ instance.name }}
+                <input type="checkbox" name="admindrop_show_{{ instance.id }}" value="1" {% if instance.show2 %}checked{% endif %}>
+                <input type="hidden" name="admindrop_subid_{{ instance.id }}" value="{{ instance.id }}"><br> <br>
+            {% endfor %}
+            {% for i in prdrop %}
+                {{ i.name }}
+                <input type="checkbox" name="prdrop_show_{{ i.id }}" value="1" {% if i.show2 %}checked{% endif %}>  <br> <br>
+            {% endfor %}
+            {% for i in screen %}
+            {{i.name}}
+            <input type="checkbox" name="screen_show_{{ i.id }}" value="1" {% if i.show2 %}checked{% endif %}>  <br> <br>
+            {% endfor %}
+            <input type="submit" value="Continue">
+        </form>
+    </body>
+</html> {% endcomment %}
+
+
+
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap">
+
+    <title>Standard</title>
+    <style>
+        .kkk {
+            font-family: 'Arial', sans-serif;
+    
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        form {  
+        background-color: #f2f2f2;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); 
+        width: 600px;
+        margin: 20px;
+        }
+
+    h1 {
+    text-align: center;
+    color: #333;
+    font-family: 'Montserrat', sans-serif; 
+    font-size: 2em; 
+    letter-spacing: 1px; 
+     }
+        .checkbox-wrapper-22 {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .checkbox-wrapper-22 label {
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        .checkbox-wrapper-22 label.for-label {
+            /* background-color: #4682b4; */
+            border-radius: 4px;
+            padding: 10px;
+            color: black;
+            margin-bottom: 15px;
+        }
+
+        .checkbox-wrapper-22 .label-text {
+            display: inline-block;
+            margin-right: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .checkbox-wrapper-22 .switch {
+            display: inline-block;
+            height: 34px;
+            position: relative;
+            width: 60px;
+        }
+
+        .checkbox-wrapper-22 .switch input {
+            display: none;
+        }
+
+        .checkbox-wrapper-22 .slider {
+            background-color: #ccc;
+            bottom: 0;
+            cursor: pointer;
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            transition: .4s;
+        }
+
+        .checkbox-wrapper-22 .slider:before {
+            background-color: #fff;
+            bottom: 4px;
+            content: "";
+            height: 26px;
+            left: 4px;
+            position: absolute;
+            transition: .4s;
+            width: 26px;
+        }
+
+        .checkbox-wrapper-22 input:checked + .slider {
+            background-color: #66bb6a;
+        }
+
+        .checkbox-wrapper-22 input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        .checkbox-wrapper-22 .slider.round {
+            border-radius: 34px;
+        }
+
+        .checkbox-wrapper-22 .slider.round:before {
+            border-radius: 50%;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+@media (max-width:765px) {
+    form {  
+        background-color: #f2f2f2;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); 
+        width: 100%;
+        margin: 20px;
+        }
+    
+}
+    </style>
+</head>
+<body >
+<div class="kkk">
+    <form method="post">
+        <h1>Gold Plan</h1>
+        {% csrf_token %}
+        {% for instance in shou %}
+            <div class="checkbox-wrapper-22">
+                <label for="admindrop_show_{{ instance.id }}" class="for-label label-text"class="mt-3">{{ instance.name }}</label>
+                <label class="switch" for="admindrop_show_{{ instance.id }}">
+                    <input type="checkbox" id="admindrop_show_{{ instance.id }}" name="admindrop_show_{{ instance.id }}" value="1" {% if instance.show2 %}checked{% endif %} />
+                    <div class="slider round"></div>
+                </label>
+                <input type="hidden" name="admindrop_subid_{{ instance.id }}" value="{{ instance.id }}">
+            </div>
+            <hr>
+        {% endfor %}
+
+        {% for i in prdrop %}
+            <div class="checkbox-wrapper-22">
+                <label for="prdrop_show_{{ i.id }}" class="for-label label-text"class="mt-3">{{ i.name }}</label>
+                <label class="switch" for="prdrop_show_{{ i.id }}">
+                    <input type="checkbox" id="prdrop_show_{{ i.id }}" name="prdrop_show_{{ i.id }}" value="1" {% if i.show2 %}checked{% endif %} />
+                    <div class="slider round"></div>
+                </label>
+            </div>
+            <hr>
+        {% endfor %}
+
+    {% for i in screen %}
+            <div class="checkbox-wrapper-22">
+                <label for="screen_show_{{ i.id }}" class="for-label label-text"class="mt-3">{{ i.name }}</label>
+                <label class="switch" for="screen_show_{{ i.id }}">
+                    <input type="checkbox" id="screen_show_{{ i.id }}" name="screen_show_{{ i.id }}" value="1" {% if i.show2 %}checked{% endif %} />
+                    <div class="slider round"></div>
+                </label>
+            </div>
+            <hr>
+        {% endfor %} 
+
+        <center><input type="submit" value="Continue"></center>
+    </form>
+    </div>
+</body>
+    {% endblock main_content %}
+

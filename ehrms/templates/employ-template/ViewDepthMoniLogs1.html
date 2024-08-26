@@ -1,0 +1,285 @@
+
+{% extends 'employ-template/base_template.html' %}
+{% block main_content %}
+{% load tz %}
+<form action="/depth-view-app-web_1/{{emp_eyed.id}}/" method="POST">
+    {% csrf_token %}   
+    <div class="mb-4">
+      
+            <div class="form-group">
+                <label class="h6" for="exampleFormControlTextarea1" style="color: black;">Search by Date:</label>
+                <input type="date" min="1000-01-01" max="9999-12-31" name="date_log" class="form-control" value="{{date_log}}" required>
+            <br>
+        <input type="submit" class="btn btn-primary" value="View">
+        </div>
+</form>
+{% if msg is not none and msg %}
+
+
+
+<style>
+/* Add this CSS to your stylesheet */
+body {
+    background-color: #f8f9fa; /* Light Gray background */
+}
+
+.count-text {
+    font-size: 48px;
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+.count-success {
+    background: linear-gradient(to right, #00b894, #00cec9);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.count-danger {
+    background: linear-gradient(to right, #d63031, #e74c3c);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.count-orange {
+    background: linear-gradient(to right, #fdcb6e, #f39c12);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+/* Style for the boxes */
+.box {
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Styling for different colors */
+
+
+/* Table styling */
+.table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.table th, .table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    color: #333;
+}
+
+.table th {
+    background: linear-gradient(to right, #2c3e50, #34495e);
+    color: white;
+}
+
+.table tr:hover {
+    background-color: #ecf0f1;
+}
+.pagination a, .pagination .current-page {
+            display: inline-block;
+            padding: 8px 12px;
+            text-decoration: none;
+            margin: 0 4px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            transition: background-color 0.3s;
+            text-align: center;
+            color:blue;
+        }
+        .act{
+          /* background-color: orange; */
+          color: white;
+          height:43px;
+          width:43px;
+          border-radius: 20px;
+        
+        }
+</style>
+
+<div class="row">
+    <div class="col-12 mb-4">
+        <div class="card bg-light border-dark shadow-sm components-section align-items-center d-flex justify-content-center">
+            <div class="card-body align-items-center d-flex justify-content-center">
+                <div class="row mb-4">
+                        <div class="col-lg-12 col-sm-16">
+                            <h3 class="h3 text-center text-success mb-4">Employee  Detail Monitoring Logs </h3>
+                        </div>
+                        <!-- ... (existing code) ... -->
+                        <div class="col-md-12">
+                            <table class="table" id="monitoringTable">
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Date</th>
+                                        <th>Start Time</th>
+                                        <th>End Time</th>
+                                        <th>Total Time Spent</th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for result in msg %}
+                                        {% if result.m_title %}
+                                            <tr>
+                                                <td>{{ result.m_title }}</td>
+                                                <td>{{result.m_log_ts }}</td>
+                                                <td class="start-time">{{ result.start_time }}</td>
+                                                <td class="end-time">{{ result.end_time }}</td>
+                                                <td  class="total-duration">{{ result.m_total_duration }}</td>
+                                               
+                                            </tr>
+                                        {% endif %}
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="pagination" style="color:white; margin:20px auto;">
+                            <span class="step-links">
+                                {% if msg.has_previous %}
+                                    <a href="?page=1&date_log={{ date_log }}">&laquo;<<</a>
+                                    <a href="?page={{ msg.previous_page_number }}&date_log={{ date_log }}" class="prev"> < </a>
+                                {% endif %}
+    
+                                {% for i in msg.paginator.page_range %}
+                                {% if msg.number == i %}
+                                    <button class="active act bg-info"><span>{{ i }} <span class="sr-only">(current)</span></span></button>
+                                {% elif i > msg.number|add:'-3' and i < msg.number|add:'3' %}
+                                    <a href="?page={{ i }}&date_log={{ date_log }}">{{ i }}</a>
+                                {% endif %}
+                                {% endfor %}
+    
+                                {% if msg.has_next %}
+                                    {% if msg.number != msg.paginator.num_pages %}
+                                    {% endif %}
+                                    <a href="?page={{ msg.next_page_number }}&date_log={{ date_log }}" class="prev">> </a>
+    
+                                    <a href="?page={{ msg.paginator.num_pages }}&date_log={{ date_log }}">>>&raquo; </a>
+                                {% endif %}
+                            </span>
+                        </div>
+                            <!-- <script>
+                            document.addEventListener('DOMContentLoaded', function() {
+                                var table = document.getElementById('monitoringTable');
+                                var rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+                        
+                                for (var i = 0; i < rows.length; i++) {
+                                    var startTimeCell = rows[i].getElementsByClassName('start-time')[0];
+                                    var endTimeCell = rows[i].getElementsByClassName('end-time')[0];
+                                    var totalDurationCell = rows[i].getElementsByClassName('total-duration')[0];
+                        
+                                    if (startTimeCell && endTimeCell && totalDurationCell) {
+                                        startTimeCell.textContent = formatTime(startTimeCell.textContent);
+                                        endTimeCell.textContent = formatTime(endTimeCell.textContent);
+                                        totalDurationCell.textContent = formatTotalTime(totalDurationCell.textContent);
+                                    }
+                                }
+                        
+                                function formatTime(datetimeString) {
+                                    var date = new Date(datetimeString);
+                                    var hours = date.getHours() % 12 || 12; // Get hours in 12-hour format
+                                    var minutes = date.getMinutes();
+                                    var period = date.getHours() >= 12 ? 'PM' : 'AM';
+                        
+                                    return pad(hours) + ':' + pad(minutes) + ' ' + period;
+                                }
+                        
+                                function formatTotalTime(totalDurationInSeconds) {
+                                    var hours = Math.floor(totalDurationInSeconds / 3600);
+                                    var minutes = Math.floor((totalDurationInSeconds % 3600) / 60);
+                                    var seconds = totalDurationInSeconds % 60;
+                        
+                                    return hours + 'hr ' + minutes + 'min ' + seconds + 'sec';
+                                }
+                        
+                                function pad(number) {
+                                    return (number < 10 ? '0' : '') + number;
+                                }
+                            });
+                        </script> -->
+
+                        <script>
+                            document.addEventListener('DOMContentLoaded', function() {
+                                var table = document.getElementById('monitoringTable');
+                                var rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+                        
+                                for (var i = 0; i < rows.length; i++) {
+                                    var startTimeCell = rows[i].getElementsByClassName('start-time')[0];
+                                    var endTimeCell = rows[i].getElementsByClassName('end-time')[0];
+                                    var totalDurationCell = rows[i].getElementsByClassName('total-duration')[0];
+                        
+                                    if (startTimeCell && endTimeCell && totalDurationCell) {
+                                        startTimeCell.textContent = formatTime(startTimeCell.textContent);
+                                        endTimeCell.textContent = formatTime(endTimeCell.textContent);
+                                        totalDurationCell.textContent = formatTotalTime(totalDurationCell.textContent);
+                                    }
+                                }
+                        
+                                function formatTime(datetimeString) {
+                                    var date = new Date(datetimeString);
+                                    var hours = date.getHours() % 12 || 12; // Get hours in 12-hour format
+                                    var minutes = date.getMinutes();
+                                    var period = date.getHours() >= 12 ? 'PM' : 'AM';
+                        
+                                    return pad(hours) + ':' + pad(minutes) + ' ' + period;
+                                }
+                        
+                                function formatTotalTime(totalDurationInSeconds) {
+                                    totalDurationInSeconds = parseInt(totalDurationInSeconds, 10);
+                                    
+                                    if (isNaN(totalDurationInSeconds) || totalDurationInSeconds === 0) {
+                                        return "0hr 0min 0sec";
+                                    }
+                                    
+                                    var hours = Math.floor(totalDurationInSeconds / 3600);
+                                    var minutes = Math.floor((totalDurationInSeconds % 3600) / 60);
+                                    var seconds = totalDurationInSeconds % 60;
+                        
+                                    return hours + 'hr ' + minutes + 'min ' + seconds + 'sec';
+                                }
+                        
+                                function pad(number) {
+                                    return (number < 10 ? '0' : '') + number;
+                                }
+                            });
+                        </script>
+
+                        
+                        
+
+<!-- ... (existing code) ... -->
+
+                    {% else %}
+                        <div class="col-lg-12 col-sm-16">
+                            <center>
+                                <lottie-player src="https://assets7.lottiefiles.com/datafiles/vhvOcuUkH41HdrL/data.json"
+                                    background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay>
+                                </lottie-player>
+                            </center>
+                            <h3 class="h3 text-center text-danger">
+                                No Records Found!
+                            </h3>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock main_content %}
+                  
+
+
+
+
+
+
+

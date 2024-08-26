@@ -1,0 +1,54 @@
+<html>
+    <head>
+        <title>Update Data</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style.css">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+          <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+          <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+          <style>
+            form{
+              width:30%;
+              margin:auto;
+            
+            }
+            table{
+              width:50%;
+              margin: auto;
+            height:200px;
+            border: 3px solid whitesmoke;
+            margin-top: 50px;
+            }
+          body{
+            background-color: #1e2442;
+            color:whitesmoke;
+          }
+          </style>
+    </head>
+    <body>
+     
+
+        
+    <br><br><br>
+     
+        <form method="post">
+            {% csrf_token %}
+            <label >KYC STATUS :</label>
+            <select name="field_d_data" class="form-control">
+              <option></option>
+              <option>Enabled</option>
+              <option>Disabled</option>
+            </select>
+            <br>
+<br>
+            
+    
+          <center><input type="submit"  class="btn btn-danger"  value="Update"></center>
+        </form>
+        <br>
+        <br>
+ </body>
+ </html>
+

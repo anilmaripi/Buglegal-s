@@ -1,0 +1,75 @@
+<!DOCTYPE html> 
+<html>  
+  <head>
+    <title>Preview an image before uploading using jQuery</title>
+    <!-- jQuery library script import -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+    </script>
+    <style>    
+    /* To set everything center aligned */
+    body{
+        text-align:center;
+    }
+ 
+    /* To set specific height and width for image preview */
+    #image-container{
+        margin : 20px;
+        height: 200px;
+        width: 400px;
+        background-color:#eee;
+        border: 1px dashed #000;
+    }
+    </style> 
+  </head>  
+  <body> 
+    <h1>Preview an image before uploading using jQuery</h1>  
+    <p>Upload an image file (.JPG,.JPEG,.PNG,.GIF) </p>
+     
+    <!-- input element to choose a file for uploading -->
+    <input type="file" accept="image/*" id="image-upload" />
+    <br>
+    <!-- img element to preview or display the uploading image -->
+    <img id="image-container" />
+    <br>
+    <button id="upload-btn" >Upload</button>
+    <button id="cancel-btn" >Cancel</button>
+     
+    <script>    
+     
+    /* This function will call when page loaded successfully */     
+    $(document).ready(function(){
+         
+        /* This function will call when onchange event fired */         
+        $("#image-upload").on("change",function(){
+ 
+          /* Current this object refer to input element */          
+          var $input = $(this);
+          var reader = new FileReader(); 
+          reader.onload = function(){
+                $("#image-container").attr("src", reader.result);
+          } 
+          reader.readAsDataURL($input[0].files[0]);
+        });
+         
+         
+        /* This function will call when upload button clicked */        
+        $("#upload-btn").on("click",function(){
+            /* file validation logic goes here if required */      
+            /* image uploading logic goes here */
+            alert("Upload logic need to be write here...");
+ 
+        });
+         
+        /* This function will call when cancel button clicked */        
+        $("#cancel-btn").on("click",function(){
+            /* Reset input element */
+            $('#image-upload').val("");
+  
+            /* Clear image preview container */
+            $('#image-container').attr("src","");
+        });
+         
+      });
+    </script> 
+  </body>  
+</html>

@@ -1,0 +1,238 @@
+{% extends 'admin-template/base_template.html' %}
+{% block main_content %}
+<title>Employee Project Performance</title>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+
+
+<style>
+    /* Style table cells (td) */
+    table.table tbody td {
+        color: white; /* Text color for table cells */
+    }
+   table{
+    width: 100% !important;
+   }
+   .pagination {
+    margin: 20px 0;
+    text-align: center;
+}
+
+/* .pagination a, .pagination .current-page {
+    display: inline-block;
+    padding: 8px 12px;
+    text-decoration: none;
+    margin: 0 4px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+.pagination .step-links a.active {
+    background-color: orange;
+} */
+
+
+.pagination a, .pagination .current-page {
+    display: inline-block;
+    padding: 8px 12px;
+    text-decoration: none;
+    margin: 0 4px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    text-align: center;
+}
+.act{
+  /* background-color: orange; */
+  color: white;
+  height:43px;
+  width:43px;
+  border-radius: 20px;
+
+}
+
+/* body{
+    margin-top: 50px;
+} */
+
+</style>
+<style>
+
+    #yourTableID {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+            }
+    
+            /* Apply styles to table cells */
+            #yourTableID th {
+            border-color: #f6f7f4;
+            text-align: left;
+            padding: 8px;
+            color: white;
+            }
+            #yourTableID td{
+                color: black;
+            }
+            /* Apply alternating row colors */
+            #yourTableID tbody tr:nth-child(even) {
+            background-color: rgb(238, 243, 244);
+            }
+    
+            #yourTableID tbody tr:nth-child(odd) {
+            background-color: rgb(239, 239, 247);
+            }
+    
+    </style>
+    
+    
+<body>
+    
+<h3 style="color: black; font-weight: bold;">Employee Project Performance</h3>
+<!-- <a href="{% url 'download_excel' %}" class="btn btn-success">Download All Performance Data</a>
+
+<form method="post" id="projectSelectionForm" ><br>
+    {% csrf_token %}
+    <select id="projectSelect" name="project" class="form-control">
+        <option value="">Select a project</option>
+        {% for project in projects %}
+            <option value="{{ project.id }}">{{ project.p_name }}</option>
+        {% endfor %}
+    </select>
+</form> -->
+
+<div class="row pb-4">
+    <div class="col-md-6 col-sm-12 mb-3 mb-md-0">
+        <a href="{% url 'download_excel' %}" class="btn btn-success w-100">Download All Performance Data</a>
+    </div>
+    <div class="col-md-6 col-sm-12">
+        <form method="post" id="projectSelectionForm" >
+            {% csrf_token %}
+            <select id="projectSelect" name="project" class="form-control">
+                <option value="">Select a project</option>
+                {% for project in projects %}
+                    <option value="{{ project.id }}">{{ project.p_name }}</option>
+                {% endfor %}
+            </select>
+        </form>
+    </div>
+</div>
+
+<div id="results">
+        <table class="table" id="yourTableID"  style="color: white;">
+            <tr style="background-color: black;color: white;">    
+                <th>Employee ID</th>
+                <th>Employee Name</th>
+                <th>Project Name</th>
+                <th>Performance</th>
+            </tr>
+            {% for employee_performance in employee_average_performances %}
+            <tr>
+                <td>{{employee_performance.employee_id}}</td>
+                <td>{{ employee_performance.employee_name}}</td>
+                <td>{{ project_name }}
+                </td>
+                <td>{{ employee_performance.average_performance }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">No Results Found</td>
+            </tr>
+            {% endfor %}
+        </table>
+</div>
+
+
+<!-- <div class="pagination">
+    <span class="step-links">
+        {% if employee_average_performances.has_previous %}
+            <a href="?page=1">&laquo; First</a>
+            <a href="?page={{ employee_average_performances.previous_page_number }}" class="prev">&#8249; Previous</a>
+        {% endif %}
+  
+        {% for page in employee_average_performances.paginator.page_range %}
+            <a href="?page={{ page }}" {% if page == employee_average_performances.number %}class="active"{% endif %}>{{ page }}</a>
+        {% endfor %}
+  
+        {% if employee_average_performances.has_next %}
+            {% if employee_average_performances.number != leave_data.paginator.num_pages %}
+                <a href="?page={{employee_average_performances.next_page_number }}" class="next">Next &#8250;</a>
+            {% endif %}
+            <a href="?page={{ employee_average_performances.paginator.num_pages }}">&raquo; Last</a>
+        {% endif %}
+    </span>
+</div> -->
+
+<div class="pagination" style="color:white; margin:20px auto;">
+    <span class="step-links">
+        {% if employee_average_performances.has_previous %}
+            <a  href="?page=1">&laquo;<<</a>
+            <a   href="?page={{ employee_average_performances.previous_page_number }}" class="prev"> < </a>
+        {% endif %}
+
+
+        {% for i in employee_average_performances.paginator.page_range %}
+        {% if employee_average_performances.number == i %}
+        <button class="active act bg-info"><span>{{ i }} <span class="sr-only">(current)</span></span></button>
+        {% elif i > employee_average_performances.number|add:'-3' and i < employee_average_performances.number|add:'3' %}
+            <a  href="?page={{ i }}">{{ i }}</a>
+        {% endif %}
+        {% endfor %}
+
+       
+
+        {% if employee_average_performances.has_next %}
+            {% if employee_average_performances.number != employee_average_performances.paginator.num_pages %}
+            {% endif %}
+            <a   href="?page={{ employee_average_performances.next_page_number }}" class="prev">> </a>
+
+            <a  href="?page={{ employee_average_performances.paginator.num_pages }}">>>&raquo; </a>
+        {% endif %}
+    </span>
+</div>   
+
+
+<script>
+    document.getElementById("projectSelect").addEventListener("change", function() {
+        document.getElementById("projectSelectionForm").submit();
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $("#name-search, #date-search").on("keyup change", function () {
+            var nameValue = $("#name-search").val().toLowerCase();
+            var dateValue = $("#date-search").val();
+
+            $("#yourTableID tbody tr").filter(function () {
+                var nameMatch = $(this).text().toLowerCase().indexOf(nameValue) > -1;
+                var dateCell = $(this).find("td:eq(4)").text(); // Index 4 corresponds to the Date column
+                var dateMatch = dateValue === "" || dateCell === dateValue;
+
+                $(this).toggle(nameMatch && dateMatch);
+            });
+        });
+    });
+</script>
+
+
+    <script>
+        $(document).ready(function () {
+            $("#name-search-avg").on("keyup change", function () {
+                var nameValue = $("#name-search-avg").val().toLowerCase();
+              
+    
+                $("#yourTableID-avg tbody tr").filter(function () {
+                    var nameMatch = $(this).text().toLowerCase().indexOf(nameValue) > -1;
+                  
+                    $(this).toggle(nameMatch );
+                });
+            });
+        });
+    </script>
+</body>
+{% endblock main_content %}

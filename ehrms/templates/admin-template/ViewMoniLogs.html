@@ -1,0 +1,211 @@
+
+{% extends 'admin-template/base_template.html' %}
+{% block main_content %}
+{% load tz %}
+<form action="/view-app-web/{{emp_eyed.id}}/" method="POST">
+    {% csrf_token %}   
+    <div class="mb-4">
+      
+            <div class="form-group">
+                <label class="h6 text-dark" for="exampleFormControlTextarea1">Search by Date:</label>
+                <input type="date" min="1000-01-01" max="9999-12-31" name="date_log" class="form-control border-dark" value="{{date_log}}" required>
+            <br>
+        <input type="submit" class="btn btn-primary" value="View">
+        </div>
+</form>
+{% if msg is not none and msg %}
+
+<div class="row">
+    <div class="col-md-4 mb-4">
+        <div class="card bg-success text-white">
+            <div class="card-body">
+                <h5 class="card-title">Productive</h5>
+                <p class="count-text count-success">{{ productive_count }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card bg-danger text-white">
+            <div class="card-body">
+                <h5 class="card-title">Unproductive</h5>
+                <p class="count-text count-danger">{{ unproductive_count }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card bg-orange text-white">
+            <div class="card-body">
+                <h5 class="card-title">Undefined</h5>
+                <p class="count-text count-orange">{{ undefined_count }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+/* Add this CSS to your stylesheet */
+body {
+    background-color: #f8f9fa; /* Light Gray background */
+}
+
+.count-text {
+    font-size: 48px;
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+.count-success {
+    background: linear-gradient(to right, #00b894, #00cec9);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.count-danger {
+    background: linear-gradient(to right, #d63031, #e74c3c);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.count-orange {
+    background: linear-gradient(to right, #fdcb6e, #f39c12);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+/* Style for the boxes */
+.box {
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Styling for different colors */
+
+
+/* Table styling */
+.table {
+    width: 100%;
+    margin-top: 10px;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.table td {
+    padding: 5px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    color: black;
+    background: linear-gradient(rgb(239,239,247),rgb(238,244,244));
+}
+
+.table th {
+    color: white;
+    background-color: black;
+    padding-top: 20px;
+    text-align: left;
+}
+
+.table tr:hover {
+    background-color: #ecf0f1;
+}
+.pagination a, .pagination .current-page {
+    display: inline-block;
+    padding: 8px 12px;
+    text-decoration: none;
+    margin: 0 4px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    transition: background-color 0.3s;
+    text-align: center;
+    color:blue;
+}
+.act{
+  /* background-color: orange; */
+  color: white;
+  height:43px;
+  width:43px;
+  border-radius: 20px;
+
+}
+</style>
+
+
+                            <h3 class="text-dark">Employee Monitoring Logs Overview</h3>
+                            <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Time</th>
+                                        <th>Type</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for result in msg %}
+                                    {% if result.m_title %}
+                                        <tr>
+                                            <td>{{ result.m_title }}</td>
+                                            <td>{{ result.m_log_ts  }}</td>
+                                            <td>
+                                                {% if result.is_productive %}
+                                                    <div class="box bg-success">Productive</div>
+                                                {% elif result.is_unproductive %}
+                                                    <div class="box bg-danger">Unproductive</div>
+                                                {% else %}
+                                                    <div class="box bg-orange">Undefined</div>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        {% endif %}
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="pagination" style="color:white; margin:20px auto;">
+                            <span class="step-links">
+                                {% if msg.has_previous %}
+                                    <a href="?page=1&date_log={{ date_log }}">&laquo;<<</a>
+                                    <a href="?page={{ msg.previous_page_number }}&date_log={{ date_log }}" class="prev"> < </a>
+                                {% endif %}
+                        
+                                {% for i in msg.paginator.page_range %}
+                                {% if msg.number == i %}
+                                <button class="active act bg-info"><span>{{ i }} <span class="sr-only">(current)</span></span></button>
+                                {% elif i > msg.number|add:'-3' and i < msg.number|add:'3' %}
+                                    <a href="?page={{ i }}&date_log={{ date_log }}">{{ i }}</a>
+                                {% endif %}
+                                {% endfor %}
+                        
+                                {% if msg.has_next %}
+                                    {% if msg.number != msg.paginator.num_pages %}
+                                    {% endif %}
+                                    <a href="?page={{ msg.next_page_number }}&date_log={{ date_log }}" class="prev">> </a>
+                        
+                                    <a href="?page={{ msg.paginator.num_pages }}&date_log={{ date_log }}">>>&raquo; </a>
+                                {% endif %}
+                            </span>
+                        </div>
+                    {% else %}
+                            <center>
+                                <lottie-player src="https://assets7.lottiefiles.com/datafiles/vhvOcuUkH41HdrL/data.json"
+                                    background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay>
+                                </lottie-player>
+                            </center>
+                            <h3 class="h3 text-center text-danger">
+                                No Records Found!
+                            </h3>
+                    {% endif %}
+                
+
+{% endblock main_content %}
+                  
+
+
+
+
+
+
+

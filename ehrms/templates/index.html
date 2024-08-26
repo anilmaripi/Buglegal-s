@@ -1,0 +1,996 @@
+
+{% extends 'navbar.html' %}
+{% block main_content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% if request.path == "#products" %}
+    <title>Products</title>
+    {% else %}
+    <title>Home Page</title>
+    {% endif %}
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="">
+    <meta name="author" content="">
+   
+  </head> 
+  <style>
+    .dropdown-menu .dropdown-item:hover {
+            background-color: #9830de; 
+            color: #fff; 
+             transform: scale(1.02);
+            transition: color 0.3s, transform 0.3s;
+        }
+    {% for i in k %}
+    .main-banner:after {
+      background-image: url("{{i.image1.url}}");
+      height:1200px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position-x:center;
+    }
+    @media(max-width: 1000px){
+      .main-banner{
+        background-image: url("{{i.image1.url}}");
+      }
+    }
+    {% endfor %}
+    .service-item{
+      height: 100%;
+    }
+    
+    
+    .service-item:hover {
+      background-image: url("{% static 'assets/images/service-bg.jpg' %}");
+    
+      
+    }
+
+    .about-us:after {
+      background-image: url("{% static 'assets/images/about-bg.jpg' %}");
+    }
+    
+      
+      {% for i in k %}
+      .services:before {
+        background-image: url("{{i.image3.url}}");
+      }
+{% endfor %}
+ 
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap');
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style-type: none;
+}
+
+:root {
+    --primary: #7F56D9;
+    --secondary: #F4EBFF;
+    --text-primary: #101828;
+    --text-secondary: #1d1d1f;
+    --badge-bg: #ECFDF3;
+    --badge-text: #027A48;
+    --white: #fff;
+    --dropdown-bg: rgb(252, 253, 251);
+    --shadow: rgba(32, 7, 65, 0.14);
+    --container: 124rem;
+    --nav-height: 7rem;
+}
+
+html {
+    font-family: 'Inter', sans-serif;
+    font-size: 62.5%;
+    font-style: normal;
+}
+
+body {
+    font-size: 1.6rem;
+    color: #1d1d1f;
+}
+
+
+
+
+.btn {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.btn-primary {
+    display: inline-flex;
+    color: var(--white);
+    background: var(--primary);
+    font-weight: 500;
+    padding: 0.6rem 1.5rem;
+    border-radius: 1.5rem;
+}
+
+
+
+
+.item-list {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 3rem 0;
+}
+
+.item-img {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--secondary);
+}
+
+.item-list-info {
+    position: relative;
+    width: 100%;
+   
+}
+
+.info-badge {
+    position: absolute;
+    right: 1rem;
+    top: 0;
+    background: var(--badge-bg);
+    padding: 0.1rem 0.5rem;
+    border-radius: 1rem;
+    color: var(--badge-text);
+}
+h2, h3, h4, h6, p {
+color: #000 !important;
+
+}
+
+
+
+
+@media (max-width:365px) {
+    .logo-img {
+        width: 10rem;
+    }
+    .btn,
+    .btn-primary {
+        padding: 0.4rem 1rem;
+    }
+}
+
+.expand{padding-bottom:151px}.expand__title{font-weight:600;line-height:62px;color:#3b3c4e;text-align:center}.expand__wrapper{margin-top:70px;display:grid;grid-template-columns:636px 636px;gap:49px}.expand .product-page-btn{margin:50px auto 0;display:block}.expand__item{width:100%;display:flex;align-items:center;background:#fff;border:1.2px solid #c8ccde;border-radius:20px}.expand__item a{font-size:14px}.expand__item img{width:168px;height:218px}.expand__item_info{margin-left:35px}.expand__item_title{font-weight:600;font-size:20px;line-height:24px;color:#3b3c4e}.expand__item_descr{margin-top:8px;font-weight:400;font-size:16px;line-height:24px;color:#484a61}.expand__item_btns{margin-top:35px}.expand__item_btns .btn{justify-content:center;width:122px;height:33px;border:1px solid #8276ff;border-radius:16.4566px;font-weight:600;line-height:18px;color:#8276ff}.expand__item_btns .btn,.expand__item_btns .link{display:inline-flex;align-items:center;font-size:16px}.expand__item_btns .link{font-weight:400;line-height:23px;color:#3b3c4e}.expand__item_btns .link:hover{text-decoration:underline}.track-time{background:#f9f9fb}.track-time__wrapper{display:flex;align-items:center}
+
+.expand__item_btns{margin-top:35px}.expand__item_btns .btn{justify-content:center;width:122px;height:33px;border:1px solid #8276ff;border-radius:16.4566px;font-weight:600;line-height:18px;color:#8276ff}.expand__item_btns .btn,.expand__item_btns .link{display:inline-flex;align-items:center;font-size:16px}.expand__item_btns .link{font-weight:400;line-height:23px;color:#3b3c4e}.expand__item_btns .link:hover{text-decoration:underline}.track-time{background:#f9f9fb} .expand__item_btns{margin-top:25px} .expand__item_title{font-weight:600;font-size:20px;line-height:24px;color:#3b3c4e}  .expand__item_title{margin-top:23px;font-size:16px}
+ 
+.expand__item_info{margin-left:35px} .expand__item_info{margin-left:14px} .expand__item_info{margin-left:35px} .expand__item_info{margin-left:0} 
+
+.expand__item_img{width:71px!important;height:71px!important;-o-object-fit:cover;object-fit:cover;border-radius:10px}
+ 
+.expand__item{width:100%;display:flex;align-items:center;background:#fff;border:1.2px solid #c8ccde;border-radius:20px}.expand__item a{font-size:14px}.expand__item img{width:168px;height:218px}.expand__item_info{margin-left:35px}.expand__item_title{font-weight:600;font-size:20px;line-height:24px;color:#3b3c4e}.expand__item_descr{margin-top:8px;font-weight:400;font-size:16px;line-height:24px;color:#484a61}.expand__item_btns{margin-top:35px}.expand__item_btns .btn{justify-content:center;width:122px;height:33px;border:1px solid #8276ff;border-radius:16.4566px;font-weight:600;line-height:18px;color:#8276ff}.expand__item_btns .btn,.expand__item_btns .link{display:inline-flex;align-items:center;font-size:16px}.expand__item_btns .link{font-weight:400;line-height:23px;color:#3b3c4e}.expand__item_btns .link:hover{text-decoration:underline} 
+ 
+.expand__item_info{margin-left:14px}
+
+.expand__item{max-width:636px;margin-left:auto;margin-right:auto}.main-homepage .expand__item_info{margin-left:35px}
+
+.expand__item{flex-direction:column;text-align:center;padding:20px 2px}.main-homepage .expand__item_img{width:71px!important;height:71px!important;-o-object-fit:cover;object-fit:cover;border-radius:10px}.main-homepage .expand__item_info{margin-left:0}.main-homepage .expand__item_title{margin-top:23px;font-size:16px}.main-homepage .expand__item_descr{margin-top:2px;font-size:14px}.main-homepage .expand__item_btns{margin-top:25px}
+
+.expand__wrapper{margin-top:70px;display:grid;grid-template-columns:636px 636px;gap:49px}
+
+.expand__wrapper{grid-template-columns:552px 552px;gap:44px}
+
+.expand__wrapper{grid-template-columns:1fr;-moz-column-gap:unset;column-gap:unset;justify-content:center}
+
+.expand__wrapper{margin-top:40px;row-gap:31px}
+
+
+.expand__title{font-weight:600;line-height:62px;color:#3b3c4e;text-align:center}
+
+.expand__title{line-height:36px}
+
+
+    .expand{padding-bottom:151px}
+    .expand .product-page-btn{margin:50px auto 0;display:block}
+    .expand{padding-bottom:75px}
+  
+  
+</style>
+<style>
+   body {
+          margin: 0;
+          padding: 0;
+          background-color: #fff;
+      }
+
+      .mhcard {
+          border: 1px solid #ddd;
+          border-radius: 18px;
+          width: 100%;
+         
+          padding: 20px;
+          margin: 20px;
+          font-family: Arial, sans-serif;
+          transition: transform 0.3s;
+          display: inline-block;
+      }
+
+      .mhcard-img {
+          width: 100%;
+          border-radius: 18px;
+      }
+
+      .flexbox {
+          display: flex;
+          justify-content: center;
+      }
+      .mhcard-hovered {
+  transform: scale(1.05);  
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);  
+}
+
+.mhcard-hovered-more {
+  transform: scale(1.05);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+.use-case-card-hovered {
+  transform: scale(1.05);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+.flexbox {
+  display: flex;
+  justify-content: space-around; 
+}
+
+.use-case-card1 {
+  
+  border: 1px solid #ddd;
+  border-radius: 18px;
+  width: 600px; 
+  padding: 20px;
+  margin: 10px; 
+  font-family: Arial, sans-serif;
+  transition: transform 0.3s;
+}
+.rfd{
+  width: 150px;
+  padding: 6px;
+  color: white;
+  background-color: orange;
+  height: 22px;
+  font-size: 20px;
+  /* font-family:'Times New Roman', Times, serif; */
+  border: #000;
+  border-radius: 10px;  
+  border-color: #08070c;
+  /* margin-top: 20px; */
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 1rem; 
+    }
+
+    .mhcard {
+        max-width: 100%; 
+        margin: 10px 0; 
+    }
+
+    .flexbox {
+        flex-direction: column; 
+        align-items: center; 
+    }
+
+    h2, h3, h4, h6, p {
+        text-align: center;
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    hr {
+        margin: 20px 0;
+    }
+
+    .sai{
+      display: flex;
+      justify-content: center;
+    }
+}
+
+.header-area{
+height:10px;
+width:100% ;
+}
+$purple:#00004b;
+$yellow:#ffc435;
+
+*,
+*:before,
+*:after {
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body {
+  text-align:center;
+  font-family:Arial, sans-serif;
+}
+a[class^="ugly-amazon-btn"] {
+  position:relative;
+  display:inline-block;
+  font-weight:bold;
+  font-size:2rem;
+  line-height:4rem;
+  color:$purple;
+  text-decoration:none;
+  background-color:#FFD800;
+  
+  &:after {content:'\25B6';}
+}
+.ugly-amazon-btn-1 {
+  padding-right:5rem;
+  padding-left: 2rem;
+  border:1px solid purple;
+  border-radius:5px 50px 50px 5px;
+  box-shadow:
+    inset 0 2px 0 lighten($yellow, 30%),
+    inset 0 -10px 15px -10px rgba($purple, 70%);
+  
+  &:after {
+    position:absolute;
+    top:.4rem;
+    right:.4rem;
+    width:3.2rem;
+    height:3.2rem;
+    font-size:1.8rem;
+    line-height:3.3rem;
+    color:white;
+    text-indent:3px;
+    background-image:linear-gradient(lighten($purple, 60%) 35%, $purple 35%);
+    border-radius:50%;
+  }
+}
+.subs:hover{
+  background-color:rgb(35, 56, 74);
+  color:aliceblue;
+  border: 2px solid black;
+  border-radius: 15px;
+ 
+ }
+ .subs{
+   background-color: #1e2442;
+   color:white;
+   border: 2px solid white;
+   border-radius: 10px;
+   font-size: 20px;
+   width:90%;
+   height:150%;
+ }
+ 
+ 
+ .solu:hover{
+   background-color:rgb(35, 56, 74);
+   color:aliceblue;
+  border: 2px solid black;
+  border-radius: 15px;
+ }
+ .solu{
+   background-color: #1e2442;
+   color:white;
+   border: 2px solid white;
+   border-radius: 10px;
+   font-size: 20px;
+   width:90%;
+   height:150%;
+ }
+
+/* #subs:hover{
+ background-color: #1f7a7a;
+ color:black;
+ border: none;
+
+
+}
+#subs{
+  background-color:  #196666;
+  color:white;
+  font-size: 20px;
+  width:90%;
+  height:150%;
+  border: none;
+
+}
+
+
+#solu:hover{
+  background-color: #1f7a7a;
+ color:black;
+ border: none;
+}
+#solu{
+  background-color:  #196666;
+  color:white;
+  font-size: 20px;
+  width:90%;
+  height:150%;
+  border: none;
+
+} */
+
+#car{
+  width: 60px;
+  height: 55px;
+}
+#kk:hover{
+  background-image:url("{% static 'assets/images/service-bg.jpg' %}");
+  transition: all 1s;
+}
+#te-al{
+  text-align: justify;
+  word-spacing: normal;
+  /* text-align: start; */
+  display: inline-block;
+  padding: 10px;
+  /* line-break: anywhere; */
+  /* word-break: break-all; */
+}
+@media only screen and (max-width: 768px){
+  #right-conten{
+    margin-top: 30px;
+  }
+
+}
+.expand__wrapper{padding: 20px;}
+
+
+
+</style> 
+<body>
+  {% load static %}
+<div class="container-fluid d-flex justify-content-center">
+  <div class="row d-flex justify-content-center w-100 border">
+{% for i in k %}
+  <div class="main-banner wow fadeIn" id="top" data-wow-duration="1s" data-wow-delay="0.5s">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="row">
+            <div class="col-lg-6 align-self-center">
+              <div class="left-content show-up header-text wow fadeInLeft" data-wow-duration="1s" data-wow-delay="1s">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <h2>{{i.title1}}</h2>
+                    <p><b>{{i.discription1}}</b></p>
+                    <!-- <button class="btn btn-danger"  ><a href="/subscription/" style="color:white;font-size: 15px;">start with Free Trial</a></button> -->
+                    <!-- <a class="ugly-amazon-btn-1" href="/subscription/">Start With Free Trial</a> -->
+                    <!-- <div class="row">
+                      <div class="col-md-6" >
+                        <a class="ugly-amazon-btn-1 " href="/subscription/" style="width: 250px;">Start With Free Trial</a></div>
+                        <div class="col-md-6" style="margin-top: 7px;">
+                    <a class="rfd " href="/solution1/" ><b>Request For Demo &nbsp;<i class="fa fa-check-square"></i></b></a></div>
+                  </div> -->
+                  <div class="row" >
+                    <div class="col-lg-6 left-conten wow fadeInLeft" data-wow-duration="2.5s" data-wow-delay="1.5s" >
+                      <a  href="/subscription/" ><button class="subs" id="subs">Start With Free Trial</button></a>
+                    </div>
+                    <div class="col-lg-6 right-conten wow fadeInRight" data-wow-duration="2.5s" data-wow-delay="1.5s" id="right-conten" >
+                      <a  href="/solution1/" ><button class="solu" id="solu">Request For Demo</button></a>
+                   </div>
+                  </div> 
+ 
+ 
+                  </div>
+                 
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="right-image wow fadeInRight" data-wow-duration="1s" data-wow-delay="0.5s">
+                <img src="{{i.image2.url}}" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div id="services" class="services section">
+      <div class="container">
+        <div class="row">
+      <div class="col-md-6 sai" >
+        <video width="400" controls style=" border: 10px solid rgb(249, 248, 248); ">
+          <source src="/media/hrmsvidep9.mp4" type="video/mp4">
+          <!-- <source src="/media/hrms_intro.mp4" type="video/ogg"> -->
+        </video>
+          </div>
+          <div class="col-md-6 ">
+            <div class="section-heading  wow fadeInDown" data-wow-duration="1s" data-wow-delay="0.5s">
+              <h4>{{i.title2}}</h4>
+              <p><b>{{i.discription2}}</b></p>
+                 
+            </div>
+          </div>
+        </div>
+      </div>
+     
+   </div></div>
+    {% endfor %}
+    <div class="container">
+      <div class="row">
+        <!-- {% for i in k1 %}
+        <div class="col-md-3 mb-5">
+          <div class="service-item">
+            <div class="icon" style="float: left; margin-right: 10px;">
+             <img src="{{ i.image.url }}" class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s" height="55px" width="32px">
+            </div>
+            <b class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s"><font size=4>{{i.title}}</font></b><br><br><br>
+            <p style="text-align: justify;"><b class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s">{{i.discription}}</b></p>
+          </div>
+        </div>
+        {% endfor %} -->
+        {% for j in k1 %}
+        <!-- class="fadeInUp top-image wow" -->
+          
+          <div class="col-md-6"  style="margin-bottom:20px;">
+            <div class="expand__item" data-aos="fade-up" id="kk">
+              
+              <img src="{{j.image.url}}" id="car" class="fadeInUp top-image wow"  data-wow-duration="1s" data-wow-delay="0.3s" alt="" >
+              
+              <div class="expand__item_info">
+                <h3 style="font-size: 25px;"><b class="expand__item_title fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s">{{j.title}}</b></h3>  
+                <p id="te-al"><b class="expand__item_descr fadeInUp top-image wow"  data-wow-duration="1s" data-wow-delay="0.3s">{{j.discription}}</b></p>
+                
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+
+      </div>
+    </div>
+{% for i in k2 %}
+  <!-- <div id="about" class="about-us section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 align-self-center">
+          <div class="section-heading">
+            <h4>{{i.title}}</h4>
+            <img src="{{i.image1.url}}" alt="">
+            <p style="text-align: justify;"><b>{{i.discription1}}</b></p>
+          </div>
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="box-item">
+                <h4><a >{{i.point1}}</a></h4>
+                
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="box-item">
+                <h4><a>{{i.point2}}</a></h4>
+                
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="box-item">
+                <h4><a>{{i.point3}}</a></h4>
+                
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="box-item">
+                <h4><a>{{i.point4}}</a></h4>
+                
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <p style="text-align: justify;"><b>{{i.discription2}}</b></p>
+              
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="right-image">
+            <img src="{{i.image2.url}}" alt="">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> 
+
+{% endfor %}
+   ... (previous code) ... -->
+{% for i in k3 %}
+<!-- <div id="clients" class="the-clients">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 offset-lg-2">
+        <div class="section-heading">
+          <h4>{{i.title1}}</h4>
+        </div>
+      </div> -->
+      <!-- <div class="col-lg-12">
+  
+        <div style="text-align: center;">
+          <img src="{{i.image1.url}}" alt="#">
+        </div>
+      </div> -->
+<br><br><br>
+
+<!-- <div class="PAYSLIP">
+  <h1 style="text-align: center;">MY PAYSLIP</h1>
+  <div class="container" style="  border: 2px solid;
+  border-radius: 10px;
+  margin-top: 20px;
+  margin-bottom: 15px;">
+  <div class="row">
+   <div class="col-lg-6"> 
+     {% for i in k6 %}
+   
+     <img src="{{i.image2.url}}"class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s" alt=""> <br><br>
+     
+   </div>
+  
+  
+
+    <div class="col-lg-6"><br><br>
+      <h4>{{i.content}}</h4>
+      <h2 style="text-align: center;"><b>{{i.d1}}</b></h2>
+      <h4 class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s">{{i.d2}}</h4><br>
+      <h4 class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s">{{i.d3}}</h4><br>
+      <h4 class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s">{{i.d4}}</h4><br>
+      <h4 class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s">{{i.d5}}</h4><br>
+      
+
+      {% endfor %}
+
+    </div>
+</div>
+</div>
+</div><br><br>
+<h1 style="text-align: center;">ATTENDANCE</h1>
+<div class="container" style="  border: 2px solid;
+border-radius: 10px;
+margin-top: 15px;
+margin-bottom: 15px;">
+<div class="row">
+ <div class="col-lg-6"><br><br>
+   {% for i in k6 %}
+   <h4 class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s">{{i.content1}}</h4> 
+   <h2 style="text-align: center;"><b class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s">{{i.d6}}</b></h2>
+   <h4 class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s">{{i.d7}}</h4><br>
+   <h4 class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s">{{i.d8}}</h4><br>
+   <h4 class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s">{{i.d9}}</h4><br>
+   <h4 class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s">{{i.d10}}</h4><br>
+   <h4 class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s">{{i.d11}}</h4><br>
+   <h4 class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s">{{i.d12}}</h4><br>
+ </div>
+
+   <div class="col-lg-6"> <br><br>
+    <img src="{{i.image1.url}}" class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s" alt=""> <br><br>
+     {% endfor %}
+
+   </div>
+</div>
+</div><br><br>
+
+<h1 style="text-align: center;">DOCUMENT</h1>
+<div class="container" style="  border: 2px solid;
+border-radius: 10px;
+margin-top: 20px;
+margin-bottom: 15px;">
+<div class="row">
+ <div class="col-lg-6"> 
+   {% for i in k6 %}
+ 
+   <img src="{{i.image2.url}}" class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s" alt=""> <br><br>
+   
+ </div>
+
+   <div class="col-lg-6"> 
+    <h4 class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s">{{i.content2}}</h4> <br><br>
+     <h2 style="text-align: center;"><b class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s">{{i.d13}}</b></h2>
+     <h4 class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s">{{i.d14}}</h4><br>
+     <h4 class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s">{{i.d15}}</h4><br>
+     <h4 class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s">{{i.d16}}</h4><br>
+     <h4 class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s">{{i.d17}}</h4><br>
+     <h4 class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s">{{i.d18}}</h4><br>
+
+     {% endfor %}
+
+   </div>
+
+
+</div>
+</div>
+<br><br>
+<h1 style="text-align: center;"> REIMBURSEMENT</h1>
+<div class="container" style="  border: 2px solid;
+border-radius: 10px;
+margin-top: 15px;
+margin-bottom: 15px;">
+<div class="row">
+ <div class="col-lg-6"> <br><br>
+   {% for i in k6 %}
+   <h4 class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s">{{i.content3}}</h4> 
+   <h2 style="text-align: center;"><b class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s">{{i.d19}}</b></h2>
+   <h4 class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s">{{i.d20}}</h4><br>
+   <h4 class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s">{{i.d21}}</h4><br>
+   <h4 class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s">{{i.d22}}</h4><br>
+   <h4 class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s">{{i.d23}}</h4><br>
+   <h4 class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s">{{i.d24}}</h4><br>
+   <h4 class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s">{{i.d25}}</h4><br>
+   
+   
+ </div>
+
+   <div class="col-lg-6"> <br><br>
+    <img src="{{i.image3.url}}" class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s" alt=""> <br><br>
+     {% endfor %}
+
+   </div>
+
+
+</div>
+</div>
+ -->
+
+
+ <div class="PAYSLIP">
+  <h1 style="text-align: center;">MY PAYSLIP</h1>
+  <div class="container" style="  border: 2px solid; border-radius: 10px; margin-top: 20px; margin-bottom: 15px;">
+  <div class="row">
+   <div class="col-lg-6"> 
+     {% for i in k6 %}
+      <br><br><br>
+     <img src="{{i.image.url}}"class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s" alt="">
+     
+   </div>
+  
+  
+
+    <div class="col-lg-6"><br><br>
+      <h4>{{i.content}}</h4>
+      <h2 style="text-align: center;"><b class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s">{{i.d1}}</b></h2>
+      <h3 style="text-align: justify;" class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s"><b>{{i.content1}}</b></h3><br>
+      <h5  class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s"><c style="text-align: justify; font-size: 15px;">{{i.d2}}</c></h5><br>
+      <h3 style="text-align: justify;" class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s"><b>{{i.content2}}</b></h3><br>
+      <h5  class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s"><c style="text-align: justify; font-size: 15px;">{{i.d3}}</c></h5><br>
+      <h3 style="text-align: justify;" class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s"><b>{{i.content3}}</b></h3><br>
+      <h5  class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s"><c style="text-align: justify; font-size: 15px;">{{i.d4}}</c></h5><br>
+      <h3 style="text-align: justify;" class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s"><b>{{i.content4}}</b></h3><br>
+      <h5  class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s"><c style="text-align: justify; font-size: 15px;">{{i.d5}}</c></h5><br>
+      {% endfor %}
+
+    </div>
+</div>
+</div>
+</div><br><br>
+<h1 style="text-align: center;">ATTENDANCE</h1>
+<div class="container" style="  border: 2px solid;
+border-radius: 10px;
+margin-top: 15px;
+margin-bottom: 15px;">
+<div class="row">
+ <div class="col-lg-6"><br><br>
+   {% for i in k6 %}
+   <h2 style="text-align: center;"><b class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s">{{i.d6}}</b></h2>
+   <h3 style="text-align: justify;" class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s"><b>{{i.d7}}</b></h3><br>
+   <h5  class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s"><c style="text-align: justify; font-size: 15px;">{{i.d8}}</c></h5><br>
+   <h5  class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s"><c style="text-align: justify; font-size: 15px;">{{i.d9}}</c></h5><br>
+   <h3 style="text-align: justify;" class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s"><b>{{i.d10}}</b></h3><br>
+   <h5  class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s"><c style="text-align: justify; font-size: 15px;">{{i.d11}}</c></h5><br>
+   <h5  class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s"><c style="text-align: justify; font-size: 15px;">{{i.d12}}</c></h5><br>
+ </div>
+
+   <div class="col-lg-6"> <br><br>
+    <img src="{{i.image1.url}}" class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s" alt=""> <br><br>
+     {% endfor %}
+
+   </div>
+</div>
+</div><br><br>
+
+<h1 style="text-align: center;">DOCUMENT</h1>
+<div class="container" style="  border: 2px solid;
+border-radius: 10px;
+margin-top: 20px;
+margin-bottom: 15px;">
+<div class="row">
+ <div class="col-lg-6"> 
+   {% for i in k6 %}
+ <br><br>
+   <img src="{{i.image2.url}}" class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s" alt=""> <br><br>
+   
+ </div>
+
+   <div class="col-lg-6"> <br><br>
+     <h2 style="text-align: center;"><b class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s">{{i.d13}}</b></h2>
+     <h3 style="text-align: justify;" class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s"><b>{{i.d14}}</b></h3><br>
+     <h5  class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s"><c style="text-align: justify; font-size: 15px;">{{i.content5}}</c></h5><br>
+     <h3 style="text-align: justify;" class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s"><b>{{i.d15}}</b></h3><br>
+     <h5  class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s"><c style="text-align: justify; font-size: 15px;">{{i.d16}}</c></h5><br>
+     <h3 style="text-align: justify;" class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s"><b>{{i.d17}}</b></h3><br>
+     <h5  class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s"><c style="text-align: justify; font-size: 15px;">{{i.d18}}</c></h5><br>
+
+     {% endfor %}
+
+   </div>
+
+
+</div>
+</div>
+<br><br>
+<h1 style="text-align: center;"> REIMBURSEMENT</h1>
+<div class="container" style="  border: 2px solid;
+border-radius: 10px;
+margin-top: 15px;
+margin-bottom: 15px;">
+<div class="row">
+ <div class="col-lg-6"> <br><br>
+   {% for i in k6 %}
+   <h2 style="text-align: center;"><b class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s">{{i.d19}}</b></h2>
+   <h3 style="text-align: justify;" class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s"><b>{{i.d20}}</b></h3><br>
+   <h5  class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s"><c style="text-align: justify; font-size: 15px;">{{i.content6}}</c></h5><br>
+   <h3 style="text-align: justify;" class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s"><b>{{i.d21}}</b></h3><br>
+   <h5  class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s"><c style="text-align: justify; font-size: 15px;">{{i.d22}}</c></h5><br>
+   <!-- <h5  class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s"><c style="text-align: justify; font-size: 15px;">{{i.d23}}</h5><br> -->
+   <h3 style="text-align: justify;" class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s"><b>{{i.d24}}</b></h3><br>
+   <h5  class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s"><c style="text-align: justify; font-size: 15px;">{{i.d25}}</c></h5><br>
+   
+   
+ </div>
+
+   <div class="col-lg-6"> <br><br>
+    <img src="{{i.image3.url}}" class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s" alt=""> <br><br>
+     {% endfor %}
+
+   </div>
+
+
+</div>
+</div>
+
+
+
+
+
+
+<!-- <div class="container">
+  <div class="row">
+    <div class="col-md-6">
+    <div class="section" style=" max-width: 400px; border: 1px solid #ccc; z-index: 1; box-sizing: border-box;">
+      <video controls style="width: 100%; height: auto;">
+        <source src="movie.mp4" type="video/mp4">
+        <source src="/media/employe_video2.mp4" type="video/ogg">
+      </video>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <h1>About Develop trees</h1>
+    <p>Providing a platform for Product strategy and planning, the facilitation of immersive workshops using agile and design thinking methodologies.
+      Discover what a growing network of global enterprises, consultancies, schools and educator’s sales and consulting engagements, and research and design.</p>
+  </div>
+  </div>
+</div> -->
+
+      <div id="products"></div>
+    <div  class="the-clients">
+      <div class="container">
+        <div class="row">
+    <div class="col-lg-8 offset-lg-2">
+      <div class="section-heading">
+        <h4 class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s">{{i.title2}}</h4>
+         <img src="{{i.image2.url}}" class="fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s" alt="" > 
+      
+      </div>
+    </div>
+    {% endfor %}
+
+
+
+  
+    <div class="expand__wrapper" style="margin-top: 0;">
+        <div class="row">
+          {% for j in k4 %}
+
+          <div class="col-md-6" style="margin-bottom:20px;">
+            <div class="expand__item" data-aos="fade-up">
+              <img src="{{j.image.url}}" class="expand__item_img fadeInUp  wow" data-wow-duration="1s" data-wow-delay="0.3s" alt="">
+              <div class="expand__item_info">
+                <h3 class="expand__item_title fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s"">{{j.title}}</h3>  
+                <p class="expand__item_descr fadeInUp top-image wow" data-wow-duration="1s" data-wow-delay="0.3s">{{j.discription}}</p>
+                <div class="expand__item_btns">
+                  <a class="link" href="{{j.link}}" style="color:blue">
+                    {{j.p}}
+                    <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="https://www.w3.org/2000/svg">
+                      <path d="M6.2406 4.16162L10.4009 8.32197L6.2406 12.4823" stroke="#3B3C4E" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+
+        </div>
+    </div>
+
+
+
+
+  </div>
+  
+</div>
+</div>
+</section>
+</div>
+</div>
+
+  
+  <!-- Scripts -->
+  <script src="{% static "js/jquery.min.js" %}"></script>
+  <script src="{% static "js/bootstrap.bundle.min.js" %}"></script>
+  <script src="{% static "js/owl-carousel.js" %}"></script>
+  <script src="{% static "js/animation.js" %}"></script>
+  <script src="{% static "js/imagesloaded.js" %}"></script>
+  <script src="{% static "js/popup.js" %}"></script>
+  <script src="{% static "js/custom.js" %}"></script>
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <!-- <script>
+        
+        function hoverCard(card) {
+        card.style.transform = 'scale(1.05)';
+        card.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.3)';
+    }
+
+    function unhoverCard(card) {
+        card.style.transform = 'scale(1)';
+        card.style.boxShadow = 'none';
+    }
+    function hoverCardMore(card) {
+        card.classList.add('mhcard-hovered-more');
+    }
+
+    function unhoverCardMore(card) {
+        card.classList.remove('mhcard-hovered-more');
+    }
+    function hoverUseCaseCard(card) {
+        card.classList.add('use-case-card-hovered');
+    }
+
+    function unhoverUseCaseCard(card) {
+        card.classList.remove('use-case-card-hovered');
+    }
+
+  </script> -->
+  <script type="text/javascript">
+    (function(d, m){
+        var kommunicateSettings = 
+            {"appId":"1b56bf5ea0c28adb3cf5d97f8fbd4de4d","popupWidget":true,"automaticChatOpenOnNavigation":true};
+        var s = document.createElement("script"); s.type = "text/javascript"; s.async = true;
+        s.src = "https://widget.kommunicate.io/v2/kommunicate.app";
+        var h = document.getElementsByTagName("head")[0]; h.appendChild(s);
+        window.kommunicate = m; m._globals = kommunicateSettings;
+    })(document, window.kommunicate || {});
+/* NOTE : Use web server to view HTML files as real-time update will not work if you directly open the HTML file in the browser. */
+</script>
+</body>
+</html>  
+
+{% endblock main_content %}

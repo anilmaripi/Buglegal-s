@@ -1,0 +1,82 @@
+{% extends 'employ-template/base_template.html' %}
+
+{% block main_content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register Face</title>
+    <style>
+    #alertnot{
+        display:none
+    }
+    </style>
+</head>
+<body>
+    <div class="row d-flex justify-content-center">
+        <h4 class="d-flex justify-content-center">Register Your Face</h4> <br>
+        <div id="message" class="d-flex justify-content-center"></div>
+        <video id="video" width="640" height="380" autoplay></video>
+        <canvas id="videoCanvas" width="640" height="380" style="display:none;"></canvas>
+    </div>
+    <button id="captureButton" class="btn btn-info">Capture Image</button>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const video = document.getElementById('video');
+            const canvas = document.getElementById('videoCanvas');
+            const ctx = canvas.getContext('2d');
+            const captureButton = document.getElementById('captureButton');
+            const messageDiv = document.getElementById('message');
+
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(stream => {
+                    video.srcObject = stream;
+                    video.play();
+                })
+                .catch(error => {
+                    console.error('Error accessing camera:', error);
+                });
+
+            captureButton.addEventListener('click', () => {
+                // Capture image from video feed
+                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                const imageData = canvas.toDataURL('image/png');
+
+                // Send captured image data to server
+                fetch('/register-face/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}'  // Include CSRF token
+                    },
+                    body: JSON.stringify({ image_data: imageData })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        messageDiv.textContent = data.message;
+                        messageDiv.style.color = 'green';
+                        window.location.href = "https://buglegal.com/calendar/";
+
+                    } else {
+                        messageDiv.textContent = data.message;
+                        messageDiv.style.color = 'red';
+                        window.location.href = "https://buglegal.com/calendar/";
+
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    messageDiv.textContent = 'An error occurred. Please try again later.';
+                    messageDiv.style.color = 'red';
+                    window.location.href = "https://buglegal.com/calendar/";
+
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+{% endblock main_content %}

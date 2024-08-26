@@ -1,0 +1,213 @@
+{% extends 'admin-template/base_template.html' %}
+{% block main_content %}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<style>
+    .select-dropdown,
+.select-dropdown * {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  box-sizing: border-box;
+}
+.select-dropdown {
+  position: relative;
+  background-color: #E6E6E6;
+  border-radius: 4px;
+}
+.select-dropdown select {
+  font-size: 1rem;
+  font-weight: normal;
+  max-width: 100%;
+  padding: 8px 24px 8px 10px;
+  border: none;
+  background-color: transparent;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+  appearance: none;
+}
+.select-dropdown select:active, .select-dropdown select:focus {
+  outline: none;
+  box-shadow: none;
+}
+.select-dropdown:after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  width: 0;
+  height: 0;
+  margin-top: -2px;
+  border-top: 5px solid #aaa;
+  border-right: 5px solid transparent;
+  border-left: 5px solid transparent;
+}
+</style>
+
+<div class="row align-items-center d-flex  justify-content-center">
+    <div class="col-12 mb-4">
+        <div class="card border-light shadow-sm components-section align-items-center d-flex  justify-content-center">
+            <div class="card-body align-items-center d-flex justify-content-center">
+                <div class="row mb-4">
+                    <div class="col-lg-12 col-sm-16">
+                        <h3 class="h3 text-center">View & Edit Tasks</h3>
+                    </div>
+                    <div class="container">
+                        
+                        <center>
+                            <lottie-player src="https://assets2.lottiefiles.com/packages/lf20_zpo7qo16.json" background="transparent" speed="1"
+                                style="width: 400px; height: 300px;" loop autoplay>
+                            </lottie-player>
+                        </center>
+                        <div class="row">
+                            <form action="" method="GET">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <label for="project_filter">Project Name</label>
+                                    <select class="custom-select" id="project_filter" name="project_filter">
+                                        <option value="any">Any</option>
+                                        {% for project in projects %}
+                                            <option value="{{ project.id }}">{{ project.p_name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Filter</button>
+                            </form>
+                            
+                            {% if filtered_tasks %}
+                            {% for task in filtered_tasks %}
+                            <div class="col-lg-6 mb-2">
+                                <div class="card border-1 shadow p-4">
+                                    <div
+                                        class="card-header d-flex align-items-center justify-content-between border-0 p-0 mb-2">
+                                        <h3 class="h3 mb-0">{{task.t_name|upper}}</h3>
+                                    </div>
+                                    <div class="card-body p-0">
+                                        <p>{{task.t_desc}}</p>
+
+                                        <h4 class="fs-6 fw-normal mt-4"><b>Project:</b>
+                                            {{task.p_id.p_name|upper}}</h4>
+
+                                        <h4 class="fs-6 fw-normal mt-4"><b>Assigned:</b>
+                                            {{task.e_id.first_name|upper}}&nbsp;{{task.e_id.last_name|upper}}</h4>
+                                        <h4 class="fs-6 fw-normal mt-4"><b>Priority:</b>
+                                            {% if task.t_priority == "High Priority" %}
+                                            <span class="badge bg-danger">High</span>
+                                            {% elif task.t_priority == "Medium Priority" %}
+                                            <span class="badge bg-warning">Medium</span>
+                                            {% elif task.t_priority == "Low Priority" %}
+                                            <span class="badge bg-info">Low</span>
+                                            {% endif %}
+                                        </h4>
+                                        <h5 class="fs-6 fw-normal mt-4"><b>Assigned Date:</b>
+                                            {{task.t_assign_date}}
+                                        </h5>
+                                        <h5 class="fs-6 fw-normal mt-4"><b>Deadline Date:</b>
+                                            {{ task.t_deadline_date}}
+                                        </h5>
+                                        <h5 class="fs-6 fw-normal mt-4"><b>Remaining Time: </b>
+                                        <span id="countdown_{{ task.id }}" {% if task.t_status == 'completed' %}class="text-muted"{% endif %}></span></h5>
+                                       
+                    
+                                       
+                                        <h5 class="fs-6 fw-normal mt-4"><b>Task Status:</b>
+                                            {{task.t_status.upper}}
+                                        </h5>
+                                        <!-- <h5 class="fs-6 fw-normal mt-4"><b>Task Status:</b>
+                                            {% if task.is_expired %}
+                                                Expired
+                                            {% else %}
+                                                {{ task.t_status.upper }}
+                                            {% endif %}
+                                        </h5> -->
+{% if task.t_status == 'completed' %}
+<h5 class="fs-6 fw-normal mt-4"><b>Completed Date:</b>
+    {{ task.t_update_date }}
+</h5>
+{% endif %}
+{% if task.t_status != "completed" %}
+<div class="dropdown">
+    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Work Status &nbsp;&nbsp;<i class="fa fa-arrow-down"></i>
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" href="/org-update-tasks/{{ task.id }}/not-started">Not Yet Started</a>
+        <a class="dropdown-item" href="/org-update-tasks/{{ task.id }}/in-progress">In Progress</a>
+        <a class="dropdown-item" href="/org-update-tasks/{{ task.id }}/completed">Mark as Completed</a>
+    </div>
+</div>
+{% endif %}
+    
+    
+
+                                             {% if task.t_status != "completed" %}
+                                                    <!-- <button class="btn btn-secondary" onclick="pauseResumeTimer({{ task.id }})">Pause/Resume</button> -->
+                                                {% endif %}
+                                        <a href="/update-task/{{task.id}}" class="btn btn-warning">UPDATE</a>
+                                        <a href="/delete-task/{{task.id}}" class="btn btn-danger">DELETE</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <!-- Add this script inside your template, preferably at the bottom -->
+                            <script>
+                                var assignDate = new Date('{{ task.t_assign_date|date:"F d, Y H:i:s" }}').getTime();
+                                var deadline = new Date('{{ task.t_deadline_date|date:"F d, Y H:i:s" }}').getTime();
+                            
+                                var now = new Date().getTime();
+                            
+                                if (assignDate <= now && deadline >= now) {
+                                    var x_{{ task.id }} = setInterval(function() {
+                                        var now = new Date().getTime();
+                                        var distance = deadline - now;
+                            
+                                        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                                        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                                        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                            
+                                        document.getElementById('countdown_{{ task.id }}').innerHTML = days + 'd ' + hours + 'h ' + minutes + 'm ' + seconds + 's ';
+                            
+                                        if (distance < 0) {
+                                            clearInterval(x_{{ task.id }});
+                                            document.getElementById('countdown_{{ task.id }}').innerHTML = 'Task expired';
+                                        }
+                                    }, 1000);
+                                } else if (assignDate > now) {
+                                    document.getElementById('countdown_{{ task.id }}').innerHTML = 'Task not yet started';
+                                } else {
+                                    document.getElementById('countdown_{{ task.id }}').innerHTML = 'Task expired';
+                                }
+                            </script>
+                            
+                            
+
+                            {% endfor %}
+                           
+                        </div>
+                        {% else %}
+                        <div class="col-lg-12 col-sm-16">
+                            <center>
+                                <lottie-player src="https://assets7.lottiefiles.com/datafiles/vhvOcuUkH41HdrL/data.json"
+                                    background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay>
+                                </lottie-player>
+                            </center>
+                            <h3 class="h3 text-center">
+                                No Records Found!
+                            </h3>
+                        </div>
+                        {% endif %}
+                        
+                        <br>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock main_content %}

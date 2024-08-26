@@ -1,0 +1,101 @@
+{% extends "admin-template/base_template.html" %}
+{% block main_content %}
+
+<style>
+    label {
+  text-transform: capitalize;
+}
+</style>
+<br><br>
+<div class="row justify-content-center">
+    <div class="col-lg-8 col-12">
+
+<h2>Set Payroll Date</h2>
+<form method="post">{% csrf_token %}
+<label style="color:white;"></label><br>
+<div class="form-check">
+  <input type="checkbox" name="payroll" class="form-check-input">
+  <label class="form-check-label" style="color:white;">Payroll enabled</label>
+</div>
+
+
+  <div class="form-control" style="background-color:#282f51; color:white; width:100%; height:auto; border:none;">
+    <label>Choose when you would like to pay your employees. Select a date after the 15th to pay your employees for the same month, e.g., if you pick 31, then your employees will get paid for January on January 31. Alternatively, if you pick 1, then your employees will get paid for January on 1st February.</label>
+  </div><br>
+  
+  <div>
+      <label style="width: 120px; color: white;">Payrolldate*</label><br>
+      <select name="payrolldate" class="form-control" style="background-color:#282f51; color:white;">
+        <option value="">Please select date</option>
+        <option>01</option>
+        <option>02</option>
+        <option>03</option>
+        <option>04</option>
+        <option>05</option>
+        <option>06</option>
+        <option>07</option>
+        <option>08</option>
+        <option>09</option>
+        <option>10</option>
+        <option>11</option>
+        <option>12</option>
+        <option>13</option>
+        <option>14</option>
+        <option>15</option>
+        <option>16</option>
+        <option>17</option>
+        <option>18</option>
+        <option>19</option>
+        <option>20</option>
+        <option>21</option>
+        <option>22</option>
+        <option>23</option>
+        <option>24</option>
+        <option>25</option>
+        <option>26</option>
+        <option>27</option>
+        <option>28</option>
+        <option>29</option>
+        <option>30</option>
+        <option>31</option>
+    </select>
+ </div>
+    <br>
+    
+    <div class="form-control" style="background-color: #282f51; color: white; width: auto; height: auto; border:none;">
+      <label>You can choose to either manually request execution each month before the payroll is executed, or xpayroll can automatically execute your payroll on your chosen date.</label>
+    </div>
+    <br>
+    
+    <div class="form-check" style="display: flex; align-items: center;">
+      <input type="checkbox" name="auto_run_payroll" class="form-check-input">
+      <label class="form-check-label" style="color: white;">Automatically run payroll on selected date</label>
+    </div>
+    <br>
+    
+    <div class="form-control" style="background-color: #282f51; color: white; width: auto; height: auto; border:none;">
+      <label>Employees can request for salary advances . If approved, the advance amount will be paid immediately and automatically recovered from future payments to the employees.</label>
+    </div>
+    <br>
+    
+    <div class="form-check" style="display: flex; align-items: center; border:none;">
+      <input type="checkbox" name="advance_salary_request"class="form-check-input">
+      <label class="form-check-label" style="color: white;" >Let employees request salary advance</label>
+    </div>
+    <br>
+    
+    <div style="display: flex; align-items: center;">
+      <label style="color: white;">* Indicate required fields</label>
+    </div>
+    <br>
+    
+    <center>
+      <input type="submit" class="btn btn-lg btn-info w-50" value="Save">
+    </center>
+    
+</form>
+    
+</div>
+</div>
+
+{% endblock main_content %}

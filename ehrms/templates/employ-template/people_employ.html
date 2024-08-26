@@ -1,0 +1,581 @@
+{% extends 'employ-template/base_template.html' %}
+        
+        
+        
+        
+{% block main_content %}
+<title>Edit People</title>
+<style>
+.table td{
+    width: 50%;
+    color: black;
+}
+h4{
+    color: black;
+}
+.model-open .model{
+    overflow-x:hidden;
+    overflow-y: auto;
+
+}
+.content p{
+    padding: 0%;
+
+}
+.main{
+    position: absolute;
+}
+tr:nth-child(even) {background-color: #d1d7e0;color:black;}
+tr:nth-child(odd) {background-color: #ccc;color:black;}
+/* @media (max-width: 768px) {
+    .small-box{
+        position: absolute;
+    }
+    
+}
+.deg{
+    position: fixed;
+} */
+p{
+    color: white;
+}
+
+
+
+
+</style>
+<script>
+$(document).ready(function() {
+// Show the popup when a specific element is clicked
+$('#show-popup-button').click(function() {
+$('#popup').fadeIn();
+});
+
+// Hide the popup when the close button is clicked
+$('#close-popup-button').click(function() {
+$('#popup').fadeOut();
+});
+});
+</script>
+
+<div class="row" >
+    <div class="col-lg-8">
+<div style="text-transform: capitalize;color: black;padding: 10px;"><a href="/employ_people_count/">people</a> | {{employ.first_name}}.{{employ.last_name}}</div>
+<br>
+<!-- {% if users.is_active  %}
+<span class="alert alert-danger" role="alert" >This employee is Enabled</span>
+
+                        {% else %}
+                        
+                        <span class="alert alert-danger" role="alert" >This employee is Disabled</span>
+                        {% endif %} -->
+
+                        {% if users.is_active  %}
+                        <!-- <span class="alert alert-danger" role="alert">This employee is Enabled</span> -->
+                                                {% else %}
+                                                
+                                                <span class="alert alert-danger" role="alert" >This employee is Disabled</span>
+                                                {% endif %}
+
+
+
+<section class="content" style="background-color: #d1d7e0; color: black;" >
+    
+    <div class="container-fluid">
+        
+        <div class="row">
+            
+            <div class="col-lg-12 col-12 ">
+                <!-- <div class="small-box " style="padding: 10px;width: 100%;"> -->
+                    <h4>Basic Information</h4>
+
+    <!-- <div class="card1"> -->
+        <div class="inner">
+        <!-- <div class="card-body1" style="padding: 0px;"> -->
+            <div class="table-responsive">
+          
+<!--             
+            <table class="table">
+              
+                <tbody >
+                  
+                  
+
+                
+                                  
+                    <tr >
+                        <td >Type</td>
+                       
+                        <td>Employee</td>
+                    </tr>
+                    <tr >
+                        <td>Employee Name</td>
+                       
+                        <td>{{employ.first_name}}{{employ.last_name}}</td>
+                    </tr>
+                    <tr >
+                        <td>Email</td>
+                       
+                        <td>{{employ.email}}</td>
+                    </tr>
+                    <tr >
+                        <td>Date of Hiring</td>
+                        
+                        <td>{{employ.dateofjoining}}</td>
+                    </tr>
+                    <tr >
+                        <td>Title</td>
+                        
+                        <td>{{employ.role}}</td>
+                    </tr>
+                    <tr >
+                        <td>Employee ID</td>
+                        
+                        <td>{{employ.empid}}</td>
+                    </tr>
+                    <tr >
+                        <td>Designation</td>
+                        
+                        <td>{{employ.designation}}</td>
+                    </tr>
+                    <tr >
+                      <td>Manager</td>
+                      
+                      <td>{{employ.Manager}}</td>
+                  </tr>
+                  
+                    <tr >
+                        <td>Location</td>
+                        
+                        <td>{{employ.location}}</td>
+                    </tr>
+                    <tr >
+                      <td>Last Login</td>
+                      
+                      <td>{{employ.last_login}}</td>
+                  </tr>
+                </tbody>
+            </table> -->
+            </div>
+        </div>
+    </div>
+</div>
+<table class="table">
+                  
+    <tbody >
+      
+
+     
+   <tr>
+            <td>First Name:</td>
+           
+            <td>{{employ.first_name}}</td>
+            
+        </tr>
+        <tr>
+            <td>Last Name:</td>
+            <td>{{employ.last_name}}</td>
+        </tr>
+
+        <tr>
+            <td>Date of brith:</td>
+            <td>{{employ.dateofbirth}}</td>
+        </tr>
+        <td>User Name:</td>
+        <td>{{employ.username}}</td>
+        </tr>
+        <!-- <tr>
+            <td>Password</td>
+            <td>{{employ.password}}</td>
+        </tr> -->
+        <tr>
+            <td>Email</td>
+            <td>{{employ.email}}</td>
+        </tr>
+
+        <tr>
+            <td>Office Mail</td>
+            <td>{{employ.web_mail}}</td>
+        </tr>
+        <tr>
+            <td>Gender</td>
+            <td>{{employ.gender}}</td>
+        </tr>
+        <tr>
+            <td>Address:</td>
+            <td>{{employ.address}}</td>
+        </tr>
+
+        <tr>
+            <td>Employ Id</td>
+            <td>{{employ.empid}}</td>
+        </tr>
+
+           <tr>
+            <td>Bloodgroup</td>
+            <td>{{employ.bloodgroup}}</td>
+           </tr>
+           <tr>
+            <td>Date of Joining</td>
+            <td>{{employ.dateofjoining}}</td>
+           </tr> 
+        <tr>
+            <td>Designation</td>
+            <td>{{employ.designation_employ.designation_name}}</td>
+        </tr>
+        <tr>
+            <td>Annual Salary</td>
+            <td>{{employ.package}}</td>
+        </tr>
+        <tr>
+            <td>Location</td>
+            <td>{{employ.location}}</td>
+        </tr>
+        <tr>
+            <td>Pincode</td>
+            <td>{{employ.pincode}}</td>
+        </tr>
+        <tr>
+            <td>Address</td>
+            <td>{{employ.address}}</td>
+        </tr>
+
+
+
+
+
+
+
+    </tbody>
+</table>
+    
+    
+    <br>
+    <div class="row">
+        <div class="col-lg-12 col-12 ">
+
+    <h4>Compensation & Perquisites</h4>
+   
+   
+    <!-- <div class="card1">
+        <div class="card-body1" style="padding: 0px;">
+             -->
+            
+                    <!-- <div class="small-box " style="padding: 10px;width: 100%;">  -->
+                        <div class="table-responsive">
+
+            <table class="table">
+                <tbody >
+                    <tr >
+                        <td >Annual Salary</td>
+                       
+                        <td>₹&nbsp;&nbsp;{{employ.package}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+        </div>
+    </div>
+    
+    <br>
+    <div class="row">
+        <div class="col-lg-12 col-12 ">
+   
+    <h4>Leaves & Attendance</h4>
+
+   
+    <!-- <div class="card1">
+        <div class="card-body1"> -->
+          
+            <div class="table-responsive">
+
+            <table class="table">
+                <tbody >
+                    <tr >
+                        <td >Shift Timing</td>
+                       
+                        <td>08:30 - 18:30</td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-lg-12 col-12 ">
+
+        <h4>Provident Fund, Professional Tax & ESI</h4>
+   
+    <!-- <div class="card1">
+        <div class="card-body1"> -->
+        
+            <div class="table-responsive">
+
+            <table class="table">
+                <tbody >
+                    <tr >
+                        <td >PF Status</td>
+                       
+                        <td>Company Disabled</td>
+                    </tr>
+                    <tr >
+                        <td >PF UAN</td>
+                       
+                        <td>-NA-</td>
+                    </tr>
+                    <tr >
+                        <td >Professional Tax</td>
+                       
+                        <td>Company Disabled</td>
+                    </tr>
+                    <tr >
+                        <td >ESIC Status</td>
+                       
+                        <td>Registration Not Initiated</td>
+                    </tr>
+                    <tr >
+                        <td >ESIC IP Number</td>
+                       
+                        <td>-NA-</td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+        </div>
+    </div>
+   
+
+    <br>
+    <div class="row">
+        <div class="col-lg-12 col-12 ">
+            {% for data in datas %}
+    <h4>Payment Information
+    </h4>
+
+    
+<div class="inner">
+    <!-- <div class="card1">
+        <div class="card-body1" style="padding: 0%;"> -->
+            <div class="table-responsive">
+
+            
+            <table class="table" >
+                <tbody >
+                    <tr >
+                        <td >PAN</td>
+                       
+                        <td>{{data.pan}}</td>
+                    </tr>
+                    <tr >
+                        <td>IFSC Code</td>
+                       
+                        <td>{{data.ifsecode}}</td>
+                    </tr>
+                    <tr >
+                        <td>Account Number</td>
+                       
+                        <td>{{data.acno}}</td>
+                    </tr>
+                    <tr >
+                        <td>Beneficiary Name</td>
+                        
+                        <td>{{data.beneficiaryname}}</td>
+                    </tr>
+                   
+                </tbody>
+            </table>
+            </div>
+        </div>
+    </div></div>
+    
+    <br>
+    <!-- <div style="display: flex; flex-direction: row; height: 50px;margin-bottom: 10px;width: 800px;"> -->
+        <div class="row">
+            <div class="col-lg-12 col-12 ">
+                <h4>Other Information</h4>
+    
+               
+   
+   <div class="inner">
+    <!-- <div class="card1">
+        <div class="card-body1" style="padding: 0px;" > 
+           -->
+           <div class="table-responsive">
+
+            <table class="table">
+                <tbody >
+                    <tr >
+                        <td >Phone Number</td>
+                       
+                        <td>{{data.first_name}}</td>
+                    </tr>
+                    <tr >
+                        <td>Gender</td>
+                       
+                        <td>{{data.gender1}}</td>
+                    </tr>
+                    <tr >
+                        <td>Date of Birth</td>
+                       
+                        <td>{{data.dob}}</td>
+                    </tr>
+                    <tr >
+                        <td>Permanent Adderss</td>
+                        
+                        <td>{{data.address1}}</td>
+                    </tr>
+                    <tr >
+                        <td>Highest Educational Qualification</td>
+                        
+                        <td>{{data.heq}}</td>
+                    </tr>
+                    <tr >
+                        <td>Aadhaar Number</td>
+                        
+                        <td>{{data.aadharno}}</td>
+                    </tr>
+                    <tr  >
+                        <td>Blood Group</td>
+                        
+                        <td>{{data.bloodgroup}}</td>
+                    </tr>
+                   
+                </tbody>
+            </table>
+            </div>
+            {% endfor %}
+        </div>
+    </div></div>
+   
+    <br>
+    <div class="row">
+        <div class="col-lg-12 col-12 ">
+    
+            <h4>User Roles & Permissions &nbsp;&nbsp;&nbsp;&nbsp;  
+                  <!-- <a href="/edit_role_permission1/{{ employ.id }}"><i class="far fa-edit">&nbsp;Edit</i></a> -->
+             </h4> 
+           
+            <div class="table-responsive">
+              <!-- Add an Edit button here -->
+                <div class="inner">
+                    <!-- Your other content -->
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td>Role</td>
+                              
+                                   
+                                <td>{{employ.designation}}</td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+        
+            
+    </div></div><div class="col-lg-12" style="text-align: center;">
+        <div class="inner" style="height: 50px;background-color: #d1d7e0;">
+    <!-- <div class="row">
+        <div class="col">
+    <button class="btn btn-danger"> <a style="color: white;" href="{% url 'enable_button1' std=employ.admin.id %}">Enable Employ</a></button>
+   </div>
+   <div class="col">
+    <button class="btn btn-danger"><a style="color: white;" href="{% url 'disable_button1' std=employ.admin.id %}">Disable Employ</a></button>
+</div>        
+</div> -->
+
+<div class="row">
+    <div class="col">
+    <button class="btn btn-danger"> <a style="color: white;" href="{% url 'enable_button1' std=employ.admin.id %}">Enable Employee</a></button>
+    </div>
+    <div class="col">
+    <button class="btn btn-danger"><a style="color: white;" href="{% url 'disable_button1' std=employ.admin.id %}">Disable Employee</a></button>
+    </div>
+</div>
+
+
+        </div>
+    
+
+
+    
+
+ 
+
+<script>
+function showDiv(buttonId) {
+    var div = document.getElementById(buttonId);
+    if (div.style.display === "none") {
+        div.style.display = "block";
+    } else {
+        div.style.display = "none";
+    }
+}
+
+function hideDiv(buttonId) {
+    var div = document.getElementById(buttonId);
+    div.style.display = "none";
+}
+
+</script></div></section></div>
+<!-- <div class=col-lg-1></div> -->
+
+<div class="col-lg-4 " style=" background-color: #b69ccf; justify-content: center;  margin-top:20px;  " >
+    <div class="row" style="justify-content: center; padding: 10px;">
+<div class="small-box deg" style="text-align: center; padding: 15px; background-color: #9878b7;border-radius: 20px;  ">
+    <!-- <div class="inner" > -->
+<!-- <div class="sidenav1"> -->
+
+<h5  ><a style="color: white;"  href="{% url 'individual_reimbursement_view1' std=employ.id %}"  > Reimbursement's</a></h5>
+<span>View report of employee reimbursement </span>
+
+</div>
+
+</div>
+
+    <!-- <div class="inner" > -->
+<!-- <div class="sidenav1"> -->
+<div class="row" style="justify-content: center; padding: 10px;">
+    <div class="small-box deg" style="text-align: center; padding: 15px; background-color: #9878b7;border-radius: 20px;  ">
+    <h5  ><a style="color: white;"  href="{% url 'individual_employ_documentreport' std=employ.id %}"  >Document's</a></h5>
+    <span>View report of employee document </span>
+</div>
+</div>
+<div class="row" style="justify-content: center; padding: 10px;">
+    <div class="small-box deg" style="text-align: center; padding: 15px; background-color: #9878b7;border-radius: 20px;  ">
+    <h5  ><a style="color: white;"  href="{% url 'individual_employ_leaveReport' std=employ.id %}"  > LeavesReport</a></h5>
+    <span>View report of employee leave report </span>
+</div>
+</div>
+<!-- <div class="row" style="justify-content: center; padding: 10px;">
+    <div class="small-box deg" style="text-align: center; padding: 15px; background-color: #1e2442;  ">
+    <h5  ><a style="color: white;"  href="{% url 'individual_tax_report' std=employ.id %}"  >View Tax Report</a></h5>
+    <span>View report of employ tax report </span>
+</div>
+</div> -->
+
+<div class="row" style="justify-content: center; padding: 10px;">
+    <div class="small-box deg" style="text-align: center; padding: 15px;background-color: #9878b7;border-radius: 20px;  ">
+    <h5  ><a style="color: white;"  href="{% url 'individual_advancesalary_Report1' std=employ.id %}"  >View Advancesalary Report</a></h5>
+    <span>View report of employee AdvanceSalary report </span>
+</div>
+</div>
+
+<div class="row" style="justify-content: center; padding: 10px;">
+    <div class="small-box deg" style="text-align: center; padding: 15px;background-color: #9878b7;border-radius: 20px;  ">
+    <h5  ><a style="color: white;"  href="/empcl1/"  >View Attendance Report</a></h5>
+    <span>View report of employee Attendance report </span>
+</div>
+</div>
+
+
+
+</div>
+
+</div>   
+
+</div>
+ {% endblock main_content %}

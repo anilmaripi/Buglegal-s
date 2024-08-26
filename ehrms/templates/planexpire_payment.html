@@ -1,0 +1,82 @@
+
+{%load mathfilters%}{%load humanize%}{%load static%}
+<html>
+<head>
+</head>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        padding-top: 10%;
+        background: linear-gradient(to bottom, #f9f9f9, #b3e0ff); 
+    }
+
+    form {
+        max-width: 400px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        background-color: azure;
+        
+    }
+
+    input[type="checkbox"] {
+        margin-right: 5px;
+    }
+
+    input[type="number"] {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 20px;
+        box-sizing: border-box;
+        border-radius: 8px;
+
+    }
+
+    input[type="submit"] {
+        background-color: #4caf50;
+        color: #fff;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        
+    }
+
+    input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+</style>
+
+<body>
+
+    <form method="post">{% csrf_token %}
+        <center><h2> Plans</h2></center>
+            <input type="checkbox" name="plans" value="{{ newplan.annual_price }}" required>{{ newplan.annual_price }}<br>
+            <input type="number" name="planamount" value="{{newplan.price | mul:newplan.employe_limit | floatformat:0}}" readonly><br>
+            <br>
+       
+       <center> <input type="submit" value="Continue"></center>
+    </form>
+    <script> 
+        document.addEventListener('contextmenu', event=> event.preventDefault()); 
+        document.onkeydown = function(e) { 
+        if(event.keyCode == 123) { 
+        return false; 
+        } 
+        if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)){ 
+        return false; 
+        } 
+        if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)){ 
+        return false; 
+        } 
+        if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)){ 
+        return false; 
+        } 
+        } 
+        </script> 
+</body>
+</html>

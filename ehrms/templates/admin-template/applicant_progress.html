@@ -1,0 +1,174 @@
+  
+    
+    {% extends 'admin-template/base_template.html' %}
+    {% block main_content %}
+    <!DOCTYPE html>
+    <html lang="en">
+    
+    <head>
+        <meta charset="UTF-8">
+        <title>Applicant Progress</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <style>
+           body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: #f8f9fa;
+            padding-top: 20px;
+            color: black;
+        }
+        .container {
+            max-width: 1400px;
+        }
+        .page-title {
+            text-align: center;
+            font-weight: bold;
+            color: #495057;
+            margin-bottom: 30px;
+        }
+        .table-container {
+            background-color: #fff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .table-responsive {
+            overflow-x: auto;
+        }
+        .table {
+            width: 100%;
+            margin-bottom: 0;
+            color: #495057;
+        }
+        .table th, .table td {
+            border: none;
+            padding: 12px 15px;
+            text-align: center;
+            font-size: 14px;
+            color: black;
+        }
+        .table th {
+            background-color: #007bff;
+            color: #fff;
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+        .table td {
+            background-color: #fff;
+        }
+            .modal-dialog {
+                max-width: 400px; 
+                margin: 1.75rem auto;
+            }
+            .modal-content {
+                border: none;
+                border-radius: 0.5rem;
+                box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+            }
+            .modal-header {
+                border-bottom: none;
+                background-color: #007bff; 
+                color: #fff; 
+                border-top-left-radius: 0.5rem;
+                border-top-right-radius: 0.5rem;
+            }
+            .modal-title {
+                font-size: 1.5rem;
+                font-weight: bold;
+            }
+            .modal-body {
+                padding: 1.5rem;
+                color: black;
+            }
+            .modal-footer {
+                border-top: none;
+                padding: 1rem;
+                justify-content: center;
+                border-bottom-left-radius: 0.5rem;
+                border-bottom-right-radius: 0.5rem;
+                color: black;
+            }
+            .btn-close {
+                color: #fff;
+                font-size: 1.25rem;
+            }
+            .modal-backdrop {
+                background-color: rgba(0, 0, 0, 0.5); 
+            }
+            .fade.modal {
+                transition: opacity 0.15s linear;
+            }
+            .progress-bar {
+                min-width: 20%;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1 class="text-center">Applicant Progress</h1>
+            <div class="table-container">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Full Name</th>
+                            <th>Email</th>
+                            <th>Progress</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for applicant in applicants %}
+                        <tr>
+                            <td>{{ applicant.full_name }}</td>
+                            <td>{{ applicant.email }}</td>
+                            <td>
+                                <div class="progress">
+                                    <div class="progress-bar bg-orange" role="progressbar" style="width: {{ applicant.progress_percentage }}%;" aria-valuenow="{{ applicant.progress }}" aria-valuemin="0" aria-valuemax="5">
+                                        {{ applicant.progress }} 
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-warning mt-1" data-toggle="modal" data-target="#progressModal{{ applicant.id }}">
+                                    View Details
+                                </button>
+                                <div class="modal fade" id="progressModal{{ applicant.id }}" tabindex="-1" role="dialog" aria-labelledby="progressModalLabel{{ applicant.id }}" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="progressModalLabel{{ applicant.id }}">Applicant Progress - {{ applicant.full_name }}</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p><strong>Progress:</strong> {{ applicant.progress }}</p>
+                                                <p><strong>Status:</strong> {{ applicant.status }}</p>
+                                                <p><strong>Task Status:</strong> {{ applicant.task_status }}</p>
+                                                <p><strong>Exam Status:</strong> {{ applicant.exam_status }}</p>
+                                                <p><strong>Interview Status:</strong> {{ applicant.interview_status }}</p>
+                                                <p><strong>Letter Status:</strong> {{ applicant.letter_status }}</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            </div>
+        </div>
+    </body>
+    </html>
+    {% endblock main_content %}
+    
+    
+    
+    
+    
+    

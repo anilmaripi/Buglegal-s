@@ -1,0 +1,153 @@
+{% extends 'employ-template/base_template.html' %}
+{% block main_content %}
+<title>Employee Apply For Advance Salary</title>
+<style>
+  tr:nth-child(even) {background-color: #e6e6e6}
+       tr:nth-child(odd) {background-color: #ccc}
+
+       .pagination a, .pagination .current-page {
+        display: inline-block;
+        padding: 8px 12px;
+        text-decoration: none;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+        border-radius: 20px;
+        text-align: center;
+        /* background-color: #3775e0;
+        color: white; */
+    }
+.act{
+  /* background-color: orange; */
+  color: white;
+  height:43px;
+  width:43px;
+  border-radius: 20px;
+
+}
+th{
+  color: white;
+}
+td{
+  color: black;
+}
+
+
+</style>
+
+
+
+            <div class="card-header">
+              <h3 class="card-title" style="color:black;"><b>Employee Apply for AdvanceSalary :</b></h3>
+            </div>
+            <br>
+
+            <!-- /.card-header -->
+            <!-- form start -->
+            <div class="table table-responsive">
+              <table class="table">
+                  <tr style="background-color: black;">
+                      <th>Employee ID</th>
+                      <th>Employee Name</th>
+                     
+                      <th>Emi</th>
+                      <th>Reason</th>
+                      <th>Amount</th>
+                      <th>Request</th>
+                     
+                  </tr>
+                  {% for leave in leaves %}
+                  <tr style="color:#fff;">
+                      <td>{{ leave.employ.empid }}</td>
+                      <td>{{ leave.employ.first_name }}{{ leave.employ.last_name }}</td>
+                    
+                      
+                      <td>{{ leave.emi }}</td>
+                      <td>{{ leave.reason }}</td>
+                      <td>{{ leave.amount }}</td>
+                      
+                   
+                      
+                      <td>
+                        {% if leave.request_status == 0 %}
+                        <a href="{% url 'advance_salary_status_approve1' leave_id=leave.id %}" class="btn btn-success" >Approve</a>
+                        <a class="btn btn-danger" href="{% url 'advance_salary_status_disapprove1' leave_id=leave.id %}" >Disapprove</a>
+                        {% elif leave.request_status == 1  %}
+                         <button class="btn btn-warning" disabled="disabled" data-toggle="modal" data-target="#reply_modal">Approved</button>
+                        {% else %}
+                        <button class="btn btn-danger" disabled="disabled" data-toggle="modal" data-target="#reply_modal">Disapproved</button>
+                        {% endif %}
+                    </td>
+          
+            
+            
+                      
+                  </tr>
+                  {% endfor %}
+              </table>
+            </div>
+              <!-- <div class="pagination" style=" color: white;">
+                <span class="step-links">
+                  {% if leaves.has_previous %}
+                    <a href="?page=1" style="border: 1px solid #ccc; border-radius: 8px; padding: 5px; margin: 2px;">First</a>
+                    <a href="?page={{ leaves.previous_page_number }}" class="prev" style="border: 1px solid #ccc; border-radius: 8px; padding: 10px; margin: 2px;">&lt;&lt;</a>
+                  {% endif %}
+          
+                  {% for page in leaves.paginator.page_range %}
+                    <a href="?page={{ page }}" {% if page == leaves.number %}class="active"{% endif %}
+                       style="border: 2px solid #ccc; border-radius: 8px; padding: 10px; margin: 2px;">
+                      {{ page }}
+                    </a>
+                  {% endfor %}
+          
+                  {% if leaves.has_next %}
+                    {% if leaves.number != leaves.paginator.num_pages %}
+                      <a href="?page={{ leaves.paginator.num_pages }}" style="border: 2px solid #ccc; border-radius: 8px; padding: 10px; margin: 2px;">&gt;&gt;</a>
+                    {% endif %}
+                  {% endif %}
+                </span>
+              </div> -->
+          
+              <div class="pagination" style="color:white; margin:20px auto;">
+                <span class="step-links">
+                    {% if leaves.has_previous %}
+                        <a  href="?page=1">&laquo;<<</a>
+                        <a   href="?page={{ leaves.previous_page_number }}" class="prev"> < </a>
+                    {% endif %}
+            
+        
+                    {% for i in leaves.paginator.page_range %}
+                    {% if leaves.number == i %}
+                    <button class="active act bg-info"><span>{{ i }} <span class="sr-only">(current)</span></span></button>
+                    {% elif i > leaves.number|add:'-3' and i < leaves.number|add:'3' %}
+                        <a  href="?page={{ i }}">{{ i }}</a>
+                    {% endif %}
+                    {% endfor %}
+        
+                   
+        
+                    {% if leaves.has_next %}
+                        {% if leaves.number != leaves.paginator.num_pages %}
+                        {% endif %}
+                        <a   href="?page={{ leaves.next_page_number }}" class="prev">> </a>
+        
+                        <a  href="?page={{ leaves.paginator.num_pages }}">>>&raquo; </a>
+                    {% endif %}
+                </span>
+            </div>   
+
+          
+          </div>
+            </div>
+          </div>
+          <!-- /.card -->
+
+          
+      </div>
+
+        </div>
+        </div>
+    </div>
+  </section>
+
+{% endblock main_content %}

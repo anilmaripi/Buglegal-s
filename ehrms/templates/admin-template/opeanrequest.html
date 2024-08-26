@@ -1,0 +1,214 @@
+{% extends 'admin-template/base_template.html' %}
+{% block main_content %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Open Month Days Table</title>
+     
+    <style>
+   
+
+        .pagination {
+        margin: 20px 0;
+        text-align: center;
+    }
+    
+    .pagination a, .pagination .current-page {
+        display: inline-block;
+        padding: 8px 12px;
+        text-decoration: none;
+        margin: 0 4px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+    }
+    .pagination .step-links a.active {
+    background-color: orange;
+}
+    
+    </style> 
+</head>
+<h3>Open Request for Leave</h3>
+<body class="text-dark">
+    <form id="filterForm" method="GET" action="">
+        <div class="row">
+        <div class="row">
+            <div class="col">
+                <div class="form-group"  style="padding-left: 13px;width:101%">
+                    <label>Type:</label><br>
+                    <select name="ss" id="options" class="form-control">
+                        <option>--select--</option>
+                        <option value="table">Summary</option>
+                        <option value="table1">Day-Wise Attendance History</option>
+                        <option value="table2">Leave Balance History</option>
+                        <option value="table3">Open Request for Leave</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </form>
+        <form>
+            <div class="col">
+                <div class="form-group">
+                    <label>Start date:</label>
+                    <input type="date" name="start_date" class="form-control">
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label>End date:</label>
+                    <input type="date" name="end_date" class="form-control">
+                </div>
+            </div>
+            
+            <input type="submit" value="Apply Filter" style="margin-left:20px;margin-top: 20px;background-color: rgb(41, 215, 231);color:whitesmoke;height: 50px;width: 180px;font-size: 30px;">
+        </div>
+    </form>
+    <div style="width: 100%; overflow-x: auto; height: 100%; margin-bottom: 3%;" class="table">
+        <table class="freeze-table">
+            <thead>
+                <tr style="background-color: black; color: white;">
+                    <th class="col-id-no fixed-header" scope="col">Emp ID</th>
+                    <th style="min-width: 100px; width: 100px;" class="col-name fixed-header" scope="col">Employee Name</th>
+                    {% for day in date_range %}
+                        <th>{{ day|date:'d/m/Y' }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for employee, checkin_status_for_employee in checkin_statuses.items %}
+                    <tr>
+                        <td class="col-id-no" scope="row">{{ employee.empid }}</td>
+                        <td class="col-name" scope="row">{{ employee.first_name }} {{ employee.last_name }}</td>
+                        {% for status in checkin_status_for_employee %}
+                            <td>{{ status }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if checkin_statuses_page.has_previous %}
+                <a href="?page=1"  style="border-radius: 20px;"><<</a>
+                <a href="?page={{ checkin_statuses_page.previous_page_number }}" class="prev" style="border-radius: 20px;">&#8249;</a>
+            {% endif %}
+
+            {% for page in checkin_statuses_page.paginator.page_range %}
+                <a href="?page={{ page }}" style="border-radius: 20px;" {% if page == checkin_statuses_page.number %}class="active bg-info"{% endif %}>{{ page }}</a>
+            {% endfor %}
+
+            {% if checkin_statuses_page.has_next %}
+                {% if checkin_statuses_page.number != checkin_statuses_page.paginator.num_pages %}
+                    <a href="?page={{ checkin_statuses_page.next_page_number }}" style="border-radius: 20px;" class="next"> &#8250;</a>
+                {% endif %}
+                <a href="?page={{ checkin_statuses_page.paginator.num_pages }}" style="border-radius: 20px;">&raquo; </a>
+            {% endif %}
+        </span>
+    </div>
+    
+    <script>
+        document.getElementById("generateDates").addEventListener("click", function () {
+            const fromDate = new Date(document.getElementById("fromDate").value);
+            const toDate = new Date(document.getElementById("toDate").value);
+            // const options = document.getElementById("options");
+            
+            // Check if toDate is greater than or equal to fromDate
+            if (fromDate <= toDate) {
+                // Loop through the date range
+                while (fromDate <= toDate) {
+                    const day = fromDate.getDate();
+                    const month = fromDate.getMonth() + 1;
+                    const year = fromDate.getFullYear();
+    
+                    // Format the date
+                    const formattedDate = `${day}/${month}/${year}`;
+                    
+                    // Find the corresponding cell by its forloop.counter
+                    const cell = document.getElementById(`date_${fromDate.getDate()}`);
+                    
+                    // Update the cell's content
+                    if (cell) {
+                        cell.textContent = formattedDate;
+                    }
+    
+                    // Increment the fromDate by one day
+                    fromDate.setDate(fromDate.getDate() + 1);
+                }
+    
+                // Show the selected table based on the dropdown value
+            //     const selectedOption = options.value;
+            //     const tables = document.querySelectorAll("table");
+            //     tables.forEach(table => {
+            //         table.style.display = "none";
+            //     });
+            //     if (selectedOption === "table") {
+            //         document.getElementById("summaryTable").style.display = "table";
+            //     } else {
+            //         document.getElementById(selectedOption).style.display = "table";
+            //     }
+            // } else {
+            //     console.log("To date must be greater than or equal to From date.");
+            }
+        });
+    </script>
+
+    <script>
+        document.getElementById("filterForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent the default form submission
+        
+            var selectedOption = document.getElementById("options").value;
+        
+            // Redirect to the appropriate URL based on the selected option
+            switch (selectedOption) {
+                case "table1":
+                    window.location.href = "{% url 'paid2' %}";
+                    break;
+                case "table":
+                    window.location.href = "{% url 'paid' %}";
+                    break;
+                case "table2":
+                    window.location.href = "{% url 'balance' %}";
+                    break;
+                case "table3":
+                    window.location.href = "{% url 'opeanrequest' %}";
+                    break;
+                default:
+                    // Handle other cases or provide an error message
+                    break;
+            }
+        });
+        </script>
+        <script>
+            // Add an onchange event handler to the <select> element
+            document.getElementById("options").addEventListener("change", function() {
+                var selectedOption = this.value;
+        
+                // Redirect to the appropriate URL based on the selected option
+                switch (selectedOption) {
+                    case "table":
+                        window.location.href = "{% url 'paid' %}";
+                        break;
+                    case "table1":
+                        window.location.href = "{% url 'paid2' %}";
+                        break;
+                    case "table2":
+                        window.location.href = "{% url 'balance' %}";
+                        break;
+                    case "table3":
+                        window.location.href = "{% url 'opeanrequest' %}";
+                        break;
+                    default:
+                        // Handle other cases or provide an error message
+                        break;
+                }
+            });
+        </script>
+
+</body>
+</html>
+
+{% endblock main_content %}

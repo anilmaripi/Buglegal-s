@@ -1,0 +1,200 @@
+{% extends 'employ-template/base_template.html' %}
+{% block main_content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raise Complaint</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" rel="stylesheet"/> 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+   
+        @keyframes slideInUp {
+            0% {
+                transform: translateY(100%);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #333;
+            font-weight: bold;
+        }
+        input, textarea {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+        input:focus, textarea:focus {
+            border-color: #007bff;
+        }
+        button[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        .error-message {
+            color: #ff0000;
+            margin-top: -10px;
+            margin-bottom: 10px;
+        }
+        /* Additional styles for bullet points */
+        .leading-causes {
+            background-color:#103783;
+            color:white;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        .leading-causes b {
+            display: block;
+            margin-bottom: 10px;
+        }
+        .leading-causes ul {
+            margin-left: 20px;
+        }
+        .leading-causes ul li {
+            margin-bottom: 5px;
+        }
+        .complaint-form-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            z-index: 1000; /* Ensure it's above other content */
+            max-width: 80%; /* Adjust as needed */
+            max-height: 80%; /* Adjust as needed */
+            overflow-y: auto; /* Enable scrolling if content exceeds max-height */
+        }
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #007bff; /* Adjust as needed */
+        }
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+            z-index: 999; /* Below the popup */
+            display: none;
+        }
+        .toggle-button {
+            color: blue;
+            border: none;
+            cursor: pointer;
+            background: none;
+        }
+        .popres{
+            width: 600px;
+        }
+        @media (max-width: 768px) {
+            .popres {
+          width: 250px;
+          }
+        }    
+    </style>
+</head>
+<body>
+    <h2> Complaint Form</h2>
+     
+    <div class="leading-causes">
+        <b>Leading Causes of Employee Grievances:</b>
+        <ul>
+            <li>Undesirable working conditions in physical terms.</li>
+            <li>Changes without prior notice.</li>
+            <li>Poor employee relations.</li>
+            <li>Improper wage adjustments.</li>
+            <li>Dissatisfactory office policies in case of:
+                <ul>
+                    <li>Promotion</li>
+                    <li>Demotion</li>
+                    <li>Transfer</li>
+                    <li>Discharge</li>
+                    <li>Leaves</li>
+                    <li>Overtime</li>
+                </ul>
+            </li>
+            <li>Violation of laws.</li>
+            <li>Inadequate safety, health, and welfare amenities.</li>
+            <li>Labor-management hostility.</li>
+            <li>Incidences of workplace favoritism and nepotism.</li>
+            <li>Lack of organizational discipline.</li>
+        </ul>
+    </div>
+    <br>
+
+    <p style="color: black;margin: right;font-size: larger;">*Fill the details and send notification to Admin&nbsp;<button onclick="openComplaintForm()" class="toggle-button">Click Here</button></p><br>
+    
+    <div id="complaintFormPopup" class="complaint-form-popup">
+        <div class="complaint-form"></div>
+        <form method="post" class="popres">
+            {% csrf_token %}
+            <input type="hidden" name="companyid" value="{{ companyid }}">
+            <input type="hidden" name="employ_id" value="{{ employ_id }}">
+            <label for="description">What has happened?<span style="color: red;">&nbsp;*</span></label>
+            <textarea id="description" name="description" placeholder="Please Tell Us About The Incident Happened?" required></textarea><br>
+
+            <label for="correction">How can we make things right?</label>
+            <textarea id="correction" name="correction"></textarea><br>
+            
+            <button type="submit">Send</button>
+        </form>
+        </div>
+        <button onclick="closeComplaintForm()" class="close-button text-danger">X</button>
+    </div>
+     <div id="overlay" class="overlay" onclick="closeComplaintForm()"></div>
+     <script>
+        function openComplaintForm() {
+            var popup = document.getElementById("complaintFormPopup");
+            var overlay = document.getElementById("overlay");
+            popup.style.display = "block";
+            overlay.style.display = "block";
+            document.body.style.overflow = "hidden"; // Prevent scrolling
+        }
+        function closeComplaintForm() {
+            var popup = document.getElementById("complaintFormPopup");
+            var overlay = document.getElementById("overlay");
+            popup.style.display = "none";
+            overlay.style.display = "none";
+            document.body.style.overflow = ""; // Restore scrolling
+        }
+    </script>     
+</body>
+</html>
+{% endblock main_content %}

@@ -1,0 +1,63 @@
+{% extends 'admin-template/base_template.html' %}
+
+{% block main_content %} 
+{% if messages %}
+<div class="messages-container">
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">
+        {{ message }}
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+<div class="card-body">
+    <h2>Advance Salary EMI Months</h2>
+    
+    {% if all_months_exist %}
+    <div class="alert alert-danger">All 12 months are already present. Delete existing entries to add new ones.</div>
+    {% else %}
+    <form id="emiForm" action="" method="POST">
+        {% csrf_token %}
+        <div class="mb-4">
+            <div class="form-group">
+                <label class="h6" for="eminumber" style="color: black;">Number Of EMI Months:</label>
+                <input type="number" class="form-control border-dark"  id="eminumber" name="eminumber" placeholder="Enter Number Of EMI Months" min="1" max="12" required>
+                <div id="error-message" class="text-danger"></div>
+                
+            </div>
+            <!-- Hidden input field for emidata_id to handle updates -->
+            <input type="hidden" name="emidata_id" value="{{ emi_instance.id }}">
+            <input type="submit" class="btn btn-primary" value="{% if emi_instance %}Update{% else %}Insert{% endif %}">
+        </div>
+    </form>
+    {% endif %}
+</div>
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>EMI Months</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody border="2px" style="background:linear-gradient((rgb(227,227,231)),rgb(238,243,244));">
+            {% for emi in p %}
+            <tr>
+                <td style="color:black">{{ emi.eminumber }} {% if emi.eminumber == 1 %} month {% else %} months {% endif %}</td>                <!-- Form to handle deletion -->
+                <td>
+                    <form action="{% url 'emi_delete' emi.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger"><a href="{% url 'emi_delete' emi_id=emi.id %}" style="color:rgb(24,224,181)">Delete</a>
+                            </button>
+                    </form>
+
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+{% endblock main_content %}
