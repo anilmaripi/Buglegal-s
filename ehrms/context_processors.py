@@ -1,6 +1,6 @@
 
 from pyexpat.errors import messages
-from tkinter.messagebox import NO
+#from tkinter.messagebox import NO
 
 from ehrms.Employviews import Employ_home
 from .models import CustomUser, employnav,Employs,NotificationEmploy,companylogo,NavbarItem,Footer1,Companys,company_details,Addonsuser,adminnav,admin_drop,project_drop,FooterLink,FooterService,ContactInfo,SocialLink
