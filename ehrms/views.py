@@ -26,38 +26,38 @@ from datetime import datetime,timedelta
 import pytz
 
 #  Installing Required packages
-import sys
-import subprocess
-from subprocess import STDOUT, check_call
+#import sys
+#import subprocess
+#from subprocess import STDOUT, check_call
 
-def install_dependencies():
-    devnull = open(os.devnull, "w")
+#def install_dependencies():
+ #   devnull = open(os.devnull, "w")
     
-    def run_command(command):
-        return check_call(command, stdout=devnull, stderr=STDOUT)
+  #  def run_command(command):
+   #     return check_call(command, stdout=devnull, stderr=STDOUT)
 
     # Check if libgl1-mesa-glx is installed
-    retval = subprocess.call(["dpkg", "-s", "libgl1-mesa-glx"], stdout=devnull, stderr=subprocess.STDOUT)
+    #retval = subprocess.call(["dpkg", "-s", "libgl1-mesa-glx"], stdout=devnull, stderr=subprocess.STDOUT)
     
-    if retval != 0:
+   # if retval != 0:
         # Update and install system dependencies
-        system_commands = [
-            ['apt-get', 'update'],
-            ['apt-get', 'install', '-y', 'libgl1-mesa-glx'],
-            ['apt-get', 'install', '-y', 'libglib2.0-0'],
-            ['apt-get', 'install', '-y', 'tk'],
-        ]
+    #    system_commands = [
+     #       ['apt-get', 'update'],
+      #      ['apt-get', 'install', '-y', 'libgl1-mesa-glx'],
+       #     ['apt-get', 'install', '-y', 'libglib2.0-0'],
+        #    ['apt-get', 'install', '-y', 'tk'],
+       # ]
         
-        for command in system_commands:
-            run_command(command)
+        #for command in system_commands:
+         #   run_command(command)
  
-    else:
-        print("Dependencies are already installed")
+   # else:
+    #    print("Dependencies are already installed")
     
-    devnull.close()
+    #devnull.close()
 
 # Call the function when necessary in your application
-install_dependencies()
+#install_dependencies()
 
 # End of package installation
 
