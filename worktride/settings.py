@@ -227,10 +227,10 @@ LOGIN_REQUIRED_REDIRECT_FIELD_NAME = 'show_login'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": 'buglegal-final-db',
-        'USER': 'root',
+        "NAME": 'gone',
+        'USER': 'admin01',
         'HOST': 'localhost',        
-        'PASSWORD': '',
+        'PASSWORD': 'samaripi1197',
         'PORT':'3306',
         'OPTIONS': {
                       "init_command": "SET foreign_key_checks = 0;",
