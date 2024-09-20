@@ -1,15 +1,16 @@
 provider "aws" {
-  region = "us-east-2"
+  region = "ap-south-1"
 
   access_key = "AKIA2NK3XYLTVIRLFFMG"
   secret_key = "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"
+
 }
 
 resource "aws_instance" "dev" {
-  ami = "ami-0862be96e41dcbf74"
+  ami = "ami-0522ab6e1ddcc7055"
   instance_type = "t2.medium"
-  key_name = "praveen"
-  vpc_security_group_ids = [ "sg-0e7783eb3e866cde2" ]
+  key_name = "ghub"
+  vpc_security_group_ids = [ "sg-0f83c2d432cb953cb" ]
   tags = {
     Name = "dev"
   }
