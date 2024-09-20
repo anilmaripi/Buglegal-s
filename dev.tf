@@ -40,7 +40,7 @@ provisioner "remote-exec" {
     connection {
       type     = "ssh"
       user     = "ubuntu"  
-      private_key = file("ghub")  
+      private_key = file("ghub.pem")  
       host     = self.public_ip  
     }
  }
