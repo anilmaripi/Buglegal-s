@@ -8,7 +8,7 @@ provider "aws" {
 
 resource "aws_instance" "sam" {
   ami = "ami-0522ab6e1ddcc7055"
-  instance_type = "t2.medium"
+  instance_type = "t2.micro"
   key_name = "ghub"
   vpc_security_group_ids = [ "sg-0f83c2d432cb953cb" ]
   tags = {
