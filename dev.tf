@@ -1,5 +1,8 @@
 provider "aws" {
   region = "us-east-2"
+
+  access_key = "AKIA2NK3XYLTVIRLFFMG"
+  secret_key = "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"
 }
 
 resource "aws_instance" "dev" {
@@ -40,7 +43,7 @@ provisioner "remote-exec" {
     connection {
       type     = "ssh"
       user     = "ubuntu"  
-      private_key = file("ghub.pem")  
+      private_key = file("praveen.pem")  
       host     = self.public_ip  
     }
  }
